@@ -85,8 +85,8 @@ maxTiltAngle = 20;
 nCarPositions = 1;
 nCarOrientations = 1;
 
-maxCars = 12;
-maxCities = 1;
+maxCars = 1;
+maxCities = 4;
 
 names = {'imageName','cameraType','lensType','mode','pixelSamples','filmDist','filmDiag','cameraPosition',...
     'shadowDirection','microlensDim','cameraLookAt','fNumber','carPosition','carOrientation','fog',...
