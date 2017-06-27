@@ -48,13 +48,19 @@ class Net(object):
         w_shape.append(in_channels)
         w_shape.append(out_channels)
 
+        r_pad = int(shape[0]/2)
+        c_pad = int(shape[1]/2)
+
         if stddev is None:
             stddev = np.sqrt(2.0 / (shape[0] * shape[1] * in_channels))
 
         with tf.variable_scope(name):
             W = self.create_reg_variable('weights', w_shape , stddev, reg)
             b = self.create_cpu_variable('biases', out_channels, tf.constant_initializer(0.0), True)
-            conv = tf.nn.conv2d(input, W, strides=strides, padding='SAME', name='convOut') + b
+
+
+            padded = tf.pad(input, paddings = [[0,0], [r_pad, r_pad], [c_pad, c_pad], [0,0]])
+            conv = tf.nn.conv2d(padded, W, strides=strides, padding='VALID', name='convOut') + b
 
             out = tf.nn.relu(conv) + (-leak*tf.nn.relu(-conv))
 
@@ -90,12 +96,4 @@ class Net(object):
 
         return drop
 
-    def softmax(self, input, name, shape, stddev, reg):
-        with tf.variable_scope(name):
-            W = self.create_reg_variable('weights', shape, stddev, reg)
-            b = self.create_cpu_variable('biases', shape[1], tf.constant_initializer(0.0), True)
-
-            smax = tf.nn.softmax(tf.matmul(input, W) + b, 'softmaxOut')
-
-        return smax
 
