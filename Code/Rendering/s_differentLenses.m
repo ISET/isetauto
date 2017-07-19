@@ -276,7 +276,7 @@ for cityId=1:maxCities
                     
                     [path, label] = fileparts(radianceDataFiles{i});
                                                             
-                    oi = BuildOI(radianceData.multispectralImage, [], oiParams);
+                    oi = buildOi(radianceData.multispectralImage, [], oiParams);
                     oi = oiSet(oi,'name',label);
                     
                     ieAddObject(oi);
