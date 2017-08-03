@@ -13,7 +13,12 @@ ieInit;
 testFraction = 0.3;
 recipe = 'Car-Complete-Pinhole';
 validClasses = {'City','Car'};
-mode = 'fullResRGB';
+classIDs = [0, 7]; %These class ids correspond to the ones from PASCAL VOC
+% mode = 'fullResRGB';
+% mode = 'linearRGB';
+% mode = 'rawRGB';
+% mode = 'noise_100';
+mode = 'sRGB';
 
 dataDir = fullfile('/','share','wandell','data','NN_Camera_Generalization','Renderings',recipe);
 renderDir = fullfile('renderings','PBRTCloud');
@@ -22,12 +27,13 @@ destDir = fullfile('/','scratch','Datasets',recipe);
 
 % Prepare the directory structure
 xVal = {'trainval','test'};
-if exist(destDir,'dir') == false
-    for i=1:length(xVal)
-        mkdir(fullfile(destDir,xVal{i},mode,'Annotations'));
-        mkdir(fullfile(destDir,xVal{i},mode,'JPEGImages'));
-        mkdir(fullfile(destDir,xVal{i},mode,'ImageSets','Main'));
-    end
+for i=1:length(xVal)
+    dirName = fullfile(destDir,xVal{i},mode,'Annotations');
+    if exist(dirName,'dir') == false, mkdir(dirName); end;
+    dirName = fullfile(destDir,xVal{i},mode,'JPEGImages');
+    if exist(dirName,'dir') == false, mkdir(dirName); end;
+    dirName = fullfile(destDir,xVal{i},mode,'ImageSets','Main');
+    if exist(dirName,'dir') == false, mkdir(dirName); end;
 end
 
 % Prepare files listing which image contains which class
@@ -41,15 +47,22 @@ for v=1:length(validClasses)
 end
 end
 
-% Create a lable map file
+% Create a label map file
 fName = fullfile(destDir,sprintf('%s_label_map.pbtxt',recipe));
 fid = fopen(fName,'w');
 fprintf(fid,'item {\n   id: 0\n   name: ''none_of_the_above''\n}\n\n');
 
 for i=1:length(validClasses)
-    fprintf(fid,'item {\n   id: %i\n   name: ''%s''\n}\n\n',i,lower(validClasses{i}));
+    fprintf(fid,'item {\n   id: %i\n   name: ''%s''\n}\n\n',classIDs(i),lower(validClasses{i}));
 end
 fclose(fid);
+
+if strfind(mode,'noise');
+    loc = strfind(mode,'_');
+    lightLevel = 1/str2double(mode(loc+1:end));
+else
+    lightLevel = 1;
+end
 
 %%
 
@@ -59,10 +72,10 @@ nFiles = length(fileNames);
 rng(1);
 shuffling = randperm(nFiles);
 
-
+cntr = 1;
 for f=1:nFiles
     
-    outputFileName = sprintf('%06i',f);
+    outputFileName = sprintf('%06i',cntr);
     outputXmlFileName = sprintf('%s.xml',outputFileName);
     outputJpegFileName = sprintf('%s.jpg',outputFileName);
     
@@ -84,7 +97,7 @@ for f=1:nFiles
     
     oi = BuildOI(radianceData.multispectralImage, [], oiParams);
     oi = oiSet(oi,'name',name);
-    oi = oiAdjustIlluminance(oi,100,'mean');
+    oi = oiAdjustIlluminance(oi,100*lightLevel,'mean');
     
     ieAddObject(oi);
     % oiWindow();
@@ -93,6 +106,7 @@ for f=1:nFiles
     sensor = sensorSet(sensor,'name',name);
     sensor = sensorSet(sensor,'size',oiGet(oi,'size'));
     sensor = sensorSet(sensor,'pixel widthandheight',[oiGet(oi,'hres'), oiGet(oi,'wres')]);
+    sensor = sensorSet(sensor,'analog gain',1*lightLevel);
     expTime = autoExposure(oi,sensor,1);
     sensor = sensorSet(sensor,'exposure time',expTime);
     sensor = sensorSet(sensor,'quantizationmethod','8 bit');
@@ -110,9 +124,20 @@ for f=1:nFiles
     ieAddObject(ip);
     % ipWindow();
     
-    switch mode
-        case 'fullResRGB'
-            img = oiGet(oi,'rgb image');
+    if lightLevel==1
+        switch mode
+            case 'sRGB'
+                img = ipGet(ip,'data srgb');
+            case 'fullResRGB'
+                img = oiGet(oi,'rgb image');
+            case 'linearRGB'
+                img = uint8(ipGet(ip,'sensor channels'));
+            case 'rawRGB'
+                img = uint8(ipGet(ip,'sensor mosaic'));
+                img = repmat(img,[1 1 3]);
+        end
+    else
+        img = ipGet(ip,'data srgb');
     end
         
     
@@ -125,36 +150,38 @@ for f=1:nFiles
     
     annotation.folder = mode;
     annotation.filename = outputJpegFileName;
-    annotation.source.annotation = inputFileName;
+    annotation.source.annotation = sprintf('%s.mat',strrep(name,'radiance','mesh'));
     annotation.source.database = recipe;
-    annotation.source.image = outputFileName;
+    annotation.source.image = inputFileName;
     
     annotation.size.depth = size(img,3);
     annotation.size.height = size(img,1);
     annotation.size.width = size(img,2);
     
     annotation.object{1}.name = 'city';
+    annotation.object{1}.bndbox.xmin = 1;
     annotation.object{1}.bndbox.xmax = size(img,2);
-    annotation.object{1}.bndbox.xmin = 0;
+    annotation.object{1}.bndbox.ymin = 1;
     annotation.object{1}.bndbox.ymax = size(img,1);
-    annotation.object{1}.bndbox.ymin = 0;
     annotation.object{1}.difficult = 0;
     annotation.object{1}.occluded = 0;
     annotation.object{1}.pose = 'Unspecified';
     annotation.object{1}.truncated = 0;
     
+    % if isempty(bbox)
+    %    % We ignore images with background only.
+    %    continue
+    % end
     
-    if isempty(bbox) == false
-        annotation.object{2}.name = 'car';
-        annotation.object{2}.bndbox.xmax = bbox(1);
-        annotation.object{2}.bndbox.xmin = bbox(2);
-        annotation.object{2}.bndbox.ymax = bbox(3);
-        annotation.object{2}.bndbox.ymin = bbox(4);
-        annotation.object{2}.difficult = 0;
-        annotation.object{2}.occluded = occluded;
-        annotation.object{2}.pose = 'Unspecified';
-        annotation.object{2}.truncated = truncated;
-    end
+    annotation.object{2}.name = 'car';
+    annotation.object{2}.bndbox.xmin = bbox(1);
+    annotation.object{2}.bndbox.xmax = bbox(2);
+    annotation.object{2}.bndbox.ymin = bbox(3);
+    annotation.object{2}.bndbox.ymax = bbox(4);
+    annotation.object{2}.difficult = 0;
+    annotation.object{2}.occluded = occluded;
+    annotation.object{2}.pose = 'Unspecified';
+    annotation.object{2}.truncated = truncated;
     
     %% Save data
     if f < nFiles * testFraction
@@ -172,13 +199,15 @@ for f=1:nFiles
     
     for o=1:length(annotation.object)
         for c=1:length(validClasses)
-            isPresent = strcmpi(annotation.object{o}.name,validClasses{c})*2-1;
-            fprintf(fids{sel,c},'%s %i\n',outputFileName,isPresent);
+            if strcmpi(validClasses{c},annotation.object{o}.name)
+                isPresent = strcmpi(annotation.object{o}.name,validClasses{c})*2-1;
+                fprintf(fids{sel,c},'%s %i\n',outputFileName,isPresent);
+            end
         end
     end
         
     
-     
+    cntr = cntr + 1;
 end
 
 % Close files
