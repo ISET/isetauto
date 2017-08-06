@@ -49,10 +49,11 @@ microlensDim = [0, 0];
 %% Choose renderer options.
 hints.imageWidth = 640;
 hints.imageHeight = 480;
-hints.recipeName = 'Car-Lenses-V3-CloudTest'; % Name of the render
+hints.recipeName = 'Lenses-CloudTest'; % Name of the render
 hints.renderer = 'PBRTCloud'; % We're only using PBRT right now
 hints.copyResources = 1;
-hints.tokenPath = fullfile('/','home','hblasins','docker','StorageAdmin.json');
+hints.tokenPath = fullfile('/','home','hblasins','docker','StorageAdmin.json'); % Path to a storage admin access key 
+% (this is a file generated in the cloud console).
 
 hints.batchRenderStrategy = RtbAssimpStrategy(hints);
 
@@ -62,7 +63,7 @@ hints.batchRenderStrategy.converter = RtbAssimpPBRTConverter(hints);
 hints.batchRenderStrategy.converter.remodelAfterMappingsFunction = @PBRTRemodeller;
 hints.batchRenderStrategy.converter.rewriteMeshData = false;
 hints.batchRenderStrategy.renderer = RtbPBRTCloudRenderer(hints);
-hints.batchRenderStrategy.renderer.pbrt.dockerImage = 'gcr.io/primal-surfer-140120/syncandrender';
+hints.batchRenderStrategy.renderer.pbrt.dockerImage = 'gcr.io/primal-surfer-140120/pbrt-v2-spectral-gcloud';
 hints.batchRenderStrategy.renderer.cloudFolder = fullfile('gs://primal-surfer-140120.appspot.com',hints.recipeName);
 
 rtbCloudInit(hints);
@@ -91,7 +92,7 @@ rtbWriteSpectrumFile(wave,d65,fullfile(resourceFolder,'D65.spd'));
 %% Choose files to render
 sceneID = 1;
 batchID = 1;
-for cityId=1:2
+for cityId=1:1
     sceneFile = sprintf('City_%i.obj',cityId);
     parentSceneFile = fullfile(assetDir,'City',sceneFile);
     
@@ -150,36 +151,14 @@ for cityId=1:2
             for lt=1:length(lensType)
                 lensFile = fullfile(rtbsRootPath,'SharedData',sprintf('%s.dat',lensType{lt}));
                 
-                sz = [length(cameraDefocus) length(cameraHeight) length(cameraDistance) length(cameraOrientation)];
                 
-                cameraPosition = zeros(prod(sz),3);
-                filmDistanceVec = zeros(prod(sz),1);
-                cameraDistanceVec = zeros(prod(sz),1);
-                
-                
-                for cdef=1:length(cameraDefocus)
-                    for ch=1:length(cameraHeight)
-                        for cd=1:length(cameraDistance)
-                            for co=1:length(cameraOrientation)
-                                
-                                loc = sub2ind(sz,cdef,ch,cd,co);
-                                
-                                cx = cameraDistance(cd)*sind(cameraOrientation(co));
-                                cy = cameraDistance(cd)*cosd(cameraOrientation(co));
-                                
-                                cameraPosition(loc,1) = cx + carPosition(ap,1);
-                                cameraPosition(loc,2) = cy + carPosition(ap,2);
-                                cameraPosition(loc,3) = cameraHeight(ch);
-                                
-                                filmDistanceVec(loc) = focusLens(lensFile,(cameraDistance(cd)+cameraDefocus(cdef))*1000);
-                                cameraDistanceVec(loc) = cameraDistance(cd);
-                                
-                            end
-                        end
-                    end
-                end
-                
-                
+                [cameraPosition, cameraLookAt, filmDistance] = nnCameraPos(carPosition(ap,:),...
+                    cameraHeight,...
+                    cameraDistance,...
+                    cameraOrientation,...
+                    cameraDefocus,...
+                    lensFile);
+                                    
                 for ao=1:length(carOrientation);
                     for ct=1:length(cameraType)
                         for p=1:size(cameraPosition,1)
@@ -197,13 +176,11 @@ for cityId=1:2
                                                         if strcmp(cameraType{ct},'pinhole')
                                                             currentFilmDistance = effectiveFocalLength(lensFile);
                                                         else
-                                                            currentFilmDistance = filmDistanceVec(p);
+                                                            currentFilmDistance = filmDistance(p);
                                                         end
                                                         
-                                                        cameraLookAt = [carPosition(ap,1:2) cameraHeight];
-                                                        % cameraLookAt = [0 0 0];
                                                         
-                                                        fName = sprintf('%03i_city_%i_car_%i_%s_%s_%s_fN_%.2f_dist_%i_diff_%s_ca_%s',sceneID,cityId,carId,cameraType{ct},lensType{lt},mode{mo},fNumber(fn),cameraDistanceVec(p),...
+                                                        fName = sprintf('%03i_city_%i_car_%i_%s_%s_%s_fN_%.2f_diff_%s_ca_%s',sceneID,cityId,carId,cameraType{ct},lensType{lt},mode{mo},fNumber(fn),...
                                                             diffAndCA{df,1},diffAndCA{df,2});
                                                         
                                                         values(cntr,1) = {fName};
@@ -217,7 +194,7 @@ for cityId=1:2
                                                         values(cntr,9) = {mat2str(shadowDirection(s,:))};
                                                         values(cntr,10) = {mat2str(microlensDim)};
                                                         
-                                                        values(cntr,11) = {mat2str(cameraLookAt)};
+                                                        values(cntr,11) = {mat2str(cameraLookAt(p,:))};
                                                         
                                                         values(cntr,12) = num2cell(fNumber(fn),1);
                                                         values(cntr,13) = {mat2str(carPosition(ap,:))};
@@ -275,36 +252,49 @@ end
 % sure that all the rendering has completed before you do this).
 radianceDataFiles = rtbCloudDownload(hints);
 
+%% Display the data
 
-for i=1:length(radianceDataFiles)
-    radianceData = load(radianceDataFiles{i});
+labelMap(1).name = 'car';
+labelMap(1).id = 7;
+
+for i=1:length(mode):length(radianceDataFiles)
     
-    if strfind(radianceDataFiles{i},'mesh'),
-        figure;
-        map = mergeMetadata(radianceDataFiles{i},{'City','Car'});
-        imagesc(map);
-        
-        drawnow;
-        continue;
-    end;
+    subFiles = radianceDataFiles(i:i+length(mode)-1);
+    tst = cellfun(@(x) isempty(strfind(x,'radiance'))==false,subFiles);
+    radianceFile = subFiles{tst};
+    tst = cellfun(@(x) isempty(strfind(x,'mesh'))==false,subFiles);
+    mesheFile = subFiles{tst};
+    
+    radianceData = load(radianceFile);
     
     %% Create an oi
     oiParams.lensType = lensType{lt};
     oiParams.filmDistance = 10;
     oiParams.filmDiag = 20;
     
-    [path, condname] = fileparts(radianceDataFiles{i});
-    
-    label = condname;
-    
-    if sum(size(radianceData.multispectralImage)) == 0, continue; end;
-    
-    oi = BuildOI(radianceData.multispectralImage, [], oiParams);
+    [~, label] = fileparts(radianceFile);
+        
+    oi = buildOi(radianceData.multispectralImage, [], oiParams);
     oi = oiSet(oi,'name',label);
     
     
     ieAddObject(oi);
     oiWindow;
+    
+    %% Label data
+    
+    [classMap, instanceMap] = mergeMetadata(meshFile,labelMap);
+    objects = getBndBox(classMap, instanceMap, labelMap);
+    
+    figure;
+    imshow(oiGet(oi,'rgb image'));
+    for j=1:length(objects)
+       pos = [objects{j}.bndbox.xmin objects{j}.bndbox.ymin ...
+              objects{j}.bndbox.xmax-objects{j}.bndbox.xmin ...
+              objects{j}.bndbox.ymax-objects{j}.bndbox.ymin];
+       rectangle('Position',pos,'EdgeColor','red'); 
+    end
+    
     
 end
 

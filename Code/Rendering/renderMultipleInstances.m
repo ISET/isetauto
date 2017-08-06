@@ -14,7 +14,7 @@ constants;
 
 %% Simulation parameters
 
-cameraType = {'lens'}; %'dgauss.22deg.12.5mm'
+cameraType = {'pinhole'}; %'dgauss.22deg.12.5mm'
 lensType = {'dgauss.22deg.6.0mm'};
 mode = {'radiance','mesh'};
 
@@ -37,7 +37,7 @@ diffraction = {'false'};
 chromaticAberration = {'false'};
 
 fNumber = 2.8;
-filmDiag = [(1/3.2)*25.4];
+filmDiag = [(1/6.4)*25.4];
 microlensDim = [0, 0];
 
 
@@ -103,7 +103,7 @@ carScene = mexximpCleanImport(parentSceneFile,...
     'workingFolder',resourceFolder);
 
 carPosition = [-2.5 -2.5 0;
-                2    35 0];
+                2    25 0];
            
  carOrientation = [0 90];
 
