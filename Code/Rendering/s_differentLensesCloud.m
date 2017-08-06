@@ -10,12 +10,11 @@ clear all;
 clc;
 
 ieInit;
-
-sceneDir = fullfile('/','share','wandell','data','3DScenes','City');
+constants;
 
 %% Simulation parameters
 
-cameraType = {'pinhole','lens'};
+cameraType = {'lens'};
 lensType = {'fisheye.87deg.6.0mm','wide.40deg.6.0mm','dgauss.22deg.6.0mm','wide.56deg.6.0mm','tessar.22deg.6.0mm','2el.XXdeg.6.0mm'};
 mode = {'radiance','mesh'};
 
@@ -40,10 +39,7 @@ cameraPan = 0;
 cameraTilt = 0;
 cameraRoll = 0;
 
-diffAndCA = {'false','false';
-    'false','true';
-    'true','false';
-    'true','true'};
+diffAndCA = {'true','true'};
 
 fNumber = 4.0;
 filmDiag = [(1/3.2)*25.4];
@@ -69,7 +65,7 @@ hints.batchRenderStrategy.renderer = RtbPBRTCloudRenderer(hints);
 hints.batchRenderStrategy.renderer.pbrt.dockerImage = 'gcr.io/primal-surfer-140120/syncandrender';
 hints.batchRenderStrategy.renderer.cloudFolder = fullfile('gs://primal-surfer-140120.appspot.com',hints.recipeName);
 
-
+rtbCloudInit(hints);
 
 resourceFolder = rtbWorkingFolder('folderName','resources',...
     'rendererSpecific',false,...
@@ -77,11 +73,13 @@ resourceFolder = rtbWorkingFolder('folderName','resources',...
 
 
 % Copy resources
-lensFiles = fullfile(rtbsRootPath,'SharedData','*.dat');
-copyfile(lensFiles,resourceFolder);
+for i=1:length(lensType)
+    lensFiles = fullfile(lensDir,sprintf('%s.dat',lensType{i}));
+    copyfile(lensFiles,resourceFolder);
+end
 
 % Copy sky map
-skyFile = fullfile('/','share','wandell','data','3DScenes','City','*.exr');
+skyFile = fullfile(assetDir,'City','*.exr');
 copyfile(skyFile,resourceFolder);
 
 % Copy D65 spectrum
@@ -95,7 +93,7 @@ sceneID = 1;
 batchID = 1;
 for cityId=1:2
     sceneFile = sprintf('City_%i.obj',cityId);
-    parentSceneFile = fullfile(sceneDir,sceneFile);
+    parentSceneFile = fullfile(assetDir,'City',sceneFile);
     
     
     [cityScene, elements] = mexximpCleanImport(parentSceneFile,...
@@ -118,7 +116,7 @@ for cityId=1:2
     
     for carId=1:1
         carFile = sprintf('Car_%i.obj',carId);
-        parentSceneFile = fullfile(sceneDir,carFile);
+        parentSceneFile = fullfile(assetDir,car2directory{carId},carFile);
         
         [carScene, elements] = mexximpCleanImport(parentSceneFile,...
             'ignoreRootTransform',true,...
@@ -205,7 +203,7 @@ for cityId=1:2
                                                         cameraLookAt = [carPosition(ap,1:2) cameraHeight];
                                                         % cameraLookAt = [0 0 0];
                                                         
-                                                        fName = sprintf('%03i_city_%i_car_%i_%s_%s_%s_fN_%.2f_dist_%i_diff_%s_ca_%s',sceneId,cityId,carId,cameraType{ct},lensType{lt},mode{mo},fNumber(fn),cameraDistanceVec(p),...
+                                                        fName = sprintf('%03i_city_%i_car_%i_%s_%s_%s_fN_%.2f_dist_%i_diff_%s_ca_%s',sceneID,cityId,carId,cameraType{ct},lensType{lt},mode{mo},fNumber(fn),cameraDistanceVec(p),...
                                                             diffAndCA{df,1},diffAndCA{df,2});
                                                         
                                                         values(cntr,1) = {fName};
@@ -255,7 +253,7 @@ for cityId=1:2
         % cores.
         %%
         
-        % hints.isParallel = true;
+        hints.isParallel = true;
         
         nativeSceneFiles = rtbMakeSceneFiles(scene, 'hints', hints,...
             'conditionsFile',conditionsFile);

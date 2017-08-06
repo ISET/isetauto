@@ -14,8 +14,8 @@ constants;
 
 %% Simulation parameters
 
-cameraType = {'pinhole'}; %'dgauss.22deg.12.5mm'
-lensType = {'tessar.22deg.6.0mm'};
+cameraType = {'lens'}; %'dgauss.22deg.12.5mm'
+lensType = {'dgauss.22deg.6.0mm'};
 mode = {'radiance','mesh'};
 
 % Negative z is up.
@@ -25,12 +25,13 @@ mode = {'radiance','mesh'};
 
 pixelSamples = 128;
 
-shadowDirection = [-0.5 -1 1;];
+shadowDirection = [-0.5 -1 1];
 
-cameraDistance = [20];
+cameraDistance = [50];
 cameraOrientation = [0];
 cameraHeight = [-1.5];
 cameraPTR = [0, 0, 0];
+cameraDefocus = [0, -40];
 
 diffraction = {'false'};
 chromaticAberration = {'false'};
@@ -102,13 +103,15 @@ carScene = mexximpCleanImport(parentSceneFile,...
     'workingFolder',resourceFolder);
 
 carPosition = [-2.5 -2.5 0;
-               2.5 2.5 0];
+                2    35 0];
+           
+ carOrientation = [0 90];
 
 scene = cityScene;
 for i=1:size(carPosition,1)
-    objects(i).prefix = sprintf('cl_car_inst_%i',i); % Note that spaces or : are not allowed
+    objects(i).prefix = sprintf('car_inst_%i_',i); % Note that spaces or : are not allowed
     objects(i).position = mat2str(carPosition(i,:));
-    objects(i).orientation = '0';
+    objects(i).orientation = sprintf('%i',carOrientation(i));
     objects(i).bndbox = mat2str(mexximpSceneBox(carScene));
     
     scene = mexximpCombineScenes(scene,carScene,...
@@ -135,9 +138,10 @@ sceneId=1;
 for ct=1:length(cameraType)
     lensFile = fullfile(lensDir,sprintf('%s.dat',lensType{ct}));
     
-    [camPos, camLookAt, filmDist] = nnCameraPos(objects,[1 2],cameraHeight,...
+    [camPos, camLookAt, filmDist] = nnCameraPos(objects,cameraHeight,...
         cameraDistance,...
         cameraOrientation,...
+        cameraDefocus,...
         lensFile);
     
     for p=1:size(camPos,1)
@@ -202,7 +206,10 @@ radianceDataFiles = rtbBatchRender(nativeSceneFiles, 'hints', hints);
 
 %%
 
-for i=1:length(radianceDataFiles)
+labelMap(1).name = 'car';
+labelMap(1).id = 7;
+
+for i=1:2:length(radianceDataFiles)
     radianceData = load(radianceDataFiles{i});
     
     
@@ -221,15 +228,25 @@ for i=1:length(radianceDataFiles)
     
     ieAddObject(oi);
     oiWindow;
+    
+    [classMap, instanceMap] = mergeMetadata(radianceDataFiles{i+1},labelMap);
+
+    objects = getBndBox(classMap,instanceMap,labelMap);
+    
+    figure;
+    imshow(oiGet(oi,'rgb image'));
+    for j=1:length(objects)
+       pos = [objects{j}.bndbox.xmin objects{j}.bndbox.ymin ...
+              objects{j}.bndbox.xmax-objects{j}.bndbox.xmin ...
+              objects{j}.bndbox.ymax-objects{j}.bndbox.ymin];
+       rectangle('Position',pos,'EdgeColor','red'); 
+    end
+    
 end
 
-%% Test the labeling functions
 
-labelMap(1).name = 'car';
-labelMap(1).id = 7;
 
-[classMap, instanceMap] = mergeMetadata(radianceDataFiles{2},labelMap);
 
-objects = getBndBox(classMap,instanceMap,labelMap);
+
 
 
