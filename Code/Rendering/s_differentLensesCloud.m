@@ -271,6 +271,8 @@ for cityId=1:2
 end
 %%
 
+% Call this function to download the data from the server (you have to make
+% sure that all the rendering has completed before you do this).
 radianceDataFiles = rtbCloudDownload(hints);
 
 
