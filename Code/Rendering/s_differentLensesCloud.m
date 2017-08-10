@@ -15,7 +15,8 @@ constants;
 %% Simulation parameters
 
 cameraType = {'lens'};
-lensType = {'fisheye.87deg.6.0mm','wide.40deg.6.0mm','dgauss.22deg.6.0mm','wide.56deg.6.0mm','tessar.22deg.6.0mm','2el.XXdeg.6.0mm'};
+% lensType = {'fisheye.87deg.6.0mm','wide.40deg.6.0mm','dgauss.22deg.6.0mm','wide.56deg.6.0mm','tessar.22deg.6.0mm','2el.XXdeg.6.0mm'};
+lensType = {'fisheye.87deg.6.0mm','wide.40deg.6.0mm'};
 mode = {'radiance','mesh'};
 
 % Negative z is up.
