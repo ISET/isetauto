@@ -30,7 +30,6 @@ shadowDirection = [-0.5 -1 1;];
 nCarPositions = 1;
 carOrientation = [310];
 
-
 cameraDistance = [20];
 cameraOrientation = [0];
 cameraHeight = [-1.5];
@@ -46,14 +45,16 @@ fNumber = 4.0;
 filmDiag = [(1/3.2)*25.4];
 microlensDim = [0, 0];
 
+gcloud = true;   % Google cloud or local (true/false).
 
 %% Choose renderer options.
 hints.imageWidth = 640;
 hints.imageHeight = 480;
-hints.recipeName = 'Lenses-CloudTest'; % Name of the render
-hints.renderer = 'PBRTCloud'; % We're only using PBRT right now
+recipeName = sprintf('lenses-%s',getenv('username'));
+hints.recipeName = recipeName; % Name of the render
+hints.renderer = 'PBRTCloud';  % We're only using PBRT right now
 hints.copyResources = 1;
-hints.tokenPath = fullfile('/','home','hblasins','docker','StorageAdmin.json'); % Path to a storage admin access key 
+hints.tokenPath = fullfile('/','home','wandell','gcloud','primalsurfer-token.json'); % Path to a storage admin access key 
 % (this is a file generated in the cloud console).
 
 hints.batchRenderStrategy = RtbAssimpStrategy(hints);
@@ -67,12 +68,13 @@ hints.batchRenderStrategy.renderer = RtbPBRTCloudRenderer(hints);
 hints.batchRenderStrategy.renderer.pbrt.dockerImage = 'gcr.io/primal-surfer-140120/pbrt-v2-spectral-gcloud';
 hints.batchRenderStrategy.renderer.cloudFolder = fullfile('gs://primal-surfer-140120.appspot.com',hints.recipeName);
 
-rtbCloudInit(hints);
+%% Initialize for kubernetes on google cloud
+if gcloud, rtbCloudInit(hints); end
 
+%%
 resourceFolder = rtbWorkingFolder('folderName','resources',...
     'rendererSpecific',false,...
     'hints',hints);
-
 
 % Copy resources
 for i=1:length(lensType)
@@ -96,7 +98,6 @@ batchID = 1;
 for cityId=1:1
     sceneFile = sprintf('City_%i.obj',cityId);
     parentSceneFile = fullfile(assetDir,'City',sceneFile);
-    
     
     [cityScene, elements] = mexximpCleanImport(parentSceneFile,...
         'ignoreRootTransform',true,...
@@ -134,11 +135,7 @@ for cityId=1:1
             'insertTransform',mexximpTranslate([0 0 0]),...
             'cleanupTransform',mexximpTranslate([0 0 0]));
         
-        
-        
         conditionsFile = fullfile(resourceFolder,sprintf('Conditions_%i.txt',batchID));
-        
-        
         
         
         %% Create a list of render conditions
@@ -238,20 +235,24 @@ for cityId=1:1
         
         hints.isParallel = false;
         hints.batchRenderStrategy.renderer.dataFileName = sprintf('data_%05i.zip',batchID);
-        rtbCloudUpload(hints, nativeSceneFiles);
         
+        % CLOUD implementation that uploads the relevant resources from the
+        % folder we accumulated.  When you run locally, this is mounted on the
+        % container.
+        if gcloud, rtbCloudUpload(hints, nativeSceneFiles); end
         
-        %%
+        % Calls the docker containers on the cloud because of the settings in
+        % hints.
         rtbBatchRender(nativeSceneFiles, 'hints', hints);
         
         batchID = batchID+1;
     end
 end
-%%
+%% Download the data from the cloud
 
-% Call this function to download the data from the server (you have to make
-% sure that all the rendering has completed before you do this).
-radianceDataFiles = rtbCloudDownload(hints);
+% You have to make sure that all the rendering has completed before you do
+% this).
+if gcloud, radianceDataFiles = rtbCloudDownload(hints); end
 
 %% Display the data
 
@@ -261,10 +262,14 @@ labelMap(1).id = 7;
 for i=1:length(mode):length(radianceDataFiles)
     
     subFiles = radianceDataFiles(i:i+length(mode)-1);
+    
+    % Explanation needed. BW thinks this is connected to NN
     tst = cellfun(@(x) isempty(strfind(x,'radiance'))==false,subFiles);
     radianceFile = subFiles{tst};
     tst = cellfun(@(x) isempty(strfind(x,'mesh'))==false,subFiles);
-    mesheFile = subFiles{tst};
+    if ~isempty(tst), meshFile = subFiles{tst}; 
+    else meshFile = '';
+    end
     
     radianceData = load(radianceFile);
     
@@ -283,17 +288,18 @@ for i=1:length(mode):length(radianceDataFiles)
     oiWindow;
     
     %% Label data
-    
-    [classMap, instanceMap] = mergeMetadata(meshFile,labelMap);
-    objects = getBndBox(classMap, instanceMap, labelMap);
-    
-    figure;
-    imshow(oiGet(oi,'rgb image'));
-    for j=1:length(objects)
-       pos = [objects{j}.bndbox.xmin objects{j}.bndbox.ymin ...
-              objects{j}.bndbox.xmax-objects{j}.bndbox.xmin ...
-              objects{j}.bndbox.ymax-objects{j}.bndbox.ymin];
-       rectangle('Position',pos,'EdgeColor','red'); 
+    if ~isempty(meshFile)
+        [classMap, instanceMap] = mergeMetadata(meshFile,labelMap);
+        objects = getBndBox(classMap, instanceMap, labelMap);
+        
+        figure;
+        imshow(oiGet(oi,'rgb image'));
+        for j=1:length(objects)
+            pos = [objects{j}.bndbox.xmin objects{j}.bndbox.ymin ...
+                objects{j}.bndbox.xmax-objects{j}.bndbox.xmin ...
+                objects{j}.bndbox.ymax-objects{j}.bndbox.ymin];
+            rectangle('Position',pos,'EdgeColor','red');
+        end
     end
     
     
