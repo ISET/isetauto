@@ -17,7 +17,7 @@ for i=1:length(datasetSubDirs)
     if datasetSubDirs(i).isdir
         mkdir(fullfile(resPath,datasetSubDirs(i).name));
     end
-    if strcmp(datasetSubDirs(i).name,'ImageSets'),
+    if strcmp(datasetSubDirs(i).name,'ImageSets')
         subDir = dir(fullfile(vocPath,'ImageSets'));
         for j=1:length(subDir)
             if subDir(j).isdir
