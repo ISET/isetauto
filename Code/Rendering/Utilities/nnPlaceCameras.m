@@ -21,7 +21,7 @@ for a=1:nArrangements
         if strcmp(cameras{a}(i).type,'pinhole')
             cameras{a}(i).filmDistance = effectiveFocalLength(lensFile);
         else
-            cameras{a}(i).filmDistance = focusLens(lensFile,cameras{a}(i).distance);
+            cameras{a}(i).filmDistance = focusLens(lensFile,cameras{a}(i).distance*1000);
             if cameras{a}(i).defocus ~= 0
                 lens = lensC('fileName',lensFile);
                 focalLength = lens.focalLength;

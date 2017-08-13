@@ -9,13 +9,13 @@ clc;
 nTest = 629;
 nTrain = 1515;
 
-synthiaPath = fullfile('~','Downloads','SYNTHIA-RAND-CITYSCAPES');
+synthiaPath = fullfile('/','scratch','Datasets','SYNTHIA-RAND-CITYSCAPES');
 
 labelMap(1).name = 'car';
 labelMap(1).id = 8;
 
 currentSet = 'RAND';
-destDir = fullfile('/','Users','hblasins','Downloads','SYNTHIA-VOC');
+destDir = fullfile('/','scratch','Datasets','SYNTHIA-VOC');
 if ~exist(destDir,'dir')
     mkdir(destDir);
 end
@@ -90,7 +90,7 @@ while cntr<=(nTest+nTrain)
     end
     %}
     
-    annotation.folder = mode;
+    annotation.folder = currentSet;
     annotation.filename = sprintf('%06i.png',cntr);
     annotation.source.annotation = fullfile('GT','LABELS',files(ids(i)).name);
     annotation.source.database = 'SYNTHIA-RAND';

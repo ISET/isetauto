@@ -16,7 +16,7 @@ recipe = 'Car-Complete-Pinhole';
 
 lightLevels = [0.1, 1, 10, 100, 1000, 10000];
 expTime = 0.015;
-subMode = 'rawRGB';
+subMode = 'MC';
 
 %These class ids correspond to the ones from PASCAL VOC
 labelMap(1).name = 'car';
@@ -121,8 +121,16 @@ for ll=1:length(lightLevels)
         
         ieAddObject(oi);
         % oiWindow();
-        
-        sensor = sensorCreate('bayer (rggb)');
+        switch subMode
+            case {'MC', 'rawMC'}
+                sensor = sensorCreate('monochrome');
+                wave = sensorGet(sensor,'wave');
+                fName = fullfile(isetRootPath,'data','sensor','photodetectors','photodetector.mat');
+                qe = ieReadSpectra(fName,wave);
+                sensor = sensorSet(sensor,'filter spectra',qe);
+            otherwise
+                sensor = sensorCreate('bayer (rggb)');
+        end
         sensor = sensorSet(sensor,'name',name);
         sensor = sensorSet(sensor,'size',oiGet(oi,'size'));
         sensor = sensorSet(sensor,'pixel widthandheight',[oiGet(oi,'hres'), oiGet(oi,'wres')]);
@@ -144,15 +152,15 @@ for ll=1:length(lightLevels)
         % ipWindow();
         
         switch subMode
-            case 'sRGB'
+            case {'sRGB', 'MC'}
                 img = ipGet(ip,'data srgb');
             case 'fullResRGB'
                 img = oiGet(oi,'rgb image');
             case 'linearRGB'
                 img = uint8(ipGet(ip,'sensor channels'));
-            case 'rawRGB'
+            case {'rawRGB', 'rawMC'}
                 img = uint8(ipGet(ip,'sensor mosaic'));
-                img = repmat(img,[1 1 3]);
+                img = repmat(img,[1 1 3]);                
         end
         
         img = uint8(255*double(img)/max(double(img(:))));

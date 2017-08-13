@@ -16,7 +16,7 @@ constants;
 
 cameras = nnGenCameras('type',{'pinhole'},...
                         'mode',{'radiance','mesh'},...
-                        'distance',50);
+                        'distance',20);
 
 %% Choose renderer options.
 hints.imageWidth = 640;

@@ -9,6 +9,7 @@ p.addOptional('distance',10);
 p.addOptional('orientation',0);
 p.addOptional('height',-1.5);
 p.addOptional('PTR',{[0,0,0]});
+p.addOptional('PTRrange',[]);
 p.addOptional('defocus',0);
 p.addOptional('diffraction',{'false'});
 p.addOptional('chromaticAberration',{'false'});
@@ -64,6 +65,15 @@ for k=1:length(inputs.mode)
     camera(cntr).orientation = inputs.orientation(d);
     camera(cntr).height = inputs.height(e);
     camera(cntr).PTR = inputs.PTR{f};
+    if ~isempty(inputs.PTRrange)
+        % We are generating random pan-til-roll for every camera from a
+        % given range
+        randptr = rand(3,1);
+        ptr = randptr.abs(diff(inputs.PTRrange)) + min(inputs.PTRrange);
+        camera(cntr).PTR = ptr;
+    end
+        
+    
     camera(cntr).defocus = inputs.defocus(g);
     
     if length(inputs.diffraction) == 1
