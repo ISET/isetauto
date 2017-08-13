@@ -17,6 +17,9 @@ car2directory = {'MercedesCClass',...
                  'MercedesML',...
                  'MercedesSLS',...
                  'Ferarri599'};
+             
+
+             
 global assetDir            
 assetDir = fullfile('/','share','wandell','data','NN_Camera_Generalization','Assets');
 global lensDir;
