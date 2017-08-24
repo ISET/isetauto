@@ -14,17 +14,17 @@ numTestImages = 629;
 numImages = 2144;
 recipe = 'Car-Complete-Pinhole';
 
-lightLevels = [0.1, 1, 10, 100, 1000, 10000];
-expTime = [0.002, 0.015];
-subMode = sprintf('MultiExp_%i_%i',expTime(1)*1000,expTime(2)*1000);
+jpegLevels = [100, 80, 60, 40, 20, 1];
+expTime = 0.004;
+subMode = 'sRGB';
 
 %These class ids correspond to the ones from PASCAL VOC
 labelMap(1).name = 'car';
 labelMap(1).id = 7;
 
-for ll=1:length(lightLevels)
+for ll=1:length(jpegLevels)
     
-    mode = sprintf('%s_luxLevel_%.1f',subMode,lightLevels(ll));
+    mode = sprintf('%s_jpegLevel_%.1f',subMode,jpegLevels(ll));
     
     
     dataDir = fullfile('/','share','wandell','data','NN_Camera_Generalization','Renderings',recipe);
@@ -77,7 +77,7 @@ for ll=1:length(lightLevels)
         
         outputFileName = sprintf('%06i',cntr);
         outputXmlFileName = sprintf('%s.xml',outputFileName);
-        outputJpegFileName = sprintf('%s.png',outputFileName);
+        outputJpegFileName = sprintf('%s.jpg',outputFileName);
         
         if cntr <= numTestImages;
             % Test set
@@ -94,6 +94,9 @@ for ll=1:length(lightLevels)
         if exist(outputJpegFullFileName,'file') && exist(outputXmlFullFileName,'file')
             fprintf('File: %s exists, skipping\n',outputJpegFullFileName);
             
+            % But we've reopened the *.txt files so we need to re-create
+            % them
+            
             data = xml2struct(outputXmlFullFileName);
             annotation = data.annotation;
             
@@ -108,6 +111,7 @@ for ll=1:length(lightLevels)
                 end
             end
             
+            % Increase the counter
             
             cntr = cntr + 1;
             continue;
@@ -133,12 +137,12 @@ for ll=1:length(lightLevels)
         
         oi = BuildOI(radianceData.multispectralImage, [], oiParams);
         oi = oiSet(oi,'name',name);
-        oi = oiAdjustIlluminance(oi,lightLevels(ll),'mean');
+        oi = oiAdjustIlluminance(oi,100,'mean');
         
-        % ieAddObject(oi);
+        ieAddObject(oi);
         % oiWindow();
         switch subMode
-            case {'MC', 'rawMC', sprintf('MultiExp_%i_%i',expTime(1)*1000,expTime(2)*1000)}
+            case {'MC', 'rawMC'}
                 sensor = sensorCreate('monochrome');
                 wave = sensorGet(sensor,'wave');
                 fName = fullfile(isetRootPath,'data','sensor','photodetectors','photodetector.mat');
@@ -151,26 +155,12 @@ for ll=1:length(lightLevels)
         sensor = sensorSet(sensor,'size',oiGet(oi,'size'));
         sensor = sensorSet(sensor,'pixel widthandheight',[oiGet(oi,'hres'), oiGet(oi,'wres')]);
         sensor = sensorSet(sensor,'analog gain',1);
+        sensor = sensorSet(sensor,'exposure time',expTime);
         sensor = sensorSet(sensor,'quantizationmethod','8 bit');
-
-        for e=1:length(expTime)
-            tmpSensor = sensorSet(sensor,'exposure time',expTime(e));
-            sensors(e) = sensorCompute(tmpSensor,oi);
-        end
         
-        % Merge
-        if strcmp(subMode,sprintf('MultiExp_%i_%i',expTime(1)*1000,expTime(2)*1000)) || strcmp(subMode,sprintf('rawMultiExp_%i_%i',expTime(1)*1000,expTime(2)*1000))
-            mergedVolts = zeros(sensorGet(sensor,'size'));
-            
-            for e=1:length(expTime)
-                currentVolts = sensorGet(sensors(e),'volts');
-                mergedVolts(e:length(expTime):end,:) = currentVolts(e:length(expTime):end,:);
-            end
-            
-            sensor = sensorSet(sensor,'volts',mergedVolts);
-        end
         
-        % ieAddObject(sensor);
+        sensor = sensorCompute(sensor,oi);
+        ieAddObject(sensor);
         % sensorWindow();
         
         
@@ -178,17 +168,17 @@ for ll=1:length(lightLevels)
         ip = ipCreate();
         ip = ipSet(ip,'name',name);
         ip = ipCompute(ip,sensor);
-        % ieAddObject(ip);
+        ieAddObject(ip);
         % ipWindow();
         
         switch subMode
-            case {'sRGB', 'MC', sprintf('MultiExp_%i_%i',expTime(1)*1000,expTime(2)*1000)}
+            case {'sRGB', 'MC'}
                 img = ipGet(ip,'data srgb');
             case 'fullResRGB'
                 img = oiGet(oi,'rgb image');
             case 'linearRGB'
                 img = uint8(ipGet(ip,'sensor channels'));
-            case {'rawRGB', 'rawMC', sprintf('rawMultiExp_%i_%i',expTime(1)*1000,expTime(2)*1000)}
+            case {'rawRGB', 'rawMC'}
                 img = uint8(ipGet(ip,'sensor mosaic'));
                 img = repmat(img,[1 1 3]);                
         end
@@ -227,7 +217,7 @@ for ll=1:length(lightLevels)
         %% Save data
         
         
-        imwrite(img,outputJpegFullFileName);
+        imwrite(img,outputJpegFullFileName,'Quality',jpegLevels(ll));
         s.annotation = annotation;
         struct2xml(s,outputXmlFullFileName);
         

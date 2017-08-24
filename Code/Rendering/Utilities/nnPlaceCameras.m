@@ -7,7 +7,11 @@ cameras = repmat({cameras},[1, nArrangements]);
 
 for a=1:nArrangements
     for i=1:length(cameras{a})
-        lookAtObject = cameras{a}(i).lookAtObject;
+
+        % If we happen to specify object indices that wrap around 
+        lookAtObject = mod(cameras{a}(i).lookAtObject-1,length(objects{a}))+1;
+        
+        
         objPosition = objects{a}(lookAtObject).position;
         
         cx = cameras{a}(i).distance*sind(cameras{a}(i).orientation) + objPosition(1);

@@ -11,19 +11,21 @@ constants;
 
 cameras = nnGenCameras('type',{'pinhole','lens'},...
     'lens',{'dgauss.22deg.3.0mm'},...
-    'mode',{'radiance','mesh','depth'},...
-    'diffraction',{'false','true'},...
-    'chromaticAberration',{'false','false'},...
-    'distance',20,...
+    'mode',{'radiance','mesh'},...
+    'diffraction',{'false'},...
+    'chromaticAberration',{'false'},...
+    'distance',[10, 20, 30],...
+    'PTRrange',[10, 5, 5; -10, -5, -5],...
     'filmDiagonal',2.42,... %3um pixel
     'lookAtObject',1,...
-    'orientation',0,...
-    'pixelSamples',128);
+    'orientation',1:4,...
+    'orientationRange',[0 360],...
+    'pixelSamples',1024);
 
 %% Choose renderer options.
 hints.imageWidth = 640;
 hints.imageHeight = 480;
-hints.recipeName = 'Lenses'; % Name of the render
+hints.recipeName = 'Test'; % Name of the render
 hints.renderer = 'PBRTCloud'; % We're only using PBRT right now
 hints.copyResources = 1;
 hints.tokenPath = fullfile('/','home','hblasins','docker','StorageAdmin.json');
@@ -61,7 +63,7 @@ copyfile(skyFile,resourceFolder);
 
 
 %% Choose files to render
-cityId = 1;
+cityId = 2;
 
 cityScene = mexximpCleanImport(assets.city(cityId).path,...
     'ignoreRootTransform',true,...
@@ -77,12 +79,11 @@ scene = cityScene;
     
         
 objects = placeObjects('cityId',cityId,...
-    'nCars',1,...
-    'nTrucks',0,...
+    'nCars',5,...
+    'nTrucks',1,...
     'nPeople',10,...
-    'nBuses',0);
+    'nBuses',1);
 
-objects(1).position = [0 0 0];
         
 i = 1;
 while i <= length(objects)
@@ -223,7 +224,7 @@ for i=1:length(resultFiles)
             
         end
         drawnow;
-        print('-dpng',sprintf('%i_labeled.png',i));
+        % print('-dpng',sprintf('%i_labeled.png',i));
     end
     
     if ~isempty(resultFiles(i).depth)
@@ -247,12 +248,9 @@ for i=1:length(resultFiles)
             end
         end
         drawnow;
-        print('-dpng',sprintf('%i_depth_labeled.png',i));
+        % print('-dpng',sprintf('%i_depth_labeled.png',i));
 
     end
-    
-    % print('-dpng',sprintf('%s_labeled.png',label));
-    % imwrite(oiGet(oi,'rgb image'),sprintf('%s.png',label));
     
 end
 

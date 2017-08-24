@@ -1,5 +1,5 @@
 % Convert Synthia dataset to VOC format
-%
+% Randomly crop 640x480 images from the original 1280x760
 % HB 2017
 
 close all;
@@ -8,17 +8,28 @@ clc;
 
 nTest = 629;
 nTrain = 1515;
+outputSize = [480, 640];
 
 synthiaPath = fullfile('/','scratch','Datasets','SYNTHIA-RAND-CITYSCAPES');
 
 labelMap(1).name = 'car';
-labelMap(1).id = 8;
+labelMap(1).id = 7;
 
 currentSet = 'RAND';
 destDir = fullfile('/','scratch','Datasets','SYNTHIA-VOC');
 if ~exist(destDir,'dir')
     mkdir(destDir);
 end
+
+% Create a label map file
+fName = fullfile(destDir,sprintf('synthia_label_map.pbtxt'));
+fid = fopen(fName,'w');
+fprintf(fid,'item {\n   id: 0\n   name: ''none_of_the_above''\n}\n\n');
+
+for i=1:length(labelMap)
+    fprintf(fid,'item {\n   id: %i\n   name: ''%s''\n}\n\n',labelMap(i).id,lower(labelMap(i).name));
+end
+fclose(fid);
 
 xVal = {'trainval','test'};
 for m=1:length(xVal)
@@ -68,7 +79,16 @@ while cntr<=(nTest+nTrain)
     i=i+1;
     
     image = imread(imageName);
+    imageSize = [size(image,1) size(image,2)];
+    maxOffset = imageSize - outputSize;
+    randOffset = [randi(maxOffset(1),1) randi(maxOffset(2),1)];
+    
+    image = image(randOffset(1):randOffset(1) + outputSize(1)-1,...
+                  randOffset(2):randOffset(2) + outputSize(2)-1,:);
+    
     labels = imread(labelsName);
+    labels = labels(randOffset(1):randOffset(1) + outputSize(1)-1,...
+                    randOffset(2):randOffset(2) + outputSize(2)-1,:);
     
     objectLabels = labels(:,:,1);
     objectInstances = labels(:,:,2);
@@ -107,11 +127,14 @@ while cntr<=(nTest+nTrain)
     struct2xml(s,fullfile(destDir,mode,currentSet,'Annotations',outputXmlFileName));
     
     sel = cellfun(@(x) strcmp(x,mode),xVal);
-    for o=1:length(annotation.object)
-        for c=1:length(labelMap)
+    for c=1:length(labelMap)
+       for o=1:length(annotation.object)
             if strcmpi(labelMap(c).name,annotation.object{o}.name)
                 isPresent = strcmpi(annotation.object{o}.name,labelMap(c).name)*2-1;
                 fprintf(fids{sel,c},'%s %i\n',outputFileName,isPresent);
+                % We don't care if multiple objects are present, so we
+                % break out.
+                break;
             end
         end
     end

@@ -14,14 +14,15 @@ constants;
 
 %% Simulation parameters
 
-cameras = nnGenCameras('type',{'pinhole'},...
+cameras = nnGenCameras('type',{'pinhole','lens'},...
                         'mode',{'radiance','mesh'},...
-                        'distance',20);
+                        'distance',10,...
+                        'lookAtObject',1);
 
 %% Choose renderer options.
 hints.imageWidth = 640;
 hints.imageHeight = 480;
-hints.recipeName = 'MultiInstance'; % Name of the render
+hints.recipeName = 'Fish-eye'; % Name of the render
 hints.renderer = 'PBRT'; % We're only using PBRT right now
 hints.copyResources = 1;
 hints.batchRenderStrategy = RtbAssimpStrategy(hints);
@@ -52,7 +53,6 @@ copyfile(skyFile,resourceFolder);
 
 %% Choose files to render
 cityId = 1;
-carId = 1;
 
 
 sceneFile = sprintf('City_%i.obj',cityId);
@@ -67,32 +67,26 @@ cityScene = mexximpCleanImport(parentSceneFile,...
     'flipWindingOrder',true,...
     'workingFolder',resourceFolder);
 
-
-carFile = sprintf('Car_%i.obj',carId);
-parentSceneFile = fullfile(assetDir,car2directory{carId},carFile);
-carScene = mexximpCleanImport(parentSceneFile,...
-    'ignoreRootTransform',true,...
-    'flipUVs',true,...
-    'imagemagicImage','hblasins/imagemagic-docker',...
-    'toReplace',{'jpg','png','tga'},...
-    'targetFormat','exr',...
-    'makeLeftHanded',true,...
-    'flipWindingOrder',true,...
-    'workingFolder',resourceFolder);
+scene = cityScene;
 
 shadowDirection = [-0.5 -1 1];
+objects = placeObjects();
 
-carPosition = [-2.5 -2.5 0;
-                1.5   25 0];
-           
-carOrientation = [0 90];
-
-scene = cityScene;
-for i=1:size(carPosition,1)
-    objects(i).prefix = sprintf('car_inst_%i_',i); % Note that spaces or : are not allowed
-    objects(i).position = carPosition(i,:);
-    objects(i).orientation = carOrientation(i);
-    objects(i).bndbox = mat2str(mexximpSceneBox(carScene));
+for i=1:length(objects)
+    
+    carId = objects(i).id;
+    carFile = sprintf('Car_%i.obj',carId);
+    parentSceneFile = fullfile(assetDir,car2directory{carId},carFile);
+    carScene = mexximpCleanImport(parentSceneFile,...
+        'ignoreRootTransform',true,...
+        'flipUVs',true,...
+        'imagemagicImage','hblasins/imagemagic-docker',...
+        'toReplace',{'jpg','png','tga'},...
+        'targetFormat','exr',...
+        'makeLeftHanded',true,...
+        'flipWindingOrder',true,...
+        'workingFolder',resourceFolder);
+    objects(i).bndbox = mexximpSceneBox(carScene);
     
     scene = mexximpCombineScenes(scene,carScene,...
         'insertTransform',mexximpTranslate([0 0 0]),...
@@ -100,11 +94,7 @@ for i=1:size(carPosition,1)
         'insertPrefix',objects(i).prefix);
 end
 
-% Create a second arrangement, where the second car is moved by 10 meters.
-objectArrangements = repmat({objects},[1 2]);
-objectArrangements{2}(2).position = [1.5 15 0];
-
-
+objectArrangements = {objects};
 placedCameras = nnPlaceCameras(cameras,objectArrangements);
 
 
@@ -181,6 +171,7 @@ for i=1:2:length(radianceDataFiles)
     ieAddObject(oi);
     oiWindow;
     
+    %{
     [classMap, instanceMap] = mergeMetadata(radianceDataFiles{i+1},labelMap);
 
     objects = getBndBox(classMap,instanceMap,labelMap);
@@ -193,7 +184,7 @@ for i=1:2:length(radianceDataFiles)
               objects{j}.bndbox.ymax-objects{j}.bndbox.ymin];
        rectangle('Position',pos,'EdgeColor','red'); 
     end
-    
+    %}
 end
 
 

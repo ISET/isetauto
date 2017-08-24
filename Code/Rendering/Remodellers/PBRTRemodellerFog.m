@@ -1,4 +1,4 @@
-function [ nativeScene ] = PBRTRemodellerV2( parentScene, nativeScene, mappings, names, conditionValues, conditionNumbers )
+function [ nativeScene ] = PBRTRemodellerFog( parentScene, nativeScene, mappings, names, conditionValues, conditionNumbers )
 
 cameraType = rtbGetNamedValue(names,conditionValues,'type',[]);
 lensType = rtbGetNamedValue(names,conditionValues,'lens',[]);
@@ -8,7 +8,7 @@ filmDist = rtbGetNamedNumericValue(names,conditionValues,'filmDistance',[]);
 filmDiag = rtbGetNamedNumericValue(names,conditionValues,'filmDiagonal',[]);
 microlensDim = rtbGetNamedNumericValue(names,conditionValues,'microlens',[0, 0]);
 fNumber = rtbGetNamedNumericValue(names,conditionValues,'fNumber',[]);
-fog = 0;
+fog = rtbGetNamedValue(names,conditionValues,'fog','false');
 diffraction = rtbGetNamedValue(names,conditionValues,'diffraction','true');
 chromaticAberration = rtbGetNamedValue(names,conditionValues,'chromaticAberration','false');
 
@@ -134,7 +134,10 @@ switch mode
         
     otherwise % Generate radiance data
         
-        if fog == true
+        sampler.setParameter('pixelsamples','integer',pixelSamples);
+
+        
+        if strcmp(fog,'true');
             nativeScene.overall.find('SurfaceIntegrator','remove',true);
             volumeIntegrator = MPbrtElement('VolumeIntegrator','type','single');
             volumeIntegrator.setParameter('stepsize','float',50);
@@ -142,15 +145,15 @@ switch mode
         
         
             fogVolume = MPbrtElement('Volume','type','water');
-            fogVolume.setParameter('p0','point','-100000 -100000 -10000');
-            fogVolume.setParameter('p1','point',sprintf('100000 100000 100000'));
+            fogVolume.setParameter('p0','point','-1000000 -1000000 -100000');
+            fogVolume.setParameter('p1','point',sprintf('1000000 1000000 1000000'));
             fogVolume.setParameter('absorptionCurveFile','spectrum',sprintf('resources/abs_fog.spd'));
             fogVolume.setParameter('phaseFunctionFile','string',sprintf('resources/phase_fog.spd'));
             fogVolume.setParameter('scatteringCurveFile','spectrum',sprintf('resources/scat_fog.spd'));
             nativeScene.world.append(fogVolume);
+            
         else
             integrator.type = 'path';
-            sampler.setParameter('pixelsamples','integer',pixelSamples);
         end
         
 

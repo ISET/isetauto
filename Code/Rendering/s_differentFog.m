@@ -14,22 +14,21 @@ constants;
 
 %% Simulation parameters
 
-cameras = nnGenCameras('type',{'pinhole','lens'},...
-    'lens',{'fisheye.87deg.3.0mm'},...
+cameras = nnGenCameras('type',{'pinhole'},...
     'mode',{'radiance'},...
     'diffraction',{'false'},...
     'chromaticAberration',{'false'},...
-    'distance',10,...
-    'filmDiagonal',7.26,... %12um pixel
+    'distance',[20],...
+    'filmDiagonal',2.42,... %3um pixel
     'lookAtObject',1,...
-    'PTR',{[30, 0, 0]},...
+    'PTR',{[0, 0, 0]},...
     'orientation',0,...
-    'pixelSamples',1024);
+    'pixelSamples',32);
 
 %% Choose renderer options.
 hints.imageWidth = 640;
 hints.imageHeight = 480;
-hints.recipeName = 'Fish-eye'; % Name of the render
+hints.recipeName = 'Fog'; % Name of the render
 hints.renderer = 'PBRT'; % We're only using PBRT right now
 hints.copyResources = 1;
 hints.batchRenderStrategy = RtbAssimpStrategy(hints);
@@ -37,7 +36,7 @@ hints.batchRenderStrategy = RtbAssimpStrategy(hints);
 % Change the docker container
 hints.batchRenderStrategy.renderer.pbrt.dockerImage = 'vistalab/pbrt-v2-spectral';
 hints.batchRenderStrategy.remodelPerConditionAfterFunction = @MexximpRemodellerMultipleObjV2;
-hints.batchRenderStrategy.converter.remodelAfterMappingsFunction = @PBRTRemodellerV2;
+hints.batchRenderStrategy.converter.remodelAfterMappingsFunction = @PBRTRemodellerFog;
 hints.batchRenderStrategy.converter.rewriteMeshData = false;
 
 resourceFolder = rtbWorkingFolder('folderName','resources',...
@@ -56,6 +55,17 @@ end
 % Copy sky map
 skyFile = fullfile(assetDir,'City','*.exr');
 copyfile(skyFile,resourceFolder);
+
+% Generate fog properties
+waves = 380:5:780;
+abs_fog = linspace(0.09,0.1,length(waves));
+rtbWriteSpectrumFile(waves,abs_fog,fullfile(resourceFolder,'abs_fog.spd'));
+
+[vsf_fog, ~, waves] = calculateScattering(0.5,0.5);
+sct_fog = linspace(0.8,0.7,length(waves));
+
+rtbWriteSpectrumFile(waves,sct_fog,fullfile(resourceFolder,'scat_fog.spd'));
+WritePhaseFile(waves,1*vsf_fog,fullfile(resourceFolder,'phase_fog.spd'));
 
 
 %% Choose files to render
@@ -81,6 +91,7 @@ objects = placeObjects('cityId',cityId,...
             'nTrucks',0,...
             'nPeople',0,...
             'nBuses',0);
+        
 objects(1).position = [0, 0, 0];
 
 for i=1:length(objects)
@@ -112,7 +123,7 @@ placedCameras = nnPlaceCameras(cameras,objectArrangements);
 
 %% Create a list of render conditions
 conditionsFile = fullfile(resourceFolder,'Conditions.txt');
-names = cat(1,'imageName','objPosFile',fieldnames(placedCameras{1}));
+names = cat(1,'imageName','objPosFile','fog',fieldnames(placedCameras{1}));
 values = cell(1,length(names));
 
 cntr = 1;
@@ -122,18 +133,24 @@ for m=1:length(objectArrangements)
     
     currentCameras = placedCameras{m};
     
-    for c=1:length(placedCameras{m});
-        
-        fName = sprintf('%03i_%s',cntr,currentCameras(c).description);
-        
-        values(cntr,1) = {fName};
-        values(cntr,2) = {objectArrangementFile};
-
-        for i=3:(length(names))
-            values(cntr,i) = {currentCameras(c).(names{i})};
+    for f=0:1
+        for c=1:length(placedCameras{m});
+            
+            fName = sprintf('%03i_%s',cntr,currentCameras(c).mode);
+            
+            values(cntr,1) = {fName};
+            values(cntr,2) = {objectArrangementFile};
+            if f==0
+                values(cntr,3) = {'false'};
+            else
+                values(cntr,3) = {'true'};
+            end
+            for i=(length(names)-length(fieldnames(placedCameras{1})))+1:length(names)
+                values(cntr,i) = {currentCameras(c).(names{i})};
+            end
+            
+            cntr = cntr + 1;
         end
-        
-        cntr = cntr + 1;
     end
 end
 
@@ -151,24 +168,15 @@ nativeSceneFiles = rtbMakeSceneFiles(scene, 'hints', hints,...
 
 
 %%
-dataFiles = rtbBatchRender(nativeSceneFiles, 'hints', hints);
+radianceDataFiles = rtbBatchRender(nativeSceneFiles, 'hints', hints);
 
-%% Show results
-
-resultFiles = assembleSceneFiles(dataFiles);
+%%
 
 labelMap(1).name = 'car';
 labelMap(1).id = 7;
-labelMap(2).name='person';
-labelMap(2).id = 8;
-labelMap(3).name='truck';
-labelMap(3).id = 9;
-labelMap(4).name='bus';
-labelMap(4).id = 1;
 
-for i=1:length(resultFiles)
-    
-    radianceData = load(resultFiles(i).radiance);
+for i=1:1:length(radianceDataFiles)
+    radianceData = load(radianceDataFiles{i});
     
     
     %% Create an oi
@@ -176,7 +184,7 @@ for i=1:length(resultFiles)
     oiParams.filmDistance = values{i,strcmp(names,'filmDistance')};
     oiParams.filmDiag = values{i,strcmp(names,'filmDiagonal')};
     
-    [~, label] = fileparts(resultFiles(i).radiance);
+    [~, label] = fileparts(radianceDataFiles{i});
         
     oi = buildOi(radianceData.multispectralImage, [], oiParams);
     oi = oiSet(oi,'name',label);
@@ -185,30 +193,32 @@ for i=1:length(resultFiles)
     ieAddObject(oi);
     oiWindow;
     
-    if ~isempty(resultFiles(i).mesh)
-        
-        [classMap, instanceMap] = mergeMetadataMultiInstance(resultFiles(i).mesh,labelMap);
-        detections = getBndBox(classMap,instanceMap,labelMap);
-        
-        figure;
-        imshow(oiGet(oi,'rgb image'),'Border','tight');
-        for j=1:length(detections)
-            pos = [detections{j}.bndbox.xmin detections{j}.bndbox.ymin ...
-                detections{j}.bndbox.xmax-detections{j}.bndbox.xmin ...
-                detections{j}.bndbox.ymax-detections{j}.bndbox.ymin];
-            switch (detections{j}.name)
-                case 'car'
-                    rectangle('Position',pos,'EdgeColor','red');
-                case 'person'
-                    rectangle('Position',pos,'EdgeColor','green');
-            end
-            
-        end
-        drawnow;
-       
+    sensor = sensorCompute(sensorCreate,oi);
+    
+    ip = ipCompute(ipCreate,sensor);
+    ieAddObject(ip);
+    ipWindow();
+    %{
+    [classMap, instanceMap] = mergeMetadata(radianceDataFiles{i+1},labelMap);
+
+    objects = getBndBox(classMap,instanceMap,labelMap);
+    
+    figure;
+    imshow(oiGet(oi,'rgb image'));
+    for j=1:length(objects)
+       pos = [objects{j}.bndbox.xmin objects{j}.bndbox.ymin ...
+              objects{j}.bndbox.xmax-objects{j}.bndbox.xmin ...
+              objects{j}.bndbox.ymax-objects{j}.bndbox.ymin];
+       rectangle('Position',pos,'EdgeColor','red'); 
     end
+    %}
+    
+    imwrite(oiGet(oi,'rgb image'),sprintf('%s.png',label));
     
 end
+
+
+
 
 
 

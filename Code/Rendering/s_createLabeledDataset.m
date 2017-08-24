@@ -180,11 +180,14 @@ for f=1:nFiles
     
     sel = cellfun(@(x) strcmp(x,currentSet),xVal);
     
-    for o=1:length(annotation.object)
-        for c=1:length(labelMap)
+    for c=1:length(labelMap)
+       for o=1:length(annotation.object)
             if strcmpi(labelMap(c).name,annotation.object{o}.name)
                 isPresent = strcmpi(annotation.object{o}.name,labelMap(c).name)*2-1;
                 fprintf(fids{sel,c},'%s %i\n',outputFileName,isPresent);
+                % We don't care if multiple objects are present, so we
+                % break out.
+                break;
             end
         end
     end
