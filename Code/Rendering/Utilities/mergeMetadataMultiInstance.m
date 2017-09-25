@@ -38,13 +38,18 @@ switch mode
         textFile = fullfile(path,sprintf('%s_texture.txt',fName));
 end
 
-fid = fopen(textFile);
+classMap = zeros(size(map));
+instanceMap = zeros(size(map));
+
+fid = fopen(textFile,'r');
+if fid == -1
+    return;
+end
 mappings = textscan(fid,'%u %s');
 fclose(fid);
 nSimplified = length(labelMap);
    
-classMap = zeros(size(map));
-instanceMap = zeros(size(map));
+
 instanceId=1;
 for i=1:nSimplified
 

@@ -11,21 +11,30 @@ clc;
 ieInit;
 
 testFraction = 0.3;
-recipe = 'Car-Complete-Pinhole';
+recipe = 'MultiObject-Pinhole';
+
+cmap = jet(3);
 
 %These class ids correspond to the ones from PASCAL VOC
 labelMap(1).name = 'car';
 labelMap(1).id = 7;
+labelMap(1).color = cmap(1,:);
+labelMap(2).name = 'person';
+labelMap(2).id = 15;
+labelMap(2).color = cmap(2,:);
+labelMap(3).name = 'bus';
+labelMap(3).id = 6;
+labelMap(3).color = cmap(3,:);
 
 % mode = 'fullResRGB';
 % mode = 'linearRGB';
 % mode = 'rawRGB';
-mode = 'sRGB';
+mode = 'rawRGB';
 
 dataDir = fullfile('/','share','wandell','data','NN_Camera_Generalization','Renderings',recipe);
 renderDir = fullfile('renderings','PBRTCloud');
 
-destDir = fullfile('/','scratch','Datasets',sprintf('%s-TEST',recipe));
+destDir = fullfile('/','scratch','Datasets',sprintf('%s',recipe));
 
 % Prepare the directory structure
 xVal = {'trainval','test'};
@@ -61,34 +70,60 @@ fclose(fid);
 
 %%
 
-fileNames = dir(fullfile(dataDir,renderDir,'*radiance*.mat'));
-nFiles = length(fileNames);
+scenesFile = fullfile(dataDir,'scenes.mat');
 
+if exist(scenesFile,'file')
+    load(scenesFile);
+else
+    
+    condFiles = dir(fullfile(dataDir,'resources','*.txt'));
+    conditionFiles = cell(length(condFiles),1);
+    for i=1:length(condFiles)
+        conditionFiles{i} = fullfile(dataDir,'resources',condFiles(i).name);
+    end
+    
+    scenes = assembleSceneFiles(fullfile(dataDir,renderDir),[],[],'conditionFiles',conditionFiles);
+    save(scenesFile,'scenes');
+end
+
+
+nFiles = length(scenes);
 nTestFiles = nFiles * testFraction;
 
 rng(1);
 shuffling = randperm(nFiles);
 
 cntr = 1;
+nSkippedImages = 0;
+%fig = figure;
 for f=1:nFiles
     
     outputFileName = sprintf('%06i',cntr);
     outputXmlFileName = sprintf('%s.xml',outputFileName);
     outputJpegFileName = sprintf('%s.png',outputFileName);
     
-    inputFileName = fileNames(shuffling(f)).name;
-    
-    [pth, name] = fileparts(inputFileName);
-    
     %% Load image radiance data
-    radianceDataFileName = fullfile(dataDir,renderDir,inputFileName);
+    radianceDataFileName = scenes(shuffling(f)).radiance;  
+    meshDataFileName = scenes(shuffling(f)).mesh;
+
+    if ~exist(radianceDataFileName,'file') || ~exist(meshDataFileName,'file')
+        fprintf('Either radiance or mesh info is missing. \n');
+        nSkippedImages = nSkippedImages + 1;
+        estFiles = nTestFiles/testFraction;
+        estFiles = estFiles - 1;
+        nTestFiles = estFiles*testFraction;
+        continue;
+    end
+    
+    
+    name = scenes(shuffling(f)).description;
     
     radianceData = load(radianceDataFileName);
     
     % Create an oi
-    oiParams.lensType = 'pinhole';
-    oiParams.filmDistance = 10;
-    oiParams.filmDiag = 20;
+    oiParams.lensType = scenes(shuffling(f)).lens;
+    oiParams.filmDistance = str2double(scenes(shuffling(f)).filmDistance);
+    oiParams.filmDiag = str2double(scenes(shuffling(f)).filmDiagonal);
     
     
     
@@ -96,9 +131,13 @@ for f=1:nFiles
     oi = oiSet(oi,'name',name);
     oi = oiAdjustIlluminance(oi,1000,'mean');
     
-    ieAddObject(oi);
-    % oiWindow();
-    
+    %{
+    figure(fig);
+    title(name);
+    imshow(oiGet(oi,'rgb image'));
+    drawnow;
+    %}
+        
     sensor = sensorCreate('bayer (rggb)');
     sensor = sensorSet(sensor,'name',name);
     sensor = sensorSet(sensor,'size',oiGet(oi,'size'));
@@ -110,16 +149,10 @@ for f=1:nFiles
     
     
     sensor = sensorCompute(sensor,oi);
-    ieAddObject(sensor);
-    % sensorWindow();
-    
-    
-    
+        
     ip = ipCreate();
     ip = ipSet(ip,'name',name);
     ip = ipCompute(ip,sensor);
-    ieAddObject(ip);
-    % ipWindow();
     
     switch mode
         case 'sRGB'
@@ -137,8 +170,9 @@ for f=1:nFiles
     
     %% Labels
     
-    meshDataFileName = fullfile(dataDir,renderDir,sprintf('%s.mat',strrep(name,'radiance','mesh')));
-    [labels, instances] = mergeMetadata(meshDataFileName,labelMap);
+    [~, inputFileName] = fileparts(meshDataFileName);
+
+    [labels, instances] = mergeMetadataMultiInstance(meshDataFileName,labelMap);
     
     objects = getBndBox(labels, instances, labelMap);
     
@@ -154,9 +188,22 @@ for f=1:nFiles
     
     annotation.object = objects(:);
 
+    %{
+        figure(fig);
+    for j=1:length(objects)
+        pos = [objects{j}.bndbox.xmin objects{j}.bndbox.ymin ...
+            objects{j}.bndbox.xmax-objects{j}.bndbox.xmin ...
+            objects{j}.bndbox.ymax-objects{j}.bndbox.ymin];
+        
+        id = strcmp({labelMap(:).name},objects{j}.name);
+        rectangle('Position',pos,'EdgeColor',labelMap(id).color);
+    end
+    drawnow;
+    %}
     
     if isempty(objects) 
         fprintf('No Objects in the image, skipping\n');
+        nSkippedImages = nSkippedImages + 1;
         estFiles = nTestFiles/testFraction;
         estFiles = estFiles - 1;
         nTestFiles = estFiles*testFraction;
@@ -181,19 +228,18 @@ for f=1:nFiles
     sel = cellfun(@(x) strcmp(x,currentSet),xVal);
     
     for c=1:length(labelMap)
-       for o=1:length(annotation.object)
+        objectPresence = -1;
+        for o=1:length(annotation.object)
             if strcmpi(labelMap(c).name,annotation.object{o}.name)
-                isPresent = strcmpi(annotation.object{o}.name,labelMap(c).name)*2-1;
-                fprintf(fids{sel,c},'%s %i\n',outputFileName,isPresent);
-                % We don't care if multiple objects are present, so we
-                % break out.
-                break;
+                objectPresence = 1;
             end
         end
+        fprintf(fids{sel,c},'%s %i\n',outputFileName,objectPresence);
     end
-        
+    
     
     cntr = cntr + 1;
+    
 end
 
 % Close files

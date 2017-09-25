@@ -57,24 +57,27 @@ skyFile = fullfile(assetDir,'City','*.exr');
 copyfile(skyFile,resourceFolder);
 
 % Generate fog properties
-waves = 380:5:780;
-abs_fog = linspace(0.09,0.1,length(waves));
-rtbWriteSpectrumFile(waves,abs_fog,fullfile(resourceFolder,'abs_fog.spd'));
+% Uniform absorption
+wave = 400:10:700;
+abs = 0.01*ones(length(wave),1);
+rtbWriteSpectrumFile(wave,abs,fullfile(resourceFolder,'abs.spd'));
 
-[vsf_fog, ~, waves] = calculateScattering(0.5,0.5);
-sct_fog = linspace(0.8,0.7,length(waves));
+% Uniform Volume Scattering Function
+vsf = ones(180,length(wave));
+vsf(1,:) = 1;
+vsf = 2*vsf/sum(vsf(1,:))/4/pi;
+angles = 0:179;
+scat = sum(diag(sind(angles))*vsf)*2*pi*deg2rad(1);
+phase = vsf./repmat(scat,[length(angles) 1]);
 
-rtbWriteSpectrumFile(waves,sct_fog,fullfile(resourceFolder,'scat_fog.spd'));
-WritePhaseFile(waves,1*vsf_fog,fullfile(resourceFolder,'phase_fog.spd'));
+rtbWriteSpectrumFile(wave,scat,fullfile(resourceFolder,'scat.spd'));
+writePhaseFile(wave,phase,fullfile(resourceFolder,'phase.spd'));
 
 
 %% Choose files to render
 cityId = 1;
 
-
-sceneFile = sprintf('City_%i.obj',cityId);
-parentSceneFile = fullfile(assetDir,'City',sceneFile);
-cityScene = mexximpCleanImport(parentSceneFile,...
+cityScene = mexximpCleanImport(assets.city(cityId).modelPath,...
     'ignoreRootTransform',true,...
     'flipUVs',true,...
     'imagemagicImage','hblasins/imagemagic-docker',...
@@ -96,10 +99,7 @@ objects(1).position = [0, 0, 0];
 
 for i=1:length(objects)
     
-    carId = objects(i).id;
-    carFile = sprintf('Car_%i.obj',carId);
-    parentSceneFile = fullfile(assetDir,car2directory{carId},carFile);
-    carScene = mexximpCleanImport(parentSceneFile,...
+    carScene = mexximpCleanImport(objects(i).modelPath,...
         'ignoreRootTransform',true,...
         'flipUVs',true,...
         'imagemagicImage','hblasins/imagemagic-docker',...
@@ -187,17 +187,25 @@ for i=1:1:length(radianceDataFiles)
     [~, label] = fileparts(radianceDataFiles{i});
         
     oi = buildOi(radianceData.multispectralImage, [], oiParams);
+    oi = oiAdjustIlluminance(oi,100);
     oi = oiSet(oi,'name',label);
     
     
     ieAddObject(oi);
     oiWindow;
     
-    sensor = sensorCompute(sensorCreate,oi);
+    sensor = sensorCreate('bayer (rggb)');
+    sensor = sensorSet(sensor,'size',oiGet(oi,'size'));
+    sensor = sensorSet(sensor,'pixel widthandheight',[oiGet(oi,'hres'), oiGet(oi,'wres')]);
+    sensor = sensorSet(sensor,'analog gain',1);
+    sensor = sensorCompute(sensor,oi);
+    ieAddObject(sensor);
+    sensorWindow();
     
     ip = ipCompute(ipCreate,sensor);
     ieAddObject(ip);
     ipWindow();
+    
     %{
     [classMap, instanceMap] = mergeMetadata(radianceDataFiles{i+1},labelMap);
 

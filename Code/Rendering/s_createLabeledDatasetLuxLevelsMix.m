@@ -4,20 +4,28 @@ close all;
 clear all;
 clc;
 
-recipe = 'Car-Complete-Pinhole';
-lightLevels = [0.1, 1, 10, 100, 1000, 10000];
+recipe = 'MultiObject-Pinhole';
+lightLevels = [0.0, 0.1, 1, 10, 100, 1000, 10000];
 
-expTime = [0.002, 0.015];
+expTime = 0.015;
 
-type = 'sRGB';
+type = 'MC';
 mode = sprintf('%s_luxLevel_mix',type);
 
-sourceDir = fullfile('/','scratch','Datasets','Car-Complete-Pinhole');
-destDir = fullfile('/','scratch','Datasets','Car-Complete-Pinhole');
+sourceDir = fullfile('/','scratch','Datasets','MultiObject-Pinhole');
+destDir = fullfile('/','scratch','Datasets','MultiObject-Pinhole');
 
+cmap = jet(3);
 %These class ids correspond to the ones from PASCAL VOC
 labelMap(1).name = 'car';
 labelMap(1).id = 7;
+labelMap(1).color = cmap(1,:);
+labelMap(2).name = 'person';
+labelMap(2).id = 15;
+labelMap(2).color = cmap(2,:);
+labelMap(3).name = 'bus';
+labelMap(3).id = 6;
+labelMap(3).color = cmap(3,:);
 
 % Prepare the directory structure
 xVal = {'trainval','test'};
@@ -46,14 +54,14 @@ for i=1:length(xVal)
    
     fNames = cell(1,length(lightLevels));
     for j=1:length(lightLevels)
-        subMode = sprintf('%s_luxLevel_%.1f',type,lightLevels(j));
+        subMode = sprintf('%s_%i_luxLevel_%.1f',type,expTime*1000,lightLevels(j));
         fNames{j} = dir(fullfile(sourceDir,xVal{i},subMode,'JPEGImages','*.png'));
     end
     
     for j=1:length(fNames{1})
         
         id = mod(j-1,length(lightLevels))+1;
-        subMode = sprintf('%s_luxLevel_%.1f',type,lightLevels(id));
+        subMode = sprintf('%s_%i_luxLevel_%.1f',type,expTime*1000,lightLevels(id));
         
         inputImageFile = fullfile(sourceDir,xVal{i},subMode,'JPEGImages',fNames{id}(j).name);
         [~, inputFileName] = fileparts(inputImageFile);
@@ -68,17 +76,17 @@ for i=1:length(xVal)
         data = xml2struct(inputLabelFile);
         annotation = data.annotation;
         
+        sel = cellfun(@(x) strcmp(x,xVal{i}),xVal);
+       
         for c=1:length(labelMap)
-            annotation.object = cat(1,{},annotation.object);
+            objectPresence = -1;
             for o=1:length(annotation.object)
-                if strcmpi(labelMap(c).name,annotation.object{o}.name.Text)
-                    isPresent = strcmpi(annotation.object{o}.name.Text,labelMap(c).name)*2-1;
-                    fprintf(fids{i,c},'%s %i\n',inputFileName,isPresent);
-                    % We don't care if multiple objects are present, so we
-                    % break out.
-                    break;
+                annotation.object = cat(1,{},annotation.object);
+                if strcmpi(labelMap(c).name,annotation.object{o}.name)
+                    objectPresence = 1;
                 end
             end
+            fprintf(fids{sel,c},'%s %i\n',inputFileName,objectPresence);
         end
         
     end

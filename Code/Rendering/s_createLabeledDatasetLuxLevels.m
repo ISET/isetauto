@@ -10,28 +10,44 @@ clc;
 
 ieInit;
 
-numTestImages = 629;
-numImages = 2144;
-recipe = 'Car-Complete-Pinhole';
+testFraction = 0.3;
 
-lightLevels = [0.1, 1, 10, 100, 1000, 10000];
+recipe = 'MultiObject-Pinhole';
+dataDir = fullfile('/','share','wandell','data','NN_Camera_Generalization','Renderings',recipe);
+renderDir = fullfile('renderings','PBRTCloud');
+destDir = fullfile('/','scratch','Datasets',recipe);
+
+lightLevels = [0.01 0.1 1 10 100 1000 10000];
 expTime = [0.002, 0.015];
-subMode = sprintf('MultiExp_%i_%i',expTime(1)*1000,expTime(2)*1000);
+subMode = 'rawRGB';
 
+numSaturated = zeros(793,length(lightLevels));
+numUnderexposed = zeros(793,length(lightLevels));
+
+
+
+cmap = jet(3);
 %These class ids correspond to the ones from PASCAL VOC
 labelMap(1).name = 'car';
 labelMap(1).id = 7;
+labelMap(1).color = cmap(1,:);
+labelMap(2).name = 'person';
+labelMap(2).id = 15;
+labelMap(2).color = cmap(2,:);
+labelMap(3).name = 'bus';
+labelMap(3).id = 6;
+labelMap(3).color = cmap(3,:);
 
 for ll=1:length(lightLevels)
     
-    mode = sprintf('%s_luxLevel_%.1f',subMode,lightLevels(ll));
+    mode = sprintf('%s',subMode);
     
+    for jj=1:length(expTime)
+        mode = sprintf('%s_%i',mode,expTime(jj)*1000);
+    end
+    mode = sprintf('%s_luxLevel_%.1f',mode,lightLevels(ll));
     
-    dataDir = fullfile('/','share','wandell','data','NN_Camera_Generalization','Renderings',recipe);
-    renderDir = fullfile('renderings','PBRTCloud');
-    
-    destDir = fullfile('/','scratch','Datasets',recipe);
-    
+        
     % Prepare the directory structure
     xVal = {'trainval','test'};
     for i=1:length(xVal)
@@ -66,9 +82,26 @@ for ll=1:length(lightLevels)
     
     %%
     
-    fileNames = dir(fullfile(dataDir,renderDir,'*radiance*.mat'));
-    nFiles = length(fileNames);
+    scenesFile = fullfile(dataDir,'scenes.mat');
+    
+    if exist(scenesFile,'file')
+        load(scenesFile);
+    else
         
+        condFiles = dir(fullfile(dataDir,'resources','*.txt'));
+        conditionFiles = cell(length(condFiles),1);
+        for i=1:length(condFiles)
+            conditionFiles{i} = fullfile(dataDir,'resources',condFiles(i).name);
+        end
+        
+        scenes = assembleSceneFiles(fullfile(dataDir,renderDir),[],[],'conditionFiles',conditionFiles);
+        save(scenesFile,'scenes');
+    end
+    
+    nFiles = length(scenes);
+    nTestFiles = nFiles * testFraction;
+
+    
     rng(1);
     shuffling = randperm(nFiles);
     
@@ -79,55 +112,33 @@ for ll=1:length(lightLevels)
         outputXmlFileName = sprintf('%s.xml',outputFileName);
         outputJpegFileName = sprintf('%s.png',outputFileName);
         
-        if cntr <= numTestImages;
-            % Test set
-            currentSet = 'test';
-        else
-            currentSet = 'trainval';
-        end
-        if cntr > numImages;
-            break;
-        end
-        outputJpegFullFileName = fullfile(destDir,currentSet,mode,'JPEGImages',outputJpegFileName);
-        outputXmlFullFileName = fullfile(destDir,currentSet,mode,'Annotations',outputXmlFileName);
         
-        if exist(outputJpegFullFileName,'file') && exist(outputXmlFullFileName,'file')
-            fprintf('File: %s exists, skipping\n',outputJpegFullFileName);
-            
-            data = xml2struct(outputXmlFullFileName);
-            annotation = data.annotation;
-            
-            sel = cellfun(@(x) strcmp(x,currentSet),xVal);
-            for o=1:length(annotation.object)
-                annotation.object = cat(1,{},annotation.object);
-                for c=1:length(labelMap)
-                    if strcmpi(labelMap(c).name,annotation.object{o}.name)
-                        isPresent = strcmpi(annotation.object{o}.name,labelMap(c).name)*2-1;
-                        fprintf(fids{sel,c},'%s %i\n',outputFileName,isPresent);
-                    end
-                end
-            end
-            
-            
-            cntr = cntr + 1;
+
+        
+        
+        %% Load image radiance data
+        radianceDataFileName = scenes(shuffling(f)).radiance;
+        meshDataFileName = scenes(shuffling(f)).mesh;
+        
+        if ~exist(radianceDataFileName,'file') || ~exist(meshDataFileName,'file')
+            fprintf('Either radiance or mesh info is missing. \n');
+            estFiles = nTestFiles/testFraction;
+            estFiles = estFiles - 1;
+            nTestFiles = estFiles*testFraction;
             continue;
         end
         
+        name = scenes(shuffling(f)).description;
         
-        
-        inputFileName = fileNames(shuffling(f)).name;
-        
-        [pth, name] = fileparts(inputFileName);
         
         %% Load image radiance data
-        radianceDataFileName = fullfile(dataDir,renderDir,inputFileName);
         
         radianceData = load(radianceDataFileName);
         
         % Create an oi
-        oiParams.lensType = 'pinhole';
-        oiParams.filmDistance = 10;
-        oiParams.filmDiag = 20;
+        oiParams.lensType = scenes(shuffling(f)).lens;
+        oiParams.filmDistance = str2double(scenes(shuffling(f)).filmDistance);
+        oiParams.filmDiag = str2double(scenes(shuffling(f)).filmDiagonal);
         
         
         
@@ -138,7 +149,7 @@ for ll=1:length(lightLevels)
         % ieAddObject(oi);
         % oiWindow();
         switch subMode
-            case {'MC', 'rawMC', sprintf('MultiExp_%i_%i',expTime(1)*1000,expTime(2)*1000)}
+            case {'MC', 'rawMC'}
                 sensor = sensorCreate('monochrome');
                 wave = sensorGet(sensor,'wave');
                 fName = fullfile(isetRootPath,'data','sensor','photodetectors','photodetector.mat');
@@ -152,23 +163,25 @@ for ll=1:length(lightLevels)
         sensor = sensorSet(sensor,'pixel widthandheight',[oiGet(oi,'hres'), oiGet(oi,'wres')]);
         sensor = sensorSet(sensor,'analog gain',1);
         sensor = sensorSet(sensor,'quantizationmethod','8 bit');
-
-        for e=1:length(expTime)
-            tmpSensor = sensorSet(sensor,'exposure time',expTime(e));
-            sensors(e) = sensorCompute(tmpSensor,oi);
+        
+        
+        for ff=1:length(expTime)
+            sensor = sensorSet(sensor,'exposure time',expTime(ff));
+            sensors(ff) = sensorCompute(sensor,oi);
         end
         
-        % Merge
-        if strcmp(subMode,sprintf('MultiExp_%i_%i',expTime(1)*1000,expTime(2)*1000)) || strcmp(subMode,sprintf('rawMultiExp_%i_%i',expTime(1)*1000,expTime(2)*1000))
-            mergedVolts = zeros(sensorGet(sensor,'size'));
-            
-            for e=1:length(expTime)
-                currentVolts = sensorGet(sensors(e),'volts');
-                mergedVolts(e:length(expTime):end,:) = currentVolts(e:length(expTime):end,:);
-            end
-            
-            sensor = sensorSet(sensor,'volts',mergedVolts);
+        
+        volts = sensorGet(sensors(1),'volts');
+        cfaPattern = sensorGet(sensors(1),'cfa pattern');
+        cfaHeight = size(cfaPattern,1);
+        for kk=1:length(expTime)
+                subPhotons = sensorGet(sensors(kk),'volts');
+                for zz=1:cfaHeight
+                    volts(kk+zz-1:cfaHeight*length(expTime):end,:) = subPhotons(kk+zz-1:cfaHeight*length(expTime):end,:);
+                end
         end
+        sensor = sensorSet(sensor,'volts',volts);
+        sensor = sensorSet(sensor,'dv',analog2digital(sensor,'linear'));
         
         % ieAddObject(sensor);
         % sensorWindow();
@@ -182,24 +195,30 @@ for ll=1:length(lightLevels)
         % ipWindow();
         
         switch subMode
-            case {'sRGB', 'MC', sprintf('MultiExp_%i_%i',expTime(1)*1000,expTime(2)*1000)}
+            case {'sRGB', 'MC'}
                 img = ipGet(ip,'data srgb');
             case 'fullResRGB'
                 img = oiGet(oi,'rgb image');
             case 'linearRGB'
                 img = uint8(ipGet(ip,'sensor channels'));
-            case {'rawRGB', 'rawMC', sprintf('rawMultiExp_%i_%i',expTime(1)*1000,expTime(2)*1000)}
+            case {'rawRGB', 'rawMC'}
                 img = uint8(ipGet(ip,'sensor mosaic'));
-                img = repmat(img,[1 1 3]);                
+                img = repmat(img,[1 1 3]);
+                
+                nUnderexp = img < 0.01*255;
+                nUnderexp = sum(nUnderexp(:))/3;
+                
+                nOverexp = img > 0.99*255;
+                nOverexp = sum(nOverexp(:))/3;
         end
+        
         
         img = uint8(255*double(img)/max(double(img(:))));
         
         
         %% Labels
-        
-        meshDataFileName = fullfile(dataDir,renderDir,sprintf('%s.mat',strrep(name,'radiance','mesh')));
-        [labels, instances] = mergeMetadata(meshDataFileName,labelMap);
+        [~, inputFileName] = fileparts(meshDataFileName);
+        [labels, instances] = mergeMetadataMultiInstance(meshDataFileName,labelMap);
         
         objects = getBndBox(labels, instances, labelMap);
         
@@ -218,33 +237,45 @@ for ll=1:length(lightLevels)
         
         if isempty(objects)
             fprintf('No Objects in the image, skipping\n');
+            estFiles = nTestFiles/testFraction;
+            estFiles = estFiles - 1;
+            nTestFiles = estFiles*testFraction;
             continue;
+        end
+ 
+        if f < nTestFiles
+            % Test set
+            currentSet = 'test';
+            numSaturated(f,ll) = nOverexp;
+            numUnderexposed(f,ll) = nUnderexp;
+            
+            
+        else
+            currentSet = 'trainval';
         end
         
         
         
         
-        %% Save data
+        outputJpegFullFileName = fullfile(destDir,currentSet,mode,'JPEGImages',outputJpegFileName);
+        outputXmlFullFileName = fullfile(destDir,currentSet,mode,'Annotations',outputXmlFileName);
         
-        
-        imwrite(img,outputJpegFullFileName);
+        imwrite(img,fullfile(destDir,currentSet,mode,'JPEGImages',outputJpegFileName));
         s.annotation = annotation;
-        struct2xml(s,outputXmlFullFileName);
+        struct2xml(s,fullfile(destDir,currentSet,mode,'Annotations',outputXmlFileName));
+       
         
         sel = cellfun(@(x) strcmp(x,currentSet),xVal);
         
         for c=1:length(labelMap)
+            objectPresence = -1;
             for o=1:length(annotation.object)
                 if strcmpi(labelMap(c).name,annotation.object{o}.name)
-                    isPresent = strcmpi(annotation.object{o}.name,labelMap(c).name)*2-1;
-                    fprintf(fids{sel,c},'%s %i\n',outputFileName,isPresent);
-                    % We don't care if multiple objects are present, so we
-                    % break out.
-                    break;
+                    objectPresence = 1;
                 end
             end
+            fprintf(fids{sel,c},'%s %i\n',outputFileName,objectPresence);
         end
-        
         
         cntr = cntr + 1;
     end
@@ -256,5 +287,6 @@ for ll=1:length(lightLevels)
     
 end
 
+save(sprintf('Sat_stat_%s.mat',subMode),'numSaturated','numUnderexposed');
 
 

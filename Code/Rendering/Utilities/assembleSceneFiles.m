@@ -1,37 +1,122 @@
-function [ sceneFiles ] = assembleSceneFiles( dataFiles )
+function [ scenes ] = assembleSceneFiles( hints, names, values, varargin )
 
-loc = cellfun(@(x) strfind(x,'_frame_'),dataFiles,'UniformOutput',false);
-frames = cellfun(@(x,y) sscanf(x(y+length('_frame_'):end),'%i'),dataFiles,loc);
-frameIds = unique(frames);
+p = inputParser;
+p.addParameter('conditionFiles',{},@iscell);
+p.parse(varargin{:});
+inputs = p.Results;
 
-sceneFiles = [];
-for f=1:length(frameIds)
-    
-    frameId = cellfun(@(x) ~isempty(strfind(x,sprintf('_frame_%i_',f))),dataFiles);
-    
-    subDataFiles = dataFiles(frameId);
-    
-    depthFile = subDataFiles(cellfun(@(x) ~isempty(strfind(x,'depth')),subDataFiles));
-    if isempty(depthFile), depthFile = []; else depthFile=depthFile{1}; end
-    meshFile =  subDataFiles(cellfun(@(x) ~isempty(strfind(x,'mesh')),subDataFiles));
-    if isempty(meshFile), meshFile = []; else meshFile=meshFile{1}; end
-    materialFile = subDataFiles(cellfun(@(x) ~isempty(strfind(x,'material')),subDataFiles));
-    if isempty(materialFile), materialFile = []; else materialFile=materialFile{1}; end
-
-    
-    radianceFiles = subDataFiles(cellfun(@(x) ~isempty(strfind(x,'radiance')),subDataFiles));
-    for j=1:length(radianceFiles);
-       
-        subScene.radiance = radianceFiles{j};
-        subScene.depth = depthFile;
-        subScene.mesh = meshFile;
-        subScene.material = materialFile;
-        
-        sceneFiles = cat(1,sceneFiles,subScene);
+% If we pass a cell array of condition files, then we read the files
+if ~isempty(inputs.conditionFiles)
+    values = {};
+    for i=1:length(inputs.conditionFiles)
+        [names, vals] = rtbParseConditions(inputs.conditionFiles{i});
+        values = cat(1,values,vals);
     end
 end
 
+    
 
+searchColumnNames = {'objPosFile'
+    'type'
+    'lens'
+    'microlens'
+    'mode'
+    'pixelSamples'
+    'fNumber'
+    'filmDiagonal'
+    'distance'
+    'orientation'
+    'height'
+    'PTR'
+    'defocus'
+    'diffraction'
+    'chromaticAberration'
+    'lookAtObject'};
+
+searchColumnIDs = zeros(1,length(names));
+for i=1:length(searchColumnNames)
+    searchColumnIDs = searchColumnIDs | strcmp(names(:),searchColumnNames{i})';
+end
+
+if isstruct(hints)
+    resultPath = rtbWorkingFolder('hints',hints,...
+        'rendererSpecific',true,...
+        'folderName','renderings');
+else
+    resultPath = hints;
+end
+
+radianceFileIDs = strcmp(values(:,strcmp(names,'mode')),'radiance');
+radianceConditions = values(radianceFileIDs,:);
+
+
+
+for f=1:size(radianceConditions,1);
+    fprintf('Assembling scene %i/%i\n',f,size(radianceConditions,1));
+    
+   scenes(f).radiance = fullfile(resultPath,sprintf('%s.mat',radianceConditions{f,1})); 
+   
+   estimate = radianceConditions(f,:);
+   for j=1:length(names)
+       if ~strcmp(names{j},'mode')
+        scenes(f).(names{j}) = estimate{strcmp(names,names{j})};
+       end
+   end
+   
+   
+   estimate(strcmp(names,'diffraction')) = {'false'};
+   estimate(strcmp(names,'chromaticAberration')) = {'false'};
+   estimate(strcmp(names,'defocus')) = {'0'};
+   
+   % Mesh
+   estimate(strcmp(names,'mode')) = {'mesh'}; 
+   id = searchCellArray(values(:,searchColumnIDs),estimate(searchColumnIDs));
+  
+   scenes(f).mesh = [];
+   if sum(id) == 1
+       scenes(f).mesh = fullfile(resultPath,sprintf('%s.mat',values{id,1}));
+   elseif sum(id) > 1
+       fprintf('More than one match\n');
+   end
+   
+   %{
+   % Depth
+   estimate(strcmp(names,'mode')) = {'depth'};
+   id = searchCellArray(values(:,searchColumnIDs),estimate(searchColumnIDs));
+   
+   scenes(f).depth = [];
+   if sum(id) == 1
+       scenes(f).depth = fullfile(resultPath,sprintf('%s.mat',values{id,1}));
+   elseif sum(id) > 1
+       fprintf('More than one match\n');
+   end
+   
+   % Material
+   estimate(strcmp(names,'mode')) = {'material'};
+   id = searchCellArray(values(:,searchColumnIDs),estimate(searchColumnIDs));
+   
+   scenes(f).depth = [];
+   if sum(id) == 1
+       scenes(f).depth = fullfile(resultPath,sprintf('%s.pbrt',values{id,1}));
+   elseif sum(id) > 1
+       fprintf('More than one match\n');
+   end
+   %}
+   
+   
+    
+end
+
+end
+
+function [ id ] = searchCellArray(array, ref)
+
+id = true(size(array,1),1);
+
+for i=1:size(array,2)
+    res = cellfun(@(x) isequal(x,ref{i}),array(:,i));
+    id = id & res;
+end
 
 end
 

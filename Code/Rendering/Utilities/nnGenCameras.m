@@ -31,7 +31,7 @@ assert(length(inputs.microlens)==length(inputs.lens) || length(inputs.microlens)
 
 cntr = 1;
 viewpointCntr = 1;
-frameCntr = 1;
+% frameCntr = 1;
 
 for c=1:length(inputs.distance)
 for d=1:length(inputs.orientation)
@@ -46,27 +46,31 @@ for l=1:length(inputs.lookAtObject)
     randOrientation = rand(1,1);
 for j=1:length(inputs.filmDiagonal)
     
-for g=1:length(inputs.defocus)
 for a=1:max([length(inputs.type), length(inputs.lens), length(inputs.microlens)]) 
 for i=1:length(inputs.fNumber)
 for b=1:length(inputs.pixelSamples)
 for k=1:length(inputs.mode)
     
-     % Prune some combinations that don't make any sense:
+    % Prune some combinations that don't make any sense:
     % 1. A pinhole camera does not have parameters that specify diffraction
     % or chromatic aberration
     
-     % 2. A lens camera in a non-radiance mode requires diffraction and
+    % 2. A lens camera in a non-radiance mode requires diffraction and
     % chromatic aberration to be switched off
+    
+    % 3. There is no notion of defocus for pinhole cameras.
+    
     if strcmp(inputs.type{a},'pinhole') || ~strcmp(inputs.mode{k},'radiance')
         diffractionVec = {'false'};
         chromaticAberrationVec = {'false'};
+        defocusVec = [0];
     else
         diffractionVec = inputs.diffraction;
-        chromaticAberrationVec = inputs.chromaticAberration;        
+        chromaticAberrationVec = inputs.chromaticAberration; 
+        defocusVec = inputs.defocus;
     end
     
-    
+for g=1:length(defocusVec)  
 for h=1:max([length(diffractionVec), length(chromaticAberrationVec)])
     
     
@@ -121,14 +125,14 @@ for h=1:max([length(diffractionVec), length(chromaticAberrationVec)])
     end
         
     
-    camera(cntr).defocus = inputs.defocus(g);
+    camera(cntr).defocus = defocusVec(g);
     camera(cntr).diffraction = diffr;
     camera(cntr).chromaticAberration = chrAber;
     camera(cntr).lookAtObject = inputs.lookAtObject(l);
     
     camera(cntr).viewpointId = viewpointCntr;
-    camera(cntr).frameId = frameCntr;
-    camera(cntr).description = sprintf('frame_%i_view_%i_%s',frameCntr,viewpointCntr,inputs.mode{k});
+    % camera(cntr).frameId = frameCntr;
+    camera(cntr).description = sprintf('View_%i_%s',viewpointCntr,inputs.mode{k});
     
     % These get filled in once we define a scene.
     camera(cntr).filmDistance = [];
@@ -138,7 +142,7 @@ for h=1:max([length(diffractionVec), length(chromaticAberrationVec)])
     cntr = cntr+1;
 end
 end
-frameCntr = frameCntr + 1;
+% frameCntr = frameCntr + 1;
 end
 end
 end

@@ -135,25 +135,23 @@ switch mode
     otherwise % Generate radiance data
         
         sampler.setParameter('pixelsamples','integer',pixelSamples);
+        integrator.type = 'path';
 
         
         if strcmp(fog,'true');
             nativeScene.overall.find('SurfaceIntegrator','remove',true);
             volumeIntegrator = MPbrtElement('VolumeIntegrator','type','single');
-            volumeIntegrator.setParameter('stepsize','float',50);
+            volumeIntegrator.setParameter('stepsize','float',50000);
             nativeScene.overall.append(volumeIntegrator);
         
         
             fogVolume = MPbrtElement('Volume','type','water');
-            fogVolume.setParameter('p0','point','-1000000 -1000000 -100000');
-            fogVolume.setParameter('p1','point',sprintf('1000000 1000000 1000000'));
-            fogVolume.setParameter('absorptionCurveFile','spectrum',sprintf('resources/abs_fog.spd'));
-            fogVolume.setParameter('phaseFunctionFile','string',sprintf('resources/phase_fog.spd'));
-            fogVolume.setParameter('scatteringCurveFile','spectrum',sprintf('resources/scat_fog.spd'));
+            fogVolume.setParameter('p0','point','-100000000 -100000000 -10000000');
+            fogVolume.setParameter('p1','point',sprintf('100000000 100000000 100000000'));
+            fogVolume.setParameter('absorptionCurveFile','spectrum',sprintf('resources/abs.spd'));
+            fogVolume.setParameter('phaseFunctionFile','string',sprintf('resources/phase.spd'));
+            fogVolume.setParameter('scatteringCurveFile','spectrum',sprintf('resources/scat.spd'));
             nativeScene.world.append(fogVolume);
-            
-        else
-            integrator.type = 'path';
         end
         
 

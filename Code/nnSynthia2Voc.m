@@ -6,14 +6,25 @@ close all;
 clear all;
 clc;
 
-nTest = 629;
-nTrain = 1515;
+nTest = 793;
+nTrain = 2215;
 outputSize = [480, 640];
 
 synthiaPath = fullfile('/','scratch','Datasets','SYNTHIA-RAND-CITYSCAPES');
 
+cmap = jet(3);
 labelMap(1).name = 'car';
-labelMap(1).id = 7;
+labelMap(1).id = 8;
+labelMap(1).pascalId = 7;
+labelMap(1).color = cmap(1,:);
+labelMap(2).name = 'person';
+labelMap(2).id = 10;
+labelMap(2).pascalId = 15;
+labelMap(2).color = cmap(2,:);
+labelMap(3).name = 'bus';
+labelMap(3).id = 19;
+labelMap(3).pascalId = 6;
+labelMap(3).color = cmap(3,:);
 
 currentSet = 'RAND';
 destDir = fullfile('/','scratch','Datasets','SYNTHIA-VOC');
@@ -27,7 +38,7 @@ fid = fopen(fName,'w');
 fprintf(fid,'item {\n   id: 0\n   name: ''none_of_the_above''\n}\n\n');
 
 for i=1:length(labelMap)
-    fprintf(fid,'item {\n   id: %i\n   name: ''%s''\n}\n\n',labelMap(i).id,lower(labelMap(i).name));
+    fprintf(fid,'item {\n   id: %i\n   name: ''%s''\n}\n\n',labelMap(i).pascalId,lower(labelMap(i).name));
 end
 fclose(fid);
 
@@ -106,7 +117,8 @@ while cntr<=(nTest+nTrain)
        pos = [objects{j}.bndbox.xmin objects{j}.bndbox.ymin ...
               objects{j}.bndbox.xmax-objects{j}.bndbox.xmin ...
               objects{j}.bndbox.ymax-objects{j}.bndbox.ymin];
-       rectangle('Position',pos,'EdgeColor','red'); 
+       id = strcmp(objects{j}.name,{labelMap(:).name});
+       rectangle('Position',pos,'EdgeColor',labelMap(id).color); 
     end
     %}
     

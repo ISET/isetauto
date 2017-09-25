@@ -13,64 +13,8 @@ inputs = p.Results;
 constants;
 
 objects = [];
-
-%% Cars
-%  Cars are placed on the road at an arbitrary location and orientation.
 cntr = 1;
-for i=1:inputs.nCars
-    
-    currentClass = 'car';
-    nClass = length(assets.(currentClass));
-    
-    objects(cntr).class = currentClass;
-    objects(cntr).id = randi(nClass);
-    objects(cntr).modelPath = assets.(currentClass)(objects(cntr).id).path;
-    
-    nAreas = length(assets.city(inputs.cityId).road);
-    currentAreaId = randi(nAreas);
-    currentArea = assets.city(inputs.cityId).road(currentAreaId);
-    
-    objects(cntr).area = currentAreaId;
-    objects(cntr).orientation = randi(360);
-    
-    xpos = rand(1,1)*(currentArea.xrange(2) - currentArea.xrange(1)) + currentArea.xrange(1);
-    ypos = rand(1,1)*(currentArea.yrange(2) - currentArea.yrange(1)) + currentArea.yrange(1);
-    zpos = rand(1,1)*(currentArea.zrange(2) - currentArea.zrange(1)) + currentArea.zrange(1);
-    
-    objects(cntr).position = [xpos, ypos, zpos];
-    objects(cntr).prefix = sprintf('%s_inst_%i_',currentClass,i);
-    
-    cntr = cntr+1;
-end
 
-%% Pedestrians
-%  Pedestrians are placed on the sidewalk at arbitrary location and
-%  orientation.
-
-for i=1:inputs.nPeople
-    currentClass = 'person';
-    nClass = length(assets.(currentClass));
-    
-    objects(cntr).class = currentClass;
-    objects(cntr).id = randi(nClass);
-    objects(cntr).modelPath = assets.(currentClass)(objects(cntr).id).path;
-    
-    nAreas = length(assets.city(inputs.cityId).sidewalk);
-    currentAreaId = randi(nAreas);
-    currentArea = assets.city(inputs.cityId).sidewalk(currentAreaId);
-    
-    objects(cntr).area = currentAreaId;
-    objects(cntr).orientation = randi(360);
-    
-    xpos = rand(1,1)*(currentArea.xrange(2) - currentArea.xrange(1)) + currentArea.xrange(1);
-    ypos = rand(1,1)*(currentArea.yrange(2) - currentArea.yrange(1)) + currentArea.yrange(1);
-    zpos = rand(1,1)*(currentArea.zrange(2) - currentArea.zrange(1)) + currentArea.zrange(1);
-    
-    objects(cntr).position = [xpos, ypos, zpos];
-    objects(cntr).prefix = sprintf('%s_inst_%i_',currentClass,i);
-    
-    cntr = cntr+1;
-end
 
 %% Trucks
 %  Trucks are placed on the road at an arbitrary location, but the
@@ -81,7 +25,7 @@ for i=1:inputs.nTrucks
     
     objects(cntr).class = currentClass;
     objects(cntr).id = randi(nClass);
-    objects(cntr).modelPath = assets.(currentClass)(objects(cntr).id).path;
+    objects(cntr).modelPath = assets.(currentClass)(objects(cntr).id).modelPath;
     
     nAreas = length(assets.city(inputs.cityId).road);
     currentAreaId = randi(nAreas);
@@ -127,7 +71,7 @@ for i=1:inputs.nBuses
     
     objects(cntr).class = currentClass;
     objects(cntr).id = randi(nClass);
-    objects(cntr).modelPath = assets.(currentClass)(objects(cntr).id).path;
+    objects(cntr).modelPath = assets.(currentClass)(objects(cntr).id).modelPath;
     
     nAreas = length(assets.city(inputs.cityId).road);
     currentAreaId = randi(nAreas);
@@ -164,6 +108,65 @@ for i=1:inputs.nBuses
     
     cntr = cntr+1;
 end
+
+%% Cars
+%  Cars are placed on the road at an arbitrary location and orientation.
+for i=1:inputs.nCars
+    
+    currentClass = 'car';
+    nClass = length(assets.(currentClass));
+    
+    objects(cntr).class = currentClass;
+    objects(cntr).id = randi(nClass);
+    objects(cntr).modelPath = assets.(currentClass)(objects(cntr).id).modelPath;
+    
+    nAreas = length(assets.city(inputs.cityId).road);
+    currentAreaId = randi(nAreas);
+    currentArea = assets.city(inputs.cityId).road(currentAreaId);
+    
+    objects(cntr).area = currentAreaId;
+    objects(cntr).orientation = randi(360);
+    
+    xpos = rand(1,1)*(currentArea.xrange(2) - currentArea.xrange(1)) + currentArea.xrange(1);
+    ypos = rand(1,1)*(currentArea.yrange(2) - currentArea.yrange(1)) + currentArea.yrange(1);
+    zpos = rand(1,1)*(currentArea.zrange(2) - currentArea.zrange(1)) + currentArea.zrange(1);
+    
+    objects(cntr).position = [xpos, ypos, zpos];
+    objects(cntr).prefix = sprintf('%s_inst_%i_',currentClass,i);
+    
+    cntr = cntr+1;
+end
+
+%% Pedestrians
+%  Pedestrians are placed on the sidewalk at arbitrary location and
+%  orientation.
+
+for i=1:inputs.nPeople
+    currentClass = 'person';
+    nClass = length(assets.(currentClass));
+    
+    objects(cntr).class = currentClass;
+    objects(cntr).id = randi(nClass);
+    objects(cntr).modelPath = assets.(currentClass)(objects(cntr).id).modelPath;
+    
+    nAreas = length(assets.city(inputs.cityId).sidewalk);
+    currentAreaId = randi(nAreas);
+    currentArea = assets.city(inputs.cityId).sidewalk(currentAreaId);
+    
+    objects(cntr).area = currentAreaId;
+    objects(cntr).orientation = randi(360);
+    
+    xpos = rand(1,1)*(currentArea.xrange(2) - currentArea.xrange(1)) + currentArea.xrange(1);
+    ypos = rand(1,1)*(currentArea.yrange(2) - currentArea.yrange(1)) + currentArea.yrange(1);
+    zpos = rand(1,1)*(currentArea.zrange(2) - currentArea.zrange(1)) + currentArea.zrange(1);
+    
+    objects(cntr).position = [xpos, ypos, zpos];
+    objects(cntr).prefix = sprintf('%s_inst_%i_',currentClass,i);
+    
+    cntr = cntr+1;
+end
+
+
 
 end
 
