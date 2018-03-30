@@ -6,6 +6,12 @@ This repository includes the work we are doing to produce realistic driving scen
 
 Over time, the repository will contain the analyses from multiple papers on this topic.  This repository will depend on the isetcam, iset3d and isetcloud repositories.  In some instances, we may also depend on the RenderToolbox4 repository.
 
+## Dependencies
+1. ISETCAM
+2. RenderToolbox4 (branch cloud)
+3. RenderToolbox4-Mexximp
+4. RenderToolbox4-mPBRT
+
 ## Directory structure
 
 * Parameters - stores files describing different aspects of the camera, for 
