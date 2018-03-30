@@ -1,15 +1,23 @@
 function [ camera ] = nnGenCameras( varargin )
 
+% Generate a structure describing a camera. If arrays of values are passed
+% as inputs, then cameras are generated for each combination of paramters
+% that 'make sense.' For example, there is no notion of defocus for a
+% pinhole camera, so a pinhole camera will always be generated with
+% defocus=0. 
+%
+% Copyright, Henryk Blasinski 2018
+
 p = inputParser;
-p.addOptional('type',{'pinhole'});
-p.addOptional('lens',{'dgauss.22deg.6.0mm'});
-p.addOptional('mode',{'radiance'});
+p.addOptional('type',{'pinhole'});              % Camera type: pinhole, lens or lightfield
+p.addOptional('lens',{'dgauss.22deg.6.0mm'});   % Lens model used. If a pinhole camera is specified, the lens model is used to compute FOV.
+p.addOptional('mode',{'radiance'});             % Rendering type: radiance, mesh, material, depth
 p.addOptional('pixelSamples',128);
-p.addOptional('distance',10);
-p.addOptional('orientation',0);
-p.addOptional('orientationRange',[]);
-p.addOptional('height',-1.5);
-p.addOptional('PTR',{[0,0,0]});
+p.addOptional('distance',10);                   % Distance between the camera and the reference object
+p.addOptional('orientation',0);                 % Orientation of the lookAt vector projected onto the xy plane
+p.addOptional('orientationRange',[]);           % If specified orientation is randomly drawn from the range.
+p.addOptional('height',-1.5);                   % Hight of the camera above ground
+p.addOptional('PTR',{[0,0,0]});                 % The pan, tilt, roll of the lookAt vector
 p.addOptional('PTRrange',[]);
 p.addOptional('defocus',0);
 p.addOptional('diffraction',{'false'});
@@ -17,7 +25,8 @@ p.addOptional('chromaticAberration',{'false'});
 p.addOptional('fNumber',2.8);
 p.addOptional('filmDiagonal',1/6.4*25.4);
 p.addOptional('microlens',{[0,0]});
-p.addOptional('lookAtObject',1);
+p.addOptional('lookAtObject',1);                % Index of the object towards which the camera is pointing.
+p.addOptional('upDir',[0 0 -1]);
 
 p.parse(varargin{:});
 inputs = p.Results;
@@ -31,7 +40,6 @@ assert(length(inputs.microlens)==length(inputs.lens) || length(inputs.microlens)
 
 cntr = 1;
 viewpointCntr = 1;
-% frameCntr = 1;
 
 for c=1:length(inputs.distance)
 for d=1:length(inputs.orientation)
@@ -131,8 +139,8 @@ for h=1:max([length(diffractionVec), length(chromaticAberrationVec)])
     camera(cntr).lookAtObject = inputs.lookAtObject(l);
     
     camera(cntr).viewpointId = viewpointCntr;
-    % camera(cntr).frameId = frameCntr;
     camera(cntr).description = sprintf('View_%i_%s',viewpointCntr,inputs.mode{k});
+    camera(cntr).upDir = inputs.upDir;
     
     % These get filled in once we define a scene.
     camera(cntr).filmDistance = [];
@@ -142,7 +150,6 @@ for h=1:max([length(diffractionVec), length(chromaticAberrationVec)])
     cntr = cntr+1;
 end
 end
-% frameCntr = frameCntr + 1;
 end
 end
 end
