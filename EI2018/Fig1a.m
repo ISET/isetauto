@@ -164,19 +164,19 @@ rtbBatchRender(nativeSceneFiles, 'hints', hints);
 
 %% Build oi
 
-resultFiles = assembleSceneFiles(hints,names,values);
+sceneMetadata = assembleSceneFiles(hints,names,values);
 
-for i=1:length(resultFiles)
+for i=1:length(sceneMetadata)
     
-    radianceData = load(resultFiles(i).radiance);
+    radianceData = piReadDAT(sceneMetadata(i).radiance, 'maxPlanes', 31);
     
     oiParams.lensType = values{i,strcmp(names,'lens')};
     oiParams.filmDistance = values{i,strcmp(names,'filmDistance')};
     oiParams.filmDiag = values{i,strcmp(names,'filmDiagonal')};
     
-    [~, label] = fileparts(resultFiles(i).radiance);
+    [~, label] = fileparts(sceneMetadata(i).radiance);
         
-    oi(i) = buildOi(radianceData.multispectralImage, [], oiParams);
+    oi(i) = buildOi(radianceData, [], oiParams);
     oi(i) = oiSet(oi(i),'name',label);
 end
     
@@ -185,7 +185,7 @@ sensor = sensorCreate('bayer (rggb)');
 sensor = sensorSet(sensor,'size',[hints.imageHeight hints.imageWidth]);
 sensor = sensorSet(sensor,'pixel widthandheight',[oiGet(oi(1),'hres'), oiGet(oi(1),'wres')]);
 
-for i=1:length(resultFiles)
+for i=1:length(sceneMetadata)
     sensor = sensorCompute(sensor,oi(i));
     
     ip = ipCompute(ipCreate,sensor);
@@ -201,7 +201,7 @@ sensor = sensorCreate('mt9v024',[],'rccc');
 sensor = sensorSet(sensor,'size',[hints.imageHeight hints.imageWidth]);
 sensor = sensorSet(sensor,'pixel widthandheight',[oiGet(oi(1),'hres'), oiGet(oi(1),'wres')]);
 
-for i=1:length(resultFiles)
+for i=1:length(sceneMetadata)
     sensor = sensorCompute(sensor,oi(i));
     ieAddObject(sensor);
 end
