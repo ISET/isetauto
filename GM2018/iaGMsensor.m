@@ -55,7 +55,7 @@ ieAddObject(sensor); sensorWindow;
 % This sets it up to display reasonably for the high dynamic range.
 sensor = sensorSet(sensor,'gamma',0.7);
 
-%% An RCCC camera design - to be fixed up by BW
+%% An RCCC camera design
 
 load('MT9V024SensorRCCC','sensor');
 
@@ -68,4 +68,15 @@ ieAddObject(sensor); sensorWindow;
 % This sets it up to display reasonably for the high dynamic range.
 sensor = sensorSet(sensor,'gamma',0.7);
 
-%%
+%% An RGBW camera design 
+
+load('MT9V024SensorRGBW','sensor');
+
+sensor = sensorSetSizeToFOV(sensor,oiGet(oi,'fov'));
+sensor = sensorSet(sensor,'auto exposure',true);  % 2 ms exposure
+sensor = sensorCompute(sensor,oi);
+
+ieAddObject(sensor); sensorWindow;
+
+% This sets it up to display reasonably for the high dynamic range.
+sensor = sensorSet(sensor,'gamma',0.7);
