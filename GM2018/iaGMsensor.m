@@ -47,7 +47,7 @@ load('MT9V024SensorMono','sensor');
 % Set its field of view to match the OI field of view.
 % This changes the number of rows and columns.
 sensor = sensorSetSizeToFOV(sensor,oiGet(oi,'fov'));
-sensor = sensorSet(sensor,'auto exposure',true);  % 2 ms exposure
+sensor = sensorSet(sensor,'auto exposure',true);  
 sensor = sensorCompute(sensor,oi);
 
 ieAddObject(sensor); sensorWindow;
@@ -60,7 +60,7 @@ sensor = sensorSet(sensor,'gamma',0.7);
 load('MT9V024SensorRCCC','sensor');
 
 sensor = sensorSetSizeToFOV(sensor,oiGet(oi,'fov'));
-sensor = sensorSet(sensor,'auto exposure',true);  % 2 ms exposure
+sensor = sensorSet(sensor,'auto exposure',true);  
 sensor = sensorCompute(sensor,oi);
 
 ieAddObject(sensor); sensorWindow;
@@ -73,7 +73,20 @@ sensor = sensorSet(sensor,'gamma',0.7);
 load('MT9V024SensorRGBW','sensor');
 
 sensor = sensorSetSizeToFOV(sensor,oiGet(oi,'fov'));
-sensor = sensorSet(sensor,'auto exposure',true);  % 2 ms exposure
+sensor = sensorSet(sensor,'auto exposure',true);  
+sensor = sensorCompute(sensor,oi);
+
+ieAddObject(sensor); sensorWindow;
+
+% This sets it up to display reasonably for the high dynamic range.
+sensor = sensorSet(sensor,'gamma',0.7);
+
+%% An RCCC high resolution camera design
+
+load('ar0132atSensorRCCC','sensor');
+
+sensor = sensorSetSizeToFOV(sensor,oiGet(oi,'fov'));
+sensor = sensorSet(sensor,'auto exposure',true);  
 sensor = sensorCompute(sensor,oi);
 
 ieAddObject(sensor); sensorWindow;
