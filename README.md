@@ -28,17 +28,20 @@ For machine learning purposes all images which contained at elast one object of 
 
 1. Pinhole camera model.
 These are the base renderings generated with a pinhole camera. The data is placed in 
-
+```
 /sni/groups/wandel-test/projects/NN_Camera_Generalization/Renderings/MultiObject-Pinhole
+```
 
 2. Lens camera model.
 This dataset contains images of the scene captured using the same camera as in 1. placed in the same spatial coordinates.
-The difference is that this camera used a Double-Gaussian lens model rather than a pinhole. At each camera location the lens focus was changed from 
--20 to 20 diopters.The data corresponding to each scene is stored in individual folders:
+The difference is that this camera used a Double-Gaussian lens model rather than a pinhole. At each camera location the lens focus was changed from -20 to 20 diopters.
 
+The data corresponding to each scene is stored in individual folders
+```
 /sni/groups/wandel-test/projects/NN_Camera_Generalization/Renderings/MultiObject-Lens-City-X-Placement-Y
+```
 where X=1,2,3,4 and Y=1,2,3,4,5.
-Each scene file name is termiated with a sufix _def_BB.pbrt, where BB denotes the amount of defocus in diopters.
+Each scene file name is termiated with a sufix ```_def_BB.pbrt```, where BB denotes the amount of defocus in diopters.
 
 
 3. Motion blur.
@@ -51,9 +54,11 @@ d. The total distance the camera covers in 1/15s is divided into 80 equal interv
 e. To produce a blurry image a certain number of the 80 frames should be added together. The number of frames to add will depend on the camera velocity and framerate. For example to simulate a 60fps camera traveling at 20m/s it would be sufficient to add only the first 20 frames from each sequence.
 
 The data corresponding to each scene is stored in individual folders:
+```
 /sni/groups/wandel-test/projects/NN_Camera_Generalization/Renderings/MultiObject-MotionBlur-City-X-Placement-Y
+```
 where X=1,2,3,4 and Y=1,2,3,4,5.
-Each scene file name is terminated with a sufix _fps_15_vel_20_blr_ZZ.pbrt, where ZZ denotes the index in the blur sequence, and ranges for 1 to 80.
+Each scene file name is terminated with a sufix ```_fps_15_vel_20_blr_ZZ.pbrt```, where ZZ denotes the index in the blur sequence, and ranges for 1 to 80.
 
 
 
