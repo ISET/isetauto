@@ -16,8 +16,10 @@ Over time, the repository will contain the analyses from multiple papers on this
 
 * Parameters - stores files describing different aspects of the camera, for 
 example lens descriptions.
+  * SceneArrangements - contains text files defining object positions within a particualr city block (```AssetPos_City_X_Placement_Y.json```) as well as camera positions and characteristics (```Cameras_City_X_Placement_Y.txt```). The camera position files are formatted according to the RenderToolbox4 conditions file specification.
 * Code/Rendering - Matlab code that uses RTB4 to render images of cars in
 urban environments
+
 
 ## Renderings
 
@@ -49,7 +51,7 @@ This collection of renderers can be used to simulate images with motion blur. Mo
 This particualr collection of images is produced assuming that
 <ul>
   <li> The camera moves along the lookAt (center of the image) direction. </li>
-<li> The camera moves at a constant velocity of 20 m/s. <li>
+<li> The camera moves at a constant velocity of 20 m/s. </li>
   <li> The camera intergration time is 1/15s (or equivalently the camera operates at 15fps). </li>
 <li> The total distance the camera covers in 1/15s is divided into 80 equal intervals, and a camera image for each of those locations is rendered (producing 80 images), as if the camera was completely static. </li>
 <li> To produce a blurry image a certain number of the 80 frames should be added together. The number of frames to add will depend on the camera velocity and framerate. For example to simulate a 60fps camera traveling at 20m/s it would be sufficient to add only the first 20 frames from each sequence. </li>
