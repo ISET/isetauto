@@ -91,7 +91,7 @@ sceneWindow();
 imwrite(sceneGet(sc,'rgb image'),'scene4.png');
 
 
-%% Scene 4
+%% Scene 5
 
 camera.position = [5 0 -1.5];
 camera.PTR = [2 5 -2];
@@ -106,4 +106,20 @@ sc = piRender(cityScene,'renderType','radiance');
 ieAddObject(sc);
 sceneWindow();
 imwrite(sceneGet(sc,'rgb image'),'scene5.png');
+
+%% Scene 6
+
+camera.position = [-5 -5 -1.5];
+camera.PTR = [2 5 -2];
+camera.lookAt = [0 -40 -1.5];
+cityScene = nnPlaceCameraInIset3d(cityScene,camera);
+
+workDir = fullfile('/','scratch','hblasins','render_toolbox','testScene','scene6.pbrt');
+cityScene.set('outputFile',workDir);
+piWrite(cityScene);
+sc = piRender(cityScene,'renderType','radiance');
+        
+ieAddObject(sc);
+sceneWindow();
+imwrite(sceneGet(sc,'rgb image'),'scene6.png');
 
