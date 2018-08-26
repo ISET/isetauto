@@ -10,4 +10,4 @@ rootPath=which('iaRootPath');
 
 [rootPath,fName,ext]=fileparts(rootPath);
 
-return
+end
