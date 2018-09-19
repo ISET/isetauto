@@ -2,7 +2,7 @@
 %
 % This runs OK
 
-d = '/Users/wandell/Google Drive/Talks/SCIEN/20180814 Shanghai (Deng SAE)/Brian_shanghai/newimages';
+d = '/Users/wandell/Google Drive/Presentations/SCIEN/20180814 Shanghai (Deng SAE)/Brian_shanghai/newimages';
 chdir(d);
 
 img = exrread('scene180_1920.exr');

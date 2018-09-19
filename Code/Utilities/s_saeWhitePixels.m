@@ -3,11 +3,23 @@
 % The rendering algorithm sometimes produces these unwanted white spots
 % just, well, because of ray tracing.
 
+chdir(iaRootPath);
+
 %% Here is an image that has a bunch
+%{
 foo = load('oi_fisheye_2048.mat');
 oi = foo.oi_fisheye_2048psamples;
-
 ieAddObject(oi); oiWindow;
+%}
+
+
+foo = load('pinholes2images1024.mat');
+scene = foo.pinholes{2};
+ieAddObject(scene); sceneWindow;
+oi = oiCreate('diffraction limited');
+oi = oiCompute(oi,scene);
+ieAddObject(oi); oiWindow;
+
 
 %% Have a look.  I think you can see a bunch of white pixels
 illuminance = oiGet(oi,'illuminance');
@@ -55,6 +67,7 @@ g = ones(3,3)/8;
 g(2,2) = 0;
 photons = oiGet(oi,'photons');
 localSurround = zeros(size(photons));
+nWave = oiGet(oi,'nwave');
 for ii=1:nWave
     localSurround(:,:,ii) = conv2(photons(:,:,ii),g,'same');
 end
