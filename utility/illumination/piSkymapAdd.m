@@ -16,6 +16,7 @@ function [thisR,skymapInfo] = piSkymapAdd(thisR,skyName)
 %    piSkymapAdd(thisR,'day');
 %
 % Zhenyi,2018
+% Zhenyi, updated, 2021
 
 %%
 st = scitran('stanfordlabs');
@@ -68,28 +69,19 @@ else
     skyname= sprintf('probe_%02d-%02d_latlongmap.exr',str2double(time{1}),str2double(time{2}));
 end
 
-skylights = sprintf('LightSource "infinite" "string mapname" "%s"',skyname);
+rotation(:,1) = [0 0 0 1]';
+rotation(:,2) = [45 0 1 0]';
+rotation(:,3) = [-90 1 0 0]';
 
-index_m = find(piContains(thisR.world,'_materials.pbrt'));
+thisR = piLightDelete(thisR, 'all');
 
+skymap = piLightCreate('new skymap', 'type', 'infinite',...
+    'cameracoordinate', false,...
+    'string mapname', skyname,...
+    'rotation',rotation);
 
-% skyview = randi(360,1);
-% skyview = randi(45,1)+45;% tmp
-skyview = 45;% tmp
+thisR.set('light', 'add', skymap);
 
-world(1,:) = thisR.world(1);
-world(2,:) = cellstr(sprintf('AttributeBegin'));
-world(3,:) = cellstr(sprintf('Rotate %d 0 1 0',skyview));
-world(4,:) = cellstr(sprintf('Rotate -90 1 0 0'));
-world(5,:) = cellstr(sprintf('Scale 1 1 1'));
-world(6,:) = cellstr(skylights);
-world(7,:) = cellstr(sprintf('AttributeEnd'));
-jj=1;% skip materials and lightsource which are exported from C4D.
-for ii=index_m:length(thisR.world)
-    world(jj+7,:)=thisR.world(ii);
-    jj=jj+1;
-end
-thisR.world = world;
 
 skymapInfo = [dataId,' ',skyname];
 

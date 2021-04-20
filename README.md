@@ -1,13 +1,11 @@
 # ISETAUTO
-
-We hope to learn how well machine-learning algorithms (mainly convolutional networks) generalize for different types of cameras.  The camera variations include lenses, CFAs and other design possibilities.
-
-This repository includes the code in various papers that produced realistic driving scenes and a variety of camera designs.  We use the data from multiple camera designs to evaluate how well trained object detection networks generalize across camera designs.
-
-We expect (hope) that over time, the repository will contain the analyses from multiple papers on this topic.  
-
+ISETAuto provides the ability of creating and rendering complex dynamic driving scenes with full control of assets, material, camera and lights.
+## Scene assembly
+The scenes are created with [SUMO](https://www.eclipse.org/sumo/) and SUSO using assets saved on [Flywheel](https://flywheel.io/) (a cloud-based database).
+## Scene rendering
+To add.
 ## Dependencies
-The code in this repository depends on the isetcam, iset3d and isetcloud repositories, including both the PBRT methods and the Tensorflow methods.
+The code in this repository depends on the isetcam, iset3d and isetcloud repositories, including both the PBRT methods.
 
 
 

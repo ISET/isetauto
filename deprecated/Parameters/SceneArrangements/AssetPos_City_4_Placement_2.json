@@ -1,0 +1,324 @@
+[
+	{
+		"class": "truck",
+		"id": 2,
+		"modelPath": "ActrosGarbage/Truck_2.obj",
+		"area": 2,
+		"position": [0.8947187185,18.61356337,0],
+		"prefix": "truck_inst_1_",
+		"orientation": 93.78121856,
+		"bndbox": [
+			[-3897.027832,3897.027832],
+			[-1191.036377,1191.036377],
+			[-2761.098877,0]
+		]
+	},
+	{
+		"class": "bus",
+		"id": 1,
+		"modelPath": "MercedesCitaro/Bus_1.obj",
+		"area": 1,
+		"position": [-27.40740695,-1.219902815,0],
+		"prefix": "bus_inst_1_",
+		"orientation": 181.4493274,
+		"bndbox": [
+			[-5343.419922,5343.419922],
+			[-1319.582764,1319.582764],
+			[-2695.77002,0]
+		]
+	},
+	{
+		"class": "car",
+		"id": 9,
+		"modelPath": "AudiS7/Car_9.obj",
+		"area": 2,
+		"position": [-0.160281975,-8.846050691,0],
+		"prefix": "car_inst_1_",
+		"orientation": 192,
+		"bndbox": [
+			[-1943.865112,1941.049805],
+			[-851.0045776,845.8139038],
+			[-1130.089355,-4.555063248]
+		]
+	},
+	{
+		"class": "car",
+		"id": 13,
+		"modelPath": "NissanTitan/Car_13.obj",
+		"area": 1,
+		"position": [-16.52641477,-0.3617285153,0],
+		"prefix": "car_inst_3_",
+		"orientation": 61,
+		"bndbox": [
+			[-3187.765869,3187.766602],
+			[-1337.568848,1337.56958],
+			[-2190.184814,-6.104517937]
+		]
+	},
+	{
+		"class": "car",
+		"id": 1,
+		"modelPath": "MercedesCClass/Car_1.obj",
+		"area": 2,
+		"position": [1.345782101,-37.48176348,0],
+		"prefix": "car_inst_5_",
+		"orientation": 203,
+		"bndbox": [
+			[-2196.131104,2478.761963],
+			[-873.7629395,1122.014282],
+			[-1450.334717,0.0071419999]
+		]
+	},
+	{
+		"class": "car",
+		"id": 4,
+		"modelPath": "ToyotaCamry/Car_4.obj",
+		"area": 2,
+		"position": [0.1198237624,-14.93562699,0],
+		"prefix": "car_inst_6_",
+		"orientation": 203,
+		"bndbox": [
+			[-2164.315674,1981.390015],
+			[-946.3286743,765.5101929],
+			[-1309.978027,-3.123269081]
+		]
+	},
+	{
+		"class": "person",
+		"id": 2,
+		"modelPath": "Males/Scan3/Scan3.obj",
+		"area": 3,
+		"position": [-31.58146344,-9.653597765,-0.11],
+		"prefix": "person_inst_1_",
+		"orientation": 35,
+		"bndbox": [
+			[-157.1444855,157.1444855],
+			[-292.3552246,292.3552246],
+			[-1831.804199,0]
+		]
+	},
+	{
+		"class": "person",
+		"id": 6,
+		"modelPath": "Males/Scan10/Scan10.obj",
+		"area": 1,
+		"position": [-6.863497401,10.73062456,-0.11],
+		"prefix": "person_inst_2_",
+		"orientation": 248,
+		"bndbox": [
+			[-185.2203522,202.864624],
+			[-355.4864807,355.4864807],
+			[-1813.370605,-13.43648338]
+		]
+	},
+	{
+		"class": "person",
+		"id": 7,
+		"modelPath": "Males/Scan11/Scan11.obj",
+		"area": 2,
+		"position": [-20.52457694,3.976384817,-0.11],
+		"prefix": "person_inst_3_",
+		"orientation": 36,
+		"bndbox": [
+			[-180.5285645,180.5285645],
+			[-299.8487549,299.8487549],
+			[-1797.239014,0]
+		]
+	},
+	{
+		"class": "person",
+		"id": 5,
+		"modelPath": "Males/Scan9/Scan9.obj",
+		"area": 2,
+		"position": [-16.27932083,5.408157398,-0.11],
+		"prefix": "person_inst_4_",
+		"orientation": 347,
+		"bndbox": [
+			[-161.5277252,161.5277252],
+			[-299.8582458,299.8582458],
+			[-1800.760986,0]
+		]
+	},
+	{
+		"class": "person",
+		"id": 1,
+		"modelPath": "Males/Scan1/Scan1.obj",
+		"area": 1,
+		"position": [-7.103790398,1.900291108,-0.11],
+		"prefix": "person_inst_6_",
+		"orientation": 124,
+		"bndbox": [
+			[-285.0788879,285.0788879],
+			[-337.8361206,337.8361206],
+			[-1800.393921,0]
+		]
+	},
+	{
+		"class": "person",
+		"id": 1,
+		"modelPath": "Males/Scan1/Scan1.obj",
+		"area": 1,
+		"position": [-4.072425194,15.87186318,-0.11],
+		"prefix": "person_inst_7_",
+		"orientation": 283,
+		"bndbox": [
+			[-285.0788879,285.0788879],
+			[-337.8361206,337.8361206],
+			[-1800.393921,0]
+		]
+	},
+	{
+		"class": "person",
+		"id": 11,
+		"modelPath": "Males/Scan19/Scan19.obj",
+		"area": 2,
+		"position": [-36.2248759,5.544855646,-0.11],
+		"prefix": "person_inst_8_",
+		"orientation": 229,
+		"bndbox": [
+			[-190.5243225,190.5243225],
+			[-298.2192383,298.2192383],
+			[-1807.139282,0]
+		]
+	},
+	{
+		"class": "person",
+		"id": 7,
+		"modelPath": "Males/Scan11/Scan11.obj",
+		"area": 4,
+		"position": [-3.871882048,-32.25287839,-0.11],
+		"prefix": "person_inst_9_",
+		"orientation": 114,
+		"bndbox": [
+			[-180.5285645,180.5285645],
+			[-299.8487549,299.8487549],
+			[-1797.239014,0]
+		]
+	},
+	{
+		"class": "person",
+		"id": 2,
+		"modelPath": "Males/Scan3/Scan3.obj",
+		"area": 2,
+		"position": [-35.39573099,6.249242954,-0.11],
+		"prefix": "person_inst_10_",
+		"orientation": 4,
+		"bndbox": [
+			[-157.1444855,157.1444855],
+			[-292.3552246,292.3552246],
+			[-1831.804199,0]
+		]
+	},
+	{
+		"class": "person",
+		"id": 1,
+		"modelPath": "Males/Scan1/Scan1.obj",
+		"area": 5,
+		"position": [4.887956098,-29.48441185,-0.11],
+		"prefix": "person_inst_11_",
+		"orientation": 127,
+		"bndbox": [
+			[-285.0788879,285.0788879],
+			[-337.8361206,337.8361206],
+			[-1800.393921,0]
+		]
+	},
+	{
+		"class": "person",
+		"id": 10,
+		"modelPath": "Males/Scan16/Scan16.obj",
+		"area": 1,
+		"position": [-6.467022341,14.42425465,-0.11],
+		"prefix": "person_inst_12_",
+		"orientation": 158,
+		"bndbox": [
+			[-178.9423065,178.9423065],
+			[-300.3325195,300.3325195],
+			[-1812.744141,0]
+		]
+	},
+	{
+		"class": "person",
+		"id": 7,
+		"modelPath": "Males/Scan11/Scan11.obj",
+		"area": 4,
+		"position": [-3.792465769,-34.18204463,-0.11],
+		"prefix": "person_inst_13_",
+		"orientation": 358,
+		"bndbox": [
+			[-180.5285645,180.5285645],
+			[-299.8487549,299.8487549],
+			[-1797.239014,0]
+		]
+	},
+	{
+		"class": "person",
+		"id": 23,
+		"modelPath": "Females/11/Scan-11.obj",
+		"area": 5,
+		"position": [4.585204668,36.96416327,-0.11],
+		"prefix": "person_inst_14_",
+		"orientation": 182,
+		"bndbox": [
+			[-161.3520203,238.5591583],
+			[-256.7685547,346.8497009],
+			[-1753.999634,2.84363699]
+		]
+	},
+	{
+		"class": "person",
+		"id": 9,
+		"modelPath": "Males/Scan15/Scan15.obj",
+		"area": 1,
+		"position": [-5.483484226,33.95838206,-0.11],
+		"prefix": "person_inst_15_",
+		"orientation": 132,
+		"bndbox": [
+			[-188.3101349,188.3101349],
+			[-224.7825012,224.7825012],
+			[-1803.944824,0]
+		]
+	},
+	{
+		"class": "person",
+		"id": 23,
+		"modelPath": "Females/11/Scan-11.obj",
+		"area": 3,
+		"position": [-25.34730727,-11.54457558,-0.11],
+		"prefix": "person_inst_16_",
+		"orientation": 120,
+		"bndbox": [
+			[-161.3520203,238.5591583],
+			[-256.7685547,346.8497009],
+			[-1753.999634,2.84363699]
+		]
+	},
+	{
+		"class": "person",
+		"id": 23,
+		"modelPath": "Females/11/Scan-11.obj",
+		"area": 4,
+		"position": [-5.707868676,-34.38043802,-0.11],
+		"prefix": "person_inst_18_",
+		"orientation": 91,
+		"bndbox": [
+			[-161.3520203,238.5591583],
+			[-256.7685547,346.8497009],
+			[-1753.999634,2.84363699]
+		]
+	},
+	{
+		"class": "person",
+		"id": 24,
+		"modelPath": "Females/12/Scan-12.obj",
+		"area": 2,
+		"position": [-11.60862933,5.622668808,-0.11],
+		"prefix": "person_inst_20_",
+		"orientation": 168,
+		"bndbox": [
+			[-310.8365784,187.9386292],
+			[-274.8513794,274.8295288],
+			[-1748.17041,8.818354607]
+		]
+	}
+]

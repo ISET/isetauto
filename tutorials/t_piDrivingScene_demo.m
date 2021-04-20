@@ -38,9 +38,6 @@ ieInit;
 if ~piDockerExists, piDockerConfig; end
 if ~mcGcloudExists, mcGcloudConfig; end
 
-%% Open the Flywheel site
-st = scitran('stanfordlabs');
-
 %% Initialize your GCP cluster
 
 % Initializing takes a few minutes
@@ -74,7 +71,8 @@ str = gcp.configList;
 % general conditions. 
 %
 % To see the available roadTypes use piRoadTypes
-
+%% Open the Flywheel site
+st = scitran('stanfordlabs');
 % For this demo, here is one of the road types
 roadType = 'curve_6lanes_001';
 
@@ -88,9 +86,9 @@ trafficflowDensity = 'low';
 timestamp = 100;
 
 % Find the proper trafficflow file from data folder 
-trafficflowPath   = fullfile(piRootPath,'data','sumo_input','demo',...
+trafficflowPath   = fullfile(iaRootPath,'data','sumo_input','demo',...
     'trafficflow',sprintf('%s_%s_trafficflow.mat',roadType,trafficflowDensity));
-localTF = fullfile(piRootPath,'local','trafficflow');
+localTF = fullfile(iaRootPath,'local','trafficflow');
 
 % Copy the file to a local directory
 if ~exist(localTF,'dir'), mkdir(localTF);end
@@ -176,7 +174,7 @@ disp('*** Camera created')
 tfFileName = sprintf('%s_%s_trafficflow.mat',roadType,trafficflowDensity);
 
 % Full path to file
-tfFileName = fullfile(piRootPath,'local','trafficflow',tfFileName);
+tfFileName = fullfile(iaRootPath,'local','trafficflow',tfFileName);
 
 % Load the trafficflow variable, which contains the whole time series
 load(tfFileName,'trafficflow');
@@ -198,10 +196,10 @@ disp('*** Camera positioned')
 %% Set the file names for input and output
 
 if piContains(sceneType,'city')
-    outputDir = fullfile(piRootPath,'local',strrep(road.roadinfo.name,'city',sceneType));
+    outputDir = fullfile(iaRootPath,'local',strrep(road.roadinfo.name,'city',sceneType));
     thisR.inputFile = fullfile(outputDir,[strrep(road.roadinfo.name,'city',sceneType),'.pbrt']);
 else
-    outputDir = fullfile(piRootPath,'local',strcat(sceneType,'_',road.name));
+    outputDir = fullfile(iaRootPath,'local',strcat(sceneType,'_',road.name));
     thisR.inputFile = fullfile(outputDir,[strcat(sceneType,'_',road.name),'.pbrt']);
 end
 
@@ -312,7 +310,7 @@ disp('*** Downloaded ieObject')
 oiWindow(ieObject);
 
 % Save a png of the OI, but after passing through a sensor
-fname = fullfile(piRootPath,'local',[ieObject.name,'.png']);
+fname = fullfile(iaRootPath,'local',[ieObject.name,'.png']);
 % piOI2ISET is a similar function, but frequently changed by Zhenyi for different experiments, 
 % so this function is better for a tutorial.
 img = piSensorImage(ieObject,'filename',fname,'pixel size',2.5);
