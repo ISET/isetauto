@@ -1,121 +1,66 @@
-function asset = piFWAssetCreate(varargin)
-% Create a struct of Flywheel assets 
+function recipe = piFWAssetCreate(acq, varargin)
+% Create a flywheel asset
 %
-% Description
-%  The assets are found on Flywheel.  Each asset is stored with a
-%  generic recipe that defines how to render it. The information about
-%  all of the assets in the scene are placed in the returned asset
-%  struct. This has slots like asset.bicycle()
+% Syntax:
+%  recipe = piFWAssetCreate(acq, varargin)
+% 
+% Required:
+% acq    - an asset acquision which stores asset recipe and CG resources 
+%          (textures, meshes)
+% 
+% Optional:
+% resources  - a flag decides whether download reciepe and CG resources or 
+%              recipe only
+% dstDir     - destination directory where CG resources will be saved, if 
+%              no dstDir is given, a default directory is created using the 
+%              asset name at isetauto/local.
 %
-% Inputs
-%   N/A
-%
-% Optional key/value parameters
-%   ncars
-%   ntrucks
-%   nped
-%   nbuses
-%   ncyclist
-%   scitran
-%
-% Returns
-%   assets - Struct with the asset geometries and materials
-%
-% Zhenyi, Vistasoft Team, 2018
-
-%% Parse input parameters
-varargin =ieParamFormat(varargin);
-
+% Return:
+% recipe    - asset recipe
+% 
+%%
 p = inputParser;
-
-p.addParameter('ncars',0);
-p.addParameter('ntrucks',0);
-p.addParameter('nped',0);
-p.addParameter('nbuses',0);
-p.addParameter('nbikes',0); % Cyclist contains two class: rider and bike.
-p.addParameter('resources',true)
-p.addParameter('scitran','',@(x)(isa(x,'scitran')));
+p.addParameter('resources',false,@islogical);
+p.addParameter('dstDir','',@ischar);
 
 p.parse(varargin{:});
 
-inputs = p.Results;
-st     = p.Results.scitran;
+resourcesFlag = p.Results.resources;
+dstDir = p.Results.dstDir;
 
-resources = p.Results.resources;
-if resources== 0
-    resources = false;
-else
-    resources = true;
-end
-if isempty(st), st = scitran('stanfordlabs'); end
 
-%%  Store up the asset information
-
-project = st.lookup('wandell/Graphics auto');
-asset = [];
-
-%% Find the cars in the database
-if p.Results.ncars > 0
-    session = project.sessions.findOne('label=car');
-    % Create Assets obj struct
-    % Download random assets from flywheel
-    assetRecipe = piAssetDownload(session,inputs.ncars,'resources',resources);
-    
-    % Analyze the downloaded scenes in fname and create the returned asset
-    asset.car = piAssetAssign(assetRecipe,'label','car');
-end
-%% Find the buses in the database
-if p.Results.nbuses > 0
-    session = project.sessions.findOne('label=bus');
-    
-    % Create Assets obj struct
-    % Download random assets from flywheel
-    assetRecipe = piAssetDownload(session,inputs.nbuses,'resources',resources);
-    
-    % Analyze the downloaded scenes in fname and create the returned asset
-    asset.bus = piAssetAssign(assetRecipe,'label','bus');
+tmpDir = [pwd, '/tmp',num2str(randi(1000))];
+mkdir(tmpDir);
+tmpRecipe = [tmpDir, '/tmp.json'];
+for ii = 1:length(acq.files)
+    if contains(acq.files{ii}.name, 'recipe')
+        acq.downloadFile(acq.files{ii}.name, tmpRecipe);
+        break;
+    end
 end
 
-%% Find the buses in the database
-if p.Results.ntrucks > 0
-    % Find the session with the label car
-    session = project.sessions.findOne('label=bus');
-    
-    % Create Assets obj struct
-    % Download random assets from flywheel
-    assetRecipe = piAssetDownload(session,inputs.ntrucks,'resources',resources);
-    
-    % Analyze the downloaded scenes in fname and create the returned asset
-    asset.truck = piAssetAssign(assetRecipe,'label','truck');
-end
+recipe = piJson2Recipe(tmpRecipe);
 
-%% Get the people from the database
-if p.Results.nped > 0
-    % Find the session with the label car
-    session = project.sessions.findOne('label=pedestrian');
-    
-    % Create Assets obj struct
-    % Download random assets from flywheel
-    assetRecipe = piAssetDownload(session,inputs.nped,'resources',resources);
-    
-    % Analyze the downloaded scenes in fname and create the returned asset
-    asset.pedestrian = piAssetAssign(assetRecipe,'label','pedestrian');
-end
-%% Get the bikes from the database
-if p.Results.nbikes > 0
-    % Find the session with the label car
-    session = project.sessions.findOne('label=bike');
-    
-    % Create Assets obj struct
-    % Download random assets from flywheel
-    assetRecipe = piAssetDownload(session,inputs.nbikes,'resources',resources);
-    
-    % Analyze the downloaded scenes in fname and create the returned asset
-    asset.bicycle = piAssetAssign(assetRecipe,'label','bike');
-end
+% remove tmp dir
+rmdir(tmpDir,'s');
 
-
-%%
-disp('Assets are assembled!')
+if resourcesFlag
+    % create destination directory
+    if isempty(dstDir)
+        [~, fname, ~] = fileparts(recipe.outputfile);
+        dstDir = fullfile(iaRootPath, 'local', fname);
+    end
+    
+    if ~exist(dstDir,'dir'), mkdir(dstDir);end
+    dstFile = fullfile(dstDir, 'tmp.zip');
+    for ii = 1:length(acq.files)
+        if strcmpi(acq.files{ii}.type,'CG Resource')
+            acq.downloadFile(acq.files{ii}.name, dstFile);
+        end
+    end
+    unzip(dstFile, dstDir);
+    % addpath(genpath(dstDir))
+    delete(dstFile);
+end
 
 end

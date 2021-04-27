@@ -39,44 +39,39 @@ if ~piScitranExists, error('scitran installation required'); end
 sceneName = 'plane';
 % FilePath = fullfile(piRootPath,'data','V3',sceneName);
 fname = '/Users/zhenyi/Desktop/plane/plane.pbrt';
-if ~exist(fname,'file'), error('File not found'); end
-
-scene = piRead(fname);
-
-scene.set('fov',45);
-scene.set('from', [0 1.5 5]);
-scene.set('to',[0 0.5 0]);
-scene.set('up',[0 1 0]);
-
+sceneR = piRead(fname);
+% set output file
 outFile = fullfile(piRootPath,'local',sceneName,sprintf('%s.pbrt',sceneName));
-scene.set('outputFile',outFile);
+sceneR.set('outputFile',outFile);
+% render quality
+sceneR.set('film resolution',[800 600]);
+sceneR.set('pixel samples',32);
+% camera properties
+sceneR.set('fov',45);
+sceneR.set('from', [0 1.5 5]);
+sceneR.set('to',[0 0.5 0]);
+sceneR.set('up',[0 1 0]);
 %% get a random car and a random person from flywheel
 % take some time, maybe you dont want to run this everytime when you debug
 % assets = piFWAssetCreate('ncars',1, 'nped',1);
 st = scitran('stanfordlabs');
-acq = st.fw.lookup('wandell/Graphics auto/assets/car/Car_085');% 
+object_acq = st.fw.lookup('wandell/Graphics auto/assets/car/Car_085');% 
 % acq_tmp  = st.lookup('wandell/Graphics auto/assets/car/Car_085','full');
-% download recipe
-assetRecipe = piFWRecipeDownload(acq);
 dstDir = fullfile(iaRootPath, 'local','Car_085');
-assetRecipe.set('outputFile', fullfile(dstDir,'Car_085.pbrt'));
-% download assets
-piFWResourceDownload(acq, dstDir)
+
+objectR = piFWAssetCreate(object_acq, 'resources', true, 'dstDir', dstDir);
+
+objectR.set('outputFile', fullfile(dstDir,'Car_085.pbrt'));
 
 %% add downloaded asset information to Render recipe.
-scene = iaRecipeMerge(scene, assetRecipe);
-
-%% Set render quality
-% This is a low resolution for speed.
-scene.set('film resolution',[800 600]);
-scene.set('pixel samples',32);
+sceneR = iaRecipeMerge(sceneR, objectR);
 
 %% Get a sky map from Flywheel, and use it in the scene
 thisTime = '16:30';
 % We will put a skymap in the local directory so people without
 % Flywheel can see the output
 if piScitranExists
-    [~, skymapInfo] = piSkymapAdd(scene,thisTime);
+    [~, skymapInfo] = piSkymapAdd(sceneR,thisTime);
     
     % The skymapInfo is structured according to python rules.  We convert
     % to Matlab format here. The first cell is the acquisition ID
@@ -84,7 +79,7 @@ if piScitranExists
     s = split(skymapInfo,' ');
     
     % The destination of the skymap file
-    skyMapFile = fullfile(fileparts(scene.outputFile),s{2});
+    skyMapFile = fullfile(fileparts(sceneR.outputFile),s{2});
     
     % If it exists, move on. Otherwise open up Flywheel and
     % download the skypmap file.
@@ -98,29 +93,31 @@ if piScitranExists
     end
 end
 
-scene.set('max depth',10);
+sceneR.set('max depth',10);
 
-%% This adds materials to all assets in this scene
+%% This adds predefined sceneauto materials to the assets in this scene
 
-piAutoMaterialGroupAssign(scene);  
+piAutoMaterialGroupAssign(sceneR);  
 
 %%
-colorkd = piColorPick('black');
+colorkd = piColorPick('yellow');
 name = 'HDM_06_002_carbody_black';
-scene.set('material',name,'kd value',colorkd);
+sceneR.set('material',name,'kd value',colorkd);
 % Assign a nice position.
-scene.set('asset','0004ID_HDM_06_002_B','world translation',[0.5 0 0]);
-scene.set('asset','0004ID_HDM_06_002_B','world rotation',[0 -45 0]);
+sceneR.set('asset','0004ID_HDM_06_002_B','world translation',[0.5 0 0]);
+sceneR.set('asset','0004ID_HDM_06_002_B','world rotation',[0 -15 0]);
+sceneR.set('asset','0004ID_HDM_06_002_B','world rotation',[0 -30 0]);
+
 
 %% Write out the pbrt scene file, based on scene.
-piWrite(scene);
+piWrite(sceneR);
 
 %% Render.
 
 % Maybe we should speed this up by only returning radiance.
-[renderingScene, result] = piRender(scene,'render type','radiance');
+[scene, result] = piRender(sceneR,'render type','radiance');
 
-renderingScene = sceneSet(renderingScene,'name',sprintf('Time: %s',thisTime));
-sceneWindow(renderingScene);
-sceneSet(renderingScene,'display mode','hdr');         
+scene = sceneSet(scene,'name',sprintf('Time: %s',thisTime));
+sceneWindow(scene);
+sceneSet(scene,'display mode','hdr');         
 %% END

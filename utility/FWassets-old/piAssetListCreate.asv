@@ -56,9 +56,6 @@ if isempty(acquisitionname)
             mkdir(localFolder)
         end
         
-        thisR = piFWRecipeDownload(thisAcq{ii}.files);
-        
-        
         % Download the recipe and the resources
         thisRecipe   = stFileSelect(acqs{ii}.files,'type','source code');
         thisResource = stFileSelect(acqs{ii}.files,'type','CG Resource');
@@ -87,9 +84,9 @@ else
             mkdir(localFolder)
         end
         thisRecipe = stFileSelect(thisAcq{dd}.files,'type','source code');
-
-        thisR = piFWRecipeDownload(thisAcq{dd}.files);
-        
+        thisRecipe{1}.download(destName_recipe);
+        thisR = jsonread(destName_recipe);
+        piFWRecipeDownload(thisAcq{dd}.files)
         thisResource = stFileSelect(thisAcq{dd}.files,'type','CG Resource');
         assetlist(dd).name = acqLabel;
         assetlist(dd).material.list     = thisR.materials.list;

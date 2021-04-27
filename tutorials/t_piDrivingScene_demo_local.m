@@ -55,7 +55,7 @@ trafficflowDensity = 'low';
 timestamp = 100;
 
 % Find the proper trafficflow file from data folder 
-trafficflowPath   = fullfile(piRootPath,'data','sumo_input','demo',...
+trafficflowPath   = fullfile(iaRootPath,'data','sumo_input','demo',...
     'trafficflow',sprintf('%s_%s_trafficflow.mat',roadType,trafficflowDensity));
 localTF = fullfile(piRootPath,'local','trafficflow');
 
@@ -63,6 +63,9 @@ localTF = fullfile(piRootPath,'local','trafficflow');
 if ~exist(localTF,'dir'), mkdir(localTF);end
 copyfile(trafficflowPath,localTF);
 disp('*** Road traffic flow')
+
+% Render on local (set to true for cloud rendering)
+cloudrenderFlag = false; 
 
 %% Initialize the recipe for the type of driving conditions
 
@@ -89,6 +92,7 @@ disp('*** Scene Generation.....')
     'roadType',roadType,...
     'trafficflowDensity',trafficflowDensity,...
     'timeStamp',timestamp,...
+    'cloudrender',cloudrenderFlag,...
     'scitran',st);
 
 % SUMO parameters.  Some day we will move this code into piSceneAuto,

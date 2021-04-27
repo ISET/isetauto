@@ -26,7 +26,6 @@ function [thisR_scene,road] = piSceneAuto(varargin)
 %
 % Author:
 %   Zhenyi Liu
-%   Update: Zhenyi, 2021
 %
 % See also
 %   piRoadTypes, t_piDrivingScene_demo
@@ -63,10 +62,13 @@ if isempty(st), st = scitran('stanfordlabs'); end
 
 %% Read a road from Flywheel that we will use with SUMO
 
-% Lookup the session with the road information
-roadSession = st.fw.lookup('wandell/Graphics auto/assets/road');
+% Lookup the flywheel project with all the Graphics auto
+subject = st.lookup('wandell/Graphics auto/assets');
 
-% Create the road
+% Find the session with the road information
+roadSession = subject.sessions.findOne('label=road');
+
+% Assemble the road
 [road,thisR_road] = piRoadCreate('roadtype',roadType,...
     'trafficflowDensity',trafficflowDensity,...
     'session',roadSession,...

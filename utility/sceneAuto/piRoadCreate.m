@@ -1,4 +1,4 @@
-function [road,assetRecipe] = piRoadCreate(varargin)
+function [road,thisR] = piRoadCreate(varargin)
 % Generate a roadtype struct for Sumo TrafficFlow generation
 %
 % Syntax
@@ -16,7 +16,6 @@ function [road,assetRecipe] = piRoadCreate(varargin)
 %  cloudRender
 %
 % Zhenyi, 2018
-% Update: Zhenyi, 2021
 
 %%
 
@@ -41,7 +40,8 @@ st = p.Results.scitran;
 
 if isempty(st), st = scitran('stanfordlabs'); end
 
-%% generate road information
+%% write out
+
 piRoadInfo;
 
 % load it
@@ -78,7 +78,7 @@ end
 %% Check the road type and downald road assets
 
 
-Road_acq = roadSession.acquisitions.findOne(sprintf('label=%s',roadtype));
+acqs = roadSession.acquisitions.findOne(sprintf('label=%s',roadtype));
 
 
 % This is the rendering recipe for the road session
@@ -104,17 +104,10 @@ for ii = 1: length(roadinfo)
         break;
     end
 end
-% get recipe
-assetRecipe = piFWRecipeDownload(Road_acq);
-
-[~, filename, ~]=fileparts(assetRecipe.outputFile);
-dstDir = fullfile(iaRootPath,'local', filename);
-
-% If we decide to render locally, download the CG resources
-if ~cloudRenderFlag
-    piFWResourceDownload(Road_acq, dstDir)
-end
-
+% If cloudRenderFlag is true, then no resources will be downloaded
+assetRecipe = piAssetDownload(roadSession,1,...
+    'acquisition',roadtype,...
+    'resources',~cloudRenderFlag);
 
 % Set the temporal sampling interval for the SUMO simulation.  
 switch trafficflowDensity
@@ -128,14 +121,21 @@ end
 % Map key/value pairs
 road.vTypes=containers.Map(vTypes,interval);
 
-%% include "others" data
-% others data include basic data which will be used for rendering 
-% e.g. lens file, spd files
+%% Read out a road render recipe
+thisR = piJson2Recipe(assetRecipe{1}.name, 'update', true);
+% filename = strcat(sceneType,'_',roadtype);
+
+% InputFile is used to create a cloudbucket, so we assign a predefined
+% inputfile name to this Recipe.
+% thisR.inputFile = fullfile(f,[filename,'.pbrt']);
+% fileFolder =  strrep(f,sceneType_tmp,sceneType);
+% if exist(fileFolder,'dir'),mkdir(fileFolder);end
+% thisR.outputFile = fullfile(fileFolder,[filename,'.pbrt']);
 
 data_acq = st.fw.lookup('wandell/Graphics auto/assets/data/others');
-thisResource = stFileSelect(Road_acq.files,'type','CG Resource');
+thisResource = stFileSelect(acqs.files,'type','CG Resource');
 road.fwList = [data_acq.id,' ','data.zip',' ',...
-    Road_acq.id,' ',...
+    acqs.id,' ',...
     thisResource{1}.name];
 end
 
