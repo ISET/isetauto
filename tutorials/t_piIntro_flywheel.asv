@@ -42,7 +42,7 @@ sceneR.set('to',[0 0.5 0]);
 sceneR.set('up',[0 1 0]);
 
 % scale and rotate checkerboard
-sceneR.set('assets','0002ID_Checkerboard_B','scale',[10 10 1]);
+sceneR.set('assets','0002ID_Checkerboard_B','scale',[100 100 1]);
 sceneR.set('asset','Checkerboard_B','world rotation',[90 0 0]);
 %% Get a car from Flywheel
 
