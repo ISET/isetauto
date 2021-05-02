@@ -37,13 +37,13 @@ sceneR.set('max depth',10);
 
 % camera properties
 sceneR.set('fov',60);
-sceneR.set('from', [0 1.5 5]);
+sceneR.set('from', [0 1.5 2]);   % from was 5
 sceneR.set('to',[0 0.5 0]);
 sceneR.set('up',[0 1 0]);
 
 % scale and rotate checkerboard
 sceneR.set('assets','0002ID_Checkerboard_B','scale',[10 10 1]);
-sceneR.set('asset','Checkerboard_B','world rotation',[90 0 0]);
+sceneR.set('asset','Checkerboard_B','world rotation',[90 30 0]);
 %% Get a car from Flywheel
 
 % Open the connection
