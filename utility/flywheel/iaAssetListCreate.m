@@ -1,5 +1,5 @@
-function assetlist = piAssetListCreate(varargin)
-% Create an assetList for stationary objects on flywheel
+function assetlist = iaAssetListCreate(varargin)
+% Create an assetList for objects on flywheel
 %
 % Syntax:
 %
@@ -21,7 +21,7 @@ function assetlist = piAssetListCreate(varargin)
 
 %%
 p = inputParser;
-p.addRequired('session','');
+p.addParameter('session','');
 p.addParameter('acquisition','');
 p.addParameter('nassets',[]);
 p.addParameter('scitran',[]);
@@ -35,18 +35,24 @@ end
 
 sessionname      = p.Results.session;
 acquisitionname  = p.Results.acquisition;
-nassets  = p.Results.nassets;
+nassets          = p.Results.nassets;
+
+% return empty if no assets are requested.
+if nassets == 0, assetlist=[];return; end
 
 %% Find all the acuisitions
-session = st.lookup(sprintf('wandell/Graphics auto/assets/%s',sessionname),'full');
+session = st.lookup(sprintf('wandell/Graphics auto/assets/%s', sessionname), true);
 acqs    = session.acquisitions();
 
 %%
 nDatabaseAssets = length(acqs);
+
 if isempty(acquisitionname)
-    %% No acquisition name. Loop across all of them.
+    % No acquisition name. Loop across all of them.
 
     if ~isempty(nassets)
+        % if an asset is used more than once, we create an object instance
+        % list. Object instancing saves memory usage and rendering time.
         assetList_select = randi(nDatabaseAssets,nassets,1);
     else
         assetList_select = 1:nDatabaseAssets;
@@ -54,13 +60,13 @@ if isempty(acquisitionname)
     
     % Assets we want to download
     downloadList = piObjectInstanceCount(assetList_select);
-    nDownloads = numel(downloadList);
-    assetlist = cell(nDownloads,1);
+    nDownloads   = numel(downloadList);
     
     for ii = 1:nDownloads
-        assetIndex = downloadList(ii).index;
-        acqLabel = acqs{assetIndex}.label;
-        localFolder = fullfile(piRootPath,'local','AssetLists',acqLabel);
+        assetIndex  = downloadList(ii).index;
+        acqLabel    = acqs{assetIndex}.label;
+        localFolder = fullfile(iaRootPath,'local','AssetLists',acqLabel);
+        
         if ~exist(localFolder,'dir')
             mkdir(localFolder)
         end
@@ -69,55 +75,48 @@ if isempty(acquisitionname)
         
 
         assetlist(ii).name               = acqLabel;
-        assetlist(ii).materials.list     = thisR.materials.list;
-        assetlist(ii).materials.txtLines = thisR.materials.txtLines;
-        assetlist(ii).geometry           = thisR.assets;
-        assetlist(ii).geometryPath       = fullfile(localFolder,'scene','PBRT','pbrt-geometry');
-        assetName                        = getAssetName(thisR, acqLabel);
+        assetlist(ii).recipe             = thisR;
+        assetName                        = getAssetName(thisR);
         assetlist(ii).size               = thisR.get('assets',assetName,'size');
         assetlist(ii).position           = thisR.get('assets',assetName,'world position');
         assetlist(ii).rotation           = thisR.get('assets',assetName,'world rotationmatrix');
         assetlist(ii).fwInfo             = [acqId,' ',resourcesName];
-        assetlist{ii}.count              = downloadList(ii).count;
+        assetlist(ii).count              = downloadList(ii).count; % how many times this asset are instantiated.
     end
     
-    fprintf('%d files added to the asset list.\n',nDatabaseAssets);
+    fprintf('%d assets added to the list.\n',nDownloads);
 else
     %% We have the name, so find the acquisitions that match the name, and 
     % we can have multiple matched acquisitions.
     thisAcq = stSelect(acqs,'label',acquisitionname);
-
-    assetlist = cell(numel(thisAcq),1);
+%     assetlist = zeros(numel(thisAcq),1);
     % Loop across all of them
+    assetlist = struct();
     for ii = 1:numel(thisAcq)
         acqLabel = thisAcq{ii}.label;
-        localFolder = fullfile(piRootPath,'local','AssetLists',acqLabel);
+        localFolder = fullfile(iaRootPath,'local','AssetLists',acqLabel);
         if ~exist(localFolder,'dir')
             mkdir(localFolder)
         end
         [thisR, acqId, resourcesName]   = piFWAssetCreate(thisAcq{ii});        
         
-        assetlist(ii).name = acqLabel;
-        assetlist(ii).material.list     = thisR.materials.list;
-        assetlist(ii).material.txtLines = thisR.materials.txtLines;
-        assetlist(ii).geometry          = thisR.assets;
-        assetlist(ii).geometryPath      = fullfile(localFolder,'scene','PBRT','pbrt-geometry');
-        assetName                       = getAssetName(thisR, acqLabel);
+        assetlist(ii).name              = acqLabel;
+        assetlist(ii).recipe            = thisR;
+        assetName                       = getAssetName(thisR);
         assetlist(ii).size              = thisR.get('assets',assetName,'size');
         assetlist(ii).position          = thisR.get('assets',assetName,'world position');
         assetlist(ii).rotation          = thisR.get('assets',assetName,'world rotationmatrix');
         assetlist(ii).fwInfo            = [acqId,' ',resourcesName];
+        assetlist(ii).count             = 1;
     end
     fprintf('%s added to the list.\n',acqLabel);
 end
 end
-function assetName = getAssetName(thisR, acqLabel)
+function assetName = getAssetName(thisR)
     assetNames = thisR.get('asset names');
     % this may cause problems.
     for ii = 1:numel(assetNames)
-        if piContains(assetNames{ii},'_B') &&...
-                piContains(assetNames{ii},acqLabel)
-            
+        if piContains(assetNames{ii},'_B')
             assetName = assetNames{ii};
             break;
         end

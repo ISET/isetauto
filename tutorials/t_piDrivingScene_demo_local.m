@@ -1,4 +1,4 @@
-%% Automatically assemble an automotive scene and render using Google Cloud
+%% Automatically assemble an automotive scene and render locally
 %
 %    t_piDrivingScene_demo
 %
@@ -7,7 +7,9 @@
 %
 % Description:
 %   Generate driving scenes using the gcloud (kubernetes) methods.  The
-%   scenes are built by sampling roads from the Flywheel database.
+%   scenes are built by sampling roads from the Flywheel database. To be
+%   able to render locally, number of assets are reduced to be able to run
+%   on a local computer (with less cores and memory).
 %
 %   To delete the cluster when you are done execute the command
 %
@@ -64,9 +66,6 @@ if ~exist(localTF,'dir'), mkdir(localTF);end
 copyfile(trafficflowPath,localTF);
 disp('*** Road traffic flow')
 
-% Render on local (set to true for cloud rendering)
-cloudrenderFlag = false; 
-
 %% Initialize the recipe for the type of driving conditions
 
 % Available sceneTypes: city1, city2, city3, city4, citymix, suburb
@@ -88,33 +87,51 @@ disp('*** Scene Generation.....')
 
 % The recipe returned here, thisR, includes all the information about
 % the assets and driving conditions
-[thisR,road] = piSceneAuto('sceneType',sceneType,...
+[sceneR, sceneInfo] = piSceneAuto('sceneType',sceneType,...
     'roadType',roadType,...
     'trafficflowDensity',trafficflowDensity,...
     'timeStamp',timestamp,...
-    'cloudrender',cloudrenderFlag,...
     'scitran',st);
 
 % SUMO parameters.  Some day we will move this code into piSceneAuto,
 % which has these parameters already anyway.
-thisR.set('traffic flow density',trafficflowDensity);
-thisR.set('traffic timestamp',timestamp);
+sceneR.set('traffic flow density',trafficflowDensity);
+sceneR.set('traffic timestamp',timestamp);
 toc
 
 disp('*** Driving scene recipe initialized.')
 
 %% Add a skymap and add SkymapFwInfo to fwList
 
-dayTime = '9:30';
-[thisR,skymapfwInfo] = piSkymapAdd(thisR,dayTime);
-road.fwList = [road.fwList,' ',skymapfwInfo];
+thisTime = '16:30';  % The time of day of the sky
+
+% We will put a skymap in the local directory so people without
+% Flywheel can see the output
+[acqID, skyname] = piFWSkymapAdd(thisTime, st);
+
+% Add a light to the merged scene
+
+% Delete any lights that happened to be there
+sceneR = piLightDelete(sceneR, 'all');
+
+rotation = piRotationMatrix('y',45, 'x',-90);
+
+skymap = piLightCreate('new skymap', ...
+    'type', 'infinite',...
+    'string mapname', skyname,...
+    'rotation',rotation);
+
+sceneR.set('light', 'add', skymap);
+
+skymapfwInfo = [acqID,' ',skyname];
+sceneInfo.fwList = [sceneInfo.fwList,' ',skymapfwInfo];
 disp('*** Skymap added')
 
 %% Camera render parameters
 
 % The camera lenses are stored in data/lens
 lensname = 'wide.56deg.6.0mm.dat';
-thisR.camera = piCameraCreate('realistic','lens file',lensname);
+sceneR.camera = piCameraCreate('realistic','lens file',lensname);
 
 % Set the rendering and film resolution properties in the recipe.
 % Here are some suggestions about time and quality.
@@ -133,11 +150,11 @@ thisR.camera = piCameraCreate('realistic','lens file',lensname);
 %       nbounces          10
 %       aperture          1
 %
-thisR.set('film resolution',[1280 720]);
-thisR.set('pixel samples',16);   % 1024 or higher to reduce graphics noise
-thisR.set('film diagonal',10);
-thisR.set('nbounces',10);
-thisR.set('aperture',1);
+sceneR.set('film resolution',[1280 720]);
+sceneR.set('pixel samples',16);   % 1024 or higher to reduce graphics noise
+sceneR.set('film diagonal',10);
+sceneR.set('nbounces',10);
+sceneR.set('aperture',1);
 disp('*** Camera created')
 
 %% Place the camera in the scene
@@ -159,21 +176,21 @@ thisTrafficflow = trafficflow(timestamp);
 camPos = 'front';               % Position of the camera on the car
 cameraVelocity = 0 ;            % Camera velocity (meters/sec)
 CamOrientation = 270;           % Starts at x-axis.  -90 (or 270) to the z axis.
-thisR.lookAt.from = [0;3;40];   % X,Y,Z world coordinates
-thisR.lookAt.to   = [0;1.9;150];% Where the camera is pointing in the scene
-thisR.lookAt.up   = [0;1;0];    % The upward direction (towards the sky)
+sceneR.lookAt.from = [0;3;40];   % X,Y,Z world coordinates
+sceneR.lookAt.to   = [0;1.9;150];% Where the camera is pointing in the scene
+sceneR.lookAt.up   = [0;1;0];    % The upward direction (towards the sky)
 
-thisR.set('exposure time',1/200);
+sceneR.set('exposure time',1/200);
 disp('*** Camera positioned')
 
 %% Set the file names for input and output
 
 if piContains(sceneType,'city')
-    outputDir = fullfile(piRootPath,'local',strrep(road.roadinfo.name,'city',sceneType));
-    thisR.inputFile = fullfile(outputDir,[strrep(road.roadinfo.name,'city',sceneType),'.pbrt']);
+    outputDir = fullfile(piRootPath,'local',strrep(sceneInfo.roadinfo.name,'city',sceneType));
+    sceneR.inputFile = fullfile(outputDir,[strrep(sceneInfo.roadinfo.name,'city',sceneType),'.pbrt']);
 else
-    outputDir = fullfile(piRootPath,'local',strcat(sceneType,'_',road.name));
-    thisR.inputFile = fullfile(outputDir,[strcat(sceneType,'_',road.name),'.pbrt']);
+    outputDir = fullfile(piRootPath,'local',strcat(sceneType,'_',sceneInfo.name));
+    sceneR.inputFile = fullfile(outputDir,[strcat(sceneType,'_',sceneInfo.name),'.pbrt']);
 end
 
 % We might use md5 to hash the parameters and put them in the file
@@ -184,17 +201,17 @@ filename = sprintf('%s_%s_v%0.1f_f%0.2f%s_o%0.2f_%i%i%i%i%i%0.0f.pbrt',...
                             sceneType,...
                             dayTime,...
                             cameraVelocity,...
-                            thisR.lookAt.from(3),...
+                            sceneR.lookAt.from(3),...
                             camPos,...
                             CamOrientation,...
                             clock);
-thisR.outputFile = fullfile(outputDir,filename);
+sceneR.outputFile = fullfile(outputDir,filename);
 
 %% Makes the materials, particularly glass, look right.
-piMaterialGroupAssign(thisR);
+piMaterialGroupAssign(sceneR);
 
 %% Write the recipe for the scene we generated
-piWrite(thisR,'creatematerials',true,...
+piWrite(sceneR,'creatematerials',true,...
     'overwriteresources',false,'lightsFlag',false,...
     'thistrafficflow',thisTrafficflow);
 
@@ -203,7 +220,7 @@ piWrite(thisR,'creatematerials',true,...
 disp('*** Scene written');
 
 %%
-oi = piRender(thisR);
+oi = piRender(sceneR);
 
 %% Show the OI and some metadata
 

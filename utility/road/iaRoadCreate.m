@@ -1,4 +1,4 @@
-function [road,thisR] = piRoadCreate(varargin)
+function [road,assetRecipe] = iaRoadCreate(varargin)
 % Generate a roadtype struct for Sumo TrafficFlow generation
 %
 % Syntax
@@ -16,6 +16,7 @@ function [road,thisR] = piRoadCreate(varargin)
 %  cloudRender
 %
 % Zhenyi, 2018
+% Update: Zhenyi, 2021
 
 %%
 
@@ -26,26 +27,25 @@ p = inputParser;
 p.addParameter('roadtype','city_cross_4lanes_002');
 p.addParameter('sceneType','city');
 p.addParameter('trafficflowDensity','medium');
-p.addParameter('session',[]);
 p.addParameter('scitran',[]);
-p.addParameter('cloudRender',1);
 p.parse(varargin{:});
 
-roadSession  = p.Results.session;
+
 sceneType    = p.Results.sceneType;
 trafficflowDensity = p.Results.trafficflowDensity;
 roadtype        = p.Results.roadtype;
-cloudRenderFlag = p.Results.cloudRender;
 st = p.Results.scitran;
 
 if isempty(st), st = scitran('stanfordlabs'); end
 
-%% write out
-
-piRoadInfo;
+%% generate road information
+iaRoadInfo;
 
 % load it
 load(fullfile(piRootPath,'local','configuration','roadInfo.mat'),'roadinfo');
+
+% Lookup the session with the road information
+roadSession = st.fw.lookup('wandell/Graphics auto/assets/road');
 %%
 vTypes={'pedestrian','passenger','bus','truck','bicycle'};
 
@@ -78,7 +78,7 @@ end
 %% Check the road type and downald road assets
 
 
-acqs = roadSession.acquisitions.findOne(sprintf('label=%s',roadtype));
+Road_acq = roadSession.acquisitions.findOne(sprintf('label=%s',roadtype));
 
 
 % This is the rendering recipe for the road session
@@ -104,10 +104,10 @@ for ii = 1: length(roadinfo)
         break;
     end
 end
-% If cloudRenderFlag is true, then no resources will be downloaded
-assetRecipe = piAssetDownload(roadSession,1,...
-    'acquisition',roadtype,...
-    'resources',~cloudRenderFlag);
+
+% get recipe
+assetRecipe = piFWAssetCreate(Road_acq, 'resources', false);
+
 
 % Set the temporal sampling interval for the SUMO simulation.  
 switch trafficflowDensity
@@ -121,21 +121,14 @@ end
 % Map key/value pairs
 road.vTypes=containers.Map(vTypes,interval);
 
-%% Read out a road render recipe
-thisR = piJson2Recipe(assetRecipe{1}.name, 'update', true);
-% filename = strcat(sceneType,'_',roadtype);
-
-% InputFile is used to create a cloudbucket, so we assign a predefined
-% inputfile name to this Recipe.
-% thisR.inputFile = fullfile(f,[filename,'.pbrt']);
-% fileFolder =  strrep(f,sceneType_tmp,sceneType);
-% if exist(fileFolder,'dir'),mkdir(fileFolder);end
-% thisR.outputFile = fullfile(fileFolder,[filename,'.pbrt']);
+%% include "others" data
+% others data include basic data which will be used for rendering 
+% e.g. lens file, spd files
 
 data_acq = st.fw.lookup('wandell/Graphics auto/assets/data/others');
-thisResource = stFileSelect(acqs.files,'type','CG Resource');
+thisResource = stFileSelect(Road_acq.files,'type','CG Resource');
 road.fwList = [data_acq.id,' ','data.zip',' ',...
-    acqs.id,' ',...
+    Road_acq.id,' ',...
     thisResource{1}.name];
 end
 

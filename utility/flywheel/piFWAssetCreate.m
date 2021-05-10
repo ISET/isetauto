@@ -1,5 +1,5 @@
-function recipe = piFWAssetCreate(acq, varargin)
-% Create a flywheel asset
+function [recipe, acqId, resourcesName] = piFWAssetCreate(acq, varargin)
+% Create a flywheel asset (depracted)
 %
 % Syntax:
 %  recipe = piFWAssetCreate(acq, varargin)
@@ -10,8 +10,8 @@ function recipe = piFWAssetCreate(acq, varargin)
 %           the asset 
 % 
 % Optional key/val pairs
-%  resources  - a flag decides whether download reciepe and CG resources or 
-%              recipe only
+%  resources  - true:  download reciepe and CG resources  
+%               false: download recipe only
 %  dstDir     - destination directory where CG resources will be saved,
 %        default directory is created at isetauto/local.
 %
@@ -28,41 +28,41 @@ p.parse(varargin{:});
 
 resourcesFlag = p.Results.resources;
 dstDir = p.Results.dstDir;
-
+% create destination directory
+if isempty(dstDir)
+    dstDir = fullfile(iaRootPath, 'local', acq.label);
+end
+if ~exist(dstDir,'dir'), mkdir(dstDir);end
 %%  We download the json file for the recipe
-tmpDir = [pwd, '/tmp',num2str(randi(1000))];
-mkdir(tmpDir);
-tmpRecipe = [tmpDir, '/tmp.json'];
 for ii = 1:length(acq.files)
     if ieContains(acq.files{ii}.name, 'recipe')
-        acq.downloadFile(acq.files{ii}.name, tmpRecipe);
+        recipe_path = fullfile(dstDir, acq.files{ii}.name);
+        % if we have already downloaded this file, do not download again.
+        if ~exist(recipe_path,'file')
+            acq.downloadFile(acq.files{ii}.name, recipe_path);
+            fprintf('%s is downloaded.\n',acq.files{ii}.name);
+        end
         break;
     end
 end
 
-%% Read and convert the json recipe into a ISET3d recipe
-recipe = piJson2Recipe(tmpRecipe);
+% Read and convert the json recipe into a ISET3d recipe
+recipe = piJson2Recipe(recipe_path);
 
-% remove tmp dir
-rmdir(tmpDir,'s');
-
-if resourcesFlag
-    % create destination directory
-    if isempty(dstDir)
-        [~, fname, ~] = fileparts(recipe.outputfile);
-        dstDir = fullfile(iaRootPath, 'local', fname);
-    end
-    
-    if ~exist(dstDir,'dir'), mkdir(dstDir);end
-    dstFile = fullfile(dstDir, 'tmp.zip');
-    for ii = 1:length(acq.files)
-        if strcmpi(acq.files{ii}.type,'CG Resource')
+%% Download CG Resource file
+dstFile = fullfile(dstDir, 'tmp.zip');
+for ii = 1:length(acq.files)
+    if strcmpi(acq.files{ii}.type,'CG Resource')
+        acqId =acq.id;
+        resourcesName = acq.files{ii}.name;
+        if resourcesFlag
             acq.downloadFile(acq.files{ii}.name, dstFile);
+            unzip(dstFile, dstDir);
+            % addpath(genpath(dstDir))
+            delete(dstFile);
         end
+        break;
     end
-    unzip(dstFile, dstDir);
-    % addpath(genpath(dstDir))
-    delete(dstFile);
 end
 
 end

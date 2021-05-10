@@ -1,8 +1,8 @@
-function piAutoMaterialGroupAssign(thisR)
+function iaAutoMaterialGroupAssign(thisR)
 % Map materials.list names into material data using piMaterialAssign
 %
 % Brief syntax:
-%   piMaterialGroupAssign(recipe)
+%   iaMaterialGroupAssign(recipe)
 %
 % Describe:
 %  This function was built by ZL to manage the material assignments
@@ -195,7 +195,11 @@ for ii = 1:numel(thisR.materials.list)
     else
         % Assign an default matte material.
         if ~piContains(thisR.materials.list{ii}.name,'paint_base')
+            try
             thisR.set('material',materialName, 'type', 'uber');
+            catch
+                disp('catch');
+            end
         end
     end
 end

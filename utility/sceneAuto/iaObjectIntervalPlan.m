@@ -1,4 +1,4 @@
-function [objectPosition_list] = piObjectIntervalPlan(sidewalk_list, object_list, interval, offset, type)
+function [objectPosition_list] = iaObjectIntervalPlan(sidewalk_list, object_list, interval, offset, type)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Function: Place objects at equal intervals on sidewalks.
 % Input:

@@ -31,8 +31,8 @@ if ~piScitranExists, error('scitran installation required'); end
 sceneName = 'checkerboard';
 sceneR = piRecipeDefault('scene name',sceneName);
 % render quality
-sceneR.set('film resolution',[800 600]);
-sceneR.set('pixel samples',32);
+sceneR.set('film resolution',[1280 600]);
+sceneR.set('pixel samples',8);
 sceneR.set('max depth',10);
 
 % camera properties
@@ -61,11 +61,8 @@ objectR = piFWAssetCreate(object_acq, 'resources', true, 'dstDir', dstDir);
 % This tells the iaRecipeMerge where to look for the resources
 objectR.set('outputFile', fullfile(dstDir,'Car_085.pbrt'));
 
-% take some time, maybe you dont want to run this everytime when you debug
-% assets = piFWAssetCreate('ncars',1, 'nped',1);
-
 %% add downloaded asset information to Render recipe.
-sceneR = iaRecipeMerge(sceneR, objectR);
+sceneR = piRecipeMerge(sceneR, objectR);
 
 %% Get a sky map from Flywheel, and use it in the scene
 
@@ -115,11 +112,11 @@ end
 
 %% This adds predefined sceneauto materials to the assets in this scene
 
-piAutoMaterialGroupAssign(sceneR);  
+iaAutoMaterialGroupAssign(sceneR);  
 
 %% Set the car body to a new color.
 
-colorkd = piColorPick('yellow');
+colorkd = piColorPick('blue');
 
 name = 'HDM_06_002_carbody_black';
 sceneR.set('material',name,'kd value',colorkd);
@@ -140,8 +137,17 @@ piWrite(sceneR);   % We get a warning.  Ignore
 
 %%  Show the scene in a window
 
-scene = sceneSet(scene,'name',sprintf('Time: %s',thisTime));
+% scene = sceneSet(scene,'name',sprintf('Time: %s',thisTime));
+% denoise scene
+% scene = sceneSet(scene,'gamma', 0.75);
+scene = sceneSet(scene,'name', 'normal');
 sceneWindow(scene);
-sceneSet(scene,'display mode','hdr');         
 
+% denoise
+%{
+sceneDenoise = piAIdenoise(scene);
+scene = sceneSet(scene,'name', 'denoised');
+sceneWindow(sceneDenoise);
+% sceneSet(scene,'display mode','hdr');   
+%}
 %% END

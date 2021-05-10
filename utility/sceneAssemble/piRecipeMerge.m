@@ -1,8 +1,8 @@
-function sceneR = iaRecipeMerge(sceneR, objectRs, varargin)
+function sceneR = piRecipeMerge(sceneR, objectRs, varargin)
 % Add objects information to scene recipe
 %
 % Synopsis:
-%   sceneR = iaRecipeMerge(sceneR, objects, varargin)
+%   sceneR = piRecipeMerge(sceneR, objects, varargin)
 % 
 % Brief description:
 %   Add objects information (material, texture, assets) to a scene recipe.

@@ -1,4 +1,4 @@
-function roadTypes = piRoadTypes(varargin)
+function roadTypes = iaRoadTypes(varargin)
 % Return a list of known road types
 %
 % Syntax:

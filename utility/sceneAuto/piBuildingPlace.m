@@ -1,5 +1,5 @@
 function assetsPlaced = piBuildingPlace(assetsList,buildingPosList)
-% For building assets, place the assets exactly by names
+% For building assets, place the assets exactly by names (same with piSidewalkPlace.m)
 %
 % Syntax
 %   piBuildingPlace(assetsList,buildingPosList)
@@ -43,17 +43,14 @@ end
 asset = assetsList;
 for ii = 1: length(buildingPosList_tmp)
 %     gg=1;
-    % if ~isequal(buildingPosList_tmp(ii).count,1)
-    n = buildingPosList_tmp(ii).count;
-    for hh = 1: length(asset(ii).geometry)
-        
+    n = buildingPosList_tmp(ii).count;        
         for dd = 1: length(asset)
-            if isequal(asset(dd).geometry.name,buildingPosList_tmp(ii).name{1})
+            if isequal(asset(dd).name,buildingPosList_tmp(ii).name{1})
                 assets_updated(ii) = asset(dd);
-                pos = asset(dd).geometry(hh).position;
-                rot = asset(dd).geometry(hh).rotate;
-                asset(dd).geometry(hh).position = repmat(pos,1,uint8(buildingPosList_tmp(ii).count));
-                asset(dd).geometry(hh).rotate = repmat(rot,1,uint8(buildingPosList_tmp(ii).count));
+%                 pos = asset(dd).position;
+%                 rot = asset(dd).rotate;
+%                 asset(dd).position = repmat(pos,1,uint8(buildingPosList_tmp(ii).count));
+%                 asset(dd).rotate = repmat(rot,1,uint8(buildingPosList_tmp(ii).count));
                 position=cell(n,1);
                 rotationY=cell(n,1);
                 gg=1;
@@ -64,25 +61,28 @@ for ii = 1: length(buildingPosList_tmp)
                         gg = gg+1;
                     end
                 end
-                assets_updated(ii).geometry = piAssetTranslate(asset(dd).geometry,position,'instancesNum',n);
-                assets_updated(ii).geometry = piAssetRotate(assets_updated(ii).geometry,'Y',rotationY,'instancesNum',n);
+                assets_updated(ii).position = position;
+                assets_updated(ii).rotation =[];
+                for rr = 1:numel(rotationY)
+                    assets_updated(ii).rotation{rr} = piRotationMatrix('y',rotationY{rr});
+                end
             end
         end
-    end
-    % end
 end
 
 assetsPlaced = assets_updated;
+
 % the reason why we keep this part seperate is that when we need to check which
 % buidling does not look correct in rendered image, we want to know the
 % exact asset name, instead of the class name ---zhenyi
 % debug --09/30
+%{
 for jj = 1:length(assetsPlaced)
-    if ~isequal(lower(assetsPlaced(jj).geometry.name),'camera') && ...
-            ~piContains(lower(assetsPlaced(jj).geometry.name),'light')
-        name = assetsPlaced(jj).geometry.name;
-        assetsPlaced(jj).geometry.name = sprintf('building_%s',name);
+    if ~isequal(lower(assetsPlaced(jj).name),'camera') && ...
+            ~piContains(lower(assetsPlaced(jj).name),'light')
+        name = assetsPlaced(jj).name;
+        assetsPlaced(jj).name = sprintf('building_%s',name);
     end
 end
-
+%}
 end

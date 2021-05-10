@@ -1,4 +1,4 @@
-function [buildingPosList] = piBuildingPosList(buildingList, sceneRecipe, showfigure)
+function [buildingPosList] = iaBuildingPosList(buildingList, sceneRecipe, showfigure)
 % Randomly place buildings in one given region.
 %
 % Given the info of spare region(lenth in x axis, lenth in y axis and

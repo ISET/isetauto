@@ -1,4 +1,4 @@
-function assetsplaced = piSidewalkPlan(road,st,trafficflow,varargin)
+function assetsplaced = iaSidewalkPlan(road,st,trafficflow,varargin)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Place objects at equal intervals on sidewalks.
 %
@@ -83,34 +83,34 @@ p.addParameter('callbox_offset',3);
 p.parse(varargin{:});
 inputs = p.Results;
 
-addTree = inputs.addTree;
-tree_interval = inputs.tree_interval;
-tree_offset = inputs.tree_offset;
-tree_type = inputs.tree_type;
-addStreetlight = inputs.addStreetlight;
+addTree              = inputs.addTree;
+tree_interval        = inputs.tree_interval;
+tree_offset          = inputs.tree_offset;
+tree_type            = inputs.tree_type;
+addStreetlight       = inputs.addStreetlight;
 streetlight_interval = inputs.streetlight_interval;
-streetlight_offset = inputs.streetlight_offset;
-streetlight_type = inputs.streetlight_type;
-trashcan_number = inputs.trashcan_number;
-trashcan_offset = inputs.trashcan_offset;
-station_number = inputs.station_number;
-station_offset = inputs.station_offset;
+streetlight_offset   = inputs.streetlight_offset;
+streetlight_type     = inputs.streetlight_type;
+trashcan_number      = inputs.trashcan_number;
+trashcan_offset      = inputs.trashcan_offset;
+station_number       = inputs.station_number;
+station_offset       = inputs.station_offset;
 
-bikerack_number = inputs.bikerack_number;
-bikerack_offset = inputs.bikerack_offset;
-bench_number = inputs.bench_number;
-bench_offset = inputs.bench_offset;
-billboard_number = inputs.billboard_number;
-billboard_offset = inputs.billboard_offset;
-callbox_number = inputs.callbox_number;
-callbox_offset = inputs.callbox_offset;
+bikerack_number      = inputs.bikerack_number;
+bikerack_offset      = inputs.bikerack_offset;
+bench_number         = inputs.bench_number;
+bench_offset         = inputs.bench_offset;
+billboard_number     = inputs.billboard_number;
+billboard_offset     = inputs.billboard_offset;
+callbox_number       = inputs.callbox_number;
+callbox_offset       = inputs.callbox_offset;
 
 %% Flywheel init
 if isempty(st), st = scitran('stanfordlabs');end
 
 %% generate list of assets(not finished) from flywheel, unfinished
 if (addStreetlight ==true)
-    streetlight_listPath = fullfile(piRootPath,'local','AssetLists','streetlight_list.mat');
+    streetlight_listPath = fullfile(iaRootPath,'local','AssetLists','streetlight_list.mat');
     if ~exist(streetlight_listPath,'file')
         streetlight_list = iaAssetListCreate('session','others',...
                                              'acquisition','streetlight_tall',...
@@ -122,7 +122,7 @@ if (addStreetlight ==true)
 end
 
 if (addTree ==true)
-    tree_listPath = fullfile(piRootPath,'local','AssetLists','tree_list.mat');
+    tree_listPath = fullfile(iaRootPath,'local','AssetLists','tree_list.mat');
     if ~exist(tree_listPath,'file')
         tree_list = iaAssetListCreate('session','tree',...
                                       'scitran',st);
@@ -134,7 +134,7 @@ end
 
 % offset_garbage= 0.8;
 if ~(trashcan_number==0)
-    trashcan_listPath = fullfile(piRootPath,'local','AssetLists','trashcan_list.mat');
+    trashcan_listPath = fullfile(iaRootPath,'local','AssetLists','trashcan_list.mat');
     if ~exist(trashcan_listPath,'file')
         trashcan_list = iaAssetListCreate('session','others',...
                                           'acquisition','trashcan',...
@@ -146,7 +146,7 @@ if ~(trashcan_number==0)
 end
 
 if ~(station_number==0)
-    station_listPath = fullfile(piRootPath,'local','AssetLists','station_list.mat');
+    station_listPath = fullfile(iaRootPath,'local','AssetLists','station_list.mat');
     if ~exist(station_listPath,'file')
         station_list = iaAssetListCreate('session','others',...
                                          'acquisition','station',...
@@ -158,7 +158,7 @@ if ~(station_number==0)
 end
 
 if ~(bench_number==0)
-    bench_listPath = fullfile(piRootPath,'local','AssetLists','bench_list.mat');
+    bench_listPath = fullfile(iaRootPath,'local','AssetLists','bench_list.mat');
     if ~exist(bench_listPath,'file')
         bench_list = iaAssetListCreate('session','others',...
                                        'acquisition','bench',...
@@ -170,7 +170,7 @@ if ~(bench_number==0)
 end
 
 if ~(billboard_number==0)
-    billboard_listPath = fullfile(piRootPath,'local','AssetLists','billboard_list.mat');
+    billboard_listPath = fullfile(iaRootPath,'local','AssetLists','billboard_list.mat');
     if ~exist(billboard_listPath,'file')
         billboard_list = iaAssetListCreate('session','others',...
                                            'acquisition','billboard',...
@@ -182,7 +182,7 @@ if ~(billboard_number==0)
 end
 
 if ~(callbox_number==0)
-    callbox_listPath = fullfile(piRootPath,'local','AssetLists','callbox_list.mat');
+    callbox_listPath = fullfile(iaRootPath,'local','AssetLists','callbox_list.mat');
     if ~exist(callbox_listPath,'file')
         callbox_list = iaAssetListCreate('session','others',...
                                          'acquisition','callbox',...
@@ -194,7 +194,7 @@ if ~(callbox_number==0)
 end
 
 if ~(bikerack_number==0)
-    bikerack_listPath = fullfile(piRootPath,'local','AssetLists','bikerack_list.mat');
+    bikerack_listPath = fullfile(iaRootPath,'local','AssetLists','bikerack_list.mat');
     if ~exist(bikerack_listPath,'file')    
     bikerack_list = iaAssetListCreate('session','others',...
                                          'acquisition','bikerack',...
@@ -210,13 +210,13 @@ end
 
 %% get position lists of objects
 if (addTree ==true)
-    treePosition = piObjectIntervalPlan(sidewalk_list, tree_list, tree_interval, tree_offset, tree_type);
+    treePosition = iaObjectIntervalPlan(sidewalk_list, tree_list, tree_interval, tree_offset, tree_type);
 else
     treePosition = struct;
 end
 
 if (addStreetlight ==true)
-   streetlightPosition = piObjectIntervalPlan(sidewalk_list, streetlight_list, streetlight_interval, streetlight_offset, streetlight_type);
+   streetlightPosition = iaObjectIntervalPlan(sidewalk_list, streetlight_list, streetlight_interval, streetlight_offset, streetlight_type);
 else
     streetlightPosition = struct;
 end
@@ -224,37 +224,37 @@ end
 if(trashcan_number==0)
     trashcanPosition=struct;
 else
-    trashcanPosition = piObjectRandomPlan(sidewalk_list, trashcan_list, trashcan_number, trashcan_offset);
+    trashcanPosition = iaObjectRandomPlan(sidewalk_list, trashcan_list, trashcan_number, trashcan_offset);
 end
 
 if(station_number==0)
     stationPosition=struct;
 else
-    stationPosition = piObjectRandomPlan(sidewalk_list, station_list, station_number, station_offset);
+    stationPosition = iaObjectRandomPlan(sidewalk_list, station_list, station_number, station_offset);
 end
 
 if(bikerack_number==0)
     bikerackPosition_list=struct;
 else
-    bikerackPosition_list = piObjectRandomPlan(sidewalk_list, bikerack_list, bikerack_number, bikerack_offset);
+    bikerackPosition_list = iaObjectRandomPlan(sidewalk_list, bikerack_list, bikerack_number, bikerack_offset);
 end
 
 if(bench_number==0)
     benchPosition=struct;
 else
-    benchPosition = piObjectRandomPlan(sidewalk_list, bench_list, bench_number, bench_offset);
+    benchPosition = iaObjectRandomPlan(sidewalk_list, bench_list, bench_number, bench_offset);
 end
 
 if(billboard_number==0)
     billboardPosition=struct;
 else
-    billboardPosition = piObjectRandomPlan(sidewalk_list, billboard_list, billboard_number, billboard_offset);
+    billboardPosition = iaObjectRandomPlan(sidewalk_list, billboard_list, billboard_number, billboard_offset);
 end
 
 if(callbox_number==0)
     callboxPosition=struct;
 else
-    callboxPosition = piObjectRandomPlan(sidewalk_list, callbox_list, callbox_number, callbox_offset);
+    callboxPosition = iaObjectRandomPlan(sidewalk_list, callbox_list, callbox_number, callbox_offset);
 end
 
 
