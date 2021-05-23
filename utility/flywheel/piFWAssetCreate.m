@@ -30,7 +30,7 @@ resourcesFlag = p.Results.resources;
 dstDir = p.Results.dstDir;
 % create destination directory
 if isempty(dstDir)
-    dstDir = fullfile(iaRootPath, 'local', acq.label);
+    dstDir = fullfile(iaRootPath, 'local', 'FWAssets', acq.label);
 end
 if ~exist(dstDir,'dir'), mkdir(dstDir);end
 %%  We download the json file for the recipe
@@ -55,7 +55,8 @@ for ii = 1:length(acq.files)
     if strcmpi(acq.files{ii}.type,'CG Resource')
         acqId =acq.id;
         resourcesName = acq.files{ii}.name;
-        if resourcesFlag
+        if resourcesFlag && ...
+                ~exist(fullfile(dstDir, 'scene/PBRT/pbrt-geometry'),'dir')
             acq.downloadFile(acq.files{ii}.name, dstFile);
             unzip(dstFile, dstDir);
             % addpath(genpath(dstDir))

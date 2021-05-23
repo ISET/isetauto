@@ -46,41 +46,27 @@ for ii = 1:length(recipelist)
         [dstDir, ~, ~]=fileparts(sceneR.outputFile);
         sourceAssets = fullfile(sourceDir, 'scene/PBRT/pbrt-geometry');
         dstAssets    = fullfile(dstDir,    'scene/PBRT/pbrt-geometry');
-        try
-            copyfile(sourceAssets, dstAssets);
-        catch
-            warning('Copying assets is failed.');
-        end
+        copyfile(sourceAssets, dstAssets);
     end
     
     if materialFlag
-        sceneMatListlength = length(sceneR.materials.list);
         if ~isempty(sceneR.materials)
-        for matIdx = 1:length(thisR.materials.list)
-            sceneR.materials.list{sceneMatListlength+matIdx} = thisR.materials.list{matIdx};
-        end
+            sceneR.materials.list = [sceneR.materials.list; thisR.materials.list];
         else
-            sceneR.materials.list = thisR.materials.list;
+            sceneR.materials = thisR.materials;
         end
     end
     
     if textureFlag
-        sceneTexListlength = length(sceneR.textures.list);
         if ~isempty(sceneR.textures)
-            for texIdx = 1:length(thisR.textures.list)
-                sceneR.textures.list{sceneTexListlength+texIdx} = thisR.textures.list{texIdx};
-            end
+            sceneR.textures.list = [sceneR.textures.list; thisR.textures.list];
         else
             sceneR.textures = thisR.textures;
         end
         [sourceDir, ~, ~]=fileparts(thisR.outputFile);
         [dstDir, ~, ~]=fileparts(sceneR.outputFile);
         sourceTexures = fullfile(sourceDir, 'textures');
-        try
-            copyfile(sourceTexures, dstDir);
-        catch
-            warning('Copying texture is failed.');
-        end
+        copyfile(sourceTexures, dstDir);
     end
 end
 end

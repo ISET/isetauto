@@ -1,4 +1,4 @@
-function [sceneR,sceneInfo] = iaSceneAuto(varargin)
+function [sceneR,sceneInfo] = iaSceneAuto(parameter)
 % Generate scene(s) for Autonomous driving scenarios using SUMO/SUSO
 %
 % Syntax
@@ -30,36 +30,21 @@ function [sceneR,sceneInfo] = iaSceneAuto(varargin)
 % See also
 %   piRoadTypes, t_piDrivingScene_demo
 %
-
+disp('*** Scene Generation...')
 %% Read input parameters
+sceneType          = parameter.scene.sceneType;
+treeDensity        = parameter.scene.treeDensity;  % Not yet used
+roadType           = parameter.scene.roadType;
+trafficflowDensity = parameter.scene.trafficflowDensity;
+timestamp          = parameter.scene.timestamp;
+skymapTime         = parameter.scene.skymapTime;
+showbirdview       = parameter.scene.showbirdview;
 
-varargin =ieParamFormat(varargin);
-
-p = inputParser;
-p.addParameter('sceneType','city',@ischar);
-p.addParameter('treeDensity','random',@ischar);
-p.addParameter('roadType','crossroad',@ischar);
-p.addParameter('trafficflow',[]);
-p.addParameter('trafficflowDensity','medium',@ischar);
-p.addParameter('timestamp',50,@isnumeric);
-p.addParameter('skymapTime','16:30');
-p.addParameter('scitran',[],@(x)(isa(x,'scitran')));
-
-p.parse(varargin{:});
-
-sceneType          = p.Results.sceneType;
-treeDensity        = p.Results.treeDensity;  % Not yet used
-roadType           = p.Results.roadType;
-trafficflowDensity = p.Results.trafficflowDensity;
-trafficflow        = p.Results.trafficflow;
-timestamp          = p.Results.timestamp;
-skymapTime         = p.Results.skymapTime;
-st                 = p.Results.scitran;
-
+if ~exist(parameter.general.outputDirecotry, 'dir')
+    mkdir(parameter.general.outputDirecotry);
+end
 %% Flywheel init
-
-if isempty(st), st = scitran('stanfordlabs'); end
-
+st = scitran('stanfordlabs');
 %% Read a road from Flywheel that we will use with SUMO and SUSO
 [sceneInfo,sceneR] = iaRoadCreate('roadtype',roadType,...
                                   'trafficflowDensity',trafficflowDensity,...
@@ -98,57 +83,50 @@ disp('--> Traffic flow is generated')
 
 %% SUSO Simulation of urban static objects
 % Put stationary assets into the city or suburban street
-disp('--> SUSO is planning...')
-
-tree_interval = rand(1)*4+2;
-if piContains(sceneType,'city')|| piContains(sceneType,'suburb')
+if isempty(parameter.scene.susoplaced)
+    disp('--> SUSO is planning...')
     
-    %% place objects on sidewalk,e.g. street lights, trees,etc.
-    susoPlaced = iaSidewalkPlan(sceneInfo,st,trafficflow(timestamp),...
-                                'tree_interval',tree_interval);
-
-    %% place parked cars
-    parallelParking = false;
-    if piContains(roadType,'parking')
-        trafficflow = iaParkingPlace(sceneInfo, trafficflow,...
-                                    'parallelParking', parallelParking);
-    end
-    
-    %% place buildings
-    building_listPath = fullfile(iaRootPath,'local','AssetLists',...
-        sprintf('%s_building_list.mat',sceneType));
-    
-    if ~exist(building_listPath,'file')
-        building_list = iaAssetListCreate('session',sceneType,'scitran',st);
-        save(building_listPath,'building_list')
+    tree_interval = rand(1)*4+2;
+    if piContains(sceneType,'city')|| piContains(sceneType,'suburb')
+        
+        %% place objects on sidewalk,e.g. street lights, trees,etc.
+        susoPlaced = iaSidewalkPlan(sceneInfo,st,trafficflow(timestamp),...
+            'tree_interval',tree_interval);
+        
+        %% place parked cars
+        parallelParking = false;
+        if piContains(roadType,'parking')
+            trafficflow = iaParkingPlace(sceneInfo, trafficflow,...
+                'parallelParking', parallelParking);
+        end
+        
+        %% place buildings
+        
+        [buildingPosList, building_list] = iaBuildingPosList(sceneType, sceneR, showbirdview, st);
+        susoPlaced.building = iaSUSOPlace(building_list, buildingPosList);
+        
+        
+        disp('--> SUSO Assets are placed on the road.');
     else
-        load(building_listPath,'building_list');
+        disp('No SUSO assets placed.  Not city or suburb');
     end
-    
-    showfigure          = false; % draw planned 2d building blocks;
-    buildingPosList     = iaBuildingPosList(building_list, sceneR, showfigure);
-    susoPlaced.building = iaSUSOPlace(building_list,buildingPosList);  
-   
-    % Add flywheel info
-    sceneInfo = fwInfoAppend(sceneInfo,susoPlaced);
-
-    disp('--> SUSO Assets are placed on the road.');
+    parameter.scene.susoplaced = susoPlaced;
 else
-    disp('No SUSO assets placed.  Not city or suburb');
+    susoPlaced =parameter.scene.susoplaced;
 end
-
-
 %% Place vehicles/pedestrians from  SUMO traffic flow data on the road
 % Put the suso placed assets on the road
-disp('--> SUMO is planning...')
-
-[sumoPlaced, ~] = iaSUMOPlace(trafficflow,...
-                              'timestamp',timestamp,...
-                              'scitran',st);
-
+if isempty(parameter.scene.sumoplaced)
+    disp('--> SUMO is planning...')
+    [sumoPlaced, ~] = iaSUMOPlace(trafficflow,...
+        'timestamp',timestamp,...
+        'scitran',st);
+    parameter.scene.sumoplaced = sumoPlaced;
+else
+    sumoPlaced = parameter.scene.sumoplaced;
+end
 %% Add objects to scene
 sceneR = iaObjectsAssemble(sceneR, susoPlaced);
-
 sceneR = iaObjectsAssemble(sceneR, sumoPlaced);
 
 sceneR.set('traffic flow density',trafficflowDensity);
@@ -183,58 +161,48 @@ disp('--> Skymap added')
 
 %% Camera render parameters
 % The camera lenses are stored in data/lens
-lensname = 'wide.56deg.6.0mm.dat';
-sceneR.camera = piCameraCreate('omni','lens file',lensname);
+lensname      = parameter.camera.lensname;
+switch parameter.camera.type
+    case 'omni'
+        sceneR.camera = piCameraCreate('omni','lens file',lensname);
+        sceneR.set('aperture',parameter.camera.aperture);
+        sceneR.set('film diagonal',parameter.camera.filmdiagonal);
+    case 'pinhole'
+        sceneR.camera = piCameraCreate('pinhole');
+end
+%
+sceneR.set('film resolution',parameter.render.filmresolution);
+sceneR.set('pixel samples',parameter.render.pixelsamples);   % 1024 or higher to reduce graphics noise
+sceneR.set('nbounces',parameter.render.nbounces);
 
-% Set the rendering and film resolution properties in the recipe.
-% Here are some suggestions about time and quality.
-%
-%   High quality parameters
-%       film resolution:  [1280 720]
-%       pixel samples:    2048
-%       film diagonal:    10 (mm)
-%       nbounces:         10    (indoor scenes use 50, or even more)
-%       aperture:         1 (mm)
-%
-%  Fast low quality - mainly reduced the number of pixel samples.
-%       film resolution   [1280 720]
-%       pixel samples     64
-%       film diagonal     10
-%       nbounces          10
-%       aperture          1
-%
-sceneR.set('film resolution',[1280 720]);
-sceneR.set('pixel samples',16);   % 1024 or higher to reduce graphics noise
-sceneR.set('film diagonal',10);
-sceneR.set('nbounces',10);
-sceneR.set('aperture',1);
 disp('--> Camera is created')
 
 %% Place the camera in the scene
 
 % To place the camera, we find a car and place the camera at the front
 % of the car.  We find the car using the trafficflow information.
-tfFileName = sprintf('%s_%s_trafficflow.mat',roadType,trafficflowDensity);
-
-% Full path to file
-tfFileName = fullfile(piRootPath,'local','trafficflow',tfFileName);
-
-% Load the trafficflow variable, which contains the whole time series
-load(tfFileName,'trafficflow');
-
+%{
 % Choose the time stamp
 thisTrafficflow    = trafficflow(timestamp);
 
 % See end of script for how to assign the camera to a random car.
 camPos             = 'front';               % Position of the camera on the car
 cameraVelocity     = 0 ;            % Camera velocity (meters/sec)
-CamOrientation     = 270;           % Starts at x-axis.  -90 (or 270) to the z axis.
-sceneR.lookAt.from = [0;3;40];   % X,Y,Z world coordinates
-sceneR.lookAt.to   = [0;1.9;150];% Where the camera is pointing in the scene
-sceneR.lookAt.up   = [0;1;0];    % The upward direction (towards the sky)
+CamOrientation     = 270;  
+ %}
+% Starts at x-axis.  -90 (or 270) to the z axis.
+sceneR.lookAt = parameter.camera.lookAt;  
 % To use: piCamPlace
-sceneR.set('exposure time',1/200);
+sceneR.set('exposure time', parameter.camera.exposureTime);
 disp('--> Camera is positioned')
+%% 
+if showbirdview
+    curDir = pwd;
+    cd(parameter.general.outputDirecotry)
+    % show bird view of placed objects
+    iaSceneAutoBV(sceneR);
+    cd(curDir);
+end
 
 %% Add flywheel info
 % Add suso placed                    
@@ -243,6 +211,28 @@ sceneInfo = fwInfoAppend(sceneInfo, susoPlaced);
 sceneInfo = fwInfoAppend(sceneInfo, sumoPlaced);
 % Add suso skymap  
 sceneInfo.fwList = [sceneInfo.fwList,' ',skymapfwInfo];
+
+%% Save this simulation
+datastring  = datestr(now,30);
+simulationParamters_path = fullfile(parameter.general.outputDirecotry, ...
+    strcat(parameter.general.outputName,'_',datastring,'.mat'));
+save(simulationParamters_path, 'parameter');
+%% Set the file names for input and output
+if piContains(sceneType,'city')
+    outputDir = fullfile(iaRootPath,'local',strrep(sceneInfo.roadinfo.name,'city',sceneType));
+    sceneR.inputFile = fullfile(outputDir,[strrep(sceneInfo.roadinfo.name,'city',sceneType),'.pbrt']);
+else
+    outputDir = fullfile(iaRootPath,'local',strcat(sceneType,'_',sceneInfo.name));
+    sceneR.inputFile = fullfile(outputDir,[strcat(sceneType,'_',sceneInfo.name),'.pbrt']);
+end
+
+if ~exist(outputDir,'dir'), mkdir(outputDir); end
+
+parameter.general.outputName = strcat(parameter.general.outputName,'_',datastring,'.pbrt');
+
+sceneR.set('outputFile', fullfile(parameter.general.outputDirecotry, parameter.general.outputName));
+%%
+disp('*** Driving scene is generated.')
 end
 
 %--------------------------------------------------------------------------

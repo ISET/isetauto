@@ -272,52 +272,52 @@ if isfield(trafficflow.objects,'pedestrian')
             pedestrianPosition(ii).rotate = trafficflow.objects.pedestrian(ii).orientation;
         end
     end
-    [~, total_list] = piCalOverlap(pedestrianPosition, bikerackPosition_list);
+    [~, total_list] = iaCalOverlap(pedestrianPosition, bikerackPosition_list);
 else
     PedNum = 0;
     total_list = bikerackPosition_list;
 end
 %% consider overlap and obtain the position list of each object
-[streetlightPosition_list, total_list] = piCalOverlap(streetlightPosition, total_list);
-[treePosition_list, total_list]        = piCalOverlap(treePosition, total_list);
-[callboxPosition_list, total_list]     = piCalOverlap(callboxPosition, total_list);
-[billboardPosition_list, total_list]   = piCalOverlap(billboardPosition, total_list);
+[streetlightPosition_list, total_list] = iaCalOverlap(streetlightPosition, total_list);
+[treePosition_list, total_list]        = iaCalOverlap(treePosition, total_list);
+[callboxPosition_list, total_list]     = iaCalOverlap(callboxPosition, total_list);
+[billboardPosition_list, total_list]   = iaCalOverlap(billboardPosition, total_list);
 
-[benchPosition_list, total_list]    = piCalOverlap(benchPosition, total_list);
-[trashcanPosition_list, total_list] = piCalOverlap(trashcanPosition, total_list);
-[stationPosition_list, total_list]  = piCalOverlap(stationPosition, total_list);
+[benchPosition_list, total_list]    = iaCalOverlap(benchPosition, total_list);
+[trashcanPosition_list, total_list] = iaCalOverlap(trashcanPosition, total_list);
+[stationPosition_list, total_list]  = iaCalOverlap(stationPosition, total_list);
 
 %% Place them
 if addTree ==true && ~isempty(treePosition_list)
-    assetsplaced.tree = piSUSOPlace(tree_list,treePosition_list);
+    assetsplaced.tree = iaSUSOPlace(tree_list,treePosition_list);
 end
 
 if billboard_number ~= 0 && ~isempty(billboardPosition_list)
-    assetsplaced.billboard = piSUSOPlace(billboard_list,billboardPosition_list);
+    assetsplaced.billboard = iaSUSOPlace(billboard_list,billboardPosition_list);
 end
 
 if callbox_number ~= 0 && ~isempty(callboxPosition_list)
-    assetsplaced.callbox = piSUSOPlace(callbox_list,callboxPosition_list);
+    assetsplaced.callbox = iaSUSOPlace(callbox_list,callboxPosition_list);
 end
 
 if bench_number ~=0 && ~isempty(benchPosition_list)
-    assetsplaced.bench = piSUSOPlace(bench_list,benchPosition_list);
+    assetsplaced.bench = iaSUSOPlace(bench_list,benchPosition_list);
 end
 
 if trashcan_number ~=0 && ~isempty(trashcanPosition_list)
-    assetsplaced.trashcan = piSUSOPlace(trashcan_list,trashcanPosition_list);
+    assetsplaced.trashcan = iaSUSOPlace(trashcan_list,trashcanPosition_list);
 end
 
 if station_number ~=0 && ~isempty(stationPosition_list)
-    assetsplaced.station = piSUSOPlace(station_list,stationPosition_list);
+    assetsplaced.station = iaSUSOPlace(station_list,stationPosition_list);
 end
 
 if bikerack_number ~=0 && ~isempty(bikerackPosition_list)
-    assetsplaced.bikerack = piSUSOPlace(bikerack_list,bikerackPosition_list);
+    assetsplaced.bikerack = iaSUSOPlace(bikerack_list,bikerackPosition_list);
 end % Change bikerackPlace
 
 if addStreetlight ==true && ~isempty(streetlightPosition_list)
-    assetsplaced.streetlight= piSUSOPlace(streetlight_list,streetlightPosition_list);
+    assetsplaced.streetlight= iaSUSOPlace(streetlight_list,streetlightPosition_list);
 end
 
 end

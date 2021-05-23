@@ -1,4 +1,4 @@
-function [remain_list, total_list] = piCalOverlap(delete_list, total_list)
+function [remain_list, total_list] = iaCalOverlap(delete_list, total_list)
 % Delete overlapping objects
 %
 % Delete objects in delete_list that

@@ -184,7 +184,7 @@ for hh = 1: numel(assetClassList)
         sumoPlaced.(assetClass)(ii).position = position;
         sumoPlaced.(assetClass)(ii).rotation = [];
         for rr = 1:numel(rotationY)
-            sumoPlaced.(assetClass)(ii).rotation = piRotationMatrix('y',rotationY{rr});
+            sumoPlaced.(assetClass)(ii).rotation{rr} = piRotationMatrix('y',rotationY{rr});
             % use this when we have a road with slope
 %           assetsPosList.(assetClass)(ii).rotation = piRotationMatrix('y',rotationY{rr}, 'z', slop{rr});
         end
@@ -192,8 +192,8 @@ for hh = 1: numel(assetClassList)
         % Add Motion
         sumoPlaced.(assetClass)(ii).motion.position = motionPos;
         sumoPlaced.(assetClass)(ii).motion.rotation = [];
-        for rr = 1:numel(rotationY)
-            sumoPlaced.(assetClass)(ii).motion.rotation = piRotationMatrix('y',motionRotY{rr});
+        for rr = 1:numel(motionRotY)
+            sumoPlaced.(assetClass)(ii).motion.rotation{rr} = piRotationMatrix('y',motionRotY{rr});
             % use this when we have a road with slope
 %           assetsPosList.(assetClass)(ii).rotation = piRotationMatrix('y',motionRotY{rr}, 'z', motioinSlope{rr});
         end

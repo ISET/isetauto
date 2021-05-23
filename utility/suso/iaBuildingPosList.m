@@ -1,4 +1,4 @@
-function [buildingPosList] = piBuildingPosList(buildingList, sceneRecipe, showfigure)
+function [buildingPosList, buildingList] = iaBuildingPosList(sceneType, sceneRecipe, showfigure, st)
 % Randomly place buildings in one given region.
 %
 % Given the info of spare region(lenth in x axis, lenth in y axis and
@@ -8,7 +8,7 @@ function [buildingPosList] = piBuildingPosList(buildingList, sceneRecipe, showfi
 %
 % Input:
 %       objects: recipe of assets.      e.g. thisR
-%       biulding_list: including the building size and name
+%       sceneType: type of the scene.
 
 % input of subfunction:(generated according to Input)
 %       lenx_tmp: lenth of spare region in x axis
@@ -20,9 +20,10 @@ function [buildingPosList] = piBuildingPosList(buildingList, sceneRecipe, showfi
 %               area in front/left/right/back of the road.
 %
 % Output:
-%       settle_list: record how to settle buildings on the given region,
+%       buildingPosList: record how to settle buildings on the given region,
 %       including building position and building name(position refer to the
 %       lower left point.
+%       buildingList: assets list.
 %
 % Parameter:
 %       offset: adjust the interval between the buildings. default is 2
@@ -30,10 +31,24 @@ function [buildingPosList] = piBuildingPosList(buildingList, sceneRecipe, showfi
 %
 % Jiaqi Zhang
 % 09.21.2018
+% Zhenyi updated, 2021
 %
 % See also
 %  piBuildingPlace
 
+%% create a building list
+if ~exist('st', 'var') 
+    st = scitran('stanfordlabs');
+end
+buildingListPath = fullfile(iaRootPath,'local','AssetLists',...
+    sprintf('%s_building_list.mat',sceneType));
+
+if ~exist(buildingListPath,'file')
+    buildingList = iaAssetListCreate('session', sceneType, 'scitran', st);
+    save(buildingListPath,'buildingList');
+else
+    load(buildingListPath,'buildingList');
+end
 %%
 buildingPosList = struct;
 for ii = 1:length(buildingList)
@@ -124,7 +139,8 @@ for kk = 1:numel(assetList)
                                 yy = building_list.size(ii, 2);
                             end
                         end
-                        rectangle('Position',[buildingPosList(jj).position(1),buildingPosList(jj).position(3),xx,yy]);title('front');
+                        rectangle('Position',[buildingPosList(jj).position(1),buildingPosList(jj).position(3),xx,yy],...
+                            'FaceColor',[0.3 0.3 0.3 0.5]);title('front');
                     end
                 case 'right'
                     % test algorithm for 'right' situation
@@ -136,7 +152,8 @@ for kk = 1:numel(assetList)
                                 yy = building_list.size(ii, 2);
                             end
                         end
-                        rectangle('Position',[buildingPosList(jj).position(1),buildingPosList(jj).position(3)-xx,yy,xx]);title('right');
+                        rectangle('Position',[buildingPosList(jj).position(1),buildingPosList(jj).position(3)-xx,yy,xx],...
+                            'FaceColor',[0.3 0.3 0.3 0.5]);title('right');
                     end
                 case 'left'
                     % test algorithm for 'left' situation
@@ -148,7 +165,8 @@ for kk = 1:numel(assetList)
                                 yy = building_list.size(ii, 2);
                             end
                         end
-                        rectangle('Position',[buildingPosList(jj).position(1)-yy,buildingPosList(jj).position(3),yy,xx]);title('left');
+                        rectangle('Position',[buildingPosList(jj).position(1)-yy,buildingPosList(jj).position(3),yy,xx],...
+                            'FaceColor',[0.3 0.3 0.3 0.5]);title('left');
                     end
                     % test algorithm for 'back' situation
                 case 'back'
@@ -159,11 +177,11 @@ for kk = 1:numel(assetList)
                                 yy = building_list.size(ii, 2);
                             end
                         end
-                        rectangle('Position',[buildingPosList(jj).position(1)-xx,buildingPosList(jj).position(3)-yy,xx,yy]);title('back');
+                        rectangle('Position',[buildingPosList(jj).position(1)-xx,buildingPosList(jj).position(3)-yy,xx,yy],...
+                            'FaceColor',[0.3 0.3 0.3 0.5]);title('back');
                     end
             end
         end
-        
         % tmp = tmp + 1; 
         % disp(tmp);
 

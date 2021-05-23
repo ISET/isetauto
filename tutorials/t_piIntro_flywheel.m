@@ -9,7 +9,7 @@
 %
 % Dependencies:
 %
-%    ISET3d, (ISETCam or ISETBio), JSONio, SCITRAN
+%    ISET3d, (ISETCam or ISETBio), ISETAuto(zhenyi branch), JSONio, SCITRAN
 %
 % Check that you have the updated docker image by running
 %
@@ -28,16 +28,17 @@ if ~piScitranExists, error('scitran installation required'); end
 
 %% We are going place some cars on a plane
 % Initialize a planar surface with a checkerboard texture pattern
-sceneName = 'checkerboard';
-sceneR = piRecipeDefault('scene name',sceneName);
+sceneName = 'simpleCarScene';
+sceneR = piRecipeDefault('scene name','checkerboard');
+sceneR.set('outputFile',fullfile(iaRootPath, 'local', sceneName,[sceneName,'.pbrt']));
 % render quality
-sceneR.set('film resolution',[1280 600]);
-sceneR.set('pixel samples',8);
+sceneR.set('film resolution',[1280 600]/2);
+sceneR.set('pixel samples',32);
 sceneR.set('max depth',10);
 
 % camera properties
-sceneR.set('fov',60);
-sceneR.set('from', [0 1.5 2]);   % from was 5
+sceneR.set('fov',45);
+sceneR.set('from', [0 1.5 7]);   % from was 5
 sceneR.set('to',[0 0.5 0]);
 sceneR.set('up',[0 1 0]);
 
@@ -127,7 +128,6 @@ sceneR.set('asset','HDM_06_002_B','world rotation',[0 -15 0]);
 sceneR.set('asset','HDM_06_002_B','world rotation',[0 -30 0]);
 
 %% Write out the pbrt scene file, based on scene.
-
 piWrite(sceneR);   % We get a warning.  Ignore
 
 %% Render.
@@ -142,7 +142,7 @@ piWrite(sceneR);   % We get a warning.  Ignore
 % scene = sceneSet(scene,'gamma', 0.75);
 scene = sceneSet(scene,'name', 'normal');
 sceneWindow(scene);
-
+sceneSet(scene,'display mode','hdr'); 
 % denoise
 %{
 sceneDenoise = piAIdenoise(scene);
@@ -150,4 +150,24 @@ scene = sceneSet(scene,'name', 'denoised');
 sceneWindow(sceneDenoise);
 % sceneSet(scene,'display mode','hdr');   
 %}
-%% END
+%% Create object instances
+% Add one object instance
+sceneR   = piObjectInstance(sceneR, 'HDM_06_002_B', 'position', [3.5 0 0]);
+
+% Add another one
+rotation = piRotationMatrix('yrot',75);
+sceneR   = piObjectInstance(sceneR, 'HDM_06_002_B', 'position', [-1 0 3], 'rotation',rotation);
+
+sceneR.assets = sceneR.assets.uniqueNames;
+
+sceneR.set('from', [0 1.5 7]);
+
+piWrite(sceneR);   % We get a warning.  Ignore
+[scene, result] = piRender(sceneR,'render type','radiance');
+scene = sceneSet(scene,'name', 'With 2 more identical cars at different postions');
+sceneWindow(scene);
+
+
+
+
+
