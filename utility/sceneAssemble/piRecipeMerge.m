@@ -47,6 +47,12 @@ for ii = 1:length(recipelist)
         sourceAssets = fullfile(sourceDir, 'scene/PBRT/pbrt-geometry');
         dstAssets    = fullfile(dstDir,    'scene/PBRT/pbrt-geometry');
         copyfile(sourceAssets, dstAssets);
+        
+        % copy the ply files potentially in local folder
+        plyFiles = dir(fullfile(sourceDir, '*.ply'));
+        for jj = 1:numel(plyFiles)
+            copyfile(fullfile(plyFiles(jj).folder, plyFiles(jj).name),dstDir);
+        end
     end
     
     if materialFlag
@@ -65,8 +71,10 @@ for ii = 1:length(recipelist)
         end
         [sourceDir, ~, ~]=fileparts(thisR.outputFile);
         [dstDir, ~, ~]=fileparts(sceneR.outputFile);
-        sourceTexures = fullfile(sourceDir, 'textures');
-        copyfile(sourceTexures, dstDir);
+        sourceTextures = fullfile(sourceDir, 'textures');
+        if exist(sourceTextures, 'dir')
+            copyfile(sourceTextures, dstDir);
+        end
     end
 end
 end

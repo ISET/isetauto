@@ -166,7 +166,10 @@ for ii = 1:numel(materialKeys)
        
        spd_dir = [fileparts(thisR.outputFile),'/spds'];
        if ~exist(fullfile(spd_dir,'metals/Ag.k.spd'), 'file')
-           copyfile(fullfile(iaRootPath,'data','spds'), [fileparts(thisR.outputFile),'/spds']);
+           source_dir = fullfile(iaRootPath,'data','spds');
+           if exist(source_dir, 'dir')
+              copyfile(source_dir, [fileparts(thisR.outputFile),'/spds']);
+           end
        end
        
     elseif piContains(lower(materialKeys{ii}),'glass')
