@@ -35,9 +35,6 @@ tic
 [sceneR, sceneInfo] = iaSceneAuto(ScemeParameter);
 toc
 %% Assign predefined automotive related materials to the scene
-
-% Remove duplicated material
-sceneR = piMaterialCleanup(sceneR);
 % assign
 iaAutoMaterialGroupAssign(sceneR);  
 %% remove some assets for faster rendering (to do)

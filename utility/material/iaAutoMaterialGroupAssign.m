@@ -23,7 +23,7 @@ function iaAutoMaterialGroupAssign(thisR)
 %
 % ZL, Vistasoft Team, 2018
 % Updated with new iset3d features, Zhenyi, 2021
-% 
+%
 % See also
 %  piMaterial*
 
@@ -58,8 +58,8 @@ for ii = 1:numel(materialKeys)
         %         end
         rgbkd = piColorPick('random');
         rgbks = [0.15 0.15 0.15];
-        
-        % change material 
+
+        % change material
         % this way seems not working right now
         newMat = piMaterialCreate(materialKeys{ii}, ...
             'type','substrate',...
@@ -68,12 +68,12 @@ for ii = 1:numel(materialKeys)
             'uroughness value', 0.0005,...
             'vroughness value', 0.0005);
         thisR.set('material','replace', materialKeys{ii}, newMat);
-        
+
     elseif piContains(lower(materialKeys{ii}),'carpaint') &&...
             ~piContains(lower(materialKeys{ii}),'paint_base')
         rgbkd = piColorPick('random');
         rgbks = [0.15 0.15 0.15];
-        
+
         % change material
         newMat = piMaterialCreate(materialKeys{ii}, ...
             'type','substrate',...
@@ -81,71 +81,72 @@ for ii = 1:numel(materialKeys)
             'ks value',rgbks,...
             'uroughness value', 0.0005,...
             'vroughness value', 0.0005);
-        
+
         thisR.set('material','replace', materialKeys{ii}, newMat);
-        
+
     elseif piContains(lower(materialKeys{ii}),'window')
-        
+
         newMat = piMaterialCreate(materialKeys{ii}, ...
-            'type','glass',...        
+            'type','glass',...
             'kr value',[400 0.5 800 0.5]);
         thisR.set('material','replace', materialKeys{ii}, newMat);
-        
+
     elseif piContains(lower(materialKeys{ii}),'mirror') &&...
             ~strcmpi(materialKeys{ii},'paint_mirror')
-        
+
         thisR.set('material', materialKeys{ii}, 'type', 'mirror');
-        
+
     elseif piContains(lower(materialKeys{ii}),'lightsfront') ||...
             piContains(lower(materialKeys{ii}),'lightfront')
-        
+
         thisR.set('material', materialKeys{ii}, 'type', 'glass');
-        
+
     elseif piContains(lower(materialKeys{ii}),'lightsback') ||...
             piContains(lower(materialKeys{ii}),'lightback')
-        
+
         rgbkr = [1 0.1 0.1];
         rgbkt = [0.7 0.1 0.1];
-        
+
         newMat = piMaterialCreate(materialKeys{ii}, ...
             'type','glass',...
             'kr value',rgbkr,...
             'kt value',rgbkt);
-        
+
         thisR.set('material','replace', materialKeys{ii}, newMat);
     elseif piContains(lower(materialKeys{ii}),'chrome')
-        
+
         newMat = piMaterialCreate(materialKeys{ii}, ...
             'type', 'metal',...
             'k value', 'spds/metals/Ag.k.spd', ...
             'eta value', 'spds/metals/Ag.eta.spd');
-        
+
         thisR.set('material','replace', materialKeys{ii}, newMat);
-        
+
        spd_dir = [fileparts(thisR.outputFile),'/spds'];
        if ~exist(fullfile(spd_dir,'metals/Ag.k.spd'), 'file')
            copyfile(fullfile(piRootPath,'data','spds'), [fileparts(thisR.outputFile),'/spds']);
        end
-        
+
     elseif piContains(lower(materialKeys{ii}),'wheel')
 
         thisR.set('material',materialKeys{ii}, 'type', 'uber');
-        
+
     elseif piContains(lower(materialKeys{ii}),'rim')
-        
+
         thisR.set('material',materialKeys{ii}, 'type', 'uber');
-        
-    elseif piContains(lower(materialKeys{ii}),'tire')
-        
+
+    elseif piContains(lower(materialKeys{ii}),'tire') ||...
+            piContains(lower(materialKeys{ii}),'Rubber')
+
         newMat = piMaterialCreate(materialKeys{ii}, ...
             'type', 'uber',...
             'roughness value',0.5,...
             'kd value', [0.01 0.01 0.01],...
             'ks value', [0.2 0.2 0.2]);
-    
+
         thisR.set('material','replace', materialKeys{ii}, newMat);
 
-        
+
     elseif piContains(lower(materialKeys{ii}),'plastic')
 
         newMat = piMaterialCreate(materialKeys{ii}, ...
@@ -153,17 +154,17 @@ for ii = 1:numel(materialKeys)
             'roughness value',0.1,...
             'kd value', [0.25 0.25 0.25],...
             'ks value', [0.25 0.25 0.25]);
-        
+
         thisR.set('material','replace', materialKeys{ii}, newMat);
-        
+
     elseif piContains(lower(materialKeys{ii}),'metal')
-        
+
         newMat = piMaterialCreate(materialKeys{ii}, ...
             'type', 'metal',...
             'k value', 'spds/metals/Ag.k.spd', ...
             'eta value', 'spds/metals/Ag.eta.spd');
         thisR.set('material','replace', materialKeys{ii}, newMat);
-       
+
        spd_dir = [fileparts(thisR.outputFile),'/spds'];
        if ~exist(fullfile(spd_dir,'metals/Ag.k.spd'), 'file')
            source_dir = fullfile(iaRootPath,'data','spds');
@@ -171,9 +172,9 @@ for ii = 1:numel(materialKeys)
               copyfile(source_dir, [fileparts(thisR.outputFile),'/spds']);
            end
        end
-       
+
     elseif piContains(lower(materialKeys{ii}),'glass')
-        
+
         thisR.set('material', materialKeys{ii}, 'type', 'glass');
 
 %     elseif piContains(lower(mlist(ii)),'bodymat')
@@ -182,19 +183,19 @@ for ii = 1:numel(materialKeys)
 %         target = thisR.materials.lib.substrate;
 %         piMaterialAssign(thisR, material.name,target);
     elseif piContains(materialKeys{ii},'translucent')
-        
+
         newMat = piMaterialCreate(materialKeys{ii}, ...
             'type', 'translucent',...
             'roughness value',0.1,...
             'reflect value', [0.5 0.5 0.5],...
             'transmit value', [0.5 0.5 0.5]);
-        
+
         thisR.set('material','replace', materialKeys{ii}, newMat);
-        
+
     elseif piContains(lower(materialKeys{ii}),'wall')
         % might change this for other types of random noise
         thisR.materials.list{ii}.texturebumpmap = 'windy_bump';
-        
+
     else
         % Assign an default matte material.
         if ~piContains(materialKeys{ii},'paint_base')
@@ -211,4 +212,3 @@ end
 fprintf('%d materials assigned \n',ii);
 
 end
-

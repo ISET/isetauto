@@ -200,7 +200,7 @@ if showbirdview
     curDir = pwd;
     cd(parameter.general.outputDirecotry)
     % show bird view of placed objects
-    iaSceneAutoBV(sceneR);
+    iaSceneAutoShow(sceneR);
     cd(curDir);
 end
 

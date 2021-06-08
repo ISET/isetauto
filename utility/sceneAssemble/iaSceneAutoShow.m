@@ -1,4 +1,4 @@
-function iaSceneAutoBV(sceneR)
+function iaSceneAutoShow(sceneR)
 %% this is a plot function to show bird view of placed objects
 
 %% define color map

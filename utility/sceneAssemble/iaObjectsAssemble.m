@@ -3,13 +3,13 @@ function thisR = iaObjectsAssemble(thisR, objects, varargin)
 %
 % Synopsis:
 %   thisR = iaObjectsAdd(thisR, objects, varargin)
-% 
+%
 % Brief description:
 %   Add objects information (material, texture, assets) to a scene recipe.
 %
 % Inputs:
 %   thisR   - scene recipe
-%   objects  - isetauo object list, a list example showed below: 
+%   objects  - isetauo object list, a list example showed below:
 %
 %              tree: [1×8 struct]
 %         billboard: [1×2 struct]
@@ -20,8 +20,8 @@ function thisR = iaObjectsAssemble(thisR, objects, varargin)
 %          bikerack: [1×2 struct]
 %       streetlight: [1×1 struct]
 %          building: [1×16 struct]
-%    
-%   An object example:          
+%
+%   An object example:
 %             name: 'bus_001'
 %        material: [1×1 struct]
 %        geometry: [1×1 tree]
@@ -33,10 +33,10 @@ function thisR = iaObjectsAssemble(thisR, objects, varargin)
 %           count: 2
 %          motion: [1×1 struct]
 %
-%   
+%
 % Returns:
 %   thisR   - scene recipe with added objects.
-% 
+%
 % See also: piRecipeMerge
 
 %% Parse input
@@ -57,48 +57,103 @@ for ii = 1:numel(fdnamelist)
         %% Add objects
         thisObject = objectlist(jj);
         % get subtree and do not replace stripID
-        thisOBJsubtree = thisObject.recipe.get('asset', 2, 'subtree','false');
+        assetlist  = thisObject.recipe.get('assetlist');
+        try
+            OBJsubtree = thisObject.recipe.get('asset', assetlist{1}.name, 'subtree','false');
+        catch
+            disp('More than one asset exists, not allowed.')
+        end
         % get branch
-        thisOBJsubtree_branch = thisOBJsubtree.get(1);
-        
+        OBJsubtree_branch = OBJsubtree.get(1);
         for kk = 1:numel(thisObject.position)
+            if kk<3
+                [idx,~] = piAssetFind(thisR, 'name', OBJsubtree_branch.name);
+            end
+            newbranch = OBJsubtree_branch;
+            % we do not create instance for the first set of transformations
+            if kk==1
+                OBJsubtree_branch.translation     = thisObject.position{kk};
+                OBJsubtree_branch.rotation        = thisObject.rotation{kk};
+                if isfield(thisObject,'motion')
+                    OBJsubtree_branch.motion.position = thisObject.motion.position{kk};
+                    OBJsubtree_branch.motion.rotation = thisObject.motion.rotation{kk};
+                end
+                OBJsubtree_branch.class = fdnamelist{ii};
+                OBJsubtree = OBJsubtree.set(1, OBJsubtree_branch);
+                % graft object tree to scene tree
+                thisR.assets = thisR.assets.graft(1, OBJsubtree);
+                
+                continue
+            end
             
             % add (motion) position / rotation list to branch
-            thisOBJsubtree_branch.translation = thisObject.position{kk};
-            thisOBJsubtree_branch.rotation = thisObject.rotation{kk};
+            if ~isfield(newbranch, 'instanceCount')
+                OBJsubtree_branch.instanceCount = 1;
+                indexCount = 1;
+            else
+                if OBJsubtree_branch.instanceCount(end)==numel(OBJsubtree_branch.instanceCount)
+                    OBJsubtree_branch.instanceCount = [OBJsubtree_branch.instanceCount,...
+                        OBJsubtree_branch.instanceCount(end)+1];
+                    indexCount = numel(OBJsubtree_branch.instanceCount);
+                else
+                    indexCount = 1;
+                    while ~isempty(find(OBJsubtree_branch.instanceCount==indexCount,1))
+                        indexCount = indexCount+1;
+                    end
+                    OBJsubtree_branch.instanceCount = sort([OBJsubtree_branch.instanceCount,indexCount]);
+                end
+            end
+            % add instance to parent object
+            thisR.assets = thisR.assets.set(idx, OBJsubtree_branch);
             
-            if isfield(thisObject, 'motion')
-                thisOBJsubtree_branch.motion.position = thisObject.motion.position{kk};
-                thisOBJsubtree_branch.motion.rotation = thisObject.motion.rotation{kk};
+            % assign position/rotation
+            newbranch.translation     = thisObject.position{kk};
+            newbranch.rotation        = thisObject.rotation{kk};
+            % assgin motion position/rotation
+            if isfield(thisObject,'motion')
+                newbranch.motion.position = thisObject.motion.position{kk};
+                newbranch.motion.rotation = thisObject.motion.rotation{kk};
             end
-            % add label
-            thisOBJsubtree_branch.class = fdnamelist{ii};
-            if kk > 1
-                thisOBJsubtree_branch.name  = strcat(thisOBJsubtree_branch.name, '_I');
+            
+            InstanceSuffix = sprintf('_I_%d',indexCount);
+            Instance_subtree = OBJsubtree;
+            for ll = 1:numel(OBJsubtree.Node)
+                thisNode      = OBJsubtree.Node{ll};
+                thisNode.name = strcat(OBJsubtree.Node{ll}.name, InstanceSuffix);
+                if strcmp(OBJsubtree.Node{ll}.type,'object')
+                    thisNode.type = 'instance';
+                    thisNode.referenceObject = OBJsubtree.Node{ll}.name;
+                end
+                Instance_subtree = Instance_subtree.set(ll, thisNode);
             end
+            newbranch.referencebranch = OBJsubtree_branch.name;
+            
+            newbranch.name  = strcat(OBJsubtree_branch.name, InstanceSuffix);
+            % set class name
+            newbranch.class = fdnamelist{ii};
             % replace branch
-            thisOBJsubtree = thisOBJsubtree.set(1, thisOBJsubtree_branch);
+            Instance_subtree = Instance_subtree.set(1, newbranch);
             
             % graft object tree to scene tree
-            thisR.assets = thisR.assets.graft(1, thisOBJsubtree);
+            thisR.assets = thisR.assets.graft(1, Instance_subtree);
         end
         %% Add materials
-        sceneMatListlength = length(thisR.materials.list);
         if ~isempty(thisR.materials)
-            for matIdx = 1:length(thisObject.recipe.materials.list)
-                thisR.materials.list{sceneMatListlength + matIdx} =...
-                    thisObject.recipe.materials.list{matIdx};
+            matKeys = keys(thisObject.recipe.materials.list);
+            for matIdx = 1:numel(matKeys)
+                thisR.materials.list(matKeys{matIdx})=...
+                    thisObject.recipe.materials.list(matKeys{matIdx});
             end
         else
             thisR.materials.list = thisObject.recipe.materials.list;
         end
         
         %% Add textures
-        sceneTexListlength = length(thisR.textures.list);
         if ~isempty(thisR.textures)
-            for texIdx = 1:length(thisObject.recipe.textures.list)
-                thisR.textures.list{sceneTexListlength + texIdx} =...
-                    thisObject.recipe.textures.list{texIdx};
+            texKeys = keys(thisObject.recipe.textures.list);
+            for texIdx = 1:numel(texKeys)
+                thisR.textures.list(texKeys{texIdx}) =...
+                    thisObject.recipe.textures.list(texKeys{texIdx});
             end
         else
             thisR.textures = thisObject.recipe.textures;
