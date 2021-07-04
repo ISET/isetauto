@@ -86,8 +86,8 @@ for dd =87
     pngFile = pngFigure.^(1/1.5); % for Tree, too dark.
     figure;
     imshow(pngFile);
-    pngfile = sprintf('%s.png',assetname);
-    imwrite(pngFile,pngfile);
+    jpgFile = sprintf('%s.jpg',assetname);
+    imwrite(pngFile,jpgFile);
     
     %%  We upload the .cgresource.zip and the .json file
     
@@ -120,8 +120,8 @@ for dd =87
         fprintf('%s uploaded \n',recipeFile);
         st.fileUpload(resourceFile,current_id.acquisition,'acquisition');
         fprintf('%s uploaded \n',resourceFile);
-        st.fileUpload(pngfile,current_id.acquisition,'acquisition');
-        fprintf('%s uploaded \n',pngfile);toc
+        st.fileUpload(jpgFile,current_id.acquisition,'acquisition');
+        fprintf('%s uploaded \n',jpgFile);toc
         %     st.fileUpload(objFile,current_id.acquisition,'acquisition');
         %     fprintf('%s uploaded \n',objFile);
     end
