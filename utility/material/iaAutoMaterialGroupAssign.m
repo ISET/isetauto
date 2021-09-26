@@ -1,25 +1,24 @@
 function iaAutoMaterialGroupAssign(thisR)
 % Map materials.list names into material data using piMaterialAssign
 %
-% Brief syntax:
+% Syntax:
 %   iaMaterialGroupAssign(recipe)
 %
 % Describe:
-%  This function was built by ZL to manage the material assignments
-%  when there are many asset parts. This is frequently the case in the
-%  isetauto driving scenes. The known part names are from cars or
-%  pedestrian (bodymat).  This list is
+%  This function manages the material assignments when there are many
+%  asset parts. The known part names of the objects in a car or pedestrian
+%  (bodymat) is assigned an appropriate material.
 %
-%  This function processes all the entries in the materials.list in
-%  the recipe and invokes the piMaterialAssign for the cars in the
-%  isetauto simulation. That function assigns the material to the
-%  recipe.  This information is used by PBRT to render the object
-%  materials.
+%  This function processes each of the keys in the materials.list. It looks
+%  for a substring in the key name that identifies the type of material. It
+%  then creates an appropriate material, given the string, and replaces the
+%  current material with one that is designed to match the string.  For
+%  example, carpaint or carbody or window.
 %
 % Materials recognized in this function
-%   (carbody ~paint_base), carpaint , window, mirror, lightsfront, lightsback
-%   chrome, wheel, rim, tire, plastic, metal, glass, bodymat, translucent,
-%   wall, paint_base
+%   (carbody ~paint_base), carpaint , window, mirror, lightsfront,
+%   lightsback, chrome, wheel, rim, tire, plastic, metal, glass, bodymat,
+%   translucent, wall, paint_base
 %
 % ZL, Vistasoft Team, 2018
 % Updated with new iset3d features, Zhenyi, 2021
@@ -172,6 +171,6 @@ for ii = 1:numel(materialKeys)
 end
 
 % Announce!
-fprintf('%d materials assigned \n',ii);
+fprintf('%d materials assigned \n',numel(materialKeys));
 
 end

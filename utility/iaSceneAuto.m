@@ -2,13 +2,14 @@ function [sceneR,sceneInfo] = iaSceneAuto(parameter)
 % Generate scene(s) for Autonomous driving scenarios using SUMO/SUSO
 %
 % Syntax
+%    [sceneR,sceneInfo] = iaSceneAuto(parameter)
 %
 % Description
 %  Assembles assets from Flywheel and SUMO into a city or suburban street
 %  scene.
 %
 % Inputs
-%  N/A
+%   parameter - struct contaning the possible parameters below
 %
 % Optional key/value pairs
 %   scene type     - 'city' or 'suburban'
@@ -20,8 +21,10 @@ function [sceneR,sceneInfo] = iaSceneAuto(parameter)
 %
 % Returns:
 %  sceneR     - Scene recipe
-%  sceneInfo  - A struct containing the list of flywheel objects and road
-%               information. To list this out use road.fwList;
+%  sceneInfo  - A struct containing the list of Flywheel objects and road
+%               information. To list this use road.fwList;
+%
+% Requires:  scitran
 %
 % Author:
 %   Zhenyi Liu
@@ -30,6 +33,7 @@ function [sceneR,sceneInfo] = iaSceneAuto(parameter)
 % See also
 %   piRoadTypes, t_piDrivingScene_demo
 %
+
 disp('*** Scene Generation...')
 %% Read input parameters
 sceneType          = parameter.scene.sceneType;
@@ -45,6 +49,7 @@ if ~exist(parameter.general.outputDirecotry, 'dir')
 end
 %% Flywheel init
 st = scitran('stanfordlabs');
+
 %% Read a road from Flywheel that we will use with SUMO and SUSO
 [sceneInfo,sceneR] = iaRoadCreate('roadtype',roadType,...
                                   'trafficflowDensity',trafficflowDensity,...
