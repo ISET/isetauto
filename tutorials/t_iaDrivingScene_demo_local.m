@@ -24,7 +24,7 @@ ieInit;
 if ~piDockerExists, piDockerConfig; end
 
 %%  Example scene creation
-ScemeParameter = ISETAuto_default_parameters;
+SceneParameter = ISETAuto_default_parameters;
 
 %% Initialize the recipe for the type of driving conditions
 %--------------------------------------------------------------------------
@@ -32,7 +32,7 @@ ScemeParameter = ISETAuto_default_parameters;
 % multiple times, it will be shorter. 
 %--------------------------------------------------------------------------
 tic
-[sceneR, sceneInfo] = iaSceneAuto(ScemeParameter);
+[sceneR, sceneInfo] = iaSceneAuto(SceneParameter);
 toc
 %% Assign predefined automotive related materials to the scene
 % assign
@@ -40,17 +40,12 @@ iaAutoMaterialGroupAssign(sceneR);
 %% remove some assets for faster rendering (to do)
 % set distance filter
 distanceRange = [30, 50]; % remove objects outside this range
-
-
 %% Write the recipe for the scene we generated
 piWrite(sceneR);
 
 % If you want to see the file, use
 %  edit(thisR.outputFile)
 disp('*** Scene written');
-
-
-
 %%
 oi = piRender(sceneR);
 

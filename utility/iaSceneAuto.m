@@ -110,7 +110,6 @@ if isempty(parameter.scene.susoplaced)
         [buildingPosList, building_list] = iaBuildingPosList(sceneType, sceneR, showbirdview, st);
         susoPlaced.building = iaSUSOPlace(building_list, buildingPosList);
         
-        
         disp('--> SUSO Assets are placed on the road.');
     else
         disp('No SUSO assets placed.  Not city or suburb');
