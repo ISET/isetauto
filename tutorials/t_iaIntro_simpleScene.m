@@ -40,7 +40,7 @@ sceneR.set('max depth',10);
 sceneR.set('fov',45);
 sceneR.set('from', [0 1.5 7]);   % from was 5
 sceneR.set('to',[0 0.5 0]);
-sceneR.set('up',[0 1 0]);
+sceneR.set('up',[0 0 1]);
 
 % scale and rotate checkerboard
 sceneR.set('assets','0002ID_Checkerboard_B','scale',[10 10 1]);

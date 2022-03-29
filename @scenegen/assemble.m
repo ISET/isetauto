@@ -120,7 +120,7 @@ for ii = 1:numel(assetNames_off)
             for jj = 1:numel(offroadTree.lane)
                 [positions{jj}, rotations{jj}] = obj.rrMapPlace(...
                     'lane',offroadTree.lane{jj},'pos','offroad',...
-                    'pointnum',offroadTree.number,'posOffset',5);
+                    'pointnum',offroadTree.number,'posOffset',1);
 
                 scale{jj} = rand(size(positions{jj},1),1)+0.5;
                 
@@ -151,8 +151,7 @@ assetNames_offroad = fieldnames(obj.offroad);
 obj = obj.assetPlace(assetNames_offroad,'offroad');
 disp('--> Assets Placed.')
 %%
-skyname = 'noon_009.exr';
-
+skyname = obj.skymap;
 % Delete any lights that happened to be there
 obj.recipe = piLightDelete(obj.recipe, 'all');
 % 

@@ -45,8 +45,8 @@ for ii = 1:numel(materialKeys)
     if  piContains(lower(materialKeys{ii}),'carbody') &&...
              ~piContains(lower(materialKeys{ii}),'paint_base')
 
-%         rgb = piColorPick('random');
-        rgb = [0.7 0.7 0.7];
+        rgb = piColorPick('random');
+%         rgb = [0.7 0.7 0.7];
 
         % change material
         % this way seems not working right now
@@ -56,11 +56,11 @@ for ii = 1:numel(materialKeys)
             'roughness value',0.01);
         thisR.set('material','replace', materialKeys{ii}, newMat);
 
-    elseif piContains(lower(materialKeys{ii}),'carpaint') &&...
+    elseif piContains(erase(lower(materialKeys{ii}),' '),'carpaint') &&...
             ~piContains(lower(materialKeys{ii}),'paint_base')
         
-%         rgb = piColorPick('random');
-        rgb = [0.7 0.1 0.1];
+        rgb = piColorPick('random');
+%         rgb = [0.7 0.1 0.1];
 
         % change material
         % this way seems not working right now

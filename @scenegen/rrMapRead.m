@@ -59,7 +59,7 @@ end
 geoInformation = jsonread(geojsonfile);
 for ii = 1:numel(geoInformation.features)
     if strcmp(geoInformation.features(ii).properties.Id,leftshoulderID)
-        leftShoulderCoordinates = geoInformation.features(ii).geometry.coordinates*1e5; % convert to meters, not sure why its 1e5
+        leftShoulderCoordinates = geoInformation.features(ii).geometry.coordinates*1.12e5; % convert to meters, not sure why its 1e5
         x=leftShoulderCoordinates(:,1);y=leftShoulderCoordinates(:,2);
         xi=min(x):step:max(x);
         yi=interp1(x,y,xi);
@@ -68,7 +68,7 @@ for ii = 1:numel(geoInformation.features)
         %         axis equal;hold on;
 
     elseif strcmp(geoInformation.features(ii).properties.Id,rightshoulderID)
-        rightShoulderCoordinates = geoInformation.features(ii).geometry.coordinates*1e5; % convert to meters, not sure why its 1e5
+        rightShoulderCoordinates = geoInformation.features(ii).geometry.coordinates*1.12e5; % convert to meters, not sure why its 1e5
         x=rightShoulderCoordinates(:,1);y=rightShoulderCoordinates(:,2);
         xi=min(x):step:max(x);
         yi=interp1(x,y,xi);
@@ -76,7 +76,7 @@ for ii = 1:numel(geoInformation.features)
         %         plot(xi,yi,'o')
 
     elseif strcmp(geoInformation.features(ii).properties.Id,leftdrivingID)
-        leftDrivingCoordinates = geoInformation.features(ii).geometry.coordinates*1e5; % convert to meters, not sure why its 1e5
+        leftDrivingCoordinates = geoInformation.features(ii).geometry.coordinates*1.12e5; % convert to meters, not sure why its 1e5
         x=leftDrivingCoordinates(:,1);y=leftDrivingCoordinates(:,2);
         xi=min(x):step:max(x);
         yi=interp1(x,y,xi);
@@ -84,7 +84,7 @@ for ii = 1:numel(geoInformation.features)
         %         plot(xi,yi,'s')
 
     elseif strcmp(geoInformation.features(ii).properties.Id,rightdrivingID)
-        rightDrivingCoordinates = geoInformation.features(ii).geometry.coordinates*1e5;
+        rightDrivingCoordinates = geoInformation.features(ii).geometry.coordinates*1.12e5;
         x=rightDrivingCoordinates(:,1);y=rightDrivingCoordinates(:,2);
         xi=min(x):step:max(x);
         yi=interp1(x,y,xi);

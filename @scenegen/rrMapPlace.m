@@ -81,15 +81,16 @@ switch lane
         disp('wrong lane type')
 end
 
-xi=laneCoordinates(:,1);yi=laneCoordinates(:,2);
+xi=laneCoordinates(:,1); yi=laneCoordinates(:,2);
 
 %%
 % randomly generate points in the driving lane or by the road shoulder
 switch pos
     case 'onroad'
         for i=1:sumofpoints
-            n1=randi(numel(xi));
-            x1=xi(n1);y1=yi(n1);x2=xi(n1+1);y2=yi(n1+1);
+            n1=randi(numel(xi)-1);
+            x1=xi(n1);y1=yi(n1);
+            x2=xi(n1+1);y2=yi(n1+1);
             k=(y2-y1)/(x2-x1);
             points(i,1)=x1+rand*(x2-x1);
             points(i,2)=y1+k*(points(i,1)-x1) + rand(1)*posOffset;

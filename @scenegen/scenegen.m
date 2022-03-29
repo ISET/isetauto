@@ -25,8 +25,9 @@ classdef scenegen < matlab.mixin.Copyable
     % Zhenyi, 2022
 
     properties (GetAccess=public, SetAccess=public)
-        assetInfo; % asset library: name and size for each object.
-        camera;
+        sceneName;
+%         assetInfo; % asset library: name and size for each object.
+        cameraUsed;% It contains the lookAt information and the car ID which the camera belongs to.
         recipe;
         road;
         timeofday;
@@ -50,10 +51,10 @@ classdef scenegen < matlab.mixin.Copyable
 %             p.addParameter('minDistanceToRoad',2);
 
             p.parse(varargin{:});
-
+            
             rrMapPath = p.Results.rrmappath;
             [~,roadName] = fileparts(rrMapPath);
-
+            obj.sceneName = roadName;
             % read road runner map
             obj = rrMapRead(obj, rrMapPath);
 
