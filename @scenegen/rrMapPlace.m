@@ -50,6 +50,7 @@ p.addParameter('layerWidth',5,@isnumeric);
 p.addParameter('minDistanceToRoad',2,@isnumeric);
 p.addParameter('posOffset',0); % allow an offset to add randomness (meter)
 p.addParameter('rotOffset',0); % allow an offset to add randomness (radian)
+p.addParameter('lanenum',1,@isnumeric)
 p.parse(varargin{:});
 
 pos=p.Results.pos;
@@ -59,6 +60,7 @@ layerWidth=p.Results.layerWidth;
 pointnum=p.Results.pointnum;
 posOffset = p.Results.posOffset;
 rotOffset = p.Results.rotOffset;
+lanenum=p.Results.lanenum;
 
 % On road objects does not distributed on different layers, so we sum the
 % number of points here, and sum is used for onroad case.
@@ -81,7 +83,7 @@ switch lane
         disp('wrong lane type')
 end
 
-xi=laneCoordinates(:,1); yi=laneCoordinates(:,2);
+xi=lanecoordinates{lanenum}(:,1);yi=lanecoordinates{lanenum}(:,2);
 
 %%
 % randomly generate points in the driving lane or by the road shoulder
