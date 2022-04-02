@@ -20,12 +20,15 @@ ieInit;
 if ~piDockerExists, piDockerConfig; end
 for nScene = 1
 %% scene initiation
+% 
+datasetFolder = '/Volumes/SSDZhenyi/Ford Project/dataset/dataset_demo';
+
 sceneData = scenegen('rrmappath',...
     '/Volumes/SSDZhenyi/Ford Project/PBRT_assets/road/simple3_21');
 sceneName = sceneData.sceneName;
 
 %% Set parameters for the scene
-sceneData.onroad.car.namelist = {'car_001','car_002'};
+sceneData.onroad.car.namelist = {'car_001','car_002','car_003'};
 sceneData.onroad.car.number = [randi(20),randi(20)];
 sceneData.onroad.car.lane   = {'leftdriving','rightdriving'};
 
@@ -42,20 +45,26 @@ sceneData.offroad.animal.layerWidth = 5;
 % for different distance range from the boundary of road
 sceneData.offroad.tree.namelist = ...
     {'tree_short_001','tree_mid_001','tree_mid_002','tree_tall_001'};
-sceneData.offroad.tree.number= [150, 50, 30];
+sceneData.offroad.tree.number= [100, 50, 10];
 sceneData.offroad.tree.lane = {'rightshoulder','leftshoulder'};
 
-skymapLists = dir('/Users/zhenyi/git_repo/dev/isetauto/data/skymap/*.exr');
+skymapLists = dir(fullfile(iaRootPath,'data/skymap/*.exr'));
 skymapRandIndex = randi(size(skymapLists,1));
 sceneData.skymap = skymapLists(skymapRandIndex).name; 
 sceneData.skymap = 'noon_009.exr';
 % useful cmd
 %{
+sceneData.skymap = 'noon_009.exr';
+
 piDockerImgtool('makeequiarea','infile','/Users/zhenyi/git_repo/dev/iset3d-v4/data/lights/dikhololo_night_4k.exr');
 %}
 %% Assemle the scene
 
 datastring  = datestr(now,30);
+datastring  = erase(datastring,'T');
+% if the number of digits is larger than 9, the matlab rounds the number
+% cocoapi allow only number as image id, not a string.
+imageID  = str2double(datastring(5:end)); 
 
 assemble_tic = tic();
 sceneData.assemble();
@@ -66,7 +75,7 @@ sceneData.recipe.set('film render type',{'radiance','depth'});
 
 % render quality
 sceneData.recipe.set('film resolution',[1536 864]/1.5);
-sceneData.recipe.set('pixel samples',1024);
+sceneData.recipe.set('pixel samples',128);
 sceneData.recipe.set('max depth',5);
 sceneData.recipe.sampler.subtype = 'pmj02bn';
 % sceneData.recipe.integrator.subtype = 'volpath';
@@ -94,24 +103,25 @@ oiWindow(oi);
 % back_cam
 % left_mirror_cam
 % right_mirror_cam
-camera_type = 'back_cam'; 
+camera_type = 'front_cam'; 
 % sceneData.recipe.lookAt.from = [-215.4888 -2.5427 69.2109];
 % sceneData.recipe.lookAt.to   = [-214.5653 -2.5193 68.8282];
 % sceneData.recipe.lookAt.up   = [0.3825 0.0151 0.9238];
 % random pick a car, use the camera on it.
-sceneData.cameraSet(camera_type, 299); % (camera_type, car_id)
-
-% Construct Image ID with scene infomation
-imageID = datastring;
+sceneData.cameraSet(camera_type); % (camera_type, car_id)
 
 sceneData.recipe.set('outputFile',fullfile(piRootPath, 'local', sceneName,...
-    [imageID,'.pbrt']));
+    [num2str(imageID),'.pbrt']));
 
 piWrite(sceneData.recipe);
+if ismac
+    rendered = piRenderZhenyi(sceneData.recipe,'device','gpu');
+else
+    rendered = piRenderServer(sceneData.recipe,'device','gpu');
+end
+oi = piOICreate(rendered.data.photons,'mean illuminance',randi(5));
 
-rendered = piRenderZhenyi(sceneData.recipe,'device','gpu');
-
-oi = piOICreate(rendered.data.photons,'mean illuminance',randi(10));
+% oi = piAIdenoise(oi);
 
 ip = piRadiance2RGB(oi,'etime',1/50,'sensor','MT9V024SensorRGB');
 
@@ -120,9 +130,6 @@ radiance = ipGet(ip,'srgb');
 
 [obj,objectslist,instanceMap] = sceneData.label();
 %% 
-
-datasetFolder = '/Users/zhenyi/Desktop/scene_generation/dataset_demo';
-
 figure;
 subplot(2,2,1);
 imshow(radiance);title('Radiance')
@@ -133,12 +140,14 @@ ax2=subplot(2,2,3);
 imagesc(instanceMap);colormap(ax2,"colorcube");axis off;title('Pixel Label');
 subplot(2,2,4);
 imshow(radiance);title('Bounding Box');
+
 nBox=1;
 nImage = 1;
-Annotation={};
+Annotation=[];
 [h,w,~] = size(radiance);
+
 % write out object ID for segmentation map;
-seg_FID = fopen(fullfile(datasetFolder,'additionalInfo',[imageID,'.txt']),'w+');
+seg_FID = fopen(fullfile(datasetFolder,'additionalInfo',[num2str(imageID),'.txt']),'w+');
 fprintf(seg_FID,'sceneName: %s\nSkymap: %s\nCameraType: %s\n',sceneName, ...
     erase(sceneData.skymap,'.exr'), camera_type);
 fprintf(seg_FID,'Object ID:\n');
@@ -171,20 +180,20 @@ for ii = 1:numel(objectslist)
     tex.FontSize = 12;
 
     Annotation_coco{nBox} = struct('segmentation',segmentation,'area',area,'iscrowd',0,...
-        'image_id',sprintf('%06d',imageID),'bbox',pos,'category_id',catId,'id',0,'ignore',0);
+        'image_id',sprintf('%d',imageID),'bbox',pos,'category_id',catId,'id',0,'ignore',0);
     fprintf('Class %s, instanceID: %d \n', label, ii);
     nBox = nBox+1;
 end
 truesize;
 % %{
 
-imgName = sprintf('%s.png',imageID);
+imgName = sprintf('%d.png',imageID);
 
-Image_coco = struct('file_name',imgName,'height',h,'width',w,'id',sprintf('%06d',imageID));
-
-% write files out
-save(fullfile(datasetFolder, sprintf('%s_image.mat',imageID)),'Image_coco');
-save(fullfile(datasetFolder, sprintf('%s_anno.mat',imageID)), 'Annotation_coco');
+% Image_coco = struct('file_name',imgName,'height',h,'width',w,'id',sprintf('%d',imageID));
+% 
+% % write files out
+% save(fullfile(datasetFolder, sprintf('%d_image.mat',imageID)),'Image_coco');
+% save(fullfile(datasetFolder, sprintf('%d_anno.mat',imageID)), 'Annotation_coco');
 
 imgFilePath  = fullfile(datasetFolder,'rgb',imgName);
 imwrite(radiance,imgFilePath);
@@ -192,7 +201,7 @@ imwrite(radiance,imgFilePath);
 imwrite(uint16(instanceMap),fullfile(datasetFolder,'segmentation',imgName));
 imwrite(uint16(rendered.depthMap),fullfile(datasetFolder,'depth',imgName));
 outputFolder = sceneData.recipe.get('outputdir');
-movefile(fullfile(outputFolder,'renderings/*.exr'),fullfile(datasetFolder,'rendered/'));
+movefile(fullfile(outputFolder,sprintf('renderings/%d.exr',imageID)),fullfile(datasetFolder,'rendered/'));
 %}
 fprintf('****** Scene%d Generated! ******\n',nScene);
 end

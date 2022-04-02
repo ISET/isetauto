@@ -16,7 +16,11 @@ obj.recipe.set('outputFile',fullfile(dir, [fname, '_instanceID', ext]));
 
 piWrite(obj.recipe);
 
-oiInstance = piRenderZhenyi(obj.recipe,'device','cpu');
+if ismac
+    oiInstance = piRenderZhenyi(obj.recipe,'device','cpu');
+else
+    oiInstance = piRenderServer(obj.recipe,'device','cpu');
+end
 
 obj.recipe.world = {'WorldBegin'};
 

@@ -59,9 +59,14 @@ end
 geoInformation = jsonread(geojsonfile);
 for ii = 1:numel(geoInformation.features)
     if strcmp(geoInformation.features(ii).properties.Id,leftshoulderID)
-        leftShoulderCoordinates = geoInformation.features(ii).geometry.coordinates; % convert to meters, not sure why its 1e5
-        x=leftShoulderCoordinates(:,1);y=leftShoulderCoordinates(:,2);
-        [x,y] = latlon2local(x,y,0,[0,0,0]);
+        leftShoulderCoordinates = geoInformation.features(ii).geometry.coordinates; 
+        % Convert geographic corrdiantes to local cartesian coordinates
+        lon=leftShoulderCoordinates(:,1);
+        lat=leftShoulderCoordinates(:,2);
+        alt=leftShoulderCoordinates(:,3);
+        origin = [0,0,0];
+        % will do z soon! Zhenyi
+        [x,y,~] = latlon2local(lat,lon,alt,origin);
         xi=min(x):step:max(x);
         yi=interp1(x,y,xi);
         leftShoulderCoordinates=[xi;yi]';
@@ -69,18 +74,25 @@ for ii = 1:numel(geoInformation.features)
         %         axis equal;hold on;
 
     elseif strcmp(geoInformation.features(ii).properties.Id,rightshoulderID)
-        rightShoulderCoordinates = geoInformation.features(ii).geometry.coordinates; % convert to meters, not sure why its 1e5
-        x=rightShoulderCoordinates(:,1);y=rightShoulderCoordinates(:,2);
-        [x,y] = latlon2local(x,y,0,[0,0,0]);
+        rightShoulderCoordinates = geoInformation.features(ii).geometry.coordinates; 
+        % Convert geographic corrdiantes to local cartesian coordinates
+        lon=rightShoulderCoordinates(:,1);
+        lat=rightShoulderCoordinates(:,2);
+        alt=rightShoulderCoordinates(:,3);
+        origin = [0,0,0];
+        [x,y,~] = latlon2local(lat,lon,alt,origin);
         xi=min(x):step:max(x);
         yi=interp1(x,y,xi);
         rightShoulderCoordinates=[xi;yi]';
         %         plot(xi,yi,'o')
 
     elseif strcmp(geoInformation.features(ii).properties.Id,leftdrivingID)
-        leftDrivingCoordinates = geoInformation.features(ii).geometry.coordinates; % convert to meters, not sure why its 1e5
-        x=leftDrivingCoordinates(:,1);y=leftDrivingCoordinates(:,2);
-        [x,y] = latlon2local(x,y,0,[0,0,0]);
+        leftDrivingCoordinates = geoInformation.features(ii).geometry.coordinates; 
+        lon=leftDrivingCoordinates(:,1);
+        lat=leftDrivingCoordinates(:,2);
+        alt=leftDrivingCoordinates(:,3);
+        origin = [0,0,0];
+        [x,y,~] = latlon2local(lat,lon,alt,origin);
         xi=min(x):step:max(x);
         yi=interp1(x,y,xi);
         leftDrivingCoordinates=[xi;yi]';
@@ -88,8 +100,11 @@ for ii = 1:numel(geoInformation.features)
 
     elseif strcmp(geoInformation.features(ii).properties.Id,rightdrivingID)
         rightDrivingCoordinates = geoInformation.features(ii).geometry.coordinates;
-        x=rightDrivingCoordinates(:,1);y=rightDrivingCoordinates(:,2);
-        [x,y] = latlon2local(x,y,0,[0,0,0]);
+        lon=rightDrivingCoordinates(:,1);
+        lat=rightDrivingCoordinates(:,2);
+        alt=rightDrivingCoordinates(:,3);
+        origin = [0,0,0];
+        [x,y,~] = latlon2local(lat,lon,alt,origin);
         xi=min(x):step:max(x);
         yi=interp1(x,y,xi);
         rightDrivingCoordinates=[xi;yi]';

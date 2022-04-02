@@ -37,7 +37,7 @@ for ii  = 1:numel(S1.lane)
         rotList_S = S.placedList.rotations{ii};
         idList_S  = S.placedList.objIdList{ii};
         for ll = 1:size(posList_S,1)
-            objInfo_S = assetInfo(S.namelist{idList_S(jj)});
+            objInfo_S = assetInfo(S.namelist{idList_S(ll)});
             objPatch_S = polyshape([0 0 objInfo_S.size(1) objInfo_S.size(1)],...
                 [objInfo_S.size(2) 0 0 objInfo_S.size(2)]);
     
