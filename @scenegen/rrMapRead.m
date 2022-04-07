@@ -53,25 +53,25 @@ geojsonfile = fullfile(rrDataPath,[sceneName, '.geojson']);
 % end
 %% 
 % read laneID from xodr file
-openDriveMap = readstruct(xodrfile,"FileType","xml")
+openDriveMap = readstruct(xodrfile,"FileType","xml");
 
 i=1;j=1;
 for ii=1:numel(openDriveMap.road.lanes.laneSection.left.lane)
     if strcmp(openDriveMap.road.lanes.laneSection.left.lane(ii).typeAttribute,"shoulder")
-        leftshoulderID(i)=openDriveMap.road.lanes.laneSection.left.lane(ii).userData.vectorLane.laneIdAttribute
+        leftshoulderID(i)=openDriveMap.road.lanes.laneSection.left.lane(ii).userData.vectorLane.laneIdAttribute;
         i=i+1;
     elseif strcmp(openDriveMap.road.lanes.laneSection.left.lane(ii).typeAttribute,"driving")
-        leftdrivingID(j)=openDriveMap.road.lanes.laneSection.left.lane(ii).userData.vectorLane.laneIdAttribute
+        leftdrivingID(j)=openDriveMap.road.lanes.laneSection.left.lane(ii).userData.vectorLane.laneIdAttribute;
         j=j+1;
     end
 end
 i=1;j=1;
 for ii=1:numel(openDriveMap.road.lanes.laneSection.right.lane)
     if strcmp(openDriveMap.road.lanes.laneSection.right.lane(ii).typeAttribute,"shoulder")
-        rightshoulderID(i)=openDriveMap.road.lanes.laneSection.right.lane(ii).userData.vectorLane.laneIdAttribute
+        rightshoulderID(i)=openDriveMap.road.lanes.laneSection.right.lane(ii).userData.vectorLane.laneIdAttribute;
         i=i+1;
     elseif strcmp(openDriveMap.road.lanes.laneSection.right.lane(ii).typeAttribute,"driving")
-        rightdrivingID(j)=openDriveMap.road.lanes.laneSection.right.lane(ii).userData.vectorLane.laneIdAttribute
+        rightdrivingID(j)=openDriveMap.road.lanes.laneSection.right.lane(ii).userData.vectorLane.laneIdAttribute;
         j=j+1;
     end
 end
@@ -94,13 +94,14 @@ for ii = 1:numel(geoInformation.features)
             alt=leftShoulderCoordinates{j}(:,3);            
             origin = [0,0,0];
             % will do z soon! Zhenyi
-            [x,y,~] = latlon2local(lat,lon,alt,origin);
+            [x,y,~] = iaGPS2Local(lat,lon,alt,origin);
             xi=min(x):step:max(x);
             yi=interp1(x,y,xi);
             leftShoulderCoordinates{j}=[xi;yi]';
             plot(xi,yi,'s');axis equal;hold on;
         end
     end    
+
     for j=1:numel(rightshoulderID)
         if strcmp(geoInformation.features(ii).properties.Id,rightshoulderID(j))
             rightShoulderCoordinates{j} = geoInformation.features(ii).geometry.coordinates;
@@ -108,13 +109,14 @@ for ii = 1:numel(geoInformation.features)
             lat=rightShoulderCoordinates{j}(:,2);
             alt=rightShoulderCoordinates{j}(:,3);            
             origin = [0,0,0];
-            [x,y,~] = latlon2local(lat,lon,alt,origin);
+            [x,y,~] = iaGPS2Local(lat,lon,alt,origin);
             xi=min(x):step:max(x);
             yi=interp1(x,y,xi);
             rightShoulderCoordinates{j}=[xi;yi]';
             plot(xi,yi,'o')
         end
     end
+
     for j=1:numel(leftdrivingID)
         if strcmp(geoInformation.features(ii).properties.Id,leftdrivingID(j))
             leftDrivingCoordinates{j} = geoInformation.features(ii).geometry.coordinates;
@@ -123,13 +125,14 @@ for ii = 1:numel(geoInformation.features)
             lat=leftDrivingCoordinates{j}(:,2);
             alt=leftDrivingCoordinates{j}(:,3);            
             origin = [0,0,0];
-            [x,y,~] = latlon2local(lat,lon,alt,origin);
+            [x,y,~] = iaGPS2Local(lat,lon,alt,origin);
             xi=min(x):step:max(x);
             yi=interp1(x,y,xi);
             leftDrivingCoordinates{j}=[xi;yi]';
             plot(xi,yi,'s')
         end
     end  
+
     for j=1:numel(rightdrivingID)
         if strcmp(geoInformation.features(ii).properties.Id,rightdrivingID(j))
         
@@ -138,7 +141,8 @@ for ii = 1:numel(geoInformation.features)
             lat=rightDrivingCoordinates{j}(:,2);
             alt=rightDrivingCoordinates{j}(:,3);            
             origin = [0,0,0];
-            [x,y,~] = latlon2local(lat,lon,alt,origin);
+            
+            [x,y,~] = iaGPS2Local(lat,lon,alt,origin);
             xi=min(x):step:max(x);
             yi=interp1(x,y,xi);
             rightDrivingCoordinates{j}=[xi;yi]';
@@ -155,7 +159,7 @@ end
 %         alt=leftShoulderCoordinates(:,3);
 %         origin = [0,0,0];
 %         % will do z soon! Zhenyi
-%         [x,y,~] = latlon2local(lat,lon,alt,origin);
+%         [x,y,~] = iaGPS2Local(lat,lon,alt,origin);
 %         xi=min(x):step:max(x);
 %         yi=interp1(x,y,xi);
 %         leftShoulderCoordinates=[xi;yi]';
@@ -169,7 +173,7 @@ end
 %         lat=rightShoulderCoordinates(:,2);
 %         alt=rightShoulderCoordinates(:,3);
 %         origin = [0,0,0];
-%         [x,y,~] = latlon2local(lat,lon,alt,origin);
+%         [x,y,~] = iaGPS2Local(lat,lon,alt,origin);
 %         xi=min(x):step:max(x);
 %         yi=interp1(x,y,xi);
 %         rightShoulderCoordinates=[xi;yi]';
@@ -181,7 +185,7 @@ end
 %         lat=leftDrivingCoordinates(:,2);
 %         alt=leftDrivingCoordinates(:,3);
 %         origin = [0,0,0];
-%         [x,y,~] = latlon2local(lat,lon,alt,origin);
+%         [x,y,~] = iaGPS2Local(lat,lon,alt,origin);
 %         xi=min(x):step:max(x);
 %         yi=interp1(x,y,xi);
 %         leftDrivingCoordinates=[xi;yi]';
@@ -193,7 +197,7 @@ end
 %         lat=rightDrivingCoordinates(:,2);
 %         alt=rightDrivingCoordinates(:,3);
 %         origin = [0,0,0];
-%         [x,y,~] = latlon2local(lat,lon,alt,origin);
+%         [x,y,~] = iaGPS2Local(lat,lon,alt,origin);
 %         xi=min(x):step:max(x);
 %         yi=interp1(x,y,xi);
 %         rightDrivingCoordinates=[xi;yi]';

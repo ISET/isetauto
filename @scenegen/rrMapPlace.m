@@ -32,6 +32,9 @@ function [points, rot] = rrMapPlace(obj,varargin)
 %    |       |       |       |<MDR>|--------|
 %    (The other side of the road is symmetric)
 %
+%    04-02: multiple lanes are supported, we can specify lanenum, lanenum
+%    counts from north to south. 
+%
 %    We can gradually reduced the number of assets with the
 %    increase on distance to the road, this is mainly for
 %    saving memory sapce and rendering time.
@@ -39,7 +42,6 @@ function [points, rot] = rrMapPlace(obj,varargin)
 % Output:
 %    points: a list of positions defined by [x, y, z]
 %    rot   : a list of rotations defined by radian.
-%
 %
 %%
 p = inputParser;
@@ -72,13 +74,13 @@ rot=zeros(sumofpoints,1);
 % choose a lane
 switch lane
     case 'leftdriving'
-        laneCoordinates=obj.road.leftDrivingCoordinates;
+        lanecoordinates=obj.road.leftDrivingCoordinates;
     case 'leftshoulder'
-        laneCoordinates=obj.road.leftShoulderCoordinates;
+        lanecoordinates=obj.road.leftShoulderCoordinates;
     case 'rightdriving'
-        laneCoordinates=obj.road.rightDrivingCoordinates;
+        lanecoordinates=obj.road.rightDrivingCoordinates;
     case 'rightshoulder'
-        laneCoordinates=obj.road.rightShoulderCoordinates;
+        lanecoordinates=obj.road.rightShoulderCoordinates;
     otherwise
         disp('wrong lane type')
 end

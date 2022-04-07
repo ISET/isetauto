@@ -63,6 +63,7 @@ for ii = 1:numel(assetNames)
                 [positions{jj}, rotations{jj}] = obj.rrMapPlace(...
                     'lane',onroadAnimal.lane{jj},'pos','onroad',...
                     'pointnum',onroadAnimal.number(jj),'rotOffset',pi*0.25);
+                
                 objIdList{jj} = randi(numel(onroadAnimal.namelist), onroadAnimal.number(jj), 1);
             end
             obj.onroad.animal.placedList.objIdList = objIdList;
@@ -96,6 +97,7 @@ for ii = 1:numel(assetNames_off)
                 [positions{jj}, rotations{jj}] = obj.rrMapPlace(...
                     'lane',offroadAnmial.lane{jj},'pos','offroad',...
                     'pointnum',offroadAnmial.number(jj),'rotOffset',pi*0.25);
+
                 objIdList{jj} = randi(numel(offroadAnmial.namelist), offroadAnmial.number(jj), 1);
             end
             
