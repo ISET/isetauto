@@ -132,7 +132,11 @@ roadData.cameraSet(camera_type); % (camera_type, car_id)
 scene = piWRS(thisR);
 
 %{
-thisR.set('camera','position'
+thisR.set('skymap','room.exr');
+thisR.set('lights','room_L','rotate',[0 0 90]);
+
+thisR.set('skymap','night.exr');
+thisR.show('skymap');
 %}
 
 %%
