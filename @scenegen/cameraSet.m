@@ -1,5 +1,14 @@
 function obj = cameraSet(obj,cam_type, branchID)
+% Place a camera on a road scene
+%
+% obj      - The road scene
+% cam_type - The front, rear, or side camera types
+% branchID - Specifies which car to use
+%
+% See also
+%   scenegen
 
+%%
 thisCamNode =[];
 % get all children under root node.
 if ~exist('branchID','var')
@@ -32,12 +41,18 @@ if isempty(thisCamNode)
     return
 end
 
+% We want to make this use the same methods as in ISET3d.
+% All camera set methods there also position and aim the camera.
+% They also set the focal distance and aperture and such.
+%
+% In this case the function is really place the camera on the car pointing
+% in some direction.
+%
 assestTransForm = piTransformCompose(thisAssetBranch.translation{1},thisAssetBranch.rotation{1}, [1,1,1]);
 CamLocalTranform= piTransformCompose(thisCamNode.translation{1}, thisCamNode.rotation{1}, [1,1, 1]);
 
 newCamTransform = assestTransForm * CamLocalTranform;
 % [T, R, S] = piTransformDecompose(newCamTransform);
-
 
 from_points = newCamTransform(:,4);
 at_points = newCamTransform(:,3);
@@ -53,7 +68,7 @@ fprintf('-->Camera is set on %s(ID:%d) with \n  From:[ %.2f %.2f %.2f] \n    To:
     thisAssetBranch.name,branchID,...
     from_points(1),from_points(2),from_points(3),...
     at_points(1),at_points(2),at_points(3));
-end
 
+end
 
 

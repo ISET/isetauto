@@ -26,35 +26,54 @@ classdef scenegen < matlab.mixin.Copyable
 
     properties (GetAccess=public, SetAccess=public)
         sceneName;
-%         assetInfo; % asset library: name and size for each object.
-        cameraUsed;% It contains the lookAt information and the car ID which the camera belongs to.
-        recipe;
-        road;
-        timeofday;
-        skymap;
-        onroad;
-        offroad;
-        rrdatadirectory = '';
+        %  assetInfo; % asset library: name and size for each object.
+        cameraUsed;  % It contains the lookAt information and the car ID which the camera belongs to.
+        recipe;      % ISET3d recipe includes camera and other info
+        road;        % Road specification from Road Runner
+        timeofday;   %
+        skymap;      % This should probably be part of the recipe
+        onroad;      % Metadata about the road
+        offroad;     % More metadata about the road
+        roaddirectory  = '';
         assetdirectory = '/Volumes/SSDZhenyi/Ford Project/PBRT_assets';
 
     end
 
     methods (Static)
         function obj = scenegen(varargin)
+            % scene = scenegen('asset directory',yourChoice,'rr map path',yourChoice).
+            %
+            % rr map path - This is a directory produced by RoadRunner
+            %               along with additional files produced via
+            %               Blender exports
+            %
+            % asset directory - Where we are stashing assets for now.
+            %
+            % This is a road recipe.  It includes an ISET3d recipe, but it
+            % also includes specific features for the driving application.
+            %
+            
+            varargin = ieParamFormat(varargin);
             
             p = inputParser;
-            p.addParameter('rrmappath','');
-%             p.addParameter('lane','');
-%             p.addParameter('pos','');
-%             p.addParameter('pointnum',0);
-%             p.addParameter('layerWidth',5);
-%             p.addParameter('minDistanceToRoad',2);
+            p.addParameter('roaddirectory','');
+            p.addParameter('assetdirectory','/Volumes/SSDZhenyi/Ford Project/PBRT_assets',@ischar)
+            %             p.addParameter('lane','');
+            %             p.addParameter('pos','');
+            %             p.addParameter('pointnum',0);
+            %             p.addParameter('layerWidth',5);
+            %             p.addParameter('minDistanceToRoad',2);
 
             p.parse(varargin{:});
             
-            rrMapPath = p.Results.rrmappath;
+            % Assets for this project.  Will generalize later.
+            obj.assetdirectory = p.Results.assetdirectory;
+            
+            % Road runner data information
+            rrMapPath = p.Results.roaddirectory;
             [~,roadName] = fileparts(rrMapPath);
             obj.sceneName = roadName;
+           
             % read road runner map
             obj = rrMapRead(obj, rrMapPath);
 
@@ -62,12 +81,12 @@ classdef scenegen < matlab.mixin.Copyable
             obj.recipe = piRead(fullfile(rrMapPath,roadName,[roadName,'.pbrt']));
         end
 
-        function [obj, val] = set(obj,varargin)
-
+        function obj = set(obj,param,val,varargin)
+            % obj = iaRoadSet(obj,param,val,varargin);
         end
 
-        function [obj, val] = get(obj, varargin)
-
+        function val = get(obj, param, varargin)
+            % iaRoadGet(obj,param,varargin);
         end
 
         function assetList = assetListCreate(obj)
@@ -98,10 +117,9 @@ classdef scenegen < matlab.mixin.Copyable
                 newAssetList{ii}.size = thisAsset{1}.size;
             end
         end
-
         
         
-        % visulization
+        % Visualization
         function rrDraw(obj, varargin)
             p = inputParser;
             p.addParameter('points',[]);
@@ -132,8 +150,6 @@ classdef scenegen < matlab.mixin.Copyable
             ylabel('meters');
         end
         
-
-
     end
 
 

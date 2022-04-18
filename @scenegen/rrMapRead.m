@@ -1,5 +1,12 @@
 function obj = rrMapRead(obj, rrDataPath, varargin)
-% RoadRunner exports a scenes with several files:
+% Reads a road map exported by road runner
+%
+% Synopsis
+%    obj = rrMapRead(obj, rrDataPath, varargin)
+%
+% Brief description
+% 
+%   RoadRunner exports a scenes with several files:
 %       scene.fbx
 %       (3D mesh decription file which is used for 3d rendering)
 %       scene.geojson
@@ -12,7 +19,11 @@ function obj = rrMapRead(obj, rrDataPath, varargin)
                 scenegen.rrMapRead(scenegen,'Path/to/rrdata');
 %}
 %
-%%
+% See also
+%   scenegen
+%
+
+%% Parse inputs
 varargin = ieParamFormat(varargin);
 p = inputParser;
 
@@ -27,9 +38,9 @@ p.parse(rrDataPath, varargin{:});
 step = p.Results.step;
 
 %% Get file names
-[~, sceneName] = fileparts(rrDataPath);
 
-xodrfile = fullfile(rrDataPath,[sceneName,'.xodr']);
+[~, sceneName] = fileparts(rrDataPath);
+xodrfile    = fullfile(rrDataPath,[sceneName,'.xodr']);
 geojsonfile = fullfile(rrDataPath,[sceneName, '.geojson']);
 
 % %%
@@ -76,9 +87,11 @@ for ii=1:numel(openDriveMap.road.lanes.laneSection.right.lane)
     end
 end
 
-%%
-% read original (uneven) lane coordinates from geojson file and transform
-% them into evenly spread points
+%% Read original (uneven) lane coordinates from geojson file 
+%  transform them into evenly spread points
+
+ieNewGraphWin;
+
 geoInformation = jsonread(geojsonfile);
 leftDrivingCoordinates = cell(1,numel(leftdrivingID));
 rightDrivingCoordinates = cell(1,numel(rightdrivingID));
@@ -150,6 +163,10 @@ for ii = 1:numel(geoInformation.features)
         end
     end
 end
+
+xlabel('Position (m)'); ylabel('Position (m)');
+grid on;
+
 % for ii = 1:numel(geoInformation.features)
 %     if strcmp(geoInformation.features(ii).properties.Id,leftshoulderID)
 %         leftShoulderCoordinates = geoInformation.features(ii).geometry.coordinates; 
@@ -205,7 +222,8 @@ end
 % 
 %     end
 % end
-obj.rrdatadirectory = rrDataPath;
+
+obj.roaddirectory = rrDataPath;
 obj.road.leftShoulderCoordinates = leftShoulderCoordinates;
 obj.road.rightShoulderCoordinates= rightShoulderCoordinates;
 obj.road.leftDrivingCoordinates  = leftDrivingCoordinates;

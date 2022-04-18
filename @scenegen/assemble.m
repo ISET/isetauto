@@ -1,16 +1,23 @@
-% Generate assets
 function obj = assemble(obj,varargin)
-% We generate random points on /off the road, on the road, the points are
-% used to place cars or other objects defined by users. off the road we
-% place trees for now, we will add building or other type of objects later.
+% Assemble the assets specified in the road class
+%
+% Brief description:
+%   We use the parameters of the road to place the cars, animals and so
+%   forth into the scene
+%
+%   We generate random points on /off the road, on the road, the points are
+%   used to place cars or other objects defined by users. off the road we
+%   place trees for now, we will add building or other type of objects later.
 %
 % TODO:
 %   Add motion
+
 %%
 obj.onroad.car.placedList = [];
 obj.onroad.animal.placedList = [];
 obj.offroad.animal.placedList = [];
 obj.offroad.tree.placedList = [];
+
 %% Generate object lists on the road
 assetNames = fieldnames(obj.onroad);
 for ii = 1:numel(assetNames)
@@ -140,10 +147,12 @@ disp('--> AssetsList is generated');
 
 % check overlap, remove overlapped objects
 obj = obj.overlappedRemove();
+
 %% Apply our customized material
 iaAutoMaterialGroupAssign(obj.recipe);
 % sceneR.show('materials');
 disp('--> Material assigned');
+
 %% Place assets
 % on road
 assetNames_onroad = fieldnames(obj.onroad);
