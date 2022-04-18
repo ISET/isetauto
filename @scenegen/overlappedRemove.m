@@ -26,8 +26,9 @@ for ii  = 1:numel(S1.lane)
     end
     for jj = 1:size(posList_S1,1)
         objInfo_S1 = assetInfo(S.namelist{idList_S1(jj)});
-        objPatch_S1 = polyshape([0 0 objInfo_S1.size(1) objInfo_S1.size(1)],...
-            [objInfo_S1.size(2) 0 0 objInfo_S1.size(2)]);
+        offsetScale = 1.2;  % scale object patch by this scale
+        objPatch_S1 = polyshape([0 0 objInfo_S1.size(1)*offsetScale objInfo_S1.size(1)*offsetScale],...
+            [objInfo_S1.size(2)*offsetScale 0 0 objInfo_S1.size(2)*offsetScale]);
 
         objPatch_S1 = translate(objPatch_S1, posList_S1(jj,1), posList_S1(jj,2)); 
         objPatch_S1 = rotate(objPatch_S1, rad2deg(rotList_S1(jj)));
@@ -38,8 +39,8 @@ for ii  = 1:numel(S1.lane)
         idList_S  = S.placedList.objIdList{ii};
         for ll = 1:size(posList_S,1)
             objInfo_S = assetInfo(S.namelist{idList_S(ll)});
-            objPatch_S = polyshape([0 0 objInfo_S.size(1) objInfo_S.size(1)],...
-                [objInfo_S.size(2) 0 0 objInfo_S.size(2)]);
+            objPatch_S = polyshape([0 0 objInfo_S.size(1)*offsetScale objInfo_S.size(1)*offsetScale],...
+                [objInfo_S.size(2)*offsetScale 0 0 objInfo_S.size(2)*offsetScale]);
     
             objPatch_S = translate(objPatch_S, posList_S1(jj,1), posList_S1(jj,2)); 
             objPatch_S = rotate(objPatch_S, rad2deg(rotList_S1(jj)));  
@@ -80,8 +81,9 @@ for ii  = 1:numel(S.lane)
 
     for jj = 1:size(posList,1)
         objInfo = assetInfo(S.namelist{idList(jj)});
-        objPatch = polyshape([0 0 objInfo.size(1) objInfo.size(1)],...
-            [objInfo.size(2) 0 0 objInfo.size(2)]);
+        offsetScale = 1.2;  % scale object patch by this scale
+        objPatch = polyshape([0 0 objInfo.size(1)*offsetScale objInfo.size(1)*offsetScale],...
+            [objInfo.size(2)*offsetScale 0 0 objInfo.size(2)*offsetScale]);
 
         objPatch = translate(objPatch, posList(jj,1), posList(jj,2)); 
         objPatch = rotate(objPatch, rad2deg(rotList(jj)));

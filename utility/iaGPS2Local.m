@@ -18,28 +18,34 @@ origin = [0,0,0]; % in LLA degree
 % matlab implementation
 [e_m, n_m, u_m] = latlon2local(lat, lon, alt, origin)
 %}
+num_samples = size(lat,1);
+east = zeros(num_samples,1);
+north = zeros(num_samples,1);
+up = zeros(num_samples,1);
 
-ecefPOI = piGPS2ECEF(origin(1),origin(2),origin(3));
+for ii = 1:num_samples
+    ecefPOI = piGPS2ECEF(origin(1),origin(2),origin(3));
 
-ecefUser = piGPS2ECEF(lat,lon, alt);
+    ecefUser = piGPS2ECEF(lat(ii,1),lon(ii,1), alt(ii,1));
 
 
-delta_X=ecefUser(1)-ecefPOI(1);
-delta_Y=ecefUser(2)-ecefPOI(2);
-delta_Z=ecefUser(3)-ecefPOI(3);
+    delta_X=ecefUser(1)-ecefPOI(1);
+    delta_Y=ecefUser(2)-ecefPOI(2);
+    delta_Z=ecefUser(3)-ecefPOI(3);
 
-phi   =origin(1);
-lamda =origin(2);
+    phi   =origin(1);
+    lamda =origin(2);
 
-ECEF2ENU_matrix = [-sind(lamda),cosd(lamda),0;...
-            -sind(phi)*cosd(lamda),-sind(phi)*sind(lamda),cosd(phi);...
-            cosd(phi)*cosd(lamda),cosd(phi)*sind(lamda),sind(phi)];
+    ECEF2ENU_matrix = [-sind(lamda),cosd(lamda),0;...
+        -sind(phi)*cosd(lamda),-sind(phi)*sind(lamda),cosd(phi);...
+        cosd(phi)*cosd(lamda),cosd(phi)*sind(lamda),sind(phi)];
 
-result = ECEF2ENU_matrix*[delta_X;delta_Y;delta_Z];
+    result = ECEF2ENU_matrix*[delta_X;delta_Y;delta_Z];
 
-east  = result(1); 
-north = result(2); 
-up    = result(3);
+    east(ii,1)  = result(1);
+    north(ii,1) = result(2);
+    up(ii,1)    = result(3);
+end
 end
 
 function ecef = piGPS2ECEF(lat, lon, alt)

@@ -6,7 +6,7 @@ function [obj,objectslist,instanceIdMap] = label(obj)
 obj.recipe.set('rays per pixel',16);
 obj.recipe.set('nbounces',1);
 obj.recipe.set('film render type',{'instance'});
-
+obj.recipe.set('integrator','path');
 % Add this line: Shape "sphere" "float radius" 500 
 obj.recipe.world(numel(obj.recipe.world)+1) = {'Shape "sphere" "float radius" 5000'};
 
