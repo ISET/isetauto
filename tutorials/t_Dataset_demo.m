@@ -4,15 +4,15 @@
 %   ISET3d, ISETAuto, ISETCam and scitran
 %   Prefix: ia- means isetauto
 %            pi- means pbrt2iset(iset3d)
-%    
+%
 %   ISET3d: Takes a PBRT file, parse 3D information including lights,
 %   materials, textures and meshes. Modify the properties and render it.
-%   
+%
 %   ISETAuto: Assemble ISET3d OBJECT into a complex driving scene.
-%    
+%
 %   ISETCam: Convert scene radiance or optical irradiance data to RGB
 %   image with a physically based sensor model and ISP pipeline.
-% 
+%
 % Zhenyi, 2022
 
 %% Initialize ISET and Docker
@@ -21,14 +21,14 @@ if ~piDockerExists, piDockerConfig; end
 % for nScene = 1
 
 %% scene initiation
-% 
+%
 % The outputs will go here
 %   datasetFolder = '/Volumes/SSDZhenyi/Ford Project/dataset/dataset_demo';
 %
 
 assetDir = fullfile(iaRootPath,'local','assets');
 roadDir = fullfile(iaRootPath,'local','assets','road','road_001');
-roadData = scenegen('road directory',roadDir, 'asset directory',assetDir);
+roadData = roadgen('road directory',roadDir, 'asset directory',assetDir);
 
 %% Set parameters for the scene
 %
@@ -68,7 +68,7 @@ roadData.offroad.tree.lane = {'rightshoulder','leftshoulder'};
 
 skymapLists = dir(fullfile(iaRootPath,'data/skymap/*.exr'));
 skymapRandIndex = randi(size(skymapLists,1));
-roadData.skymap = skymapLists(skymapRandIndex).name; 
+roadData.skymap = skymapLists(skymapRandIndex).name;
 roadData.skymap = 'noon_009.exr';
 
 % useful cmd for reading or making a skymap.
@@ -94,7 +94,7 @@ datastring  = erase(datastring,'T');
 
 % if the number of digits is larger than 9, the matlab rounds the number
 % cocoapi allow only number as image id, not a string.
-imageID  = str2double(datastring(5:end)); 
+imageID  = str2double(datastring(5:end));
 sceneName = 'nightdrive';
 outputFile = fullfile(iaRootPath, 'local', sceneName, [num2str(imageID),'.pbrt']);
 thisR.set('outputFile',outputFile);
@@ -120,7 +120,7 @@ fprintf('---> Scene assembled in %.f seconds.\n',toc(assemble_tic));
 %   back_cam
 %   left_mirror_cam
 %   right_mirror_cam
-camera_type = 'front_cam'; 
+camera_type = 'front_cam';
 
 % sceneData.recipe.lookAt.from = [-215.4888 -2.5427 69.2109];
 % sceneData.recipe.lookAt.to   = [-214.5653 -2.5193 68.8282];
@@ -154,22 +154,22 @@ oiWindow(oi);
 
 piWrite(roadData.recipe);
 if ismac
-    rendered = piRenderZhenyi(roadData.recipe,'device','gpu');
+    rendered = piRenderZhenyi(sceneData.recipe, 'device', 'gpu', 'scalepupilarea', false);
 else
     rendered = piRenderServer(roadData.recipe,'device','gpu');
 end
-oi = piOICreate(rendered.data.photons,'mean illuminance',randi(5));
+
+oi = piOICreate(rendered.data.photons,'meanilluminance',5);
 
 % oi = piAIdenoise(oi);
 
-ip = piRadiance2RGB(oi,'etime',1/50,'sensor','MT9V024SensorRGB');
-
-radiance = ipGet(ip,'srgb');
+ip = piRadiance2RGB(oi,'etime',1/30,'sensor','MT9V024SensorRGB');
+radiance = ipGet(ip,'srgb');figure;imshow(radiance);
 %% Render instance label
 
 [obj,objectslist,instanceMap] = roadData.label();
 
-%% 
+%%
 figure;
 subplot(2,2,1);
 imshow(radiance);title('Radiance')
@@ -206,13 +206,13 @@ for ii = 1:numel(objectslist)
         r = 1; g= 0.1; b = 0.1;
     else
         continue;
-    end 
+    end
     [occluded, truncated, bbox2d, segmentation, area] = piAnnotationGet(instanceMap,ii,0);
     if isempty(bbox2d), continue;end
     pos = [bbox2d.xmin bbox2d.ymin ...
             bbox2d.xmax-bbox2d.xmin ...
             bbox2d.ymax-bbox2d.ymin];
-    
+
     rectangle('Position',pos,'EdgeColor',[r g b],'LineWidth',1);
     tex=text(bbox2d.xmin+2.5,bbox2d.ymin-8,label);
     tex.Color = [1 1 1];
@@ -230,7 +230,7 @@ truesize;
 imgName = sprintf('%d.png',imageID);
 
 % Image_coco = struct('file_name',imgName,'height',h,'width',w,'id',sprintf('%d',imageID));
-% 
+%
 % % write files out
 % save(fullfile(datasetFolder, sprintf('%d_image.mat',imageID)),'Image_coco');
 % save(fullfile(datasetFolder, sprintf('%d_anno.mat',imageID)), 'Annotation_coco');
@@ -247,22 +247,3 @@ fprintf('****** Scene%d Generated! ******\n',nScene);
 % end
 
 %% End
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -3,7 +3,7 @@ function [obj,objectslist,instanceIdMap] = label(obj)
 % then we only need to render once to get all metadata.
 % Generate an object list, its sequential position number maps the instance
 % ID in instanceIdMap
-obj.recipe.set('rays per pixel',16);
+obj.recipe.set('rays per pixel',8);
 obj.recipe.set('nbounces',1);
 obj.recipe.set('film render type',{'instance'});
 obj.recipe.set('integrator','path');
@@ -16,10 +16,18 @@ obj.recipe.set('outputFile',fullfile(dir, [fname, '_instanceID', ext]));
 
 piWrite(obj.recipe);
 
-if ismac
-    oiInstance = piRenderZhenyi(obj.recipe,'device','cpu');
+[~,username] = system('whoami');
+
+if strncmp(username,'zhenyi',6)
+    if ismac
+        oiInstance = piRenderZhenyi(obj.recipe,'device','cpu');
+    else
+        oiInstance = piRenderServer(obj.recipe,'device','cpu');
+    end
 else
-    oiInstance = piRenderServer(obj.recipe,'device','cpu');
+    % use CPU for label generation, will fix this and render along with
+    % radiance. --Zhenyi
+    oiInstance = piRender(obj.recipe, 'ourdocker','digitalprodev/pbrt-v4-cpu');
 end
 
 obj.recipe.world = {'WorldBegin'};

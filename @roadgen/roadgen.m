@@ -1,5 +1,5 @@
-classdef scenegen < matlab.mixin.Copyable
-    % Scenegen class contains essential functions to generate a scene in PBRT
+classdef roadgen < matlab.mixin.Copyable
+    % roadgen class contains essential functions to generate a scene in PBRT
     % format.
     % We save the following information:
     %   camera   : lookAt; lens;
@@ -40,8 +40,8 @@ classdef scenegen < matlab.mixin.Copyable
     end
 
     methods (Static)
-        function obj = scenegen(varargin)
-            % scene = scenegen('asset directory',yourChoice,'rr map path',yourChoice).
+        function obj = roadgen(varargin)
+            % scene = road('asset directory',yourChoice,'rr map path',yourChoice).
             %
             % rr map path - This is a directory produced by RoadRunner
             %               along with additional files produced via

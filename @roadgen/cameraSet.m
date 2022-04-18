@@ -6,7 +6,7 @@ function obj = cameraSet(obj,cam_type, branchID)
 % branchID - Specifies which car to use
 %
 % See also
-%   scenegen
+%   roadgen
 
 %%
 thisCamNode =[];

@@ -14,13 +14,13 @@ function obj = rrMapRead(obj, rrDataPath, varargin)
 %       scene.xodr
 %       (opendrive file which describes the lane function, e.g. left lane, driving lane)
 %
-% We parse scene.fbx and scene.xodr and return the road information saved in scenegen class.
+% We parse scene.fbx and scene.xodr and return the road information saved in roadgen class.
 %{
-                scenegen.rrMapRead(scenegen,'Path/to/rrdata');
+                roadgen.rrMapRead(roadgen,'Path/to/rrdata');
 %}
 %
 % See also
-%   scenegen
+%   roadgen
 %
 
 %% Parse inputs
