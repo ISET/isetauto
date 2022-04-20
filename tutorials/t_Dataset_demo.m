@@ -92,7 +92,7 @@ roadData.recipe.set('skymap',skymapLists(skymapRandIndex).name);
 piDockerImgtool('makeequiarea','infile','/Users/zhenyi/git_repo/dev/iset3d-v4/data/lights/dikhololo_night_4k.exr');
 %}
 
-%% Set the recipe
+%% Set the recipe parameters
 
 thisR = roadData.recipe;
 
@@ -102,24 +102,20 @@ thisR.set('film render type',{'radiance','depth'});
 thisR.set('film resolution',[1536 864]/4);
 thisR.set('pixel samples',512);
 thisR.set('max depth',5);
-thisR.sampler.subtype = 'pmj02bn';
+thisR.set('sampler subtype','pmj02bn');
 
-datastring  = datestr(now,30);
-datastring  = erase(datastring,'T');
+imageID = iaImageID();
 
-% if the number of digits is larger than 9, the matlab rounds the number
-% cocoapi allow only number as image id, not a string.
-imageID  = str2double(datastring(5:end));
 sceneName = 'nightdrive';
 outputFile = fullfile(iaRootPath, 'local', sceneName, [num2str(imageID),'.pbrt']);
 thisR.set('outputFile',outputFile);
 
 %% Assemble the scene using ISET3d methods
-assemble_tic = tic();
 
-% This is interesting.
+assemble_tic = tic();
 roadData.assemble();
 fprintf('---> Scene assembled in %.f seconds.\n',toc(assemble_tic));
+
 % sceneData.rrDraw('points',points, 'dir',dirs); % visualization function is to fix
 
 %% Use a camera for this car
@@ -134,7 +130,7 @@ fprintf('---> Scene assembled in %.f seconds.\n',toc(assemble_tic));
 %   front_cam
 %   back_cam
 %   left_mirror_cam
-%   right_mirror_cam
+%   camera_type = 'right_mirror_cam'
 camera_type = 'front_cam';
 
 % sceneData.recipe.lookAt.from = [-215.4888 -2.5427 69.2109];
@@ -144,46 +140,22 @@ camera_type = 'front_cam';
 roadData.cameraSet(camera_type); % (camera_type, car_id)
 
 %%
-scene = piWRS(thisR);
+[scene, res] = piWRS(thisR);
 
-%{
-thisR.set('skymap','room.exr');
-thisR.set('lights','room_L','rotate',[0 0 90]);
+% rgb = sceneGet(scene,'rgb');
+% ieNewGraphWin; imagescRGB(rgb.^0.7);
 
-thisR.set('skymap','night.exr');
-thisR.show('skymap');
-%}
+oi = oiCreate;
+oi = oiCompute(oi,scene);
+sensor = sensorCreate;
+sensor = sensorSet(sensor,'fov',sceneGet(scene,'fov'),oi);
+sensor = sensorSet(sensor,'exposure time',0.016);
+sensor = sensorCompute(sensor,oi);
+ip = ipCreate;
+ip = ipCompute(ip, sensor);
+ipWindow(ip);
 
-%%
-% sceneData.recipe.integrator.subtype = 'volpath';
-%{
-% Write and render
-% For demo purpose, this render the scene from the road default camera
 
-piWrite(sceneData.recipe);
-
-rendered = piRenderZhenyi(sceneData.recipe,'device','gpu');
-%
-oi = piOICreate(rendered.data.photons,'mean illuminance',100);
-
-oi.name = [sceneName,'_sceneCamera'];
-
-oiWindow(oi);
-%}
-
-piWrite(roadData.recipe);
-if ismac
-    rendered = piRenderZhenyi(sceneData.recipe, 'device', 'gpu', 'scalepupilarea', false);
-else
-    rendered = piRenderServer(roadData.recipe,'device','gpu');
-end
-
-oi = piOICreate(rendered.data.photons,'meanilluminance',5);
-
-% oi = piAIdenoise(oi);
-
-ip = piRadiance2RGB(oi,'etime',1/30,'sensor','MT9V024SensorRGB');
-radiance = ipGet(ip,'srgb');figure;imshow(radiance);
 %% Render instance label
 
 [obj,objectslist,instanceMap] = roadData.label();

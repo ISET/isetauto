@@ -6,11 +6,11 @@ classdef roadgen < matlab.mixin.Copyable
     %
     %   road     : roadrunner road information
     %
-    %   timeofday: we have a collection of skymaps captured from morning to
+    %   % timeofday: we have a collection of skymaps captured from morning to
     %   dusk.(Aroung 7AM to 6PM) at one minute interval, we pick one for
     %   current scene.
     %
-    %   skymap   : We also have other skymaps roughly categorized by
+    %   % skymap   : We also have other skymaps roughly categorized by
     %   morning/afternoon/night, we save the information here when we use
     %   these set of skymaps.
     %
@@ -30,8 +30,8 @@ classdef roadgen < matlab.mixin.Copyable
         cameraUsed;  % It contains the lookAt information and the car ID which the camera belongs to.
         recipe;      % ISET3d recipe includes camera and other info
         road;        % Road specification from Road Runner
-        timeofday;   %
-        skymap;      % This should probably be part of the recipe
+        % timeofday;   %
+        % skymap;      % This should probably be part of the recipe
         onroad;      % Metadata about the road
         offroad;     % More metadata about the road
         roaddirectory  = '';

@@ -198,21 +198,21 @@ assetNames_offroad = fieldnames(obj.offroad);
 obj = obj.assetPlace(assetNames_offroad,'offroad');
 disp('--> Assets Placed.')
 %%
-skyname = obj.skymap;
+% skyname = obj.skymap;
 % Delete any lights that happened to be there
-obj.recipe = piLightDelete(obj.recipe, 'all');
+% obj.recipe = piLightDelete(obj.recipe, 'all');
 % 
 % rotation(:,1) = [0 0 0 1]';
 % rotation(:,2) = [45 0 1 0]';
 % rotation(:,3) = [-90 1 0 0]';
 
-skymap = piLightCreate('new skymap', ...
-    'type', 'infinite',...
-    'string mapname', skyname,...
-    'specscale',2.2269e-04);
+% skymap = piLightCreate('new skymap', ...
+%     'type', 'infinite',...
+%     'string mapname', skyname,...
+%     'specscale',2.2269e-04);
 % to fix, add rotation
 
-obj.recipe.set('light', skymap, 'add');
-disp('--> Skymap added');
+% obj.recipe.set('light', skymap, 'add');
+% disp('--> Skymap added');
 
 end
