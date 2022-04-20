@@ -1,9 +1,12 @@
 function obj = assemble(obj,varargin)
 % Assemble the assets specified in the road class
 %
+% Synopsis:
+%    roadgen.assemble;
+%     
 % Brief description:
-%   We use the parameters of the road to place the cars, animals and so
-%   forth into the scene
+%   We use the road parameters to place the cars, animals and so forth
+%   into the scene
 %
 %   We generate random points on /off the road, on the road, the points are
 %   used to place cars or other objects defined by users. off the road we
@@ -12,28 +15,52 @@ function obj = assemble(obj,varargin)
 % TODO:
 %   Add motion
 
-%%
+%% Initialize the onroad and offset components
+
+% Could be obj.initialize('onroad');
+% Similarly for offroad.
 obj.onroad.car.placedList = [];
 obj.onroad.animal.placedList = [];
 obj.offroad.animal.placedList = [];
 obj.offroad.tree.placedList = [];
 
 %% Generate object lists on the road
+
+% These will be cars and animals and maybe other terms in the future
 assetNames = fieldnames(obj.onroad);
+
+% For each type of asset on the road
 for ii = 1:numel(assetNames)
+
+    % Depending on the asset name
     switch assetNames{ii}
         case 'car'
-            % merge car recipes
+            
+            % merge car recipes.
+            %
+            % This merge looks very similar for each of the classes.
+            % Maybe it could be a method like
+            %
+            %   thisRoad.place(location,objects);
+            %   thisRoad.place('onroad',thisRoad.onroad.car);
+            %   thisRoad.place('offroad',thisRoad.offroad.animal);
+
             onroadCar = obj.onroad.car;
             for nn = 1:numel(onroadCar.namelist)
                 thisName = onroadCar.namelist{nn};
-                id = piAssetFind(obj.recipe.assets, 'name',[thisName,'_m_B']); % check whether it's there already
+
+                % check whether it's there already
+                id = piAssetFind(obj.recipe.assets, 'name',[thisName,'_m_B']);
+
+                % Merge the recipe for the chosen car as an instance
+                % into the road recipe.
                 if isempty(id)
                     thisAssetRecipe = piRead(fullfile(obj.assetdirectory,'cars',thisName,[thisName,'.pbrt']));
                     obj.recipe = piRecipeMerge(obj.recipe, thisAssetRecipe, 'objectInstance',true);
                 end
             end
 
+            % Initialize and then place the objects in each lane.
             positions = cell(size(onroadCar.lane, 1));
             rotations = cell(size(onroadCar.lane, 1));
             objIdList = cell(size(onroadCar.lane, 1));
@@ -47,6 +74,8 @@ for ii = 1:numel(assetNames)
                 % needed.
                 objIdList{jj} = randi(numel(onroadCar.namelist), onroadCar.number(jj), 1);
             end
+
+            % Store the metadata
             obj.onroad.car.placedList.objIdList = objIdList;
             obj.onroad.car.placedList.positions = positions;
             obj.onroad.car.placedList.rotations = rotations;
@@ -56,7 +85,12 @@ for ii = 1:numel(assetNames)
             onroadAnimal = obj.onroad.animal;
             for nn = 1:numel(onroadAnimal.namelist)
                 thisName = onroadAnimal.namelist{nn};
-                id = piAssetFind(obj.recipe.assets, 'name',[thisName,'_m_B']); % check whether it's there already
+
+                % check whether it's there already
+                id = piAssetFind(obj.recipe.assets, 'name',[thisName,'_m_B']); 
+
+                % Merge the recipe for the chosen car as an instance
+                % into the road recipe.
                 if isempty(id)
                     thisAssetRecipe = piRead(fullfile(obj.assetdirectory,'animal',thisName,[thisName,'.pbrt']));
                     obj.recipe = piRecipeMerge(obj.recipe, thisAssetRecipe, 'objectInstance',true);
@@ -65,6 +99,8 @@ for ii = 1:numel(assetNames)
 
             positions = cell(size(onroadAnimal.lane, 1));
             rotations = cell(size(onroadAnimal.lane, 1));
+            % Needed, I think
+            % objIdList = cell(size(onroadAnimal.lane, 1));
 
             for jj = 1:numel(onroadAnimal.lane)
                 [positions{jj}, rotations{jj}] = obj.rrMapPlace(...

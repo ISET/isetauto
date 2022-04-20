@@ -16,18 +16,21 @@
 % Zhenyi, 2022
 
 %% Initialize ISET and Docker
+
 ieInit;
 if ~piDockerExists, piDockerConfig; end
+
 % for nScene = 1
 
-%% scene initiation
+%% Road initiation
 %
-% The outputs will go here
+% The outputs will go
+%
 %   datasetFolder = '/Volumes/SSDZhenyi/Ford Project/dataset/dataset_demo';
 %
 
 assetDir = fullfile(iaRootPath,'local','assets');
-roadDir = fullfile(iaRootPath,'local','assets','road','road_001');
+roadDir  = fullfile(iaRootPath,'local','assets','road','road_001');
 roadData = roadgen('road directory',roadDir, 'asset directory',assetDir);
 
 %% Set parameters for the scene
@@ -36,44 +39,56 @@ roadData = roadgen('road directory',roadDir, 'asset directory',assetDir);
 % road positions.
 %
 
-%% Place the cars
+%% Place the onroad elements
 
+% These are cars and animals.  Not trees.
+
+% roadData.set('onroad car names') = {'car_001'};
 roadData.onroad.car.namelist = {'car_001'};
 
 % The driving lanes
+% roadData.set('onroad car lanes') = {'leftdriving','rightdriving'};
 roadData.onroad.car.lane   = {'leftdriving','rightdriving'};
 
-% How many cars on each driving lane.  The vector length of these numbers
-% should be the same as the number of driving lanes.
+% How many cars on each driving lane.  
+% The vector length of these numbers should be the same as the number
+% of driving lanes. 
+% roadData.set('onroad n cars') = [randi(20), randi(20)];
 roadData.onroad.car.number = [randi(20),randi(20)];
 
-%% Now place the animals
+% Now place the animals
 roadData.onroad.animal.namelist = {'deer_001'};
 roadData.onroad.animal.number= randi(10);
 roadData.onroad.animal.lane  = {'rightdriving'};
 
+%% Place the offroad elements.  These are animals and trees.  Not cars.
+
 roadData.offroad.animal.namelist = {'deer_001'};
 roadData.offroad.animal.number= [randi(10),randi(10)];
 roadData.offroad.animal.lane= {'rightshoulder','leftshoulder'};
+
+% What are these units?   Meters?
 roadData.offroad.animal.minDistanceToRoad = 0;
 roadData.offroad.animal.layerWidth = 5;
 
-%% Now the trees
+% Now place the trees
 
 % for different distance range from the boundary of road
-roadData.offroad.tree.namelist = ...
-    {'tree_mid_001','tree_mid_002'};
-roadData.offroad.tree.number= [100, 50, 10];
-roadData.offroad.tree.lane = {'rightshoulder','leftshoulder'};
+roadData.offroad.tree.namelist = {'tree_mid_001','tree_mid_002'};
+roadData.offroad.tree.number   = [100, 50, 10];
+roadData.offroad.tree.lane     = {'rightshoulder','leftshoulder'};
+
+%% Set up the skymap
 
 skymapLists = dir(fullfile(iaRootPath,'data/skymap/*.exr'));
 skymapRandIndex = randi(size(skymapLists,1));
-roadData.skymap = skymapLists(skymapRandIndex).name;
-roadData.skymap = 'noon_009.exr';
+roadData.recipe.set('skymap',skymapLists(skymapRandIndex).name);
 
-% useful cmd for reading or making a skymap.
+% There are also skymaps in iset3d-v4.  Maybe we should combine?
+% roadData.recipe.set('skymap','noon_009.exr');
+
+% useful Docker cmd for reading or making a skymap.
 %{
-sceneData.skymap = 'noon_009.exr';
 piDockerImgtool('makeequiarea','infile','/Users/zhenyi/git_repo/dev/iset3d-v4/data/lights/dikhololo_night_4k.exr');
 %}
 
