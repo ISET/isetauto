@@ -1,4 +1,19 @@
 function [occluded, truncated,bbox2d, segmentation, area] = piAnnotationGet(scene_mesh,index,offset)
+% Read the annotation from the COCO data set
+%
+% Requires the coco api to be installed on your computer
+%
+% See also
+%
+%{
+% To compile the code, do this:
+% Download cocoapi from here:
+  % https://github.com/cocodataset/cocoapi.git
+% Then change into the MatlabApi directory and run this
+  mex('CFLAGS=\$CFLAGS -Wall -std=c99','-largeArrayDims',...
+  'private/maskApiMex.c','../common/maskApi.c',...
+  '-I../common/','-outdir','private');
+%}
 occluded = 0;
 truncated = 0;
 bbox2d = [];

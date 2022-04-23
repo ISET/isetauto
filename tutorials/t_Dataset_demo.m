@@ -31,6 +31,8 @@ if ~piDockerExists, piDockerConfig; end
 
 assetDir = fullfile(iaRootPath,'local','assets');
 roadDir  = fullfile(iaRootPath,'local','assets','road','road_001');
+
+% The key class for generating a road
 roadData = roadgen('road directory',roadDir, 'asset directory',assetDir);
 
 %% Set parameters for the scene
@@ -82,7 +84,8 @@ roadData.offroad.tree.lane     = {'rightshoulder','leftshoulder'};
 
 skymapLists = dir(fullfile(iaRootPath,'data/skymap/*.exr'));
 skymapRandIndex = randi(size(skymapLists,1));
-roadData.recipe.set('skymap',skymapLists(skymapRandIndex).name);
+skymapName = skymapLists(skymapRandIndex).name;
+roadData.recipe.set('skymap',skymapName);
 
 % There are also skymaps in iset3d-v4.  Maybe we should combine?
 % roadData.recipe.set('skymap','noon_009.exr');
@@ -139,12 +142,28 @@ camera_type = 'front_cam';
 % random pick a car, use the camera on it.
 roadData.cameraSet(camera_type); % (camera_type, car_id)
 
+<<<<<<< Updated upstream
 %%
 [scene, res] = piWRS(thisR);
+=======
+%%  We can run this either locally or remotely
+
+dockerWrapper.setParams('localRender',false, 'gpuRendering',true);
+scene = piWRS(thisR);
+
+% {
+% For the instance we run locally on the CPU like this
+% scene = piWRS(thisR);
+%}
+%{
+thisR.set('skymap','room.exr');
+thisR.set('lights','room_L','rotate',[0 0 90]);
+>>>>>>> Stashed changes
 
 % rgb = sceneGet(scene,'rgb');
 % ieNewGraphWin; imagescRGB(rgb.^0.7);
 
+<<<<<<< Updated upstream
 oi = oiCreate;
 oi = oiCompute(oi,scene);
 sensor = sensorCreate;
@@ -157,11 +176,33 @@ ipWindow(ip);
 
 
 %% Render instance label
+=======
+radiance = sceneGet(scene,'rgb');
+rendered = scene;
 
+% oi = piOICreate(scene.data.photons,'meanilluminance',5);
+% radiance = oiGet(oi,'rgb');
+% 
+% % oi = piAIdenoise(oi);
+% 
+% ip = piRadiance2RGB(oi,'etime',1/30,'sensor','MT9V024SensorRGB');
+% radiance = ipGet(ip,'srgb');figure;imshow(radiance);
+%% Render to create the object labels
+>>>>>>> Stashed changes
+
+dockerWrapper.setParams('localRender',true, 'gpuRendering',false);
 [obj,objectslist,instanceMap] = roadData.label();
 
-%%
-figure;
+% We are going to put the rgb image, depth map, pixel label, and
+% bounding box in COCO format in this directory.  You can use them
+% again later.
+datasetFolder = fullfile(iaRootPath,'local','nightdrive','dataset');
+if ~exist(datasetFolder,'dir'), mkdir(datasetFolder); end
+
+%% Show the various images
+
+ieNewGraphWin([],'upperleftbig');
+
 subplot(2,2,1);
 imshow(radiance);title('Radiance')
 ax1 = subplot(2,2,2);
@@ -172,15 +213,21 @@ imagesc(instanceMap);colormap(ax2,"colorcube");axis off;title('Pixel Label');
 subplot(2,2,4);
 imshow(radiance);title('Bounding Box');
 
+%% Add the bounding boxes, which requires the cocoapi method
+
 nBox=1;
 nImage = 1;
 Annotation=[];
 [h,w,~] = size(radiance);
 
 % write out object ID for segmentation map;
+if ~exist(fullfile(datasetFolder,'additionalInfo'),'dir')
+    mkdir(fullfile(datasetFolder,'additionalInfo'))
+end
 seg_FID = fopen(fullfile(datasetFolder,'additionalInfo',[num2str(imageID),'.txt']),'w+');
+
 fprintf(seg_FID,'sceneName: %s\nSkymap: %s\nCameraType: %s\n',sceneName, ...
-    erase(roadData.skymap,'.exr'), camera_type);
+    erase(skymapName,'.exr'), camera_type);
 fprintf(seg_FID,'Object ID:\n');
 
 for ii = 1:numel(objectslist)
@@ -218,6 +265,20 @@ end
 truesize;
 % %{
 
+%% Save out the image
+
+if ~exist(fullfile(datasetFolder,'rgb'),'dir')
+    mkdir(fullfile(datasetFolder,'rgb'))
+end
+if ~exist(fullfile(datasetFolder,'segmentation'),'dir')
+    mkdir(fullfile(datasetFolder,'segmentation'))
+end
+if ~exist(fullfile(datasetFolder,'depth'),'dir')
+    mkdir(fullfile(datasetFolder,'depth'))
+end
+if ~exist(fullfile(datasetFolder,'rendered'),'dir')
+    mkdir(fullfile(datasetFolder,'rendered'))
+end
 imgName = sprintf('%d.png',imageID);
 
 % Image_coco = struct('file_name',imgName,'height',h,'width',w,'id',sprintf('%d',imageID));
@@ -234,7 +295,8 @@ imwrite(uint16(rendered.depthMap),fullfile(datasetFolder,'depth',imgName));
 outputFolder = roadData.recipe.get('outputdir');
 movefile(fullfile(outputFolder,sprintf('renderings/%d.exr',imageID)),fullfile(datasetFolder,'rendered/'));
 %}
-fprintf('****** Scene%d Generated! ******\n',nScene);
+% fprintf('****** Scene%d Generated! ******\n',nScene);
+
 % end
 
 %% End

@@ -1,4 +1,5 @@
 function [obj,objectslist,instanceIdMap] = label(obj)
+<<<<<<< Updated upstream
 % Generate the labels for the road
 %
 % Synopsis
@@ -17,24 +18,56 @@ obj.recipe.set('rays per pixel',8);
 obj.recipe.set('nbounces',1);
 obj.recipe.set('film render type',{'instance'});
 obj.recipe.set('integrator','path');
-% Add this line: Shape "sphere" "float radius" 500 
-obj.recipe.world(numel(obj.recipe.world)+1) = {'Shape "sphere" "float radius" 5000'};
+=======
+% Render a pixel map of each object in the image
+%   (instanceId map)
+%
+%
+% TODO:
+%   Maybe we can fix the GPU rendering for this issue,then we only
+%   need to render once to get all metadata.
+% 
+% Description
+%  Generate an object list, its sequential position number maps the instance
+%  ID in instanceIdMap
+%
+% See also
+%   cocoapi - repository, piAnnotationGet()
+%
 
+%%
+thisR = obj.copy;
+
+thisR.set('rays per pixel',8);
+thisR.set('nbounces',1);
+thisR.set('film render type',{'instance'});
+thisR.set('integrator','path');
+>>>>>>> Stashed changes
+% Add this line: Shape "sphere" "float radius" 500 
+thisR.world(numel(thisR.world)+1) = {'Shape "sphere" "float radius" 5000'};
+
+<<<<<<< Updated upstream
 outputFile = obj.recipe.get('outputfile');
 [dir, fname, ext] = fileparts(outputFile);
 obj.recipe.set('outputFile',fullfile(dir, [fname, '_instanceID', ext]));
+=======
+outputFile = thisR.get('outputfile');
+[dir, fname, ext]=fileparts(outputFile);
+thisR.set('outputFile',fullfile(dir, [fname, '_instanceID', ext]));
+>>>>>>> Stashed changes
 
-piWrite(obj.recipe);
+piWrite(thisR);
 
 [~,username] = system('whoami');
 
 if strncmp(username,'zhenyi',6)
     if ismac
-        oiInstance = piRenderZhenyi(obj.recipe,'device','cpu');
+        oiInstance = piRenderZhenyi(thisR,'device','cpu');
     else
-        oiInstance = piRenderServer(obj.recipe,'device','cpu');
+        oiInstance = piRenderServer(thisR,'device','cpu');
     end
 else
+<<<<<<< Updated upstream
     % use CPU for label generation
     ourDocker = dockerWrapper('gpuRendering', false);
     ourDocker.relativeScenePath = fullfile(iaRootPath,'local/');
@@ -44,14 +77,20 @@ else
     oiInstance = piRender(obj.recipe, 'ourdocker',ourDocker');
     setpref('docker','forceLocal',forceLocal);
     
+=======
+    % use CPU for label generation, will fix this and render along with
+    % radiance. --Zhenyi
+    oiInstance = piRender(thisR);
+>>>>>>> Stashed changes
 end
 
-obj.recipe.world = {'WorldBegin'};
+thisR.world = {'WorldBegin'};
 
 instanceIdMap = oiInstance.metadata.instanceID;
 
-%% get object lists
-outputFile = obj.recipe.get('outputfile');
+%% Get object lists
+
+outputFile = thisR.get('outputfile');
 fname = strrep(outputFile,'.pbrt','_geometry.pbrt');
 fileID = fopen(fname);
 tmp = textscan(fileID,'%s','Delimiter','\n');
