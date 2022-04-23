@@ -144,6 +144,8 @@ roadData.cameraSet(camera_type); % (camera_type, car_id)
 
 %%
 [scene, res] = piWRS(thisR);
+
+%{
 oi = oiCompute(oi,scene);
 sensor = sensorCreate;
 sensor = sensorSet(sensor,'fov',sceneGet(scene,'fov'),oi);
@@ -152,22 +154,27 @@ sensor = sensorCompute(sensor,oi);
 ip = ipCreate;
 ip = ipCompute(ip, sensor);
 ipWindow(ip);
+%}
 
 %%  We can run this either locally or remotely
 
+% TODO:  Try setting a different GPU.  I have been using 0, but try 1 and 2
+% to see if it works.
 dockerWrapper.setParams('localRender',false, 'gpuRendering',true);
 scene = piWRS(thisR);
 
 %{
 % For the instance we run locally on the CPU like this
 % scene = piWRS(thisR);
-thisR.set('skymap','room.exr');
-thisR.set('lights','room_L','rotate',[0 0 90]);
+ thisR.set('skymap','room.exr');
+ thisR.set('lights','room_L','rotate',[0 0 90]);
 %}
+
 % rgb = sceneGet(scene,'rgb');
 % ieNewGraphWin; imagescRGB(rgb.^0.7);
 
-%% Render instance label
+%% Get ready to render object labels
+
 radiance = sceneGet(scene,'rgb');
 rendered = scene;
 
@@ -179,10 +186,12 @@ rendered = scene;
 % ip = piRadiance2RGB(oi,'etime',1/30,'sensor','MT9V024SensorRGB');
 % radiance = ipGet(ip,'srgb');figure;imshow(radiance);
 
-%% Render to create the object labels
+%% Render locally with a CPU to create the object labels
 
 dockerWrapper.setParams('localRender',true, 'gpuRendering',false);
 [obj,objectslist,instanceMap] = roadData.label();
+
+%% Show the various images
 
 % We are going to put the rgb image, depth map, pixel label, and
 % bounding box in COCO format in this directory.  You can use them
@@ -190,7 +199,6 @@ dockerWrapper.setParams('localRender',true, 'gpuRendering',false);
 datasetFolder = fullfile(iaRootPath,'local','nightdrive','dataset');
 if ~exist(datasetFolder,'dir'), mkdir(datasetFolder); end
 
-%% Show the various images
 
 ieNewGraphWin([],'upperleftbig');
 
