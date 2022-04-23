@@ -142,29 +142,8 @@ camera_type = 'front_cam';
 % random pick a car, use the camera on it.
 roadData.cameraSet(camera_type); % (camera_type, car_id)
 
-<<<<<<< Updated upstream
 %%
 [scene, res] = piWRS(thisR);
-=======
-%%  We can run this either locally or remotely
-
-dockerWrapper.setParams('localRender',false, 'gpuRendering',true);
-scene = piWRS(thisR);
-
-% {
-% For the instance we run locally on the CPU like this
-% scene = piWRS(thisR);
-%}
-%{
-thisR.set('skymap','room.exr');
-thisR.set('lights','room_L','rotate',[0 0 90]);
->>>>>>> Stashed changes
-
-% rgb = sceneGet(scene,'rgb');
-% ieNewGraphWin; imagescRGB(rgb.^0.7);
-
-<<<<<<< Updated upstream
-oi = oiCreate;
 oi = oiCompute(oi,scene);
 sensor = sensorCreate;
 sensor = sensorSet(sensor,'fov',sceneGet(scene,'fov'),oi);
@@ -174,9 +153,21 @@ ip = ipCreate;
 ip = ipCompute(ip, sensor);
 ipWindow(ip);
 
+%%  We can run this either locally or remotely
+
+dockerWrapper.setParams('localRender',false, 'gpuRendering',true);
+scene = piWRS(thisR);
+
+%{
+% For the instance we run locally on the CPU like this
+% scene = piWRS(thisR);
+thisR.set('skymap','room.exr');
+thisR.set('lights','room_L','rotate',[0 0 90]);
+%}
+% rgb = sceneGet(scene,'rgb');
+% ieNewGraphWin; imagescRGB(rgb.^0.7);
 
 %% Render instance label
-=======
 radiance = sceneGet(scene,'rgb');
 rendered = scene;
 
@@ -187,8 +178,8 @@ rendered = scene;
 % 
 % ip = piRadiance2RGB(oi,'etime',1/30,'sensor','MT9V024SensorRGB');
 % radiance = ipGet(ip,'srgb');figure;imshow(radiance);
+
 %% Render to create the object labels
->>>>>>> Stashed changes
 
 dockerWrapper.setParams('localRender',true, 'gpuRendering',false);
 [obj,objectslist,instanceMap] = roadData.label();
@@ -266,6 +257,8 @@ truesize;
 % %{
 
 %% Save out the image
+
+% Some trouble moving the file remains.
 
 if ~exist(fullfile(datasetFolder,'rgb'),'dir')
     mkdir(fullfile(datasetFolder,'rgb'))
