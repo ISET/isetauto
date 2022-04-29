@@ -160,8 +160,8 @@ ipWindow(ip);
 
 % TODO:  Try setting a different GPU.  I have been using 0, but try 1 and 2
 % to see if it works.
-dockerWrapper.setParams('localRender',false, 'gpuRendering',true);
-scene = piWRS(thisR);
+% dockerWrapper.setParams('localRender',false, 'gpuRendering',true);
+% scene = piWRS(thisR);
 
 %{
 % For the instance we run locally on the CPU like this
@@ -188,7 +188,7 @@ rendered = scene;
 
 %% Render locally with a CPU to create the object labels
 
-dockerWrapper.setParams('localRender',true, 'gpuRendering',false);
+% dockerWrapper.setParams('localRender',true, 'gpuRendering',false);
 [obj,objectslist,instanceMap] = roadData.label();
 
 %% Show the various images

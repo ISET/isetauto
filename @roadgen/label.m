@@ -40,7 +40,7 @@ thisR.set('integrator','path');
 thisR.world(numel(thisR.world)+1) = {'Shape "sphere" "float radius" 5000'};
 
 outputFile = thisR.get('outputfile');
-[dir, fname, ext]=fileparts(outputFile);
+[dir, fname, ext] = fileparts(outputFile);
 thisR.set('outputFile',fullfile(dir, [fname, '_instanceID', ext]));
 
 piWrite(thisR);
@@ -56,7 +56,12 @@ if strncmp(username,'zhenyi',6)
 else
     % use CPU for label generation, will fix this and render along with
     % radiance. --Zhenyi
-    oiInstance = piRender(thisR);
+
+    % This is how we set up for a local CPU device at Stanford.
+    thisD = dockerWrapper;
+    thisD.localRender = true;
+    thisD.getRenderer;
+    oiInstance = piRender(thisR,'our docker',thisD);
 end
 
 thisR.world = {'WorldBegin'};
