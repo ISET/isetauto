@@ -262,7 +262,9 @@ for ii = 1:numel(objectslist)
     nBox = nBox+1;
 end
 truesize;
-% %{
+% 
+
+%{
 
 %% Save out the image
 
@@ -299,5 +301,6 @@ movefile(fullfile(outputFolder,sprintf('renderings/%d.exr',imageID)),fullfile(da
 % fprintf('****** Scene%d Generated! ******\n',nScene);
 
 % end
+%}
 
 %% End
