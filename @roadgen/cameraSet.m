@@ -18,8 +18,8 @@ if ~exist('branchID','var')
         thisBranch = obj.recipe.assets.Node{root_children(ii)};
         if piContains(thisBranch.name, 'car') && ... 
                 piContains(thisBranch.name, '_m_B_I')&&...
-                thisBranch.isInstancer == 0
-            thisBranchList{n} = thisBranch;
+                thisBranch.isInstance == 0
+            thisBranchList{n} = thisBranch; %#ok<AGROW> 
             n = n+1;
         end
     end
