@@ -57,10 +57,13 @@ else
     % use CPU for label generation, will fix this and render along with
     % radiance. --Zhenyi
 
+    % This is likely a
+    
     % This is how we set up for a local CPU device at Stanford.
-    thisD = dockerWrapper;
-    thisD.localRender = true;
-    thisD.getRenderer;
+    thisD = dockerWrapper('gpuRendering',false,'localRender',true);
+    % thisD.gpuRendering = false;
+    % thisD.localRender = true;
+    % thisD.getRenderer;
     oiInstance = piRender(thisR,'our docker',thisD);
 end
 
