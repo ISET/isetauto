@@ -173,6 +173,11 @@ ipWindow(ip);
 % rgb = sceneGet(scene,'rgb');
 % ieNewGraphWin; imagescRGB(rgb.^0.7);
 
+%% Render locally with a CPU to create the object labels
+
+% dockerWrapper.setParams('localRender',true, 'gpuRendering',false);
+[obj,objectslist,instanceMap] = roadData.label();
+
 %% Get ready to render object labels
 
 radiance = sceneGet(scene,'rgb');
@@ -185,12 +190,6 @@ rendered = scene;
 % 
 % ip = piRadiance2RGB(oi,'etime',1/30,'sensor','MT9V024SensorRGB');
 % radiance = ipGet(ip,'srgb');figure;imshow(radiance);
-
-%% Render locally with a CPU to create the object labels
-
-% dockerWrapper.setParams('localRender',true, 'gpuRendering',false);
-[obj,objectslist,instanceMap] = roadData.label();
-
 %% Show the various images
 
 % We are going to put the rgb image, depth map, pixel label, and
