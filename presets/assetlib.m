@@ -5,69 +5,84 @@ assetInfo = containers.Map();
 
 car_001.name = 'car_001';
 car_001.size = [4.76 2.02 1.41]; %[x, y, z]
+car_001.brand = 'Mercedes';
 assetInfo('car_001') = car_001;
 
 car_002.name = 'car_002';
 car_002.size = [4.25 1.799 1.452]; %[x, y, z]
+car_002.brand = 'VW';
 assetInfo('car_002') = car_002;
 
 car_003.name = 'car_003';
 car_003.size = [4.506 2.024 1.557];
+car_003.brand = 'Audi';
 assetInfo('car_003') = car_003;
 
 car_004.name = 'car_004';
 car_004.size = [4.83 2.08 1.35];
+car_004.brand = 'Ford';
 assetInfo('car_004') = car_004;
 
 car_005.name = 'car_005';
 car_005.size = [5.38 2.18 2.08];
+car_005.brand = 'Ford';
 assetInfo('car_005') = car_005;
 
 car_006.name = 'car_006';
 car_006.size = [4.95 2.08 1.6];
+car_006.brand = 'Ford';
 assetInfo('car_006') = car_006;
 
 car_007.name = 'car_007';
 car_007.size = [4.56 2.08 1.75]; 
+car_007.brand = 'Ford';
 assetInfo('car_007') = car_007;
 
 % x 4.5m y 2.02m z 1.6m
 car_008.name = 'car_008';
 car_008.size = [4.5 2.02 1.6]; 
+car_008.brand = 'Ford';
 assetInfo('car_008') = car_008;
 
 % x 5.71m y 2.39m z 1.95m
 car_009.name = 'car_009';
 car_009.size = [5.71 2.39 1.95]; 
+car_009.brand = 'Ford';
 assetInfo('car_009') = car_009;
 
 % x 4.63m 2.12m 1.44m
 car_010.name = 'car_010';
 car_010.size = [4.63 2.12 1.44]; 
+car_010.brand = 'Honda';
 assetInfo('car_010') = car_010;
 
 % x 3.4m y 1.85m z 1.73m
 car_011.name = 'car_011';
 car_011.size = [3.4 1.85 1.73]; 
+car_011.brand = 'Honda';
 assetInfo('car_011') = car_011;
 
 % x 5m y 2.18m z 1.55m
 car_012.name = 'car_012';
 car_012.size = [5 2.18 1.55]; 
+car_012.brand = 'BMW';
 assetInfo('car_012') = car_012;
 
 % x 4.77m y 2.07m z 1.45m
 car_013.name = 'car_013';
 car_013.size = [4.77 2.07 1.45]; 
+car_013.brand = 'BMW';
 assetInfo('car_013') = car_013;
 
 car_014.name = 'car_014';
 car_014.size = [4.969 2.118 1.422]; 
+car_014.brand = 'Audi';
 assetInfo('car_014') = car_014;
 
 % x 4.99m y 2.12m z 1.69m
 car_015.name = 'car_015';
 car_015.size = [4.99 2.12 1.69]; 
+car_015.brand = 'Audi';
 assetInfo('car_015') = car_015;
 %% animals
 
