@@ -1,10 +1,16 @@
-function [obj,objectslist,instanceIdMap] = label(obj)
-% Generate the labels for the road
+function [objectslist,instanceIdMap] = label(obj)
+% Generate labels for the objects on the road
 %
 % Synopsis
-%    roadgen.label
+%    [obj,objectslist,instanceIdMap] = roadgen.label;
 %
-% Decription
+% (Maybe it should be)
+%    [objectslist,instanceIdMap] = roadgen.label;
+%
+% Inputs/Key-val/Outputs
+%   N/A
+%
+% Description
 %   Render an instanceId map.  For now this only runs on a CPU. Maybe
 %   Zhenyi can fix the GPU rendering for this issue, which would let us
 %   render once to get all metadata. 
@@ -26,7 +32,10 @@ function [obj,objectslist,instanceIdMap] = label(obj)
 %   cocoapi - repository, piAnnotationGet()
 %
 
-%% Make a copy
+%% Make a copy of the rendering recipe
+
+% We alter the rendering properties to speed up for just labeling.
+% Fewer rays, one bounce, path integrator.
 thisR = obj.recipe.copy;
 
 %% Set up the rendering parameters appropriate for a label render
@@ -37,6 +46,7 @@ thisR.set('film render type',{'instance'});
 thisR.set('integrator','path');
 
 % Add this line: Shape "sphere" "float radius" 500 
+% Because of the lighting??
 thisR.world(numel(thisR.world)+1) = {'Shape "sphere" "float radius" 5000'};
 
 outputFile = thisR.get('outputfile');
@@ -45,13 +55,14 @@ thisR.set('outputFile',fullfile(dir, [fname, '_instanceID', ext]));
 
 piWrite(thisR);
 
+%% Handle Zhenyi differently from Stanford.
 [~,username] = system('whoami');
 
 if strncmp(username,'zhenyi',6)
     if ismac
-        oiInstance = piRenderZhenyi(thisR,'device','cpu');
+        isetStruct = piRenderZhenyi(thisR,'device','cpu');
     else
-        oiInstance = piRenderServer(thisR,'device','cpu');
+        isetStruct = piRenderServer(thisR,'device','cpu');
     end
 else
     % use CPU for label generation, will fix this and render along with
@@ -78,21 +89,25 @@ else
     thisD = dockerWrapper('gpuRendering', false, ...
                           'localRender',true);
 
-    oiInstance = piRender(thisR,'our docker',thisD);
+    % This is the scene or oi with the metadata attached.
+    isetStruct = piRender(thisR,'our docker',thisD);
 end
 
 thisR.world = {'WorldBegin'};
 
-instanceIdMap = oiInstance.metadata.instanceID;
+instanceIdMap = isetStruct.metadata.instanceID;
 
-%% Get object lists
+%% Get object lists from the geometry file.
 
+% Read the contents of the PBRT geometry file to find the Objects.
 outputFile = thisR.get('outputfile');
 fname = strrep(outputFile,'.pbrt','_geometry.pbrt');
 fileID = fopen(fname);
 tmp = textscan(fileID,'%s','Delimiter','\n');
 txtLines = tmp{1};
 fclose(fileID);
+
+% Find all the lines that contain an ObjectInstance
 objectslist = txtLines(piContains(txtLines,'ObjectInstance'));
 
 end

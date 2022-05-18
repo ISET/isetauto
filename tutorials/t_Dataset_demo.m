@@ -130,80 +130,53 @@ camera_type = 'front_cam';
 % random pick a car, use the camera on it.
 roadData.cameraSet(camera_type); % (camera_type, car_id)
 
-%%
+%% Render the scene, and maybe an OI
+
 [scene, res] = piWRS(thisR);
 
-%{
+% {
+oi = oiCreate;
 oi = oiCompute(oi,scene);
-sensor = sensorCreate;
+oi = oiCrop(oi,'border');
+sensor = sensorCreate('MT9V024');
 sensor = sensorSet(sensor,'fov',sceneGet(scene,'fov'),oi);
-sensor = sensorSet(sensor,'exposure time',0.016);
+sensor = sensorSet(sensor,'auto exposure',true);
+% sensor = sensorSet(sensor,'exposure time',0.016);
 sensor = sensorCompute(sensor,oi);
 ip = ipCreate;
 ip = ipCompute(ip, sensor);
-ipWindow(ip);
+% ipWindow(ip);
 %}
 
-%%  We can run this either locally or remotely
+%% Label the objects using the CPU 
 
-% TODO:  Try setting a different GPU.  I have been using 0, but try 1 and 2
-% to see if it works.
-% dockerWrapper.setParams('localRender',false, 'gpuRendering',true);
-% scene = piWRS(thisR);
+[objectslist,instanceMap] = roadData.label();
 
-%{
-% For the instance we run locally on the CPU like this
-% scene = piWRS(thisR);
- thisR.set('skymap','room.exr');
- thisR.set('lights','room_L','rotate',[0 0 90]);
-%}
-
-% rgb = sceneGet(scene,'rgb');
-% ieNewGraphWin; imagescRGB(rgb.^0.7);
-
-%% Render locally with a CPU to create the object labels
-
-[obj,objectslist,instanceMap] = roadData.label();
-
-%% Get ready to render object labels
-
-radiance = sceneGet(scene,'rgb');
-rendered = scene;
-
-% oi = piOICreate(scene.data.photons,'meanilluminance',5);
-% radiance = oiGet(oi,'rgb');
-% 
-% % oi = piAIdenoise(oi);
-% 
-% ip = piRadiance2RGB(oi,'etime',1/30,'sensor','MT9V024SensorRGB');
-% radiance = ipGet(ip,'srgb');figure;imshow(radiance);
 %% Show the various images
-
-% We are going to put the rgb image, depth map, pixel label, and
-% bounding box in COCO format in this directory.  You can use them
-% again later.
-datasetFolder = fullfile(iaRootPath,'local','nightdrive','dataset');
-if ~exist(datasetFolder,'dir'), mkdir(datasetFolder); end
-
 
 ieNewGraphWin([],'upperleftbig');
 
+% We should be able to use the sensor image for finding the objects.
+% But not yet.
+imgscene = sceneGet(scene,'rgb');
+% imgscene = ipGet(ip,'srgb');
+
 subplot(2,2,1);
-imshow(radiance);title('Radiance')
+imshow(imgscene);title('Radiance')
 ax1 = subplot(2,2,2);
-imagesc(rendered.depthMap);colormap(ax1,"gray");title('Depth');axis off
+imagesc(scene.depthMap);colormap(ax1,"gray");title('Depth');axis off
 set(gca, 'Visible', 'off');
 ax2=subplot(2,2,3);
 imagesc(instanceMap);colormap(ax2,"colorcube");axis off;title('Pixel Label');
 subplot(2,2,4);
-imshow(radiance);title('Bounding Box');
+imshow(imgscene);title('Bounding Box');
 
 %% Add the bounding boxes, which requires the cocoapi method
 
 nBox=1;
 nImage = 1;
 Annotation=[];
-[h,w,~] = size(radiance);
+[h,w,~] = size(imgscene);
 
 % write out object ID for segmentation map;
 if ~exist(fullfile(datasetFolder,'additionalInfo'),'dir')
@@ -248,13 +221,17 @@ for ii = 1:numel(objectslist)
     nBox = nBox+1;
 end
 truesize;
-% 
+
+%%  Save the images
+
 
 %{
+% We are going to put the rgb image, depth map, pixel label, and
+% bounding box in COCO format using this directory.  You can use these
+% image data again later.
+datasetFolder = fullfile(iaRootPath,'local','nightdrive','dataset');
+if ~exist(datasetFolder,'dir'), mkdir(datasetFolder); end
 
-%% Save out the image
-
-% Some trouble moving the file remains.
 
 if ~exist(fullfile(datasetFolder,'rgb'),'dir')
     mkdir(fullfile(datasetFolder,'rgb'))
@@ -280,7 +257,7 @@ imgFilePath  = fullfile(datasetFolder,'rgb',imgName);
 imwrite(radiance,imgFilePath);
 
 imwrite(uint16(instanceMap),fullfile(datasetFolder,'segmentation',imgName));
-imwrite(uint16(rendered.depthMap),fullfile(datasetFolder,'depth',imgName));
+imwrite(uint16(scene.depthMap),fullfile(datasetFolder,'depth',imgName));
 outputFolder = roadData.recipe.get('outputdir');
 movefile(fullfile(outputFolder,sprintf('renderings/%d.exr',imageID)),fullfile(datasetFolder,'rendered/'));
 %}
