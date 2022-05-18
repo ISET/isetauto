@@ -60,20 +60,31 @@ roadData.set('onroad animal lane',{'rightdriving'});
 
 %% Place the offroad elements.  These are animals and trees.  Not cars.
 
-roadData.offroad.animal.namelist = {'deer_001'};
-roadData.offroad.animal.number= [randi(10),randi(10)];
-roadData.offroad.animal.lane= {'rightshoulder','leftshoulder'};
+roadData.set('offroad animal names',{'deer_001'});
+roadData.set('offroad n animals',[randi(10),randi(10)]);
+roadData.set('offroadanimallane',{'rightshoulder','leftshoulder'});
+
+% roadData.offroad.animal.namelist = {'deer_001'};
+% roadData.offroad.animal.number= [randi(10),randi(10)];
+% roadData.offroad.animal.lane= {'rightshoulder','leftshoulder'};
 
 % What are these units?   Meters?
-roadData.offroad.animal.minDistanceToRoad = 0;
-roadData.offroad.animal.layerWidth = 5;
+roadData.set('offroad animal min distance',0);
+roadData.set('offroad animal layer width',5);
+
+% roadData.offroad.animal.minDistanceToRoad = 0;
+% roadData.offroad.animal.layerWidth = 5;
+
+roadData.set('offroad tree names',{'tree_mid_001','tree_mid_002'});
+roadData.set('offroad n trees',[100, 50, 10]);
+roadData.set('offroad tree lane',{'rightshoulder','leftshoulder'});
 
 % Place the trees for different distance range from the boundary of road
-roadData.offroad.tree.namelist = {'tree_mid_001','tree_mid_002'};
-roadData.offroad.tree.number   = [100, 50, 10];
-roadData.offroad.tree.lane     = {'rightshoulder','leftshoulder'};
+% roadData.offroad.tree.namelist = {'tree_mid_001','tree_mid_002'};
+% roadData.offroad.tree.number   = [100, 50, 10];
+% roadData.offroad.tree.lane     = {'rightshoulder','leftshoulder'};
 
-%% Set up the skymap
+%% Set up the rendering skymap
 
 skymapLists     = dir(fullfile(iaRootPath,'data/skymap/*.exr'));
 skymapRandIndex = randi(size(skymapLists,1));
@@ -216,7 +227,7 @@ for ii = 1:numel(objectslist)
     tex.FontSize = 12;
 
     Annotation_coco{nBox} = struct('segmentation',segmentation,'area',area,'iscrowd',0,...
-        'image_id',sprintf('%d',imageID),'bbox',pos,'category_id',catId,'id',0,'ignore',0);
+        'image_id',sprintf('%d',imageID),'bbox',pos,'category_id',catId,'id',0,'ignore',0); %#ok<SAGROW> 
     fprintf('Class %s, instanceID: %d \n', label, ii);
     nBox = nBox+1;
 end

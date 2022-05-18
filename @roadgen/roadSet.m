@@ -66,6 +66,26 @@ switch param
     case 'onroadanimallane'
         road.onroad.animal.lane  = val;
 
+    case 'offroadanimalnames'
+        road.offroad.animal.namelist = val;
+    case 'offroadnanimals'
+        road.offroad.animal.number= val;
+    case 'offroadanimallane'
+        road.offroad.animal.lane  = val;
+
+    case 'offroadanimalmindistance'
+        % What are these units?   Meters?
+        road.offroad.animal.minDistanceToRoad = val;
+    case 'offroadanimallayerwidth'
+        road.offroad.animal.layerWidth = val;
+
+    case 'offroadtreenames'
+        road.offroad.tree.namelist = val;
+    case 'offroadntrees'
+        road.offroad.tree.number= val;
+    case 'offroadtreelane'
+        road.offroad.tree.lane  = val;
+
     otherwise
         error('Param %s not found',param);
 end
