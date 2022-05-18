@@ -56,14 +56,28 @@ if strncmp(username,'zhenyi',6)
 else
     % use CPU for label generation, will fix this and render along with
     % radiance. --Zhenyi
-
-    % This is likely a
     
-    % This is how we set up for a local CPU device at Stanford.
-    thisD = dockerWrapper('gpuRendering',false,'localRender',true);
-    % thisD.gpuRendering = false;
-    % thisD.localRender = true;
-    % thisD.getRenderer;
+    % This is set up for Stanford.
+    % For the moment it is hard-coded torender on the CPU on muxreconrt.  
+    % 
+    % It would probably be better to run locally and not to have to reset
+    % the remote container.
+    % 
+    % Also, can we just reset the running docker wrapper ?
+    
+    %{
+    % This worked for remote
+    dockerWrapper.reset;
+    x86Image = 'digitalprodev/pbrt-v4-cpu:latest';
+    thisD = dockerWrapper('gpuRendering', false, ...
+                          'remoteImage',x86Image);
+    %}
+
+    % This seems to work for local.  Not sure why we need the reset.
+    dockerWrapper.reset;
+    thisD = dockerWrapper('gpuRendering', false, ...
+                          'localRender',true);
+
     oiInstance = piRender(thisR,'our docker',thisD);
 end
 

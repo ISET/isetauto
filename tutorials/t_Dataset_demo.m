@@ -2,10 +2,10 @@
 %
 % Dependencies
 %   ISET3d, ISETAuto, ISETCam and scitran
-%   Prefix: ia- means isetauto
-%            pi- means pbrt2iset(iset3d)
+%   Prefix:  ia- means isetauto
+%            pi- means iset3d-v4
 %
-%   ISET3d: Takes a PBRT file, parse 3D information including lights,
+%   ISET3d-V4: Takes a PBRT file, parse 3D information including lights,
 %   materials, textures and meshes. Modify the properties and render it.
 %
 %   ISETAuto: Assemble ISET3d OBJECT into a complex driving scene.
@@ -32,36 +32,31 @@ if ~piDockerExists, piDockerConfig; end
 assetDir = fullfile(iaRootPath,'local','assets');
 roadDir  = fullfile(iaRootPath,'local','assets','road','road_001');
 
-% The key class for generating a road
+% The road data
 roadData = roadgen('road directory',roadDir, 'asset directory',assetDir);
-
-%% Set parameters for the scene
-%
-% We both add asset names, how many assets we add, and their on and off
-% road positions.
-%
 
 %% Place the onroad elements
 
-% These are cars and animals.  Not trees.
-
-% roadData.set('onroad car names') = {'car_001'};
-roadData.onroad.car.namelist = {'car_001'};
-
 % The driving lanes
-% roadData.set('onroad car lanes') = {'leftdriving','rightdriving'};
-roadData.onroad.car.lane   = {'leftdriving','rightdriving'};
+roadData.set('onroad car lanes',{'leftdriving','rightdriving'});
+
+% Cars on the road
+roadData.set('onroad car names',{'car_001'});
 
 % How many cars on each driving lane.  
 % The vector length of these numbers should be the same as the number
 % of driving lanes. 
-% roadData.set('onroad n cars') = [randi(20), randi(20)];
-roadData.onroad.car.number = [randi(20),randi(20)];
+nCars = [randi(20), randi(20)];
+roadData.set('onroad n cars', nCars);
 
 % Now place the animals
-roadData.onroad.animal.namelist = {'deer_001'};
-roadData.onroad.animal.number= randi(10);
-roadData.onroad.animal.lane  = {'rightdriving'};
+roadData.set('onroad animal names',{'deer_001'});
+roadData.set('onroad n animals',randi(10));
+roadData.set('onroad animal lane',{'rightdriving'});
+
+% roadData.onroad.animal.namelist = {'deer_001'};
+% roadData.onroad.animal.number= randi(10);
+% roadData.onroad.animal.lane  = {'rightdriving'};
 
 %% Place the offroad elements.  These are animals and trees.  Not cars.
 
@@ -73,22 +68,17 @@ roadData.offroad.animal.lane= {'rightshoulder','leftshoulder'};
 roadData.offroad.animal.minDistanceToRoad = 0;
 roadData.offroad.animal.layerWidth = 5;
 
-% Now place the trees
-
-% for different distance range from the boundary of road
+% Place the trees for different distance range from the boundary of road
 roadData.offroad.tree.namelist = {'tree_mid_001','tree_mid_002'};
 roadData.offroad.tree.number   = [100, 50, 10];
 roadData.offroad.tree.lane     = {'rightshoulder','leftshoulder'};
 
 %% Set up the skymap
 
-skymapLists = dir(fullfile(iaRootPath,'data/skymap/*.exr'));
+skymapLists     = dir(fullfile(iaRootPath,'data/skymap/*.exr'));
 skymapRandIndex = randi(size(skymapLists,1));
-skymapName = skymapLists(skymapRandIndex).name;
+skymapName      = skymapLists(skymapRandIndex).name;
 roadData.recipe.set('skymap',skymapName);
-
-% There are also skymaps in iset3d-v4.  Maybe we should combine?
-% roadData.recipe.set('skymap','noon_009.exr');
 
 % useful Docker cmd for reading or making a skymap.
 %{
@@ -110,7 +100,9 @@ thisR.set('sampler subtype','pmj02bn');
 imageID = iaImageID();
 
 sceneName = 'nightdrive';
-outputFile = fullfile(iaRootPath, 'local', sceneName, [num2str(imageID),'.pbrt']);
+% outputFile = fullfile(iaRootPath, 'local', sceneName, [num2str(imageID),'.pbrt']);
+outputFile = fullfile(piRootPath, 'local', sceneName, [num2str(imageID),'.pbrt']);
+
 thisR.set('outputFile',outputFile);
 
 %% Assemble the scene using ISET3d methods
@@ -125,7 +117,6 @@ fprintf('---> Scene assembled in %.f seconds.\n',toc(assemble_tic));
 
 % lensfile  = 'wide.40deg.6.0mm.json';    % 30 38 18 10
 % fprintf('Using lens: %s\n',lensfile);
-% sceneData.recipe.camera = piCameraCreate('omni','lensFile',lensfile);
 
 % random pick a car, use the camera on it.  This are the types of cameras
 % so far:
@@ -136,9 +127,6 @@ fprintf('---> Scene assembled in %.f seconds.\n',toc(assemble_tic));
 %   camera_type = 'right_mirror_cam'
 camera_type = 'front_cam';
 
-% sceneData.recipe.lookAt.from = [-215.4888 -2.5427 69.2109];
-% sceneData.recipe.lookAt.to   = [-214.5653 -2.5193 68.8282];
-% sceneData.recipe.lookAt.up   = [0.3825 0.0151 0.9238];
 % random pick a car, use the camera on it.
 roadData.cameraSet(camera_type); % (camera_type, car_id)
 
@@ -175,7 +163,6 @@ ipWindow(ip);
 
 %% Render locally with a CPU to create the object labels
 
-% dockerWrapper.setParams('localRender',true, 'gpuRendering',false);
 [obj,objectslist,instanceMap] = roadData.label();
 
 %% Get ready to render object labels

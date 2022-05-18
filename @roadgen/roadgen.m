@@ -1,24 +1,16 @@
 classdef roadgen < matlab.mixin.Copyable
-    % roadgen class contains essential functions to generate a scene in PBRT
-    % format.
+    % roadgen class - functions to generate a PBRT scene
+    %
     % We save the following information:
     %   camera   : lookAt; lens;
     %
     %   road     : roadrunner road information
     %
-    %   % timeofday: we have a collection of skymaps captured from morning to
-    %   dusk.(Aroung 7AM to 6PM) at one minute interval, we pick one for
-    %   current scene.
-    %
-    %   % skymap   : We also have other skymaps roughly categorized by
-    %   morning/afternoon/night, we save the information here when we use
-    %   these set of skymaps.
-    %
     %   targetAssets: The assets we used for object detection,e.g.
-    %   cars/pedestrian/animals.
+    %     cars/pedestrian/animals.
     %
     %   backgroundAssets: The assets only used for backgournd formation,
-    %   e.g. trees/streetlights/buildings.
+    %     e.g. trees/streetlights/buildings.
     %
     %   assetdirectory: the directory which contains our curated assets.
     %
@@ -26,12 +18,9 @@ classdef roadgen < matlab.mixin.Copyable
 
     properties (GetAccess=public, SetAccess=public)
         sceneName;
-        %  assetInfo; % asset library: name and size for each object.
-        cameraUsed;  % It contains the lookAt information and the car ID which the camera belongs to.
+        % cameraUsed;  % It contains the lookAt information and the car ID which the camera belongs to.
         recipe;      % ISET3d recipe includes camera and other info
         road;        % Road specification from Road Runner
-        % timeofday;   %
-        % skymap;      % This should probably be part of the recipe
         onroad;      % Metadata about the road
         offroad;     % More metadata about the road
         roaddirectory  = '';
@@ -39,7 +28,9 @@ classdef roadgen < matlab.mixin.Copyable
 
     end
 
-    methods (Static)
+    methods 
+
+        % Constructor
         function obj = roadgen(varargin)
             % scene = road('asset directory',yourChoice,'rr map path',yourChoice).
             %
@@ -52,9 +43,9 @@ classdef roadgen < matlab.mixin.Copyable
             % This is a road recipe.  It includes an ISET3d recipe, but it
             % also includes specific features for the driving application.
             %
-            
+
             varargin = ieParamFormat(varargin);
-            
+
             p = inputParser;
             p.addParameter('roaddirectory','');
             p.addParameter('assetdirectory','/Volumes/SSDZhenyi/Ford Project/PBRT_assets',@ischar)
@@ -65,28 +56,20 @@ classdef roadgen < matlab.mixin.Copyable
             %             p.addParameter('minDistanceToRoad',2);
 
             p.parse(varargin{:});
-            
+
             % Assets for this project.  Will generalize later.
             obj.assetdirectory = p.Results.assetdirectory;
-            
+
             % Road runner data information
             rrMapPath = p.Results.roaddirectory;
             [~,roadName] = fileparts(rrMapPath);
             obj.sceneName = roadName;
-           
+
             % read road runner map
             obj = rrMapRead(obj, rrMapPath);
 
             % create recipe
             obj.recipe = piRead(fullfile(rrMapPath,roadName,[roadName,'.pbrt']));
-        end
-
-        function obj = set(obj,param,val,varargin)
-            % obj = iaRoadSet(obj,param,val,varargin);
-        end
-
-        function val = get(obj, param, varargin)
-            % iaRoadGet(obj,param,varargin);
         end
 
         function assetList = assetListCreate(obj)
@@ -105,7 +88,7 @@ classdef roadgen < matlab.mixin.Copyable
 
         end
 
-        function newAssetList = getAssetInfo(assetList)
+        function newAssetList = getAssetInfo(obj,assetList)
             % assetList = {'obj1','obj2','obj3'};
             % name; size; position
 
@@ -118,7 +101,14 @@ classdef roadgen < matlab.mixin.Copyable
             end
         end
         
-        
+        function set(obj,param,val)
+            roadSet(obj,param,val);            
+        end
+
+        function val = get(obj,param, varargin)
+            val = roadGet(obj,param,varargin);
+        end
+
         % Visualization
         function rrDraw(obj, varargin)
             p = inputParser;
@@ -140,19 +130,16 @@ classdef roadgen < matlab.mixin.Copyable
                 for ii = 1:size(points,1)
                     rotation = rad2deg(dir(ii));
                     plot(points(ii,1),points(ii,2), 'r*');
-                text(points(ii,1),points(ii,2),'\rightarrow',...
-                    'FontSize',30,'Rotation',rotation,...
-                    'HorizontalAlignment','center');
+                    text(points(ii,1),points(ii,2),'\rightarrow',...
+                        'FontSize',30,'Rotation',rotation,...
+                        'HorizontalAlignment','center');
                 end
             end
             title('Bird view of the road');
             xlabel('meters');
             ylabel('meters');
         end
-        
     end
-
-
 end
 
 
