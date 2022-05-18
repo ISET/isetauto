@@ -103,8 +103,8 @@ thisR = roadData.recipe;
 thisR.set('film render type',{'radiance','depth'});
 
 % render quality
-thisR.set('film resolution',[1536 864]/4);
-thisR.set('pixel samples',512);
+thisR.set('film resolution',[1536 864]/4); %4
+thisR.set('pixel samples',512); %512
 thisR.set('max depth',5);
 thisR.set('sampler subtype','pmj02bn');
 
