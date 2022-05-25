@@ -23,11 +23,6 @@ if ~piDockerExists, piDockerConfig; end
 % for nScene = 1
 
 %% Road initiation
-%
-% The outputs will go
-%
-%   datasetFolder = '/Volumes/SSDZhenyi/Ford Project/dataset/dataset_demo';
-%
 
 assetDir = fullfile(iaRootPath,'local','assets');
 roadDir  = fullfile(iaRootPath,'local','assets','road','road_001');
@@ -145,7 +140,7 @@ roadData.cameraSet(camera_type); % (camera_type, car_id)
 
 [scene, res] = piWRS(thisR);
 
-% {
+%{
 oi = oiCreate;
 oi = oiCompute(oi,scene);
 oi = oiCrop(oi,'border');
@@ -188,6 +183,8 @@ nBox=1;
 nImage = 1;
 Annotation=[];
 [h,w,~] = size(imgscene);
+
+datasetFolder = fullfile(piRootPath,'local','dataset_demo');
 
 % write out object ID for segmentation map;
 if ~exist(fullfile(datasetFolder,'additionalInfo'),'dir')
