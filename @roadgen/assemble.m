@@ -55,7 +55,14 @@ for ii = 1:numel(assetNames)
                 % Merge the recipe for the chosen car as an instance
                 % into the road recipe.
                 if isempty(id)
-                    thisAssetRecipe = piRead(fullfile(obj.assetdirectory,'cars',thisName,[thisName,'.pbrt']));
+                    pbrtFile = fullfile(obj.assetdirectory,'cars',thisName,[thisName,'.pbrt']);
+                    recipeFile = fullfile(obj.assetdirectory,'cars',thisName,[thisName,'.mat']);
+                    if exist(recipeFile,'file')
+                        thisAssetRecipe = load(recipeFile);
+                        thisAssetRecipe = thisAssetRecipe.recipe;
+                    else
+                        thisAssetRecipe = piRead(pbrtFile);
+                    end
                     obj.recipe = piRecipeMerge(obj.recipe, thisAssetRecipe, 'objectInstance',true);
                 end
             end
@@ -92,7 +99,14 @@ for ii = 1:numel(assetNames)
                 % Merge the recipe for the chosen car as an instance
                 % into the road recipe.
                 if isempty(id)
-                    thisAssetRecipe = piRead(fullfile(obj.assetdirectory,'animal',thisName,[thisName,'.pbrt']));
+                    pbrtFile = fullfile(obj.assetdirectory,'animal',thisName,[thisName,'.pbrt']);
+                    recipeFile = fullfile(obj.assetdirectory,'animal',thisName,[thisName,'.mat']);
+                    if exist(recipeFile,'file')
+                        thisAssetRecipe = load(recipeFile);
+                        thisAssetRecipe = thisAssetRecipe.recipe;
+                    else
+                        thisAssetRecipe = piRead(pbrtFile);
+                    end
                     obj.recipe = piRecipeMerge(obj.recipe, thisAssetRecipe, 'objectInstance',true);
                 end
             end
@@ -127,7 +141,14 @@ for ii = 1:numel(assetNames_off)
                 id = piAssetFind(obj.recipe.assets, 'name',[thisName,'_m_B']); % check whether it's there already
                 
                 if isempty(id)
-                    thisAssetRecipe = piRead(fullfile(obj.assetdirectory,'animal',thisName,[thisName,'.pbrt']));
+                    pbrtFile = fullfile(obj.assetdirectory,'animal',thisName,[thisName,'.pbrt']);
+                    recipeFile = fullfile(obj.assetdirectory,'animal',thisName,[thisName,'.mat']);
+                    if exist(recipeFile,'file')
+                        thisAssetRecipe = load(recipeFile);
+                        thisAssetRecipe = thisAssetRecipe.recipe;
+                    else
+                        thisAssetRecipe = piRead(pbrtFile);
+                    end
                     obj.recipe = piRecipeMerge(obj.recipe, thisAssetRecipe, 'objectInstance',true);
                 end
             end
@@ -156,7 +177,14 @@ for ii = 1:numel(assetNames_off)
                 id = piAssetFind(obj.recipe.assets, 'name',[thisName,'_m_B']); % check whether it's there already
                 
                 if isempty(id)
-                    thisAssetRecipe = piRead(fullfile(obj.assetdirectory,'trees',thisName,[thisName,'.pbrt']));
+                    pbrtFile = fullfile(obj.assetdirectory,'trees',thisName,[thisName,'.pbrt']);
+                    recipeFile = fullfile(obj.assetdirectory,'trees',thisName,[thisName,'.mat']);
+                    if exist(recipeFile,'file')
+                        thisAssetRecipe = load(recipeFile);
+                        thisAssetRecipe = thisAssetRecipe.recipe;
+                    else
+                        thisAssetRecipe = piRead(pbrtFile);
+                    end
                     obj.recipe = piRecipeMerge(obj.recipe, thisAssetRecipe, 'objectInstance',true);
                 end
             end
@@ -185,7 +213,7 @@ disp('--> AssetsList is generated');
 obj = obj.overlappedRemove();
 
 %% Apply our customized material
-iaAutoMaterialGroupAssign(obj.recipe);
+iaAutoMaterialGroupAssignV4(obj.recipe);
 % sceneR.show('materials');
 disp('--> Material assigned');
 

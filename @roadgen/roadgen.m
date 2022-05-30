@@ -69,7 +69,14 @@ classdef roadgen < matlab.mixin.Copyable
             obj = rrMapRead(obj, rrMapPath);
 
             % create recipe
-            obj.recipe = piRead(fullfile(rrMapPath,roadName,[roadName,'.pbrt']));
+            pbrtFile = fullfile(rrMapPath,roadName,[roadName,'.pbrt']);
+            recipeMat = fullfile(rrMapPath,roadName,[roadName,'.mat']);
+            if exist(recipeMat, "file")
+                roadRecipe = load(recipeMat);
+                obj.recipe = roadRecipe.recipe;
+            else
+                obj.recipe = piRead(pbrtFile);
+            end
         end
 
         function assetList = assetListCreate(obj)
