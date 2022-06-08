@@ -94,6 +94,33 @@ deer_002.name = 'deer_002';
 deer_002.size = [1.39, 0.632, 1.3]; %[x, y, z]
 assetInfo('deer_002') = deer_002;
 
+deer_003.name = 'deer_003';
+deer_003.size = [1.66, 0.815, 1.87]; %[x, y, z]
+assetInfo('deer_003') = deer_003;
+
+deer_004.name = 'deer_004';
+deer_004.size = [2.06, 1.06, 2.12]; %[x, y, z]
+assetInfo('deer_004') = deer_004;
+
+deer_005.name = 'deer_005';
+deer_005.size = [1.66, 0.583, 1.21]; %[x, y, z]
+assetInfo('deer_005') = deer_005;
+
+deer_006.name = 'deer_006';
+deer_006.size = [1.35, 0.412, 1.22]; %[x, y, z]
+assetInfo('deer_006') = deer_006;
+
+deer_007.name = 'deer_007';
+deer_007.size = [1.98, 0.751, 1.54]; %[x, y, z]
+assetInfo('deer_007') = deer_007;
+
+deer_008.name = 'deer_008';
+deer_008.size = [0.854, 0.379, 0.797]; %[x, y, z]
+assetInfo('deer_008') = deer_008;
+
+deer_009.name = 'deer_009';
+deer_009.size = [2.24, 1.21, 2.04]; %[x, y, z]
+assetInfo('deer_009') = deer_009;
 %% trees
 
 tree_short_001.name = 'tree_short_001';
