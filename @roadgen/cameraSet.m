@@ -30,8 +30,9 @@ else
 end
 
 for ii = 1:numel(thisAssetBranch.extraNode.Node)
-    if contains(thisAssetBranch.extraNode.Node{ii}.name,cam_type)
+    if contains(thisAssetBranch.extraNode.Node{ii}.name, strsplit(cam_type, '_'))
         thisCamNode = thisAssetBranch.extraNode.Node{ii};
+        fprintf('Find camera node:%s. \n',  thisCamNode.name);
         break;
     end
 end
