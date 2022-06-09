@@ -87,12 +87,12 @@ for ii = 1:numel(materialKeys)
 % 
 %         thisR.set('material','replace', materialKeys{ii}, newMat);
 
-%     elseif contains(lower(materialKeys{ii}),'glass') && ...
-%             ~contains(lower(materialKeys{ii}),'red')
-% 
-%         newMat = piMaterialCreate(materialKeys{ii}, ...
-%             'type', 'dielectric','eta','glass-BK7');
-%         thisR.set('material','replace', materialKeys{ii}, newMat);
+    elseif contains(lower(materialKeys{ii}),'clearglass') && ...
+            ~contains(lower(materialKeys{ii}),'red')
+
+        newMat = piMaterialCreate(materialKeys{ii}, ...
+            'type', 'dielectric','eta','glass-BK7');
+        thisR.set('material','replace', materialKeys{ii}, newMat);
 % 
 %     elseif contains(lower(materialKeys{ii}),'glass') && ...
 %             contains(lower(materialKeys{ii}),'red')
