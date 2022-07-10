@@ -44,14 +44,14 @@ roadData.set('onroad car names',{'car_001'});
 
 nCars = [randi(20), randi(20)];
 % nCars = [15 7];
-disp(['Car ',num2double(nCars)]);
+disp(['Car ',num2str(nCars)]);
 roadData.set('onroad n cars', nCars);
 
 % Now place the animals
 roadData.set('onroad animal names',{'deer_001'});
 nDeer = randi(10);
 % nDeer = 1;
-disp(['Deer ',num2double(nDeer)]);
+disp(['Deer ',num2str(nDeer)]);
 
 roadData.set('onroad n animals',nDeer);
 roadData.set('onroad animal lane',{'rightdriving'});
@@ -93,8 +93,8 @@ thisR.set('film render type',{'radiance','depth'});
 
 % render quality
 thisR.set('film resolution',[1536 864]/4); % 4
-thisR.set('pixel samples',2048);           % 512
-thisR.set('max depth',3);                  % 5
+thisR.set('pixel samples',512);           % 512
+thisR.set('max depth',5);                  % 5
 thisR.set('sampler subtype','pmj02bn');
 
 imageID = iaImageID();
@@ -117,7 +117,7 @@ fprintf('---> Scene assembled in %.f seconds.\n',toc(assemble_tic));
 % lensfile  = 'wide.40deg.6.0mm.json';    % 30 38 18 10
 % fprintf('Using lens: %s\n',lensfile);
 
-% random pick a car, use the camera on it.  This are the types of cameras
+% random pick a car, use the camera on it.  These are the types of cameras
 % so far:
 %
 %   front_cam
@@ -131,23 +131,27 @@ roadData.cameraSet(camera_type); % (camera_type, car_id)
 
 %% Render the scene, and maybe an OI
 
-[scene, res] = piWRS(thisR);
+[scene, res] = piWRS(thisR,'speed',1);
 
 %% If you are satisfied, move the camera and make some more
 
 thisR.set('film resolution',[1536 864]/2); %4
 thisR.set('pixel samples',2048); %512
 
-from = thisR.get('from');
+from = thisR.get('from'); %  -176.2456     4.6869     1.0000
+% from = [ -176.2456 4.6869 1.0000]
+% thisR.set('from',from);
+% to                -175.2500 4.7802 1.0000
+% thisR.set('from',[-176.2456 4.5869 1.0000])
 steps = (0:0.25:2);
 fnamebase = 'test';
 viewDir = thisR.get('lookat direction');
 for ii=1:numel(steps)
-    
-    thisR.set('from',from + steps(ii)*viewDir);
-    scene = piWRS(thisR);
 
-    % Write out a jpg of the scene
+    thisR.set('from',from + steps(ii)*viewDir);
+    scene = piWRS(thisR,'speed',8);
+
+    % Write out a jpg of the scene into local of ISETCam
     rgb = sceneGet(scene,'rgb');
     fname = sprintf('%s-%d.jpg',fnamebase,ii);
     fname = fullfile(isetRootPath,'local',fname);

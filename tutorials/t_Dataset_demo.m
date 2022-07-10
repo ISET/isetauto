@@ -49,10 +49,6 @@ roadData.set('onroad animal names',{'deer_001'});
 roadData.set('onroad n animals',randi(10));
 roadData.set('onroad animal lane',{'rightdriving'});
 
-% roadData.onroad.animal.namelist = {'deer_001'};
-% roadData.onroad.animal.number= randi(10);
-% roadData.onroad.animal.lane  = {'rightdriving'};
-
 %% Place the offroad elements.  These are animals and trees.  Not cars.
 
 roadData.set('offroad animal names',{'deer_001'});
@@ -138,8 +134,9 @@ roadData.cameraSet(camera_type); % (camera_type, car_id)
 
 %% Render the scene, and maybe an OI
 
-[scene, res] = piWRS(thisR);
+[scene, res] = piWRS(thisR,'speed',1);
 
+%%
 %{
 oi = oiCreate;
 oi = oiCompute(oi,scene);
