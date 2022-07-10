@@ -70,6 +70,20 @@ fprintf('-->Camera is set on %s(ID:%d) with \n  From:[ %.2f %.2f %.2f] \n    To:
     from_points(1),from_points(2),from_points(3),...
     at_points(1),at_points(2),at_points(3));
 
+getNewCamera = 0;
+if (from_points(1) > at_points(1)) && from_points(1)<0
+    if abs(from_points(1))>170
+        getNewCamera = 1;
+    end
+elseif (from_points(1) < at_points(1)) && from_points(1) > 0
+    if abs(from_points(1))>170
+        getNewCamera = 1;
+    end 
+end
+
+if getNewCamera ==1
+    obj.cameraSet(cam_type);
+end
 end
 
 

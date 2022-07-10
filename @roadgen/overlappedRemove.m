@@ -4,6 +4,9 @@ function obj = overlappedRemove(obj)
 assetInfo = assetlib();
 obj.onroad.car = overlapCheckOne(assetInfo, obj.onroad.car);
 obj.onroad.animal = overlapCheckOne(assetInfo, obj.onroad.animal);
+
+obj.onroad.animal = overlapCheckTwo(assetInfo, obj.onroad.animal, obj.onroad.car);
+
 obj.offroad.animal = overlapCheckOne(assetInfo, obj.offroad.animal);
 
 % remove animal that overlapped with trees.
@@ -25,7 +28,7 @@ for ii  = 1:numel(S1.lane)
         objIndex = [objIndex, jj];
     end
     for jj = 1:size(posList_S1,1)
-        objInfo_S1 = assetInfo(S.namelist{idList_S1(jj)});
+        objInfo_S1 = assetInfo(S1.namelist{idList_S1(jj)});
         offsetScale = 1.2;  % scale object patch by this scale
         objPatch_S1 = polyshape([0 0 objInfo_S1.size(1)*offsetScale objInfo_S1.size(1)*offsetScale],...
             [objInfo_S1.size(2)*offsetScale 0 0 objInfo_S1.size(2)*offsetScale]);
@@ -35,15 +38,15 @@ for ii  = 1:numel(S1.lane)
         
         indexMatched = find(contains(S.lane, S1.lane{ii}),1);
         posList_S = S.placedList.positions{indexMatched};   
-        rotList_S = S.placedList.rotations{ii};
-        idList_S  = S.placedList.objIdList{ii};
+        rotList_S = S.placedList.rotations{indexMatched};
+        idList_S  = S.placedList.objIdList{indexMatched};
         for ll = 1:size(posList_S,1)
             objInfo_S = assetInfo(S.namelist{idList_S(ll)});
             objPatch_S = polyshape([0 0 objInfo_S.size(1)*offsetScale objInfo_S.size(1)*offsetScale],...
                 [objInfo_S.size(2)*offsetScale 0 0 objInfo_S.size(2)*offsetScale]);
     
-            objPatch_S = translate(objPatch_S, posList_S1(jj,1), posList_S1(jj,2)); 
-            objPatch_S = rotate(objPatch_S, rad2deg(rotList_S1(jj)));  
+            objPatch_S = translate(objPatch_S, posList_S(ll,1), posList_S(ll,2)); 
+            objPatch_S = rotate(objPatch_S, rad2deg(rotList_S(ll)));  
             polyvec = [objPatch_S1 objPatch_S];
             overlapTF = overlaps(polyvec);
             % remove if overlap
