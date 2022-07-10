@@ -139,17 +139,22 @@ thisR.set('film resolution',[1536 864]/2); %4
 thisR.set('pixel samples',2048); %512
 
 from = thisR.get('from');
-steps = (0:0.1:0.5);
+steps = (0:0.25:2);
 fnamebase = 'test';
 viewDir = thisR.get('lookat direction');
 for ii=1:numel(steps)
+    
     thisR.set('from',from + steps(ii)*viewDir);
     scene = piWRS(thisR);
+
+    % Write out a jpg of the scene
     rgb = sceneGet(scene,'rgb');
     fname = sprintf('%s-%d.jpg',fnamebase,ii);
     fname = fullfile(isetRootPath,'local',fname);
     imwrite(rgb,fname);
 end
 
+% Put from back so we can reuse.
+thisR.set('from',from);
 
 %% End
