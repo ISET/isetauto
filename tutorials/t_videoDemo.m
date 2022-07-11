@@ -116,23 +116,20 @@ fprintf('---> Scene assembled in %.f seconds.\n',toc(assemble_tic));
 % lensfile  = 'wide.40deg.6.0mm.json';    % 30 38 18 10
 % fprintf('Using lens: %s\n',lensfile);
 
-% random pick a car, use the camera on it.  These are the types of cameras
-% so far:
-%
-
-
+% random pick a car, use the camera on it. 
+% When we change the position of the camera, we keep the 'to' position
+% fixed.  So we produce several images of the same scene from different
+% points of view.
 camera_type = {'front','left','right'};
-for cc = 1:numel(camera_type)
+for cc = 2:numel(camera_type)
     % random pick a car, use the camera on it.
     roadData.cameraSet(camera_type); % (camera_type, car_id)
-    if cc == 1
-        to = thisR.get('to');
-    else
-        thisR.set('to',to);
-    end
+    %     if cc == 1, to = thisR.get('to');
+    %     else,       thisR.set('to',to);
+    %     end
 
     %% Render the scene, and maybe an OI
-    scene = piWRS(thisR,'speed',1,'name',camera_type{cc});
+    scene = piWRS(thisR,'speed',4,'name',camera_type{cc});
     fname = sprintf('%s.jpg',camera_type{cc});
     fname = fullfile(piRootPath,'local',fname);
 end
