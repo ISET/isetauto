@@ -9,6 +9,11 @@ function obj = cameraSet(obj,cam_type, branchID)
 %   roadgen
 
 %%
+if ~ismember(cam_type,{'front','back','left','right'})
+    error('Camera type must be front/back/left/right');
+end
+
+%%
 thisCamNode =[];
 % get all children under root node.
 if ~exist('branchID','var')
