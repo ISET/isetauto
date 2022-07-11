@@ -119,14 +119,23 @@ fprintf('---> Scene assembled in %.f seconds.\n',toc(assemble_tic));
 % random pick a car, use the camera on it.  These are the types of cameras
 % so far:
 %
-camera_type = 'left';
 
-% random pick a car, use the camera on it.
-roadData.cameraSet(camera_type); % (camera_type, car_id)
 
-%% Render the scene, and maybe an OI
+camera_type = {'front','left','right'};
+for cc = 1:numel(camera_type)
+    % random pick a car, use the camera on it.
+    roadData.cameraSet(camera_type); % (camera_type, car_id)
+    if cc == 1
+        to = thisR.get('to');
+    else
+        thisR.set('to',to);
+    end
 
-[scene, res] = piWRS(thisR,'speed',4);
+    %% Render the scene, and maybe an OI
+    scene = piWRS(thisR,'speed',1,'name',camera_type{cc});
+    fname = sprintf('%s.jpg',camera_type{cc});
+    fname = fullfile(piRootPath,'local',fname);
+end
 
 %% If you are satisfied, move the camera and make some more high-res
 
