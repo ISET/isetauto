@@ -21,10 +21,10 @@ if ~exist('branchID','var')
     n=1;
     for ii = 1:numel(root_children)
         thisBranch = obj.recipe.assets.Node{root_children(ii)};
-        if piContains(thisBranch.name, 'car') && ... 
+        if piContains(thisBranch.name, 'car') && ...
                 piContains(thisBranch.name, '_m_B_I')&&...
                 thisBranch.isObjectInstance == 0
-            thisBranchList{n} = thisBranch; %#ok<AGROW> 
+            thisBranchList{n} = thisBranch; %#ok<AGROW>
             n = n+1;
         end
     end
@@ -35,9 +35,12 @@ else
 end
 
 for ii = 1:numel(thisAssetBranch.extraNode.Node)
-    if contains(thisAssetBranch.extraNode.Node{ii}.name, cam_type)
+    if contains(thisAssetBranch.extraNode.Node{ii}.name, cam_type) && ...
+            contains(thisAssetBranch.extraNode.Node{ii}.name, 'cam')
+
         thisCamNode = thisAssetBranch.extraNode.Node{ii};
         fprintf('Find camera node:%s. \n',  thisCamNode.name);
+
         break;
     end
 end
@@ -83,12 +86,10 @@ if (from_points(1) > at_points(1)) && from_points(1)<0
 elseif (from_points(1) < at_points(1)) && from_points(1) > 0
     if abs(from_points(1))>170
         getNewCamera = 1;
-    end 
+    end
 end
 
 if getNewCamera ==1
     obj.cameraSet(cam_type);
 end
 end
-
-

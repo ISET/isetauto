@@ -128,8 +128,6 @@ count_rider=0;
 count_bicycle=0;
 count_motor=0;
 count_pedestrian=0;
-
-
 %% generate label image and instance image
 for ii = 1:size(s,1)
     a=str2double(s{ii}{1});% change from str2num to str2double
