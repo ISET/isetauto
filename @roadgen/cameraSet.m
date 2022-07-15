@@ -1,9 +1,19 @@
-function obj = cameraSet(obj,cam_type, branchID)
-% Place a camera on a road scene
+function branchID = cameraSet(obj,cam_type, branchID)
+% Place a camera on a one of the cars in a road scene
 %
-% obj      - The road scene
-% cam_type - The front, rear, or side camera types
-% branchID - Specifies which car to use
+% Synopsis
+%   branchID = cameraSet(obj,cam_type, branchID)
+%
+% Input
+%  obj      - The roadgen object (a road scene)
+%  cam_type - The front, rear, or side camera types
+%  branchID - Specifies which car to use
+%
+% Return
+%  branchID - If selected randomly, this is the ID of the selected
+%             car.
+%
+% m-mesh (assigned by blender), b-branch, I instance.
 %
 % See also
 %   roadgen
@@ -18,18 +28,23 @@ thisCamNode =[];
 % get all children under root node.
 if ~exist('branchID','var')
     root_children = obj.recipe.assets.getchildren(1);
-    n=1;
+    cnt=1;
     for ii = 1:numel(root_children)
         thisBranch = obj.recipe.assets.Node{root_children(ii)};
         if piContains(thisBranch.name, 'car') && ...
                 piContains(thisBranch.name, '_m_B_I')&&...
                 thisBranch.isObjectInstance == 0
-            thisBranchList{n} = thisBranch; %#ok<AGROW>
-            n = n+1;
+            thisBranchList{cnt} = thisBranch; %#ok<AGROW>
+            cnt = cnt+1;
         end
     end
-    branchID = root_children(ii);
-    thisAssetBranch = thisBranchList{randi(n-1)};
+    
+    % branchID = ii
+    %
+    thisAssetBranch = thisBranchList{randi(cnt-1)};
+
+    branchID = piAssetFind(obj.recipe.assets,'name',thisAssetBranch.name);
+
 else
     thisAssetBranch = obj.recipe.assets.Node{branchID};
 end

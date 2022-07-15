@@ -127,18 +127,28 @@ fprintf('---> Scene assembled in %.f seconds.\n',toc(assemble_tic));
 % random pick a car, use the camera on it.  This are the types of cameras
 % so far:
 %
-%   front_cam
-%   back_cam
-%   left_mirror_cam
-%   camera_type = 'right_mirror_cam'
-camera_type = 'front_cam';
+%   front
+%   back
+%   left
+%   camera_type = 'right'
+camera_type = 'front';
 
 % random pick a car, use the camera on it.
-roadData.cameraSet(camera_type); % (camera_type, car_id)
+branchID = roadData.cameraSet(camera_type); % (camera_type, car_id)
 
 %% Render the scene, and maybe an OI
 
+piWRS(thisR);
+
+%{
+% The position does not seem to change correctly yet.
+% We do have a repeatable scene if we change from front - left -
+% front, we get the same scene back.  But the 'left' position doesn't
+% seem good.
+camera_type = 'front';
+roadData.cameraSet(camera_type, branchID); % (camera_type, car_id)
 [scene, res] = piWRS(thisR);
+%}
 
 %{
 oi = oiCreate;
