@@ -91,25 +91,7 @@ roadData.recipe.set('skymap',skymapName);
 piDockerImgtool('makeequiarea','infile','/Users/zhenyi/git_repo/dev/iset3d-v4/data/lights/dikhololo_night_4k.exr');
 %}
 
-%% Set the recipe parameters
 
-thisR = roadData.recipe;
-
-thisR.set('film render type',{'radiance','depth'});
-
-% render quality
-thisR.set('film resolution',[1536 864]/4); %4
-thisR.set('pixel samples',512); %512
-thisR.set('max depth',5);
-thisR.set('sampler subtype','pmj02bn');
-
-imageID = iaImageID();
-
-sceneName = 'nightdrive';
-% outputFile = fullfile(iaRootPath, 'local', sceneName, [num2str(imageID),'.pbrt']);
-outputFile = fullfile(piRootPath, 'local', sceneName, [num2str(imageID),'.pbrt']);
-
-thisR.set('outputFile',outputFile);
 
 %% Assemble the scene using ISET3d methods
 
@@ -136,18 +118,42 @@ camera_type = 'front';
 % random pick a car, use the camera on it.
 branchID = roadData.cameraSet(camera_type); % (camera_type, car_id)
 
+%% Set the recipe parameters
+
+thisR = roadData.recipe;
+
+thisR.set('film render type',{'radiance','depth'});
+
+% render quality
+thisR.set('film resolution',[1536 864]/4); % Divide by 4 for speed
+thisR.set('pixel samples',256);            % 256 for speed
+thisR.set('max depth',5);                  % 
+thisR.set('sampler subtype','pmj02bn');
+
+imageID = iaImageID();
+
+sceneName = 'nightdrive';
+% outputFile = fullfile(iaRootPath, 'local', sceneName, [num2str(imageID),'.pbrt']);
+outputFile = fullfile(piRootPath, 'local', sceneName, [num2str(imageID),'.pbrt']);
+
+thisR.set('outputFile',outputFile);
+
 %% Render the scene, and maybe an OI
 
 piWRS(thisR);
 
 %{
-% The position does not seem to change correctly yet.
 % We do have a repeatable scene if we change from front - left -
-% front, we get the same scene back.  But the 'left' position doesn't
-% seem good.
-camera_type = 'front';
-roadData.cameraSet(camera_type, branchID); % (camera_type, car_id)
-[scene, res] = piWRS(thisR);
+% front, we get the same scene back. 
+%
+% All the positions except for 'front' point the camera behind the car. We
+% can control the camera position by setting the 'from'.  The shift moves
+% both from and to, by default.  You can adjust this with the key value
+% 'fromto'.  I am surprised at which is the y-direction, but hey.
+thisR = piCameraTranslate(thisR, 'y shift', -0.5);  % meters
+[scene, res] = piWRS(thisR,'name','shift -');
+thisR = piCameraTranslate(thisR, 'y shift', 1);  % meters
+[scene, res] = piWRS(thisR,'name','shift +');
 %}
 
 %{
@@ -167,6 +173,10 @@ ip = ipCompute(ip, sensor);
 %% Label the objects using the CPU 
 
 [objectslist,instanceMap] = roadData.label();
+%{
+ ieNewGraphWin;
+ imagesc(instanceMap);colormap(ax2,"colorcube");axis off;title('Pixel Label');
+%}
 
 %% Show the various images
 

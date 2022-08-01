@@ -2,31 +2,31 @@ function [objectslist,instanceIdMap] = label(obj)
 % Generate labels for the objects on the road
 %
 % Synopsis
-%    [obj,objectslist,instanceIdMap] = roadgen.label;
-%
-% (Maybe it should be)
 %    [objectslist,instanceIdMap] = roadgen.label;
 %
-% Inputs/Key-val/Outputs
+% Brief
+%   Render an image showing which object at each pixel (instanceId map).
+%   For now this only runs on a CPU.  
+%
+% Inputs
+%   obj - roadgen object
+% 
+% Key-val/Outputs
 %   N/A
 %
+% Outputs
+%   objectslist   - List of the objects
+%   instanceIdMap - Image with integers at each pixel indicating which
+%                   object.
+%
 % Description
-%   Render an instanceId map.  For now this only runs on a CPU. Maybe
-%   Zhenyi can fix the GPU rendering for this issue, which would let us
-%   render once to get all metadata. 
-%
-%
-% Render a pixel map of each object in the image
-%   (instanceId map)
-%
-%
-% TODO:
-%   Maybe we can fix the GPU rendering for this issue,then we only
-%   need to render once to get all metadata.
+%  For object detection, we often want pixel maps indicating which object
+%  is at each pixel. The correspondence between the pixel values and the
+%  objects in the returned objectslist. This routine performs that
+%  calculation, but it is tuned for isetauto.
 % 
-% Description
-%  Generate an object list, its sequential position number maps the instance
-%  ID in instanceIdMap
+%  It only runs on CPU for now. Zhenyi hopes to fix the GPU rendering for
+%  this issue, which would let us render once to get all metadata.
 %
 % See also
 %   cocoapi - repository, piAnnotationGet()
@@ -93,6 +93,7 @@ else
     isetStruct = piRender(thisR,'our docker',thisD);
 end
 
+% Why is this here?
 thisR.world = {'WorldBegin'};
 
 instanceIdMap = isetStruct.metadata.instanceID;
