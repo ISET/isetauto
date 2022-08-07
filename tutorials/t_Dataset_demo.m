@@ -132,10 +132,9 @@ thisR.set('sampler subtype','pmj02bn');
 
 imageID = iaImageID();
 
+% Render in the iset3d-v4 local directory.
 sceneName = 'nightdrive';
-% outputFile = fullfile(iaRootPath, 'local', sceneName, [num2str(imageID),'.pbrt']);
 outputFile = fullfile(piRootPath, 'local', sceneName, [num2str(imageID),'.pbrt']);
-
 thisR.set('outputFile',outputFile);
 
 %% Render the scene, and maybe an OI
@@ -143,31 +142,27 @@ thisR.set('outputFile',outputFile);
 piWRS(thisR);
 
 %{
-% We do have a repeatable scene if we change from front - left -
-% front, we get the same scene back. 
-%
-% All the positions except for 'front' point the camera behind the car. We
-% can control the camera position by setting the 'from'.  The shift moves
-% both from and to, by default.  You can adjust this with the key value
-% 'fromto'.  I am surprised at which is the y-direction, but hey.
-thisR = piCameraTranslate(thisR, 'y shift', -0.5);  % meters
-[scene, res] = piWRS(thisR,'name','shift -');
-thisR = piCameraTranslate(thisR, 'y shift', 1);  % meters
-[scene, res] = piWRS(thisR,'name','shift +');
+ thisR.set('film resolution',[1536 864]/2);
+ scene = ieGetObject('scene');
+ scene = piAIdenoise(scene); ieReplaceObject(scene); sceneWindow;
 %}
 
 %{
 oi = oiCreate;
 oi = oiCompute(oi,scene);
 oi = oiCrop(oi,'border');
+
 sensor = sensorCreate('MT9V024');
+sensor = sensorSet(sensor,'pixel size constant fill factor',1.5*1e-6);
 sensor = sensorSet(sensor,'fov',sceneGet(scene,'fov'),oi);
 sensor = sensorSet(sensor,'auto exposure',true);
 % sensor = sensorSet(sensor,'exposure time',0.016);
 sensor = sensorCompute(sensor,oi);
+sensorWindow(sensor);
+
 ip = ipCreate;
 ip = ipCompute(ip, sensor);
-% ipWindow(ip);
+ipWindow(ip);
 %}
 
 %% Label the objects using the CPU 
