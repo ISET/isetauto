@@ -19,11 +19,11 @@ function obj = assemble(obj,varargin)
 
 % Could be obj.initialize('onroad');
 % Similarly for offroad.
-obj.onroad.car.placedList = [];
-obj.onroad.animal.placedList = [];
-obj.offroad.animal.placedList = [];
-obj.offroad.tree.placedList = [];
-
+% obj.onroad.car.placedList = [];
+% obj.onroad.animal.placedList = [];
+% obj.offroad.animal.placedList = [];
+% obj.offroad.tree.placedList = [];
+obj.initialize();
 %% Generate object lists on the road
 
 % These will be cars and animals and maybe other terms in the future
@@ -48,23 +48,7 @@ for ii = 1:numel(assetNames)
             onroadCar = obj.onroad.car;
             for nn = 1:numel(onroadCar.namelist)
                 thisName = onroadCar.namelist{nn};
-
-                % check whether it's there already
-                id = piAssetFind(obj.recipe.assets, 'name',[thisName,'_m_B']);
-
-                % Merge the recipe for the chosen car as an instance
-                % into the road recipe.
-                if isempty(id)
-                    pbrtFile = fullfile(obj.assetdirectory,'cars',thisName,[thisName,'.pbrt']);
-                    recipeFile = fullfile(obj.assetdirectory,'cars',thisName,[thisName,'.mat']);
-                    if exist(recipeFile,'file')
-                        thisAssetRecipe = load(recipeFile);
-                        thisAssetRecipe = thisAssetRecipe.recipe;
-                    else
-                        thisAssetRecipe = piRead(pbrtFile);
-                    end
-                    obj.recipe = piRecipeMerge(obj.recipe, thisAssetRecipe, 'objectInstance',true);
-                end
+                obj = addOBJ(obj, 'car', thisName);
             end
 
             % Initialize and then place the objects in each lane.
@@ -73,7 +57,7 @@ for ii = 1:numel(assetNames)
             objIdList = cell(size(onroadCar.lane, 1));
             for jj = 1:numel(onroadCar.lane)
                 [positions{jj}, rotations{jj}] = obj.rrMapPlace(...
-                    'lane',onroadCar.lane{jj},'pos','onroad',...
+                    'laneType',onroadCar.lane{jj},'pos','onroad',...
                     'pointnum',onroadCar.number(jj));
 
                 % Create a object list, number of assets is smaller then
@@ -92,23 +76,7 @@ for ii = 1:numel(assetNames)
             onroadAnimal = obj.onroad.animal;
             for nn = 1:numel(onroadAnimal.namelist)
                 thisName = onroadAnimal.namelist{nn};
-
-                % check whether it's there already
-                id = piAssetFind(obj.recipe.assets, 'name',[thisName,'_m_B']); 
-
-                % Merge the recipe for the chosen car as an instance
-                % into the road recipe.
-                if isempty(id)
-                    pbrtFile = fullfile(obj.assetdirectory,'animal',thisName,[thisName,'.pbrt']);
-                    recipeFile = fullfile(obj.assetdirectory,'animal',thisName,[thisName,'.mat']);
-                    if exist(recipeFile,'file')
-                        thisAssetRecipe = load(recipeFile);
-                        thisAssetRecipe = thisAssetRecipe.recipe;
-                    else
-                        thisAssetRecipe = piRead(pbrtFile);
-                    end
-                    obj.recipe = piRecipeMerge(obj.recipe, thisAssetRecipe, 'objectInstance',true);
-                end
+                obj = addOBJ(obj, 'animal', thisName);
             end
 
             positions = cell(size(onroadAnimal.lane, 1));
@@ -118,7 +86,7 @@ for ii = 1:numel(assetNames)
 
             for jj = 1:numel(onroadAnimal.lane)
                 [positions{jj}, rotations{jj}] = obj.rrMapPlace(...
-                    'lane',onroadAnimal.lane{jj},'pos','onroad',...
+                    'laneType',onroadAnimal.lane{jj},'pos','onroad',...
                     'pointnum',onroadAnimal.number(jj),'rotOffset',pi*0.25);
                 
                 objIdList{jj} = randi(numel(onroadAnimal.namelist), onroadAnimal.number(jj), 1);
@@ -138,19 +106,7 @@ for ii = 1:numel(assetNames_off)
             offroadAnmial = obj.offroad.animal;
             for nn = 1:numel(offroadAnmial.namelist)
                 thisName = offroadAnmial.namelist{nn};
-                id = piAssetFind(obj.recipe.assets, 'name',[thisName,'_m_B']); % check whether it's there already
-                
-                if isempty(id)
-                    pbrtFile = fullfile(obj.assetdirectory,'animal',thisName,[thisName,'.pbrt']);
-                    recipeFile = fullfile(obj.assetdirectory,'animal',thisName,[thisName,'.mat']);
-                    if exist(recipeFile,'file')
-                        thisAssetRecipe = load(recipeFile);
-                        thisAssetRecipe = thisAssetRecipe.recipe;
-                    else
-                        thisAssetRecipe = piRead(pbrtFile);
-                    end
-                    obj.recipe = piRecipeMerge(obj.recipe, thisAssetRecipe, 'objectInstance',true);
-                end
+                obj = addOBJ(obj, 'animal', thisName);
             end
 
             positions = cell(size(offroadAnmial.lane, 1));
@@ -159,7 +115,7 @@ for ii = 1:numel(assetNames_off)
 
             for jj = 1:numel(offroadAnmial.lane)
                 [positions{jj}, rotations{jj}] = obj.rrMapPlace(...
-                    'lane',offroadAnmial.lane{jj},'pos','offroad',...
+                    'laneType',offroadAnmial.lane{jj},'pos','offroad',...
                     'pointnum',offroadAnmial.number(jj),'rotOffset',pi*0.25);
 
                 objIdList{jj} = randi(numel(offroadAnmial.namelist), offroadAnmial.number(jj), 1);
@@ -169,41 +125,40 @@ for ii = 1:numel(assetNames_off)
             obj.offroad.animal.placedList.positions = positions;
             obj.offroad.animal.placedList.rotations = rotations;
 
-        case 'tree'
-
-            offroadTree = obj.offroad.tree;
-            for nn = 1:numel(offroadTree.namelist)
-                thisName = offroadTree.namelist{nn};
-                id = piAssetFind(obj.recipe.assets, 'name',[thisName,'_m_B']); % check whether it's there already
-                
-                if isempty(id)
-                    pbrtFile = fullfile(obj.assetdirectory,'trees',thisName,[thisName,'.pbrt']);
-                    recipeFile = fullfile(obj.assetdirectory,'trees',thisName,[thisName,'.mat']);
-                    if exist(recipeFile,'file')
-                        thisAssetRecipe = load(recipeFile);
-                        thisAssetRecipe = thisAssetRecipe.recipe;
-                    else
-                        thisAssetRecipe = piRead(pbrtFile);
-                    end
-                    obj.recipe = piRecipeMerge(obj.recipe, thisAssetRecipe, 'objectInstance',true);
-                end
+        case {'tree','rock','grass','streetlight'}
+            OBJClass = assetNames_off{ii};
+            offroadOBJ = obj.offroad.(OBJClass);
+            for nn = 1:numel(offroadOBJ.namelist)
+                thisName = offroadOBJ.namelist{nn};
+                obj = addOBJ(obj, OBJClass, thisName);
             end
             
-            scale = cell(size(offroadTree.lane, 1));
-            for jj = 1:numel(offroadTree.lane)
-                [positions{jj}, rotations{jj}] = obj.rrMapPlace(...
-                    'lane',offroadTree.lane{jj},'pos','offroad',...
-                    'pointnum',offroadTree.number,'posOffset',1);
+            scale = cell(size(offroadOBJ.lane, 1));
+            if ~strcmp(OBJClass, 'streetlight')
+                for jj = 1:numel(offroadOBJ.lane)
+                    [positions{jj}, rotations{jj}] = obj.rrMapPlace(...
+                        'laneType',offroadOBJ.lane{jj},'pos','offroad',...
+                        'pointnum',offroadOBJ.number,'posOffset',1);
 
-                scale{jj} = rand(size(positions{jj},1),1)+0.5;
-                
-                objIdList{jj} = randi(numel(offroadTree.namelist), size(positions{jj},1), 1);
+                    scale{jj} = rand(size(positions{jj},1),1)+0.5;
+
+                    objIdList{jj} = randi(numel(offroadOBJ.namelist), size(positions{jj},1), 1);
+                end
+            else
+                for jj = 1:numel(offroadOBJ.lane)
+                    [positions{jj}, rotations{jj}] = obj.rrMapPlace(...
+                        'laneType',offroadOBJ.lane{jj},'pos','offroad',...
+                        'pointnum',offroadOBJ.number(jj),'posOffset',0.1,...
+                        'uniformsample',true, 'mindistancetoroad',-2);
+                    objIdList{jj} = randi(numel(offroadOBJ.namelist), size(positions{jj},1), 1);
+                end                
             end
+
             % we can add random scale to trees, that's interesting
-            obj.offroad.tree.placedList.objIdList = objIdList;
-            obj.offroad.tree.placedList.positions = positions;
-            obj.offroad.tree.placedList.rotations = rotations;
-            obj.offroad.tree.placedList.scele     = scale;
+            obj.offroad.(OBJClass).placedList.objIdList = objIdList;
+            obj.offroad.(OBJClass).placedList.positions = positions;
+            obj.offroad.(OBJClass).placedList.rotations = rotations;
+            obj.offroad.(OBJClass).placedList.scele     = scale;
     end
 end
 disp('--> AssetsList is generated');
@@ -213,7 +168,7 @@ disp('--> AssetsList is generated');
 obj = obj.overlappedRemove();
 
 %% Apply our customized material
-iaAutoMaterialGroupAssignV4(obj.recipe);
+iaAutoMaterialGroupAssignV4(obj.recipe, true);
 % sceneR.show('materials');
 disp('--> Material assigned');
 
@@ -244,3 +199,23 @@ disp('--> Assets Placed.')
 % disp('--> Skymap added');
 
 end
+
+function obj = addOBJ(obj, OBJClass, thisName)
+
+id = piAssetFind(obj.recipe.assets, 'name',[thisName,'_m_B']); % check whether it's there already
+
+if isempty(id)
+    pbrtFile = fullfile(obj.assetdirectory, OBJClass, thisName, [thisName,'.pbrt']);
+    recipeFile = fullfile(obj.assetdirectory, OBJClass, thisName, [thisName,'.mat']);
+    if exist(recipeFile,'file')
+        thisAssetRecipe = load(recipeFile);
+        thisAssetRecipe = thisAssetRecipe.recipe;
+    else
+        thisAssetRecipe = piRead(pbrtFile);
+    end
+    obj.recipe = piRecipeMerge(obj.recipe, thisAssetRecipe, 'objectInstance',true);
+end
+
+end
+
+

@@ -32,10 +32,11 @@ p.addRequired('radiance',@isstruct);
 % p.addRequired('st',@(x)(isa(x,'scitran')));
 
 p.addParameter('sensor','',@ischar);   % A file name
-% p.addParameter('pixelsize',2.5,@isscalar);
+% p.addParameter('pixelsize',2,@isscalar);
 p.addParameter('filmdiagonal',5,@isscalar); % [mm]
 p.addParameter('etime',1/100,@isscalar); % [mm]\
 p.addParameter('noisefree',0,@islogical);
+p.addParameter('analoggain',1);
 
 p.parse(radiance,varargin{:});
 radiance     = p.Results.radiance;
@@ -44,6 +45,7 @@ sensorName   = p.Results.sensor;
 filmDiagonal = p.Results.filmdiagonal;
 eTime        = p.Results.etime;
 noiseFree    = p.Results.noisefree;
+analoggain   = p.Results.analoggain;
 %% scene to optical image
 
 if strcmp(radiance.type,'scene')
@@ -60,21 +62,24 @@ pixelSize = oiGet(oi,'width spatial resolution','microns');
 if isempty(sensorName)
     sensor = sensorCreate;
 else
+%     sensor = sensorCreate('monochrome');
     load(sensorName,'sensor');
 end
 
 % Not sure why these aren't settable.  I think they are here to conform
 % with the ISETAuto generalization paper
-readnoise   = 1e-3;
-darkvoltage = 1e-3;
+readnoise   = 0.2e-3;
+darkvoltage = 0.2e-3;
 [electrons,~] = iePixelWellCapacity(pixelSize);  % Microns
 converGain = 1/electrons;         % voltage swing/electrons
-
+% 
 sensor = sensorSet(sensor,'pixel read noise volts',readnoise);
 sensor = sensorSet(sensor,'pixel voltage swing',1);
 sensor = sensorSet(sensor,'pixel dark voltage',darkvoltage);
 sensor = sensorSet(sensor,'pixel conversion gain',converGain);
+sensor = sensorSet(sensor, 'quantization method','12bit');
 
+sensor = sensorSet(sensor,'analog gain', analoggain);
 if ~isempty(pixelSize)
     % Pixel size in meters needed here.
     sensor = sensorSet(sensor,'pixel size same fill factor',pixelSize*1e-6);
@@ -89,10 +94,10 @@ end
 % [~,rect] = ieROISelect(oi);
 % [colmin,rowmin,width,height]
 oiSize = oiGet(oi,'size');
-fraction = 0.2;
-rect = [oiSize(2)*(1 - fraction)/2, oiSize(1)*(1 - fraction)/2, ...
-    oiSize(2)*fraction oiSize(1)*fraction];
-fprintf('Rectangle\n'); disp(rect); fprintf('\n');
+% fraction = 0.2;
+% rect = [oiSize(2)*(1 - fraction)/2, oiSize(1)*(1 - fraction)/2, ...
+%     oiSize(2)*fraction oiSize(1)*fraction];
+% fprintf('Rectangle\n'); disp(rect); fprintf('\n');
 
 % It appears we are figuring out how many pixels to use in the sensor to
 % match the field of view of the OI.
@@ -109,12 +114,13 @@ sensor = sensorSet(sensor, 'size', oiSize);
 %% Compute
 
 % eTime  = autoExposure(oi,sensor,0.90,'weighted','center rect',rect);
-fprintf('eT: %f ms \n',eTime*1e3);
 sensor = sensorSet(sensor,'exp time',eTime);
 if noiseFree
-    sensor = sensorSet(sensor,'noise flag',-1); % noise free
+    sensor = sensorSet(sensor,'noise flag',0); % noise free
 end
 sensor = sensorCompute(sensor,oi);
+fprintf('eT: %f ms \n',eTime*1e3);
+
 % sensorWindow(sensor);
 
 %% Copy metadata

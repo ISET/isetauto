@@ -79,9 +79,9 @@ newCamTransform = assestTransForm * CamLocalTranform;
 % [T, R, S] = piTransformDecompose(newCamTransform);
 
 from_points = newCamTransform(:,4);
-at_points = newCamTransform(:,3);
-at_points = at_points * -1;
-at_points  = at_points + from_points;
+dir_points   = newCamTransform(:,3);
+dir_points   = dir_points * -1;
+at_points   = dir_points + from_points;
 
 lookAt.from = from_points(1:3);
 lookAt.to   = at_points(1:3);

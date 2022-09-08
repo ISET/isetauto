@@ -1,4 +1,4 @@
-function iaAutoMaterialGroupAssignV4(thisR)
+function iaAutoMaterialGroupAssignV4(thisR, randomassign)
 % Map materials.list names into material data using piMaterialAssign
 %
 % Syntax:
@@ -31,27 +31,43 @@ function iaAutoMaterialGroupAssignV4(thisR)
 materialKeys = keys(thisR.materials.list);
 
 for ii = 1:numel(materialKeys)
-    if  contains(lower(materialKeys{ii}),{'carbody','carpaint'}) && ...
-            ~contains(lower(materialKeys{ii}),{'carbody_','carpaint_'})
-        
-        rgb = piColorPick('random');
+    thisMat = thisR.get('material',materialKeys{ii});
+    thisMatName = lower(materialKeys{ii});
+    if contains(thisMatName,{'carbody','carpaint'}) 
+        if contains(thisMatName,{'carbody_','carpaint_'})
+            randomassign = false;
+        end
 
-        randomRoughness = randi(50)* 1e-4;
+        if strcmp(thisMat.type, 'coatedconductor')
+            continue;
+        end
+
+        if exist('randomassign','Var') && randomassign
+            reflectance = piColorPick('random');
+        else
+            reflectance = thisMat.reflectance.value;
+        end
 
         newMat = piMaterialCreate(materialKeys{ii}, ...
-            'type','coateddiffuse',...
-            'reflectance value',rgb,...
-            'roughness value',randomRoughness);
+            'type','coatedconductor',...
+            'reflectance value',reflectance);
+
+        if strcmp(thisMat.roughness.type, 'float')
+            newMat.conductorroughness.value = randi(5)* 1e-1+0.2;
+        else
+            newMat.conductorroughness = thisMat.roughness;
+        end        
+        newMat.interfaceroughness.value = 0.0001;
         thisR.set('material','replace', materialKeys{ii}, newMat);
 
-%     elseif piContains(lower(materialKeys{ii}),'window') || ...
-%             piContains(lower(materialKeys{ii}),'windshield')
+%     elseif piContains(thisMatName,'window') || ...
+%             piContains(thisMatName,'windshield')
 % 
 %         newMat = piMaterialCreate(materialKeys{ii}, ...
 %             'type', 'dielectric','eta','glass-BK7');
 %         thisR.set('material','replace', materialKeys{ii}, newMat);
 
-    elseif piContains(lower(materialKeys{ii}),'mirror') &&...
+    elseif piContains(thisMatName,'mirror') &&...
             ~strcmpi(materialKeys{ii},'paint_mirror')
         
         newMat = piMaterialCreate(materialKeys{ii}, ...
@@ -59,43 +75,65 @@ for ii = 1:numel(materialKeys)
 
         thisR.set('material','replace', materialKeys{ii}, newMat);
 
-%     elseif contains(lower(materialKeys{ii}),'clearglass') 
-%         
-%         newMat = piMaterialCreate(materialKeys{ii}, ...
-%             'type', 'dielectric','eta','glass-BK7');
-%         thisR.set('material','replace', materialKeys{ii}, newMat);
     
-    elseif piContains(lower(materialKeys{ii}),'chrome') || ...
-            piContains(lower(materialKeys{ii}),'wheel') || ...
-            piContains(lower(materialKeys{ii}),'rim') ||...
-            piContains(lower(materialKeys{ii}),'metal')
-
-        newMat = piMaterialCreate(materialKeys{ii}, ...
-            'type', 'conductor', ...
-            'eta','metal-Ag-eta','k','metal-Ag-k',...
-            'roughness',0.2);
+    elseif piContains(thisMatName,'chrome') || ...
+            piContains(thisMatName,'wheel') || ...
+            piContains(thisMatName,'rim') ||...
+            piContains(thisMatName,'metal')
+    
+        if exist('randomassign','Var') && randomassign
+            newMat = piMaterialPresets('metal-ag',materialKeys{ii});
+            newMat = newMat.material;
+        else
+            newMat = piMaterialCreate(materialKeys{ii}, 'type', 'conductor');
+            newMat.reflectance = thisMat.reflectance;
+        end
+        
+        if strcmp(thisMat.roughness.type, 'float')
+            newMat.roughness.value  = rand(1)*0.1;
+        else
+            newMat.roughness = thisMat.roughness;
+        end
 
         thisR.set('material','replace', materialKeys{ii}, newMat);
 
-%     elseif piContains(lower(materialKeys{ii}),'tire') ||...
-%             piContains(lower(materialKeys{ii}),'Rubber')
-% 
-%         newMat = piMaterialCreate(materialKeys{ii}, ...
-%             'type', 'coateddiffuse',...
-%             'roughness',5.8,...
-%             'reflectance', [ 0.03 0.03 0.032 ]);
-% 
-%         thisR.set('material','replace', materialKeys{ii}, newMat);
+    elseif piContains(thisMatName,'tire') ||...
+            piContains(thisMatName,'Rubber')
 
-    elseif contains(lower(materialKeys{ii}),'clearglass') && ...
-            ~contains(lower(materialKeys{ii}),'red')
-
+        if exist('randomassign','Var') && randomassign
         newMat = piMaterialCreate(materialKeys{ii}, ...
-            'type', 'dielectric','eta','glass-BK7');
+            'type', 'coateddiffuse',...
+            'reflectance', [ 0.03 0.03 0.032 ]);
+        else
+            newMat = piMaterialCreate(materialKeys{ii}, ...
+            'type', 'coateddiffuse');
+            newMat.reflectance = thisMat.reflectance;
+        end
+
+        if strcmp(thisMat.roughness.type, 'float')
+            newMat.roughness.value  = 0.01;
+        else
+            newMat.roughness = thisMat.roughness;
+        end
+
         thisR.set('material','replace', materialKeys{ii}, newMat);
-% 
-%     elseif contains(lower(materialKeys{ii}),'glass') && ...
-%             contains(lower(materialKeys{ii}),'red')
+
+    elseif contains(thisMatName,'clearglass') && ...
+            ~contains(thisMatName,'red')
+        
+        if exist('randomassign','Var') && randomassign
+            MatList = piMaterialPresets('glass list');
+            randIndex = randi(numel(MatList));
+            newMat = piMaterialPresets(MatList{randIndex},materialKeys{ii});
+            newMat = newMat.material;
+        else
+            newMat = piMaterialCreate(materialKeys{ii}, ...
+                'type', 'dielectric','eta',thisMat.eta.value);
+        end
+        thisR.set('material','replace', materialKeys{ii}, newMat);
+%       
+%     elseif contains(thisMatName,'glass') && ...
+%             contains(thisMatName,'red')
 %         
 %         thisMat = thisR.materials.list(materialKeys{ii});
 %         
@@ -106,8 +144,6 @@ for ii = 1:numel(materialKeys)
 %             'reflectance', [ 0.99 0.01 0.01 ], ...
 %             'roughness',0);
 %         newMat_mix = piMaterialCreate(materialKeys{ii})
-
-
 
     else
         % do nothing

@@ -42,31 +42,18 @@ step = p.Results.step;
 [~, sceneName] = fileparts(rrDataPath);
 xodrfile    = fullfile(rrDataPath,[sceneName,'.xodr']);
 geojsonfile = fullfile(rrDataPath,[sceneName, '.geojson']);
+objfile     = fullfile(rrDataPath,[sceneName, '.obj']);
 
-% %%
-% % read laneID from xodr file
-% openDriveMap = readstruct(xodrfile,"FileType","xml");
-% 
-% for ii=1:numel(openDriveMap.road.lanes.laneSection.left.lane)
-%     if strcmp(openDriveMap.road.lanes.laneSection.left.lane(ii).typeAttribute,"shoulder")
-%         leftshoulderID=openDriveMap.road.lanes.laneSection.left.lane(ii).userData.vectorLane.laneIdAttribute;
-%     elseif strcmp(openDriveMap.road.lanes.laneSection.left.lane(ii).typeAttribute,"driving")
-%         leftdrivingID=openDriveMap.road.lanes.laneSection.left.lane(ii).userData.vectorLane.laneIdAttribute;
-%     end
-% end
-% 
-% for ii=1:numel(openDriveMap.road.lanes.laneSection.right.lane)
-%     if strcmp(openDriveMap.road.lanes.laneSection.right.lane(ii).typeAttribute,"shoulder")
-%         rightshoulderID=openDriveMap.road.lanes.laneSection.right.lane(ii).userData.vectorLane.laneIdAttribute;
-%     elseif strcmp(openDriveMap.road.lanes.laneSection.right.lane(ii).typeAttribute,"driving")
-%         rightdrivingID=openDriveMap.road.lanes.laneSection.right.lane(ii).userData.vectorLane.laneIdAttribute;
-%     end
-% end
 %% 
 % read laneID from xodr file
 openDriveMap = readstruct(xodrfile,"FileType","xml");
 
-i=1;j=1;
+i=1;j=1;k=1;
+
+leftdrivingID  = ""; rightdrivingID  = "";
+leftshoulderID = ""; rightshoulderID = "";
+leftsidewalkID = ""; rightsidewalkID = "";
+
 for ii=1:numel(openDriveMap.road.lanes.laneSection.left.lane)
     if strcmp(openDriveMap.road.lanes.laneSection.left.lane(ii).typeAttribute,"shoulder")
         leftshoulderID(i)=openDriveMap.road.lanes.laneSection.left.lane(ii).userData.vectorLane.laneIdAttribute;
@@ -74,9 +61,13 @@ for ii=1:numel(openDriveMap.road.lanes.laneSection.left.lane)
     elseif strcmp(openDriveMap.road.lanes.laneSection.left.lane(ii).typeAttribute,"driving")
         leftdrivingID(j)=openDriveMap.road.lanes.laneSection.left.lane(ii).userData.vectorLane.laneIdAttribute;
         j=j+1;
+    elseif strcmp(openDriveMap.road.lanes.laneSection.left.lane(ii).typeAttribute,"sidewalk")
+        leftsidewalkID(k)=openDriveMap.road.lanes.laneSection.left.lane(ii).userData.vectorLane.laneIdAttribute;
+        k=k+1;
     end
 end
-i=1;j=1;
+
+i=1;j=1;k=1;
 for ii=1:numel(openDriveMap.road.lanes.laneSection.right.lane)
     if strcmp(openDriveMap.road.lanes.laneSection.right.lane(ii).typeAttribute,"shoulder")
         rightshoulderID(i)=openDriveMap.road.lanes.laneSection.right.lane(ii).userData.vectorLane.laneIdAttribute;
@@ -84,6 +75,9 @@ for ii=1:numel(openDriveMap.road.lanes.laneSection.right.lane)
     elseif strcmp(openDriveMap.road.lanes.laneSection.right.lane(ii).typeAttribute,"driving")
         rightdrivingID(j)=openDriveMap.road.lanes.laneSection.right.lane(ii).userData.vectorLane.laneIdAttribute;
         j=j+1;
+    elseif strcmp(openDriveMap.road.lanes.laneSection.right.lane(ii).typeAttribute,"sidewalk")
+        rightsidewalkID(k)=openDriveMap.road.lanes.laneSection.right.lane(ii).userData.vectorLane.laneIdAttribute;
+        k=k+1;
     end
 end
 
@@ -93,10 +87,14 @@ end
 ieNewGraphWin;
 
 geoInformation = jsonread(geojsonfile);
-leftDrivingCoordinates = cell(1,numel(leftdrivingID));
-rightDrivingCoordinates = cell(1,numel(rightdrivingID));
-leftShoulderCoordinates = cell(1,numel(leftshoulderID));
+leftDrivingCoordinates   = cell(1,numel(leftdrivingID));
+rightDrivingCoordinates  = cell(1,numel(rightdrivingID));
+leftShoulderCoordinates  = cell(1,numel(leftshoulderID));
 rightShoulderCoordinates = cell(1,numel(rightshoulderID));
+leftSidewalkCoordinates  = cell(1,numel(leftsidewalkID));
+rightSidewalkCoordinates = cell(1,numel(rightsidewalkID));
+
+
 for ii = 1:numel(geoInformation.features)
     for j=1:numel(leftshoulderID)
         if strcmp(geoInformation.features(ii).properties.Id,leftshoulderID(j))
@@ -106,10 +104,10 @@ for ii = 1:numel(geoInformation.features)
             lat=leftShoulderCoordinates{j}(:,2);
             alt=leftShoulderCoordinates{j}(:,3);            
             origin = [0,0,0];
-            % will do z soon! Zhenyi
             [x,y,~] = iaGPS2Local(lat,lon,alt,origin);
             xi=min(x):step:max(x);
             yi=interp1(x,y,xi);
+%             zi = interp1(x,z, xi);
             leftShoulderCoordinates{j}=[xi;yi]';
             plot(xi,yi,'s');axis equal;hold on;
         end
@@ -125,8 +123,9 @@ for ii = 1:numel(geoInformation.features)
             [x,y,~] = iaGPS2Local(lat,lon,alt,origin);
             xi=min(x):step:max(x);
             yi=interp1(x,y,xi);
+%             zi = interp1(x,z, xi);
             rightShoulderCoordinates{j}=[xi;yi]';
-            plot(xi,yi,'o')
+            plot(xi,yi,'o');
         end
     end
 
@@ -141,8 +140,9 @@ for ii = 1:numel(geoInformation.features)
             [x,y,~] = iaGPS2Local(lat,lon,alt,origin);
             xi=min(x):step:max(x);
             yi=interp1(x,y,xi);
+%             zi = interp1(x,z, xi);
             leftDrivingCoordinates{j}=[xi;yi]';
-            plot(xi,yi,'s')
+            plot(xi,yi,'-');
         end
     end  
 
@@ -158,8 +158,45 @@ for ii = 1:numel(geoInformation.features)
             [x,y,~] = iaGPS2Local(lat,lon,alt,origin);
             xi=min(x):step:max(x);
             yi=interp1(x,y,xi);
+%             zi = interp1(x,z, xi);
             rightDrivingCoordinates{j}=[xi;yi]';
-            plot(xi,yi,'s')
+            plot(xi,yi,'-');
+        end
+    end
+
+    for j=1:numel(leftsidewalkID)
+        if strcmp(geoInformation.features(ii).properties.Id,leftsidewalkID(j))
+            leftSidewalkCoordinates{j} = geoInformation.features(ii).geometry.coordinates;
+            % Convert geographic corrdiantes to local cartesian coordinates
+            lon=leftSidewalkCoordinates{j}(:,1);
+            lat=leftSidewalkCoordinates{j}(:,2);
+            alt=leftSidewalkCoordinates{j}(:,3);
+            origin = [0,0,0];
+            [x,y,~] = iaGPS2Local(lat,lon,alt,origin);
+            xi=min(x):step:max(x);
+            yi=interp1(x,y,xi);
+%             zi = interp1(x,z, xi);
+            leftSidewalkCoordinates{j}=[xi;yi]';
+            plot(xi,yi,'-');
+%             plot(xi,zi,'-');
+
+        end
+    end
+
+    for j=1:numel(rightsidewalkID)
+        if strcmp(geoInformation.features(ii).properties.Id,rightsidewalkID(j))
+            rightSidewalkCoordinates{j} = geoInformation.features(ii).geometry.coordinates;
+            lon=rightSidewalkCoordinates{j}(:,1);
+            lat=rightSidewalkCoordinates{j}(:,2);
+            alt=rightSidewalkCoordinates{j}(:,3);
+            origin = [0,0,0];
+            [x,y,~] = iaGPS2Local(lat,lon,alt,origin);
+            xi=min(x):step:max(x);
+            yi=interp1(x,y,xi);
+%             zi = interp1(x,z, xi);
+            rightSidewalkCoordinates{j}=[xi;yi]';
+            plot(xi,yi,'-');
+%             plot(xi,zi,'-');
         end
     end
 end
@@ -167,66 +204,22 @@ end
 xlabel('Position (m)'); ylabel('Position (m)');
 grid on;
 
-% for ii = 1:numel(geoInformation.features)
-%     if strcmp(geoInformation.features(ii).properties.Id,leftshoulderID)
-%         leftShoulderCoordinates = geoInformation.features(ii).geometry.coordinates; 
-%         % Convert geographic corrdiantes to local cartesian coordinates
-%         lon=leftShoulderCoordinates(:,1);
-%         lat=leftShoulderCoordinates(:,2);
-%         alt=leftShoulderCoordinates(:,3);
-%         origin = [0,0,0];
-%         % will do z soon! Zhenyi
-%         [x,y,~] = iaGPS2Local(lat,lon,alt,origin);
-%         xi=min(x):step:max(x);
-%         yi=interp1(x,y,xi);
-%         leftShoulderCoordinates=[xi;yi]';
-%         %         plot(xi,yi,'o')
-%         %         axis equal;hold on;
-% 
-%     elseif strcmp(geoInformation.features(ii).properties.Id,rightshoulderID)
-%         rightShoulderCoordinates = geoInformation.features(ii).geometry.coordinates; 
-%         % Convert geographic corrdiantes to local cartesian coordinates
-%         lon=rightShoulderCoordinates(:,1);
-%         lat=rightShoulderCoordinates(:,2);
-%         alt=rightShoulderCoordinates(:,3);
-%         origin = [0,0,0];
-%         [x,y,~] = iaGPS2Local(lat,lon,alt,origin);
-%         xi=min(x):step:max(x);
-%         yi=interp1(x,y,xi);
-%         rightShoulderCoordinates=[xi;yi]';
-%         %         plot(xi,yi,'o')
-% 
-%     elseif strcmp(geoInformation.features(ii).properties.Id,leftdrivingID)
-%         leftDrivingCoordinates = geoInformation.features(ii).geometry.coordinates; 
-%         lon=leftDrivingCoordinates(:,1);
-%         lat=leftDrivingCoordinates(:,2);
-%         alt=leftDrivingCoordinates(:,3);
-%         origin = [0,0,0];
-%         [x,y,~] = iaGPS2Local(lat,lon,alt,origin);
-%         xi=min(x):step:max(x);
-%         yi=interp1(x,y,xi);
-%         leftDrivingCoordinates=[xi;yi]';
-%         %         plot(xi,yi,'s')
-% 
-%     elseif strcmp(geoInformation.features(ii).properties.Id,rightdrivingID)
-%         rightDrivingCoordinates = geoInformation.features(ii).geometry.coordinates;
-%         lon=rightDrivingCoordinates(:,1);
-%         lat=rightDrivingCoordinates(:,2);
-%         alt=rightDrivingCoordinates(:,3);
-%         origin = [0,0,0];
-%         [x,y,~] = iaGPS2Local(lat,lon,alt,origin);
-%         xi=min(x):step:max(x);
-%         yi=interp1(x,y,xi);
-%         rightDrivingCoordinates=[xi;yi]';
-%         %         plot(xi,yi,'s')
-% 
-%     end
-% end
-
 obj.roaddirectory = rrDataPath;
+obj.road.leftshoulderID = leftshoulderID;
+obj.road.leftdrivingID  = leftdrivingID;
+obj.road.leftsidewalkID = leftsidewalkID;
+obj.road.rightshoulderID = rightshoulderID;
+obj.road.rightdrivingID  = rightdrivingID;
+obj.road.rightsidewalkID = rightsidewalkID;
+
 obj.road.leftShoulderCoordinates = leftShoulderCoordinates;
 obj.road.rightShoulderCoordinates= rightShoulderCoordinates;
 obj.road.leftDrivingCoordinates  = leftDrivingCoordinates;
 obj.road.rightDrivingCoordinates = rightDrivingCoordinates;
 
+if isfile(objfile)
+    obj.road.geometryOBJ  = readObj(objfile);
+else
+    obj.road.geometryOBJ = [];
+end
 end

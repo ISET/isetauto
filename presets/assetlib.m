@@ -23,6 +23,11 @@ car_004.size = [4.83 2.08 1.35];
 car_004.brand = 'Ford';
 assetInfo('car_004') = car_004;
 
+car_004_dirty.name = 'car_004_dirty';
+car_004_dirty.size = [4.83 2.08 1.35];
+car_004_dirty.brand = 'Ford';
+assetInfo('car_004_dirty') = car_004_dirty;
+
 car_005.name = 'car_005';
 car_005.size = [5.38 2.18 2.08];
 car_005.brand = 'Ford';
@@ -84,6 +89,258 @@ car_015.name = 'car_015';
 car_015.size = [4.99 2.12 1.69]; 
 car_015.brand = 'Audi';
 assetInfo('car_015') = car_015;
+
+car_020.name = 'car_020';
+car_020.size = [4.74 2.14 1.40]; 
+car_020.brand = 'BMW';
+assetInfo('car_020') = car_020;
+
+car_025.name = 'car_025';
+car_025.size = [4.78 2.2 1.39]; 
+car_025.brand = 'BMW';
+assetInfo('car_025') = car_025;
+
+car_026.name = 'car_026';
+car_026.size = [5 2.13 1.51]; 
+car_026.brand = 'BMW';
+assetInfo('car_026') = car_026;
+
+car_027.name = 'car_027';
+car_027.size = [5.16 2.2 1.84]; 
+car_027.brand = 'BMW';
+assetInfo('car_027') = car_027;
+
+car_028.name = 'car_028';
+car_028.size = [4.32 2.02 2.36]; 
+car_028.brand = 'BMW';
+assetInfo('car_028') = car_028;
+
+car_029.name = 'car_029';
+car_029.size = [6.41 2.46 2.43]; 
+car_029.brand = 'Mercedes';
+assetInfo('car_029') = car_029;
+
+car_030.name = 'car_030';
+car_030.size = [3.85 2.02 1.61]; 
+car_030.brand = 'Mercedes';
+assetInfo('car_030') = car_030;
+
+car_035.name = 'car_035';
+car_035.size = [5.52 2.35 1.62]; 
+car_035.brand = 'Mercedes';
+assetInfo('car_035') = car_035;
+
+car_036.name = 'car_036';
+car_036.size = [5.26 2.46 2.25]; 
+car_036.brand = 'Mercedes';
+assetInfo('car_036') = car_036;
+
+car_037.name = 'car_037';
+car_037.size = [4.74 2.17 1.69]; 
+car_037.brand = 'Mercedes';
+assetInfo('car_037') = car_037;
+
+car_038.name = 'car_038';
+car_038.size = [4.75 2.11 1.73]; 
+car_038.brand = 'Mercedes';
+assetInfo('car_038') = car_038;
+
+car_039.name = 'car_039';
+car_039.size = [5.21 2.17 1.83]; 
+car_039.brand = 'Mercedes';
+assetInfo('car_039') = car_039;
+
+car_040.name = 'car_040';
+car_040.size = [6.21 2.93 2.68]; 
+car_040.brand = 'Mercedes';
+assetInfo('car_040') = car_040;
+
+car_041.name = 'car_041';
+car_041.size = [4.63 2.08 1.26]; 
+car_041.brand = 'Mercedes';
+assetInfo('car_041') = car_041;
+
+car_042.name = 'car_042';
+car_042.size = [6.7 2.34 2.78]; 
+car_042.brand = 'Mercedes';
+assetInfo('car_042') = car_042;
+
+car_044.name = 'car_044';
+car_044.size = [4.47 2.12 1.46]; 
+car_044.brand = 'honda';
+assetInfo('car_044') = car_044;
+
+car_045.name = 'car_045';
+car_045.size = [4.48 2.24 2.33]; 
+car_045.brand = 'coffee';
+assetInfo('car_045') = car_045;
+
+car_046.name = 'car_046';
+car_046.size = [4.38 1.71 1.46]; 
+car_046.brand = 'vintage';
+assetInfo('car_046') = car_046;
+
+car_047.name = 'car_047';
+car_047.size = [4.26 1.89 1.49]; 
+car_047.brand = 'coffee';
+assetInfo('car_047') = car_047;
+
+car_048.name = 'car_048';
+car_048.size = [6.0 2.7 2.74]; 
+car_048.brand = 'vw';
+assetInfo('car_048') = car_048;
+
+car_049.name = 'car_049';
+car_049.size = [3.93 1.98 1.35]; 
+car_049.brand = 'vw';
+assetInfo('car_049') = car_049;
+
+car_050.name = 'car_050';
+car_050.size = [4.26 2.07 1.56]; 
+car_050.brand = 'vw_id3';
+assetInfo('car_050') = car_050;
+
+car_051.name = 'car_051';
+car_051.size = [5.74 2.64 2.59]; 
+car_051.brand = 'vw_vintage';
+assetInfo('car_051') = car_051;
+
+car_052.name = 'car_052';
+car_052.size = [4.75 2.1 1.41]; 
+car_052.brand = 'vw';
+assetInfo('car_052') = car_052;
+
+car_053.name = 'car_053';
+car_053.size = [4.53 1.97 1.42]; 
+car_053.brand = 'vw';
+assetInfo('car_053') = car_053;
+
+car_054.name = 'car_054';
+car_054.size = [4.25 1.98 1.45]; 
+car_054.brand = 'vw';
+assetInfo('car_054') = car_054;
+
+car_055.name = 'car_055';
+car_055.size = [4.84 2.15 1.42]; 
+car_055.brand = 'vw';
+assetInfo('car_055') = car_055;
+
+car_057.name = 'car_057';
+car_057.size = [5.26 2.09 1.59]; 
+car_057.brand = 'ford_taxi';
+assetInfo('car_057') = car_057;
+
+car_058.name = 'car_058';
+car_058.size = [5.81 2.48 1.98]; 
+car_058.brand = 'ford_pickup';
+assetInfo('car_058') = car_058;
+
+car_061.name = 'car_061';
+car_061.size = [6.56 3.46 3.97]; 
+car_061.brand = 'unkown';
+assetInfo('car_051') = car_061;
+
+%% bus
+bus_001.name = 'bus_001';
+bus_001.size = [12.3 2.86 3.23]; 
+bus_001.brand = 'Mercedes';
+assetInfo('bus_001') = bus_001;
+
+bus_002.name = 'bus_002';
+bus_002.size = [15.7 3.36 4.41]; 
+bus_002.brand = 'Scania';
+assetInfo('bus_002') = bus_002;
+
+bus_003.name = 'bus_003';
+bus_003.size = [7.17 2.56 2.69]; 
+bus_003.brand = 'Toyota';
+assetInfo('bus_003') = bus_003;
+
+bus_004.name = 'bus_004';
+bus_004.size = [11.2 3.04 4.41]; 
+bus_004.brand = 'Mercedes';
+assetInfo('bus_004') = bus_004;
+
+bus_005.name = 'bus_005';
+bus_005.size = [21.7 3.13 3.29]; 
+bus_005.brand = 'Mercedes';
+assetInfo('bus_005') = bus_005;
+
+bus_006.name = 'bus_006';
+bus_006.size = [12.3 2.99 3.77]; 
+bus_006.brand = 'unkown';
+assetInfo('bus_004') = bus_006;
+
+bus_007.name = 'bus_007';
+bus_007.size = [9.61 2.45 2.64]; 
+bus_007.brand = 'schoolbus';
+assetInfo('bus_007') = bus_007;
+
+%% truck
+truck_001.name = 'truck_001';
+truck_001.size = [7.94 2.85 3.44]; 
+truck_001.brand = 'Mercedes';
+assetInfo('truck_001') = truck_001;
+
+truck_002.name = 'truck_002';
+truck_002.size = [11.8 4.37 5.53]; 
+truck_002.brand = 'Mercedes';
+assetInfo('truck_002') = truck_002;
+
+truck_003.name = 'truck_003';
+truck_003.size = [6.80 3.46 3.56]; 
+truck_003.brand = 'honda';
+assetInfo('truck_003') = truck_003;
+
+truck_004.name = 'truck_004';
+truck_004.size = [14.6 4.55 6.29]; 
+truck_004.brand = 'Mercedes';
+assetInfo('truck_004') = truck_004;
+
+truck_005.name = 'truck_005';
+truck_005.size = [9.95 3.18 4.23]; 
+truck_005.brand = 'volvo';
+assetInfo('truck_005') = truck_005;
+
+truck_006.name = 'truck_006';
+truck_006.size = [8.44 3.08 4.08]; 
+truck_006.brand = 'scania';
+assetInfo('truck_006') = truck_006;
+
+truck_007.name = 'truck_007';
+truck_007.size = [16.5 2.95 4.15]; 
+truck_007.brand = 'scania';
+assetInfo('truck_001') = truck_007;
+
+truck_008.name = 'truck_008';
+truck_008.size = [11.3 2.82 3.85]; 
+truck_008.brand = 'volvo';
+assetInfo('truck_008') = truck_008;
+
+truck_009.name = 'truck_009';
+truck_009.size = [10.8 3.48 3.48]; 
+truck_009.brand = 'firetruck';
+assetInfo('truck_009') = truck_009;
+
+truck_010.name = 'truck_010';
+truck_010.size = [8.11 3.42 3.9]; 
+truck_010.brand = 'unkown';
+assetInfo('truck_010') = truck_010;
+
+truck_011.name = 'truck_011';
+truck_011.size = [6.19 2.48 2.48]; 
+truck_011.brand = 'Renault';
+assetInfo('truck_011') = truck_011;
+
+truck_012.name = 'truck_012';
+truck_012.size = [4.43 1.62 1.88]; 
+truck_012.brand = 'Toyota';
+assetInfo('truck_012') = truck_012;
+
+truck_013.name = 'truck_013';
+truck_013.size = [9.75 2.87 3.77]; 
+truck_013.brand = 'scania';
+assetInfo('truck_013') = truck_013;
 %% animals
 
 deer_001.name = 'deer_001';

@@ -9,11 +9,21 @@ for ii = 1:numel(assetNames)
             thisId    = thisPlacedList.objIdList{nn}(mm);
             thisName  = obj.(roadtype).(assetNames{ii}).namelist{thisId};
             thisBranch = [thisName,'_m_B'];
-    
-            rotationMatrix = piRotationMatrix('z',rad2deg(rotations(mm)));
+
+            if size(rotations, 2)>1
+                rotationMatrix = piRotationMatrix('xrot', rad2deg(rotations(mm,1)),...
+                    'yrot', rad2deg(rotations(mm,2)),...
+                    'zrot', rad2deg(rotations(mm,3)));
+            else
+                rotationMatrix = piRotationMatrix('zrot', rad2deg(rotations(mm,1)));
+            end
+            try
             obj.recipe   = piObjectInstanceCreate(obj.recipe, thisBranch, ...
-                'position', [positions(mm,1), positions(mm,2), 0],...
+                'position', positions(mm,:),...
                 'rotation',rotationMatrix);
+            catch
+                disp('DEBUG!');
+            end
         end
     end
 end
