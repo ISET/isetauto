@@ -24,8 +24,11 @@ if ~piDockerExists, piDockerConfig; end
 
 %% Road initiation
 
-assetDir = fullfile(iaRootPath,'local','assets');
-roadDir  = fullfile(iaRootPath,'local','assets','road','road_001');
+% assetDir = fullfile(iaRootPath,'local','assets');
+assetDir = '/Volumes/SSDZhenyi/Ford Project/PBRT_assets';
+% roadDir  = fullfile(iaRootPath,'local','assets','road','road_001');
+roadDir  = '/Volumes/SSDZhenyi/Ford Project/PBRT_assets/road/road_020';
+
 
 % The road data
 roadData = roadgen('road directory',roadDir, 'asset directory',assetDir);
@@ -34,20 +37,23 @@ roadData = roadgen('road directory',roadDir, 'asset directory',assetDir);
 
 % The driving lanes
 roadData.set('onroad car lanes',{'leftdriving','rightdriving'});
+% roadData.set('onroad car lanes', {'leftdriving'});
 
 % Cars on the road
-roadData.set('onroad car names',{'car_001'});
+roadData.set('onroad car names',{'car_001','car_002','car_003','car_004','car_004_dirty','car_005', ...
+    'car_006','car_007','car_008','car_009','car_010', 'car_011', 'car_012',...
+    'car_013', 'car_014', 'car_015'});%
 
-% How many cars on each driving lane.  
+% How many cars on each driving lane.
 % The vector length of these numbers should be the same as the number
-% of driving lanes. 
-nCars = [randi(20), randi(20)];
+% of driving lanes.
+nCars = [20, 20];
 roadData.set('onroad n cars', nCars);
 
 % Now place the animals
-roadData.set('onroad animal names',{'deer_001'});
-roadData.set('onroad n animals',randi(10));
-roadData.set('onroad animal lane',{'rightdriving'});
+roadData.set('onroad animal names',{'deer_001','deer_003','deer_002'});
+roadData.set('onroad n animals', [3, 3]);
+roadData.set('onroad animal lane',{'leftdriving','rightdriving'});
 
 % roadData.onroad.animal.namelist = {'deer_001'};
 % roadData.onroad.animal.number= randi(10);
@@ -55,9 +61,9 @@ roadData.set('onroad animal lane',{'rightdriving'});
 
 %% Place the offroad elements.  These are animals and trees.  Not cars.
 
-roadData.set('offroad animal names',{'deer_001'});
-roadData.set('offroad n animals',[randi(10),randi(10)]);
-roadData.set('offroadanimallane',{'rightshoulder','leftshoulder'});
+roadData.set('offroad animal names',{'deer_001','deer_003','deer_005'});
+roadData.set('offroad n animals', [5, 5]);
+roadData.set('offroadanimallane', {'rightshoulder','leftshoulder'});
 
 % roadData.offroad.animal.namelist = {'deer_001'};
 % roadData.offroad.animal.number= [randi(10),randi(10)];
@@ -70,20 +76,30 @@ roadData.set('offroad animal layer width',5);
 % roadData.offroad.animal.minDistanceToRoad = 0;
 % roadData.offroad.animal.layerWidth = 5;
 
-roadData.set('offroad tree names',{'tree_mid_001','tree_mid_002'});
-roadData.set('offroad n trees',[100, 50, 10]);
-roadData.set('offroad tree lane',{'rightshoulder','leftshoulder'});
+roadData.set('offroad tree names', {'tree_001','tree_002','tree_003','tree_005',...
+    'tree_007','tree_009','tree_011','tree_012',...
+    'tree_013','tree_014','tree_015','tree_016'});
+roadData.set('offroad n trees', [50, 100, 200]); % [50, 100, 150]
+roadData.set('offroad tree lane', {'rightshoulder','leftshoulder'});
 
 % Place the trees for different distance range from the boundary of road
-% roadData.offroad.tree.namelist = {'tree_mid_001','tree_mid_002'};
-% roadData.offroad.tree.number   = [100, 50, 10];
-% roadData.offroad.tree.lane     = {'rightshoulder','leftshoulder'};
+roadData.offroad.grass.namelist = {'grass_001','grass_002','grass_003','grass_004','grass_005','grass_006'};
+roadData.offroad.grass.number   = [800, 100, 10];%[800, 100, 50];
+roadData.offroad.grass.lane     = {'rightshoulder','leftshoulder'};
+
+roadData.offroad.streetlight.namelist = {'streetlight_001'};
+roadData.offroad.streetlight.number = [15, 15];
+roadData.offroad.streetlight.lane = {'rightshoulder', 'leftshoulder'};
+% roadData.offroad.rock.namelist = {'rock_001','rock_002','rock_003'};
+% roadData.offroad.rock.number   = [100, 200, 10];
+% roadData.offroad.rock.lane     = {'rightshoulder','leftshoulder'};
 
 %% Set up the rendering skymap
 
-skymapLists     = dir(fullfile(iaRootPath,'data/skymap/*.exr'));
-skymapRandIndex = randi(size(skymapLists,1));
-skymapName      = skymapLists(skymapRandIndex).name;
+% skymapLists     = dir(fullfile(iaRootPath,'data/skymap/*.exr'));
+% skymapRandIndex = randi(size(skymapLists,1));
+% skymapName      = skymapLists(skymapRandIndex).name;
+skymapName = 'sky-noon_009.exr';
 roadData.recipe.set('skymap',skymapName);
 
 % useful Docker cmd for reading or making a skymap.
@@ -117,6 +133,10 @@ camera_type = 'front';
 
 % random pick a car, use the camera on it.
 branchID = roadData.cameraSet(camera_type); % (camera_type, car_id)
+direction = thisR.get('object direction');
+thisR.set('object distance', 0.95);
+
+% thisR = iaRemoveUnseenAssets(thisR);
 
 %% Set the recipe parameters
 
@@ -127,7 +147,7 @@ thisR.set('film render type',{'radiance','depth'});
 % render quality
 thisR.set('film resolution',[1536 864]/4); % Divide by 4 for speed
 thisR.set('pixel samples',256);            % 256 for speed
-thisR.set('max depth',5);                  % 
+thisR.set('max depth',5);                  %
 thisR.set('sampler subtype','pmj02bn');
 
 imageID = iaImageID();
@@ -139,7 +159,24 @@ thisR.set('outputFile',outputFile);
 
 %% Render the scene, and maybe an OI
 
-piWRS(thisR);
+piWrite(thisR);
+scene = piRenderZhenyi(thisR);sceneWindow(scene);
+
+outputFile = thisR.get('output file');
+sceneRecipe = strrep(outputFile,'.pbrt','.mat');
+save(sceneRecipe,'thisR','-mat');
+
+
+%% create light group
+skyName = erase(skymapName,'.exr');
+recipeList = iaLightsGroup(thisR, skyName);
+%%
+for rr = 1:numel(recipeList)
+%     recipeList{rr}.set('pixel samples',1024);
+%     recipeList{rr}.set('film resolution',[1280 720]*1.5);
+    piWrite(recipeList{rr});
+    scene_lg{rr} = piRenderZhenyi(recipeList{rr}, 'meanluminance',0);
+end
 
 %{
  thisR.set('film resolution',[1536 864]/2);
@@ -164,8 +201,11 @@ ip = ipCreate;
 ip = ipCompute(ip, sensor);
 ipWindow(ip);
 %}
+for rr = 1:3
+    scene_lg_dn{rr} = piAIdenoise(scene_lg{rr});
+end
 
-%% Label the objects using the CPU 
+%% Label the objects using the CPU
 
 [objectslist,instanceMap] = roadData.label();
 %{
@@ -239,7 +279,7 @@ for ii = 1:numel(objectslist)
     tex.FontSize = 12;
 
     Annotation_coco{nBox} = struct('segmentation',segmentation,'area',area,'iscrowd',0,...
-        'image_id',sprintf('%d',imageID),'bbox',pos,'category_id',catId,'id',0,'ignore',0); %#ok<SAGROW> 
+        'image_id',sprintf('%d',imageID),'bbox',pos,'category_id',catId,'id',0,'ignore',0); %#ok<SAGROW>
     fprintf('Class %s, instanceID: %d \n', label, ii);
     nBox = nBox+1;
 end
