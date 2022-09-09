@@ -1,20 +1,37 @@
 function recipeList = iaLightsGroup(thisR, skymap)
-% A complex driving scene contains a large number of lights, this function 
-% group different type of lights, allow us to dynamically control the
-% lighting without rendering afterwards. We group the lights by three major
-% categories: 1. skylight; 2. headlights; 3. otherlights; we create one
-% light group for skylight alone, several light groups for the other two
-% type of lights.
-% 
-% Inputs: render recipe of the scene.
-% 
-% Ouputs: a list of recipes for light groups.
+% Create recipes that contain specific types of lights, but not others
 %
+% Brief description:
+%   Create multiple recipes with distinct light groups from an
+%   original recipe.  Used frequently for driving scenes with multiple
+%   types of light sources.
+% 
+% Inputs:
+%   thisR  - render recipe of the scene.
+%   skymap - a string used to label a skymap
+%
+% Ouputs: 
+%   recipeList - a cell array of recipes made from only a certain type
+%                of light source
+%
+% Description
+%  A driving scene recipe usually contains a large number of different types of
+%  lights. It is convenient to separate out the recipe into distinct
+%  recipes that contain only one of the different types of lights.
+%  These are skymap, headlight, streetlight, or other.
+%
+%  This function takes one recipe as input and returns a cell array of
+%  four recipes, with each one containing only lights of one of the
+%  four types. We render each of these, and then we use sceneAdd to
+%  create mixtures of the different renderings, effectively
+%  controlling the lighting.  The sceneAdd mixing is much faster than
+%  re-rendering.
 %
 % Zhenyi, 2022
 
 % lightNames = thisR.get('lights','namesid'); % long name
 
+%% Initialize the four different types of recipes we will create.
 [outputDir,scenename] = fileparts(thisR.get('outputfile'));
 
 recipeSkymap = piRecipeCopy(thisR);
@@ -28,10 +45,12 @@ recipeStreetLights.set('outputFile',fullfile(outputDir, [scenename, '_streetligh
 
 recipeOtherLights = piRecipeCopy(thisR);
 recipeOtherLights.set('outputFile',fullfile(outputDir, [scenename, '_otherlights.pbrt']));
-ss = 1;
-hh = 1;
-ee = 1;
-ll = 1;
+
+% These seem unused
+%  ss = 1;
+%  hh = 1;
+%  ee = 1;
+%  ll = 1;
 %{
 for ii =  1:numel(lightNames)
     light = lightNames{ii};
@@ -88,25 +107,42 @@ for ii =  1:numel(lightNames)
 end
 %}
 
+
+%% Walk through the nodes, looking for lights.
+
+% For each type of recipe, we keep only the lights of its own type
+% (skymap, healight, streetLight, or Other).
+
 nNodes = numel(thisR.assets.Node);
 NodeList = thisR.assets.Node;
 
 for nn = nNodes:-1:1
     thisNode =  NodeList{nn};
     if strcmp(thisNode.type,'light')
+        % It's a lot.  Delete it from all the recipes that are not of
+        % the same type.  
         light = thisNode.name;
         if ~contains(light, skymap)
+            % Not a skymap.  So delete it from this one.
             recipeSkymap.assets = recipeSkymap.assets.chop(nn); 
         end
+
         if ~contains(light, 'headlight') && ~contains(light, 'headlamp')
+            % Not a headlight or headlamp.  Delete from this one.
             recipeHeadLights.assets = recipeHeadLights.assets.chop(nn); 
         end
+
         if ~contains(light, 'streetlight')
+            % Not a Street light.  Delete from this one.
             recipeStreetLights.assets = recipeStreetLights.assets.chop(nn); 
         end
-        if contains(light, {'headlamp','headlight'}) ||...
-                contains(light, skymap) ||...
+
+        if contains(light, {'headlamp','headlight'}) || ...
+                contains(light, skymap) || ...
                 contains(light, {'streetlight','streelight'})
+            % If it is a skymap, headlight, or a streetlight (possibly
+            % mis-spelled), delete it from 'Other'.  If it is not one
+            % of these, we will leave it.
             recipeOtherLights.assets = recipeOtherLights.assets.chop(nn);
         end
     end
@@ -117,13 +153,16 @@ end
 % fprintf('Streetlight group remove %d lights. \n', numel(llCounts));
 % fprintf('Otherlight group remove %d lights. \n', numel(eeCounts));
 
-recipeSkymap.assets  = recipeSkymap.assets.uniqueNames;
-recipeHeadLights.assets  = recipeHeadLights.assets.uniqueNames;
-recipeStreetLights.assets  = recipeStreetLights.assets.uniqueNames;
+%% Create the cell array of recipes to return
+
+recipeSkymap.assets       = recipeSkymap.assets.uniqueNames;
+recipeHeadLights.assets   = recipeHeadLights.assets.uniqueNames;
+recipeStreetLights.assets = recipeStreetLights.assets.uniqueNames;
 recipeOtherLights.assets  = recipeOtherLights.assets.uniqueNames;
 
 recipeList{1} = recipeSkymap;
 recipeList{2} = recipeHeadLights;
 recipeList{3} = recipeStreetLights;
 recipeList{4} = recipeOtherLights;
+
 end
