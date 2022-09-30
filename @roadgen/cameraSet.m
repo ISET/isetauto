@@ -24,9 +24,13 @@ if ~ismember(cam_type,{'front','back','left','right'})
 end
 
 %%
-thisCamNode =[];
-% get all children under root node.
+thisCamNode =[];thisBranchList = []; 
+
 if ~exist('branchID','var')
+    branchID = [];
+end
+% get all children under root node.
+if ~exist('branchID','var') || isempty(branchID)
     root_children = obj.recipe.assets.getchildren(1);
     cnt=1;
     for ii = 1:numel(root_children)
@@ -41,6 +45,10 @@ if ~exist('branchID','var')
     
     % branchID = ii
     %
+    if isempty(thisBranchList)
+        disp('No camera is avaliable.')
+        return;
+    end
     thisAssetBranch = thisBranchList{randi(cnt-1)};
 
     branchID = piAssetFind(obj.recipe.assets,'name',thisAssetBranch.name);
@@ -61,7 +69,8 @@ for ii = 1:numel(thisAssetBranch.extraNode.Node)
 end
 
 if isempty(thisCamNode)
-    disp('***Camera type is not available.');
+    fprintf('***Camera type is not available at Node:%s \n',thisAssetBranch.extraNode.Node{ii}.name);
+%     disp('***Camera type is not available');
     return
 end
 

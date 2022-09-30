@@ -2,23 +2,56 @@ function obj = overlappedRemove(obj)
 % We check on and off objects, overlapped objects are removed
 % On road
 assetInfo = assetlib();
-obj.onroad.car = overlapCheckOne(assetInfo, obj.onroad.car, 2, 1.2);
-obj.onroad.animal = overlapCheckOne(assetInfo, obj.onroad.animal, 1.5, 1.2);
+onroadClassRank = {'car', 'truck', 'bus', 'pedestrian', 'cyclist', 'animal'};
+offroadClassRank = {'pedestrian','animal','tree'};
 
-obj.onroad.animal = overlapCheckTwo(assetInfo, obj.onroad.animal, obj.onroad.car, [1.5, 1.2],[2, 1.2]);
+onroadClass = fieldnames(obj.onroad);
 
-obj.offroad.animal = overlapCheckOne(assetInfo, obj.offroad.animal, 1.2, 1.2);
-
-% remove animal that overlapped with trees.
-obj.offroad.animal = overlapCheckTwo(assetInfo, obj.offroad.animal, obj.offroad.tree,[1, 1],[1, 1]);
-
+for ii = 1:numel(onroadClass)
+    obj.onroad.(onroadClass{ii}) = overlapCheckOne(assetInfo, obj.onroad.(onroadClass{ii}), 1.5, 1.5);
 end
 
+numCheck = 1;
+while numCheck < numel(onroadClassRank)-1
+    % make sure types of objects on road are in the preset classes array.
+    if ~contains(onroadClass, onroadClassRank{numCheck}), continue; end
+    for cc = numCheck+1:numel(onroadClassRank)
+        class_A = onroadClassRank{numCheck};
+        class_B = onroadClassRank{cc};
+        obj.onroad.(class_A) = overlapCheckTwo(assetInfo, obj.onroad.(class_A), obj.onroad.(class_B), [1.5, 1.5],[2, 1.5]);
+    end
+    numCheck = numCheck+1;
+end
+
+offroadClass = fieldnames(obj.offroad);
+for ii = 1:numel(offroadClass)
+    if contains(offroadClass{ii},{'pedestrian','animal'})
+        obj.offroad.(offroadClass{ii}) = overlapCheckOne(assetInfo, obj.offroad.(offroadClass{ii}), 1.5, 1.5);
+    end
+end
+
+numCheck = 1;
+while numCheck < numel(offroadClassRank)-1
+    if ~contains(offroadClass, offroadClassRank{numCheck}), continue; end
+    for cc = numCheck+1:numel(offroadClassRank)  
+        class_A = offroadClassRank{numCheck};
+        class_B = offroadClassRank{cc};
+        obj.offroad.(class_A) = overlapCheckTwo(assetInfo, obj.offroad.(class_A), obj.offroad.(class_B), [1.5, 1.5], [2, 1.5]);
+    end
+    numCheck = numCheck+1;
+end
+
+end
 function S1 = overlapCheckTwo(assetInfo, S1, S,offsetScale_S1,offsetScale_S)
 % Check whether the objects in S1 will overlap with S, if it overlaps, the
 % object will be deleted.
 for ii  = 1:numel(S1.lane)
+    if S1.number(ii)==0 ||S.number(ii)==0
+        continue
+    end
+    indexMatched = find(contains(S.lane, S1.lane{ii}),1);
     posList_S1 = S1.placedList.positions{ii};
+
     posList_x_S1 = posList_S1(:,1);
     posList_y_S1 = posList_S1(:,2);
     rotList_S1   = S1.placedList.rotations{ii};
@@ -33,13 +66,23 @@ for ii  = 1:numel(S1.lane)
     for jj = 1:size(posList_S1,1)
         objInfo_S1 = assetInfo(S1.namelist{idList_S1(jj)});
 %         offsetScale = 1.2;  % scale object patch by this scale
+
         objPatch_S1 = polyshape([0 0 objInfo_S1.size(1)*offsetScale_S1(1) objInfo_S1.size(1)*offsetScale_S1(1)],...
             [objInfo_S1.size(2)*offsetScale_S1(2) 0 0 objInfo_S1.size(2)*offsetScale_S1(2)]);
-
-        objPatch_S1 = translate(objPatch_S1, posList_S1(jj,1), posList_S1(jj,2)); 
-        objPatch_S1 = rotate(objPatch_S1, rad2deg(rotList_S1(jj)));
         
-        indexMatched = find(contains(S.lane, S1.lane{ii}),1);
+        [centerX, centerY] = centroid(objPatch_S1);
+
+        if isfield(objInfo_S1, 'frontoverhang')
+            objPatch_S1 = translate(objPatch_S1, [- 2*centerX + objInfo_S1.frontoverhang(1), -centerY]);
+        else
+            objPatch_S1 = translate(objPatch_S1, [- centerX, -centerY]);
+        end
+        
+        % rotate around [0, 0]
+        objPatch_S1 = rotate(objPatch_S1, rad2deg(rotList_S1(jj)), [0, 0]);
+        % then translate
+        objPatch_S1 = translate(objPatch_S1, posList_S1(jj,1), posList_S1(jj,2)); 
+      
         posList_S = S.placedList.positions{indexMatched};   
         rotList_S = S.placedList.rotations{indexMatched};
         if size(rotList_S, 2)~=1
@@ -50,9 +93,19 @@ for ii  = 1:numel(S1.lane)
             objInfo_S = assetInfo(S.namelist{idList_S(ll)});
             objPatch_S = polyshape([0 0 objInfo_S.size(1)*offsetScale_S(1) objInfo_S.size(1)*offsetScale_S(1)],...
                 [objInfo_S.size(2)*offsetScale_S(2) 0 0 objInfo_S.size(2)*offsetScale_S(2)]);
-    
+
+            [centerX, centerY] = centroid(objPatch_S);
+
+            if isfield(objInfo_S, 'frontoverhang')
+                objPatch_S = translate(objPatch_S, [- 2*centerX + objInfo_S.frontoverhang(1), -centerY]);
+            else
+                objPatch_S = translate(objPatch_S, [- centerX, -centerY]);
+            end
+
+            objPatch_S = rotate(objPatch_S, rad2deg(rotList_S(ll)), [0, 0]); 
+
             objPatch_S = translate(objPatch_S, posList_S(ll,1), posList_S(ll,2)); 
-            objPatch_S = rotate(objPatch_S, rad2deg(rotList_S(ll)));  
+
             polyvec = [objPatch_S1 objPatch_S];
             overlapTF = overlaps(polyvec);
             % remove if overlap
@@ -80,7 +133,12 @@ function S = overlapCheckOne(assetInfo, S, offsetScaleX, offsetScaleY)
 %
 
 for ii  = 1:numel(S.lane)
+ 
+    if S.number(ii) == 0
+        continue;
+    end
     posList = S.placedList.positions{ii};
+
     posList_x = posList(:, 1);
     posList_y = posList(:, 2);
     rotList   = S.placedList.rotations{ii};
@@ -97,8 +155,18 @@ for ii  = 1:numel(S.lane)
         objPatch = polyshape([0 0 objInfo.size(1) * offsetScaleX objInfo.size(1) * offsetScaleX],...
             [objInfo.size(2) * offsetScaleY 0 0 objInfo.size(2) * offsetScaleY]);
 
-        objPatch = translate(objPatch, posList(jj,1), posList(jj,2)); 
-        objPatch = rotate(objPatch, rad2deg(rotList(jj)));
+        [centerX, centerY] = centroid(objPatch);
+
+        if isfield(objInfo, 'frontoverhang')
+            objPatch = translate(objPatch, [- 2*centerX + objInfo.frontoverhang(1), -centerY]);
+        else
+            objPatch = translate(objPatch, [- centerX, -centerY]);
+        end
+
+        objPatch = rotate(objPatch, rad2deg(rotList(jj)), [0, 0]);
+
+        objPatch = translate(objPatch, posList(jj,1), posList(jj,2));
+
         polyvec = [polyvec objPatch];
         objIndex = [objIndex, jj];
     end

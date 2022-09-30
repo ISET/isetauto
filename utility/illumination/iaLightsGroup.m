@@ -34,16 +34,16 @@ function recipeList = iaLightsGroup(thisR, skymap)
 %% Initialize the four different types of recipes we will create.
 [outputDir,scenename] = fileparts(thisR.get('outputfile'));
 
-recipeSkymap = piRecipeCopy(thisR);
+recipeSkymap = piRecipeCopy(thisR); SkylightFlag = false;
 recipeSkymap.set('outputFile',fullfile(outputDir, [scenename, '_skymap.pbrt']));
 
-recipeHeadLights = piRecipeCopy(thisR);
+recipeHeadLights = piRecipeCopy(thisR); HeadlightFlag = false;
 recipeHeadLights.set('outputFile',fullfile(outputDir, [scenename, '_headlights.pbrt']));
 
-recipeStreetLights = piRecipeCopy(thisR);
+recipeStreetLights = piRecipeCopy(thisR); StreetlightFlag = false;
 recipeStreetLights.set('outputFile',fullfile(outputDir, [scenename, '_streetlights.pbrt']));
 
-recipeOtherLights = piRecipeCopy(thisR);
+recipeOtherLights = piRecipeCopy(thisR); OtherlightFlag = false;
 recipeOtherLights.set('outputFile',fullfile(outputDir, [scenename, '_otherlights.pbrt']));
 
 % These seem unused
@@ -123,23 +123,27 @@ for nn = nNodes:-1:1
         % the same type.  
         light = thisNode.name;
         if ~contains(light, skymap)
+            SkylightFlag = true;
             % Not a skymap.  So delete it from this one.
             recipeSkymap.assets = recipeSkymap.assets.chop(nn); 
         end
 
-        if ~contains(light, 'headlight') && ~contains(light, 'headlamp')
+        if ~contains(light, {'headlight','headlamp'})
+            HeadlightFlag = true;
             % Not a headlight or headlamp.  Delete from this one.
             recipeHeadLights.assets = recipeHeadLights.assets.chop(nn); 
         end
 
         if ~contains(light, 'streetlight')
             % Not a Street light.  Delete from this one.
+            StreetlightFlag = true;
             recipeStreetLights.assets = recipeStreetLights.assets.chop(nn); 
         end
 
         if contains(light, {'headlamp','headlight'}) || ...
                 contains(light, skymap) || ...
-                contains(light, {'streetlight','streelight'})
+                contains(light, 'streetlight')
+            OtherlightFlag = true;
             % If it is a skymap, headlight, or a streetlight (possibly
             % mis-spelled), delete it from 'Other'.  If it is not one
             % of these, we will leave it.
@@ -160,9 +164,35 @@ recipeHeadLights.assets   = recipeHeadLights.assets.uniqueNames;
 recipeStreetLights.assets = recipeStreetLights.assets.uniqueNames;
 recipeOtherLights.assets  = recipeOtherLights.assets.uniqueNames;
 
-recipeList{1} = recipeSkymap;
-recipeList{2} = recipeHeadLights;
-recipeList{3} = recipeStreetLights;
-recipeList{4} = recipeOtherLights;
+if SkylightFlag
+    recipeList{1} = recipeSkymap;
+else
+    disp('No Skylight Found.');
+    recipeList{1} = [];
+end
+
+if HeadlightFlag
+    recipeList{2} = recipeHeadLights;
+else
+    disp('No Headlight Found.');
+    recipeList{2} = [];
+end
+
+if StreetlightFlag
+    recipeList{3} = recipeStreetLights;
+else
+    disp('No Streetlight Found.');
+    recipeList{3} = [];
+end
+
+if OtherlightFlag
+    recipeList{4} = recipeOtherLights;
+else
+    disp('No Otherlight Found.');
+    recipeList{4} = [];
+end
+
+% Remove empty cells
+recipeList = recipeList(~cellfun('isempty',recipeList));
 
 end

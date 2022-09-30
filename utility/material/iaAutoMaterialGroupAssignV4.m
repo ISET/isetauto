@@ -122,9 +122,9 @@ for ii = 1:numel(materialKeys)
             ~contains(thisMatName,'red')
         
         if exist('randomassign','Var') && randomassign
-            MatList = piMaterialPresets('glass list');
-            randIndex = randi(numel(MatList));
-            newMat = piMaterialPresets(MatList{randIndex},materialKeys{ii});
+%             MatList = piMaterialPresets('glass list');
+%             randIndex = randi(numel(MatList));
+            newMat = piMaterialPresets('glass-bk7', materialKeys{ii});
             newMat = newMat.material;
         else
             newMat = piMaterialCreate(materialKeys{ii}, ...

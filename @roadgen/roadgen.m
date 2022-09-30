@@ -125,8 +125,14 @@ classdef roadgen < matlab.mixin.Copyable
             p.parse(varargin{:});
             points = p.Results.points;
             dir    = p.Results.dir;
-
-            figure;
+            
+            fig = get(groot,'CurrentFigure');
+            % create a fig if one does not exist.
+            if isempty(fig)
+                figure(1);
+            else
+                figure(fig);
+            end
             fieldNameLists = fieldnames(obj.road);
             for ii = 1:numel(fieldNameLists)
                 lanePoints = obj.road.(fieldNameLists{ii});
