@@ -34,7 +34,7 @@ for ii = 1:numel(assetNames)
     objIdList = cell(size(onroadOBJ.lane, 1));
     % Depending on the asset name
     switch assetNames{ii}
-        case {'car','bus', 'truck', 'cyclist'}
+        case {'car','bus', 'truck', 'biker'}
             for jj = 1:numel(onroadOBJ.lane)
                 if onroadOBJ.number(jj) == 0, continue; end
                 [positions{jj}, rotations{jj}] = obj.rrMapPlace(...

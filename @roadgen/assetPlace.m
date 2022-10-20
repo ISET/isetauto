@@ -1,4 +1,5 @@
 function obj = assetPlace(obj, assetNames, roadtype)
+assetlibList = assetlib();
 for ii = 1:numel(assetNames)
     % merge recipes
     thisPlacedList = obj.(roadtype).(assetNames{ii}).placedList;
@@ -23,8 +24,6 @@ for ii = 1:numel(assetNames)
             rotations = laneRotations;
             thisId    = laneIds(mm);
             thisName  = thisNameList{thisId};
-            thisBranch = [thisName,'_m_B'];
-
             if size(rotations, 2) > 1
                 rotationMatrix = piRotationMatrix('xrot', rad2deg(rotations(mm,1)),...
                     'yrot', rad2deg(rotations(mm,2)),...
@@ -32,15 +31,27 @@ for ii = 1:numel(assetNames)
             else
                 rotationMatrix = piRotationMatrix('zrot', rad2deg(rotations(mm,1)));
             end
-            if graftNow
-                obj.recipe   = piObjectInstanceCreate(obj.recipe, thisBranch, ...
-                    'position', positions(mm,:),...
-                    'rotation',rotationMatrix);
+            namelist = [];
+            if contains(thisName,'biker') % deal with biker
+                namelist{1} = [thisName,'_person'];
+                namelist{2} = [thisName,'_', assetlibList(thisName).label];
             else
-                [obj.recipe,~,objectInstanceNode]   = piObjectInstanceCreate(obj.recipe, thisBranch, ...
-                    'position', positions(mm,:),'rotation',rotationMatrix,...
-                    'graftNow', false);
-                tmpTree = tmpTree.append(1, objectInstanceNode);
+                namelist{1} = thisName;
+            end
+            for ll = 1:numel(namelist)
+                thisName = namelist{ll};
+                thisBranch = [thisName,'_m_B'];
+
+                if graftNow
+                    obj.recipe   = piObjectInstanceCreate(obj.recipe, thisBranch, ...
+                        'position', positions(mm,:),...
+                        'rotation',rotationMatrix);
+                else
+                    [obj.recipe,~,objectInstanceNode]   = piObjectInstanceCreate(obj.recipe, thisBranch, ...
+                        'position', positions(mm,:),'rotation',rotationMatrix,...
+                        'graftNow', false);
+                    tmpTree = tmpTree.append(1, objectInstanceNode);
+                end
             end
 
         end

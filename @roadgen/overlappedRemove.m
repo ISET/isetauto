@@ -2,7 +2,7 @@ function obj = overlappedRemove(obj)
 % We check on and off objects, overlapped objects are removed
 % On road
 assetInfo = assetlib();
-onroadClassRank = {'car', 'truck', 'bus', 'pedestrian', 'cyclist', 'animal'};
+onroadClassRank = {'car', 'truck', 'bus', 'pedestrian', 'biker', 'animal'};
 offroadClassRank = {'pedestrian','animal','tree'};
 
 onroadClass = fieldnames(obj.onroad);
@@ -14,16 +14,22 @@ end
 numCheck = 1;
 while numCheck < numel(onroadClassRank)-1
     % make sure types of objects on road are in the preset classes array.
-    if ~contains(onroadClass, onroadClassRank{numCheck}), continue; end
+    if ~contains(onroadClassRank{numCheck}, onroadClass), numCheck = numCheck+1; continue; end
     for cc = numCheck+1:numel(onroadClassRank)
         class_A = onroadClassRank{numCheck};
         class_B = onroadClassRank{cc};
+
+        if ~contains(class_A, onroadClass) || ~contains(class_B, onroadClass)
+            continue; 
+        end
+
         obj.onroad.(class_A) = overlapCheckTwo(assetInfo, obj.onroad.(class_A), obj.onroad.(class_B), [1.5, 1.5],[2, 1.5]);
     end
     numCheck = numCheck+1;
 end
 
 offroadClass = fieldnames(obj.offroad);
+
 for ii = 1:numel(offroadClass)
     if contains(offroadClass{ii},{'pedestrian','animal'})
         obj.offroad.(offroadClass{ii}) = overlapCheckOne(assetInfo, obj.offroad.(offroadClass{ii}), 1.5, 1.5);
@@ -32,10 +38,14 @@ end
 
 numCheck = 1;
 while numCheck < numel(offroadClassRank)-1
-    if ~contains(offroadClass, offroadClassRank{numCheck}), continue; end
+    if ~contains(offroadClassRank{numCheck}, offroadClass), numCheck = numCheck+1; continue; end
     for cc = numCheck+1:numel(offroadClassRank)  
         class_A = offroadClassRank{numCheck};
         class_B = offroadClassRank{cc};
+        if ~contains(class_A, offroadClass) || ~contains(class_B, offroadClass)
+            continue;
+        end
+
         obj.offroad.(class_A) = overlapCheckTwo(assetInfo, obj.offroad.(class_A), obj.offroad.(class_B), [1.5, 1.5], [2, 1.5]);
     end
     numCheck = numCheck+1;
