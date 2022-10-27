@@ -15,10 +15,10 @@ function recipeList = iaLightsGroup(thisR, skymap)
 %                of light source
 %
 % Description
-%  A driving scene recipe usually contains a large number of different types of
-%  lights. It is convenient to separate out the recipe into distinct
-%  recipes that contain only one of the different types of lights.
-%  These are skymap, headlight, streetlight, or other.
+%  A driving scene recipe usually contains a large number of different
+%  types of lights. It is convenient to separate out the recipe into
+%  distinct recipes that contain only one of the different types of
+%  lights. These are skymap, headlight, streetlight, or other.
 %
 %  This function takes one recipe as input and returns a cell array of
 %  four recipes, with each one containing only lights of one of the
