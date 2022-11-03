@@ -35,11 +35,28 @@ for ii = 1:numel(assetNames)
     % Depending on the asset name
     switch assetNames{ii}
         case {'car','bus', 'truck', 'biker'}
+            sumo=false;randomseed = 1;
+            probability= 1.0;
+            maxVNum = 10;            
+            if isfield(onroadOBJ,'sumo')
+                sumo = onroadOBJ.sumo;
+                if isfield(onroadOBJ,'randomseed')
+                    randomseed = onroadOBJ.randomseed;
+                else
+                    randomseed = randi([1,221013]);
+                end
+                if isfield(onroadOBJ,'maxnum')
+                    maxVNum = onroadOBJ.maxnum;end
+                if isfield(onroadOBJ,'probability')
+                    probability = onroadOBJ.probability;end
+            end
             for jj = 1:numel(onroadOBJ.lane)
                 if onroadOBJ.number(jj) == 0, continue; end
                 [positions{jj}, rotations{jj}] = obj.rrMapPlace(...
                     'laneType',onroadOBJ.lane{jj},'pos','onroad',...
-                    'pointnum',onroadOBJ.number(jj));
+                    'pointnum',onroadOBJ.number(jj),'sumo',sumo, ...
+                    'randomseed',randomseed,'probability',probability, ...
+                    'maxVNum',maxVNum);
                 % Create a object list, number of assets is smaller then
                 % the number of objects requested. so object instancing are
                 % needed.

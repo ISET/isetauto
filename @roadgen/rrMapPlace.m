@@ -57,7 +57,10 @@ p.addParameter('posOffset',0); % allow an offset to add randomness (meter)
 p.addParameter('rotOffset',0); % allow an offset to add randomness (radian)
 p.addParameter('laneid',-1,@isnumeric)
 p.addParameter('uniformsample',false,@islogical);
-
+p.addParameter('sumo',false,@islogical);
+p.addParameter('randomseed',1234,@isnumeric);
+p.addParameter('maxVNum',15,@isnumeric);
+p.addParameter('probability',1.0,@isnumeric);
 p.parse(varargin{:});
 
 pos  = p.Results.pos;
@@ -69,6 +72,13 @@ posOffset  = p.Results.posOffset;
 rotOffset  = p.Results.rotOffset;
 laneID     = p.Results.laneid;
 uniformSample = p.Results.uniformsample;
+sumo       = p.Results.sumo;
+seed       =p.Results.randomseed;
+maxVNum    =p.Results.maxVNum;
+probability=p.Results.probability;
+    
+
+
 
 sumofpoints=sum(pointnum);
 % convert to cell
@@ -251,6 +261,25 @@ end
 
 dir=reshape(all_dirs,[length(all_dirs),1]);
 points=all_points;
+
+%% 
+% somo
+% put sumo4iset.py in your sumo/tools directory
+if sumo
+    system(['python /usr/share/sumo/tools/sumo4iset.py --root ',obj.roaddirectory, ...
+        ' --randomseed ', int2str(seed),' --max-num-vehicles ',int2str(maxVNum), ...
+        ' --probability ',num2str(probability)]);
+    fcd = jsonread(fullfile(obj.roaddirectory,'sumo','fcd.json'));
+    t=100;
+    pointnum=length(fcd(t).objects.DEFAULT_VEHTYPE);
+    points=[];dir=[];
+    for i=1:pointnum
+        points(i,1)=fcd(t).objects.DEFAULT_VEHTYPE(i).pos(1);
+        points(i,2)=fcd(t).objects.DEFAULT_VEHTYPE(i).pos(3);
+        dir(i,1)=-(fcd(t).objects.DEFAULT_VEHTYPE(i).orientation-90)*pi/180;
+    end
+    sumofpoints=pointnum; % in case given points num exceeds sumo max vehicle num
+end   
 %%
 %find z label from obj file
 geometryOBJ = obj.road.geometryOBJ;
@@ -300,7 +329,7 @@ if ~isempty(geometryOBJ)
     end
 else
     
-    if contains(laneType,'leftdriving') && strcmp(pos, 'onroad')
+    if contains(laneType,'leftdriving') && strcmp(pos, 'onroad') &&(~sumo)
         rot = dir + pi;
     else
         rot = dir;
@@ -340,6 +369,14 @@ end
 randomIndices = randsample(size(points, 1), sumofpoints);
 points = points(randomIndices,:);
 rot = rot(randomIndices,:);
+
+% visualize points pos & rotation
+figure
+scatter(points(:,1),points(:,2));
+hold on;
+scatter(points(:,1)+5*cos(rot(:)),points(:,2)+5*sin(rot(:)));
+axis equal
+
 end
 
 
