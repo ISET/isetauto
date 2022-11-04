@@ -44,14 +44,13 @@ roadData.set('onroad car names',{'car_001','car_002','car_003','car_004'});
 % How many cars on each driving lane.
 % The vector length of these numbers should be the same as the number
 % of driving lanes.
-nCars = [15, 15];
-roadData.set('onroad n cars', nCars);
-roadData.set('carprobability',1.0);
+
+roadData.set('carperiod',1.0);
 roadData.set('carmaxnum',10);
 
 % use sumo for vehicle positions
 roadData.set('sumo', true);
-roadData.set('randomseed', 1024);
+% roadData.set('randomseed', 1024);
 
 %% Place the offroad elements.  These are animals and trees.  Not cars.
 

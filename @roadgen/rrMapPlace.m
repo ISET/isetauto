@@ -60,7 +60,7 @@ p.addParameter('uniformsample',false,@islogical);
 p.addParameter('sumo',false,@islogical);
 p.addParameter('randomseed',1234,@isnumeric);
 p.addParameter('maxVNum',15,@isnumeric);
-p.addParameter('probability',1.0,@isnumeric);
+p.addParameter('period',1.0,@isnumeric);
 p.parse(varargin{:});
 
 pos  = p.Results.pos;
@@ -75,7 +75,7 @@ uniformSample = p.Results.uniformsample;
 sumo       = p.Results.sumo;
 seed       =p.Results.randomseed;
 maxVNum    =p.Results.maxVNum;
-probability=p.Results.probability;
+period=p.Results.period;
     
 
 
@@ -268,7 +268,7 @@ points=all_points;
 if sumo
     system(['python /usr/share/sumo/tools/sumo4iset.py --root ',obj.roaddirectory, ...
         ' --randomseed ', int2str(seed),' --max-num-vehicles ',int2str(maxVNum), ...
-        ' --probability ',num2str(probability)]);
+        ' --period ',num2str(period)]);
     fcd = jsonread(fullfile(obj.roaddirectory,'sumo','fcd.json'));
     t=100;
     pointnum=length(fcd(t).objects.DEFAULT_VEHTYPE);

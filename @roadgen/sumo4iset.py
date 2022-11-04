@@ -36,8 +36,8 @@ def get_options(args=None):
                          default="routes.rou.xml", help="define trip file name")
     optParser.add_option("-v", "--vehicle-class",
                          dest="vClass", default="car", help="define vehicle type")
-    optParser.add_option("-p", "--probability", dest="probability", type="float", default=1.0,
-                         help="probability of generating a vehicle in a node in each time step")
+    optParser.add_option("-p", "--period", dest="period", type="float", default=1.0,
+                         help="period of generating a vehicle in a node in each time step")
     optParser.add_option("--max-num-vehicles", default=15, dest='max_num_vehicles',
                          help="maximum number of vehicles on at the same time")
     (options, args) = optParser.parse_args(args=args)
@@ -74,7 +74,7 @@ def main(opt):
     '-n',net_xml,
     '-e',opt.end,
     '-o',trips_xml,
-    '-p',0.5,
+    '-p',opt.period,
     '-s',opt.seed,
     #'--vehicle-class','bus',
     '--allow-fringe'

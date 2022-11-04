@@ -59,20 +59,21 @@ switch param
         road.onroad.car.lane   = val;
     case 'sumo'
         road.onroad.car.sumo = val;
+        road.onroad.car.number = [15,15];
         if isfield(road.onroad,'truck')
             road.onroad.truck.sumo = val;end
     case 'randomseed'
         road.onroad.car.randomseed = val;
         if isfield(road.onroad,'truck')
             road.onroad.truck.randomseed = val;end
-    case 'carprobability'
-        road.onroad.car.probability = val;
-    case 'truckprobability'
-        road.onroad.truck.probability = val;
-    case 'busprobability'
-        road.onroad.car.busprobability = val;
-    case 'cyclistprobability'
-        road.onroad.car.cyclistprobability = val;
+    case 'carperiod'
+        road.onroad.car.period = val;
+    case 'truckperiod'
+        road.onroad.truck.period = val;
+    case 'busperiod'
+        road.onroad.car.busperiod = val;
+    case 'cyclistperiod'
+        road.onroad.car.cyclistperiod = val;
     case 'carmaxnum'
         road.onroad.car.maxnum = val;
     case 'truckmaxnum'
