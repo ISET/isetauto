@@ -30,7 +30,7 @@ for ii=1:3
     roi{ii} = ieROISelect(sensor);
 end
 
-sensor = sensorSet(sensor,'roi',round(rect.Position));
+sensor = sensorSet(sensor,'roi',round(roi{1}));
 dv = sensorGet(sensor,'roi dv');
 mean(dv,'omitnan')
 
@@ -49,7 +49,7 @@ for jj=1:3
         val(ii+1,:) = round(mean(dv,'omitnan'));
         t(ii+1) = info.ExposureTime;
     end
-    plot(t,val(:,3),'go-'); grid on;
+    plot(t,val(:,2),'go-','LineWidth',2); grid on;
     xlabel('Time (s)'); ylabel('DV'); hold on;
 end
 
