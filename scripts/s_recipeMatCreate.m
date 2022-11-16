@@ -1,6 +1,6 @@
 assetdirectory = '/Volumes/SSDZhenyi/Ford Project/PBRT_assets';
-assetTypeList = {'road','cars','animal','trees'};
-for aa = 1:numel(assetTypeList)
+assetTypeList = {'road', 'car', 'pedestrian', 'truck', 'bus','tree','animal','grass','rock', 'streetlight','biker'};
+for aa = 1%1:numel(assetTypeList)
     assetType = assetTypeList{aa};
     assetList = dir(fullfile(assetdirectory, assetType));
     assetList = assetList(3:end);
@@ -8,6 +8,9 @@ for aa = 1:numel(assetTypeList)
     for ii = 1:numel(assetList)
         if assetList(ii).isdir
             [~, thisName] = fileparts(assetList(ii).name);
+            
+%              if ~strcmp(thisName, 'bus_003'), continue;end
+            
             if strcmp(assetType,'road')
                 pbrtFile = fullfile(assetdirectory,assetType,thisName,thisName,[thisName,'.pbrt']);
                 recipeMat = fullfile(assetdirectory,assetType,thisName,thisName,[thisName,'.mat']);

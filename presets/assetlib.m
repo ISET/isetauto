@@ -616,11 +616,171 @@ biker_006.frontoverhang = [0.18 0 0];
 biker_006.label = 'motorcycle';
 assetInfo('biker_006') = biker_006;
 
+biker_007.name = 'biker_007';
+biker_007.size = [1.7 0.6 1.7]; 
+biker_007.label = 'bicycle';
+assetInfo('biker_007') = biker_007;
+
+biker_008.name = 'biker_008';
+biker_008.size = [1.53 0.52 1.58]; 
+biker_008.label = 'bicycle';
+assetInfo('biker_008') = biker_008;
+
+biker_009.name = 'biker_009';
+biker_009.size = [1.45 0.52 1.48]; 
+biker_009.label = 'bicycle';
+assetInfo('biker_009') = biker_009;
+
+biker_010.name = 'biker_010';
+biker_010.size = [1.78 0.711 1.82]; 
+biker_010.label = 'bicycle';
+assetInfo('biker_010') = biker_010;
+
 biker_011.name = 'biker_011';
 biker_011.size = [1.9 0.848 1.98]; 
 biker_011.frontoverhang = [0.28 0 0];
 biker_011.label = 'motorcycle';
 assetInfo('biker_011') = biker_011;
+
+biker_012.name = 'biker_012';
+biker_012.size = [1.88 0.742 1.56]; 
+biker_012.frontoverhang = [0.26 0 0];
+biker_012.label = 'motorbike';
+assetInfo('biker_012') = biker_012;
+
+biker_013.name = 'biker_013';
+biker_013.size = [1.9 0.729 1.62]; 
+biker_013.frontoverhang = [0.21 0 0];
+biker_013.label = 'motorbike';
+assetInfo('biker_013') = biker_013;
+
+biker_014.name = 'biker_014';
+biker_014.size = [2.02 0.751 1.66]; 
+biker_014.frontoverhang = [0.28 0 0];
+biker_014.label = 'motorbike';
+assetInfo('biker_014') = biker_014;
+
+biker_015.name = 'biker_015';
+biker_015.size = [2.05 0.731 1.59]; 
+biker_015.frontoverhang = [0.26 0 0];
+biker_015.label = 'motorbike';
+assetInfo('biker_015') = biker_015;
+
+biker_016.name = 'biker_016';
+biker_016.size = [2.26 0.883 1.69]; 
+biker_016.frontoverhang = [0.31 0 0];
+biker_016.label = 'motorbike';
+assetInfo('biker_016') = biker_016;
+
+biker_017.name = 'biker_017';
+biker_017.size = [2.47 1.06 1.74]; 
+biker_017.frontoverhang = [0.31 0 0];
+biker_017.label = 'motorbike';
+assetInfo('biker_017') = biker_017;
+
+biker_018.name = 'biker_018';
+biker_018.size = [1.7 0.825 1.73]; 
+biker_018.frontoverhang = [0.24 0 0];
+biker_018.label = 'motorbike';
+assetInfo('biker_018') = biker_018;
+
+biker_019.name = 'biker_019';
+biker_019.size = [1.85 0.939 1.65]; 
+biker_019.frontoverhang = [0.23 0 0];
+biker_019.label = 'motorcycle';
+assetInfo('biker_019') = biker_019;
+
+biker_020.name = 'biker_020';
+biker_020.size = [2.24 0.887 1.84]; 
+biker_020.frontoverhang = [0.27 0 0];
+biker_020.label = 'motorbike';
+assetInfo('biker_020') = biker_020;
+
+biker_021.name = 'biker_021';
+biker_021.size = [2.07 0.878 1.67]; 
+biker_021.frontoverhang = [0.27 0 0];
+biker_021.label = 'motorbike';
+assetInfo('biker_021') = biker_021;
+
+biker_022.name = 'biker_022';
+biker_022.size = [2.02 0.797 1.64]; 
+biker_022.frontoverhang = [0.31 0 0];
+biker_022.label = 'motorbike';
+assetInfo('biker_022') = biker_022;
+
+biker_023.name = 'biker_023';
+biker_023.size = [2.08 0.8 1.66]; 
+biker_023.frontoverhang = [0.31 0 0];
+biker_023.label = 'motorbike';
+assetInfo('biker_023') = biker_023;
+
+biker_024.name = 'biker_024';
+biker_024.size = [2.24 0.794 1.76]; 
+biker_024.frontoverhang = [0.31 0 0];
+biker_024.label = 'motorbike';
+assetInfo('biker_024') = biker_024;
+
+biker_025.name = 'biker_025';
+biker_025.size = [2.37 1.12 1.88]; 
+biker_025.frontoverhang = [0.31 0 0];
+biker_025.label = 'motorbike';
+assetInfo('biker_025') = biker_025;
+
+biker_026.name = 'biker_026';
+biker_026.size = [2.38 0.926 1.85]; 
+biker_026.frontoverhang = [0.33 0 0];
+biker_026.label = 'motorcycle';
+assetInfo('biker_026') = biker_026;
+
+biker_027.name = 'biker_027';
+biker_027.size = [2.03 0.826 1.66]; 
+biker_027.frontoverhang = [0.3 0 0];
+biker_027.label = 'motorbike';
+assetInfo('biker_027') = biker_027;
+
+biker_028.name = 'biker_028';
+biker_028.size = [2.45 1.03 1.72]; 
+biker_028.frontoverhang = [0.3 0 0];
+biker_028.label = 'motorbike';
+assetInfo('biker_028') = biker_028;
+
+biker_029.name = 'biker_029';
+biker_029.size = [2.03 0.893 1.66]; 
+biker_029.frontoverhang = [0.3 0 0];
+biker_029.label = 'motorbike';
+assetInfo('biker_029') = biker_029;
+
+biker_030.name = 'biker_030';
+biker_030.size = [1.81 0.684 1.55]; 
+biker_030.frontoverhang = [0.24 0 0];
+biker_030.label = 'motorbike';
+assetInfo('biker_030') = biker_030;
+
+biker_031.name = 'biker_031';
+biker_031.size = [1.72 0.67 1.78]; 
+biker_031.frontoverhang = [0.28 0 0];
+biker_031.label = 'bicycle';
+assetInfo('biker_031') = biker_031;
+
+biker_032.name = 'biker_032';
+biker_032.size = [1.77 0.75 1.88]; 
+biker_032.label = 'bicycle';
+assetInfo('biker_032') = biker_032;
+
+biker_033.name = 'biker_033';
+biker_033.size = [1.79 0.73 1.95]; 
+biker_033.label = 'bicycle';
+assetInfo('biker_033') = biker_033;
+
+biker_034.name = 'biker_034';
+biker_034.size = [1.72 0.61 1.83]; 
+biker_034.label = 'bicycle';
+assetInfo('biker_034') = biker_034;
+
+biker_035.name = 'biker_035';
+biker_035.size = [1.78 0.71 1.86]; 
+biker_035.label = 'bicycle';
+assetInfo('biker_035') = biker_035;
 %% animals
 
 deer_001.name = 'deer_001';

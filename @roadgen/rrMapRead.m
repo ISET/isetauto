@@ -7,14 +7,14 @@ function obj = rrMapRead(obj, rrDataPath, varargin)
 % Brief description
 % 
 %   RoadRunner exports a scenes with several files:
-%       scene.fbx
-%       (3D mesh decription file which is used for 3d rendering)
+%       scene.obj
+%       (3D mesh decription file which is used for 3d rendering and road elevation calculation)
 %       scene.geojson
 %       (3D coordinates which describes the position of lane boundary and driving lane and terrain)
 %       scene.xodr
 %       (opendrive file which describes the lane function, e.g. left lane, driving lane)
 %
-% We parse scene.fbx and scene.xodr and return the road information saved in roadgen class.
+% We parse scene.obj and scene.xodr and return the road information saved in roadgen class.
 %{
                 roadgen.rrMapRead(roadgen,'Path/to/rrdata');
 %}
@@ -203,7 +203,7 @@ end
 
 xlabel('Position (m)'); ylabel('Position (m)');
 grid on;
-
+% hold on;% tmp
 obj.roaddirectory = rrDataPath;
 obj.road.leftshoulderID = leftshoulderID;
 obj.road.leftdrivingID  = leftdrivingID;
