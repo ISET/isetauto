@@ -20,10 +20,12 @@ def get_options(args=None):
     optParser = optparse.OptionParser()
     # for example "city_cross_4lanes";
     optParser.add_option("--randomseed", type="int", default=1127, dest="seed")
-    optParser.add_option("--root", default='/home/xjy/Documents/ISET/sumo/out_dir', dest='root_dir',
-                         help='root directory for xodr files and sumo files to be generated')
-    optParser.add_option("-n", "--opendrive-net", dest="net_xodr", default="road_001.xodr",
-                         help="define the path of opendrive net file")
+    optParser.add_option("--output", default='/home/xjy/Documents/ISET/sumo/out_dir', dest='output_dir',
+                         help='output directory for xodr files and sumo files to be generated')
+    optParser.add_option("--input_road", default='/home/xjy/Documents/ISET/sumo/out_dir', dest='input_road',
+                         help='input net.xodr road')                     
+    # optParser.add_option("-n", "--opendrive-net", dest="net_xodr", default="road_001.xodr",
+    #                      help="define the path of opendrive net file")
     optParser.add_option("-x", "--net-xml", dest="net_xml",default ="net.net.xml",
                          help="define the path of xml net file")                         
     optParser.add_option("-f", "--fcd-xml", dest="fcd",default="fcd.xml",
@@ -48,7 +50,8 @@ def get_options(args=None):
 
 
 def main(opt):
-    sumo_dir= os.path.join(opt.root_dir,'sumo')
+    #sumo_dir= os.path.join(opt.output_dir,'sumo')
+    sumo_dir= opt.output_dir
 
     if os.path.isdir(sumo_dir):
         print('exists')
@@ -57,7 +60,7 @@ def main(opt):
         os.makedirs(sumo_dir)
 
 
-    net_xodr = os.path.join(opt.root_dir,opt.net_xodr)
+    net_xodr =opt.input_road
     net_xml= os.path.join(sumo_dir,opt.net_xml)
     trips_xml = os.path.join(sumo_dir, opt.tripFile)
     route_xml=os.path.join(sumo_dir, opt.route_xml)

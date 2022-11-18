@@ -61,7 +61,9 @@ switch param
         road.onroad.car.sumo = val;
         road.onroad.car.number = [15,15];
         if isfield(road.onroad,'truck')
-            road.onroad.truck.sumo = val;end
+            road.onroad.truck.sumo = val;
+            road.onroad.truck.number = [15,15];
+        end
     case 'randomseed'
         road.onroad.car.randomseed = val;
         if isfield(road.onroad,'truck')

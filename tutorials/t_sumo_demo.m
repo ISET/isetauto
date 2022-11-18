@@ -36,10 +36,13 @@ roadData = roadgen('road directory',roadDir, 'asset directory',assetDir);
 
 % The driving lanes
 roadData.set('onroad car lanes',{'leftdriving','rightdriving'});
+roadData.set('onroad truck lanes',{'leftdriving','rightdriving'});
 % roadData.set('onroad car lanes', {'leftdriving'});
 
 % Cars on the road
 roadData.set('onroad car names',{'car_001','car_002','car_003','car_004'});
+roadData.set('onroad truck names',{'truck_001'});
+% roadData.set('onroad car names',{'truck_001','truck_002','truck_003','truck_004'});
 
 % How many cars on each driving lane.
 % The vector length of these numbers should be the same as the number
@@ -47,6 +50,9 @@ roadData.set('onroad car names',{'car_001','car_002','car_003','car_004'});
 
 roadData.set('carperiod',1.0);
 roadData.set('carmaxnum',10);
+
+roadData.set('truckperiod',1.0);
+roadData.set('truckmaxnum',10);
 
 % use sumo for vehicle positions
 roadData.set('sumo', true);

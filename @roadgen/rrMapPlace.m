@@ -266,10 +266,14 @@ points=all_points;
 % somo
 % put sumo4iset.py in your sumo/tools directory
 if sumo
-    system(['python /usr/share/sumo/tools/sumo4iset.py --root ',obj.roaddirectory, ...
+    [~,input_xodr,~]=fileparts(obj.roaddirectory);
+    input_road=fullfile(obj.roaddirectory,[input_xodr,'.xodr']);
+    file_ID=iaImageID();
+    sumo_output_dir = fullfile(piRootPath, 'local', 'sumo', num2str(file_ID)); 
+    system(['python /home/xjy/Documents/ISET/xjy/isetauto/@roadgen/sumo4iset.py --output ',sumo_output_dir, ...
         ' --randomseed ', int2str(seed),' --max-num-vehicles ',int2str(maxVNum), ...
-        ' --period ',num2str(period)]);
-    fcd = jsonread(fullfile(obj.roaddirectory,'sumo','fcd.json'));
+        ' --input_road ',input_road,' --period ',num2str(period)]);
+    fcd = jsonread(fullfile(sumo_output_dir,'fcd.json'));
     t=100;
     pointnum=length(fcd(t).objects.DEFAULT_VEHTYPE);
     points=[];dir=[];
