@@ -129,17 +129,22 @@ title(sprintf('Sensor: %0.1f',round(thisPsize*1e6,1)));
 chdir(fullfile(iaRootPath,'papers','EI2023'));
 
 ieNewGraphWin;
-lgnd = cell(size(pSize));
+lgnd = cell(numel(pSize)+1,1);
+
+load('opticsAnalysis','mtf50');
+plot(fnumber,mtf50,'k--');
+xlabel('f/#'); ylabel('MTF 50 (c/mm)'); grid on;
+lgnd{1} = 'optics';
 for SS=1:numel(pSize)
     thisPsize = pSize(SS);
     fname = sprintf('sensor-%d',round(thisPsize*1e7));
     load(fname,'mtfHalf');
     hold on;
-    lgnd{SS} = sprintf(' %0.1f um',round(thisPsize*1e6,1));
+    lgnd{SS+1} = sprintf(' %0.1f um',round(thisPsize*1e6,1));
     plot(fnums,mtfHalf,'LineWidth',2);
 end
-xlabel('f/#'); ylabel('MTF 50 (c/mm)'); grid on;
 legend(lgnd);
+
 
 
 %% END
