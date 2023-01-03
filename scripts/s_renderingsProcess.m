@@ -10,9 +10,6 @@ if ispc
     renderFolders = [6];
     maxScenes = 2; % for testing
 
-    % I'm experimenting with Thread Pools, don't know if they 
-    % will work, but they are faster
-    piUseThreadPool;
 else
     % assume Mux or similar
     datasetRootPath = '/acorn/data/iset/isetauto';
@@ -20,6 +17,24 @@ else
     renderFolders = [9];
     maxScenes = -1;
 end
+
+%% Set dataset parameters for this run
+% These appear constant so define them at the top
+params.meanluminance = 5;
+% Lights
+params.skyL_wt    = 10;
+params.headL_wt   = 1;
+params.otherL_wt  = 1;
+params.streetL_wt = 0.5;
+% Optics
+params.flare = 1;
+
+% Sensor
+% I think sensor is only used in the code currently commented out
+% at the bottom for flare testing, and we are typically creating "raw" scenes.
+% Maybe put that code in a sub-function as an option?
+params.sensor.name = 'ar0132atSensorRGB';
+params.sensor.analoggain = 1;
 
 % Process one or more of the rendered directories
 for rr = renderFolders(1):renderFolders(end)
@@ -44,39 +59,23 @@ for rr = renderFolders(1):renderFolders(end)
 
     if ~exist(outputFolder, 'dir'), mkdir(outputFolder);end
 
-    %% Set dataset parameters for this run
-    params.meanluminance = 5;
-    % Lights
-    params.skyL_wt    = 10;
-    params.headL_wt   = 1;
-    params.otherL_wt  = 1;
-    params.streetL_wt = 0.5;
-    % Optics
-    params.flare = 1;
-
-    % Sensor
-    % I think sensor is only used in the code currently commented out
-    % at the bottom for flare testing, and we are typically creating "raw" scenes.
-    % Maybe put that code in a sub-function as an option?
-    params.sensor.name = 'ar0132atSensorRGB';
-    params.sensor.analoggain = 1;
-    % IP
 
     scene = []; % initialize to keep parfor happy
+    photons = []; % keep parfor happy
 
     %% Generate dataset
-    %parfor ii = 1:numel(sceneNames)
-    for ii = 1:numel(sceneNames)
+    parfor ii = 1:numel(sceneNames)
+        %for ii = 1:numel(sceneNames)
 
         thisSName = erase(sceneNames(ii).name,'_instanceID.exr');
-        scenePath = sprintf('%s/%s.mat',outputFolder, thisSName);
+        scenePath = fullfile(outputFolder, [thisSName '.mat']);
 
         % by default we don't regenerate output files
         if exist(scenePath,'file'),continue;end
 
         % Combine pre-rendered .exr files (which each have one type of
         % light source) into the desired combination.
-        if params.skyL_wt>0
+        if params.skyL_wt > 0
             %         scene_lg{1} = piEXR2ISET(fullfile(DatasetFolder, 'renderings',[thisSName, '_skymap.exr']),'meanluminance',0);
 
             sky_energy = piReadEXR(fullfile(datasetFolder, [thisSName, '_skymap.exr']), 'data type','radiance');
@@ -118,22 +117,25 @@ for rr = renderFolders(1):renderFolders(end)
             otherlight_energy*params.otherL_wt + streetlight_energy*params.streetL_wt;
 
         wavelengths = 400:10:700;
-        photons  = Energy2Quanta(wavelengths,energy);
 
-        % try doing the scene create ourselves, maybe to 
+        %{ 
+        % try doing the scene create ourselves, maybe to
         % save some overhead?
-        %scene    = piSceneCreate(photons);
-        patchSize = 8;
         %scene = sceneCreate('empty');
         %scene = sceneSet(scene, 'wavelength', wavelengths);
         % set wavelengths but clear surfaceFile
         scene = sceneCreate('dark',[],wavelengths, '');
         scene = sceneClearData(scene);
         scene = sceneSet(scene,'photons',photons);
+        patchSize = 8;
         % [r,c] = size(photons(:,:,1));
+        %}
+
+        photons  = Energy2Quanta(wavelengths,energy);
+        scene    = piSceneCreate(photons);
 
         % Give the scene a better name than the default
-        sceneSet(scene,'name', thisName);
+        scene = sceneSet(scene,'scene name', thisSName);
 
         % Keep the lighting params with the scene, making it easier
         % to read them into a db later on
@@ -141,7 +143,7 @@ for rr = renderFolders(1):renderFolders(end)
 
         %     scene = sceneAdd(scene_lg,weights,'add');
         %     scene = piAIdenoiseParallel(scene);
-        scene = piAIdenoise(scene);
+        scene = piAIdenoise(scene, 'quiet', true);
 
         %     save(scenePath,'scene','-mat');
         parsave(scenePath, scene, params);
@@ -179,5 +181,5 @@ disp('***Scene Processed.***');
 
 %% Run NN on dataset
 function parsave(fname, scene, params)
-    save('-mat',fname, 'scene','params');
+save('-mat',fname, 'scene','params');
 end
