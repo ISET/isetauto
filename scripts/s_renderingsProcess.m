@@ -47,7 +47,7 @@ for rr = renderFolders(1):renderFolders(end)
 
     % For testing allow limiting number of scenes
     if maxScenes > 0
-        sceneNames = sceneNames(27:28);
+        sceneNames = sceneNames(28:29);
     end
 
     % Select a folder to contain all processed scenes
@@ -147,9 +147,10 @@ for rr = renderFolders(1):renderFolders(end)
         %     scene = sceneAdd(scene_lg,weights,'add');
         %     scene = piAIdenoiseParallel(scene);
         if ispc
-            scene = piAIdenoise(scene, 'quiet', true, 'useNvidia', true);
+            useNvidia = false; % see if Intel also allows single channel
+            scene = piAIdenoise(scene, 'quiet', true, 'useNvidia', useNvidia);
         else
-            scene = piAIdenoise(scene, 'quiet', true, 'useNvidia', true);
+            scene = piAIdenoise(scene, 'quiet', true, 'useNvidia', false);
         end
         %     save(scenePath,'scene','-mat');
         parsave(scenePath, scene, params);
