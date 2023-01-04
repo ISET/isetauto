@@ -35,8 +35,11 @@ params.flare = 1;
 % I think sensor is only used in the code currently commented out
 % at the bottom for flare testing, and we are typically creating "raw" scenes.
 % Maybe put that code in a sub-function as an option?
-params.sensor.name = 'ar0132atSensorRGB';
-params.sensor.analoggain = 1;
+% Otherwise is it almost always wrong
+% we set the correct one when the scene is rendered
+% on a specific sensor
+%params.sensor.name = 'ar0132atSensorRGB';
+%params.sensor.analoggain = 1;
 
 % Process one or more of the rendered directories
 for rr = renderFolders(1):renderFolders(end)
