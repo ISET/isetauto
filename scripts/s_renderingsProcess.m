@@ -2,6 +2,8 @@
 % then save them in outputFolder in .mat format.
 % use t_COCOdatasetGeneration.m for annotation generation.
 
+% Runtime is dominated by the Intel AI Denoiser, plus exrread & save
+
 % Set initial locations -- Hard-coded for now!
 if ispc
     % a WebDAV mount
@@ -45,7 +47,7 @@ for rr = renderFolders(1):renderFolders(end)
 
     % For testing allow limiting number of scenes
     if maxScenes > 0
-        sceneNames = sceneNames(1:maxScenes);
+        sceneNames = sceneNames(27:28);
     end
 
     % Select a folder to contain all processed scenes
@@ -64,6 +66,7 @@ for rr = renderFolders(1):renderFolders(end)
     photons = []; % keep parfor happy
 
     %% Generate dataset
+    % USE PARFOR for performance, for for debugging...
     parfor ii = 1:numel(sceneNames)
         %for ii = 1:numel(sceneNames)
 
@@ -143,8 +146,11 @@ for rr = renderFolders(1):renderFolders(end)
 
         %     scene = sceneAdd(scene_lg,weights,'add');
         %     scene = piAIdenoiseParallel(scene);
-        scene = piAIdenoise(scene, 'quiet', true);
-
+        if ispc
+            scene = piAIdenoise(scene, 'quiet', true, 'useNvidia', true);
+        else
+            scene = piAIdenoise(scene, 'quiet', true, 'useNvidia', true);
+        end
         %     save(scenePath,'scene','-mat');
         parsave(scenePath, scene, params);
         fprintf('---%d:Saving %s\n',ii,scenePath);
