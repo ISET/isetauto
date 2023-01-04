@@ -10,7 +10,7 @@ if ispc
     datasetRootPath = 'V:\data\iset\isetauto';
     % pick a folder that's downloaded
     renderFolders = [6];
-    maxScenes = 2; % for testing
+    maxScenes = -2; % for testing
 
 else
     % assume Mux or similar
@@ -47,7 +47,7 @@ for rr = renderFolders(1):renderFolders(end)
 
     % For testing allow limiting number of scenes
     if maxScenes > 0
-        sceneNames = sceneNames(28:29);
+        sceneNames = sceneNames(30:34);
     end
 
     % Select a folder to contain all processed scenes
