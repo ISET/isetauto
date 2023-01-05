@@ -3,6 +3,7 @@
 % use t_COCOdatasetGeneration.m for annotation generation.
 
 % Runtime is dominated by the Intel AI Denoiser, plus exrread & save
+% We've added the option to use the Nvidia Denoiser, for those with a GPU
 
 % Set initial locations -- Hard-coded for now!
 if ispc
@@ -20,6 +21,9 @@ else
     maxScenes = -1;
 end
 
+% current location, based on the way Ford has named them
+assetFolder = 'Deveshs_assets';
+
 %% Set dataset parameters for this run
 % These appear constant so define them at the top
 params.meanluminance = 5;
@@ -31,12 +35,13 @@ params.streetL_wt = 0.5;
 % Optics
 params.flare = 1;
 
-% Sensor -- Not used by default, we just create a scene
+% Note: A Sensor object isn't used by default, we just create a scene
+% so those parameters have been moved to the example code for them
 
 % Process one or more of the rendered directories
 for rr = renderFolders(1):renderFolders(end)
     processFolder = sprintf('ISETScene_%03d_renderings', rr);
-    datasetFolder = fullfile(datasetRootPath,'Deveshs_assets',processFolder);
+    datasetFolder = fullfile(datasetRootPath,assetFolder,processFolder);
 
     sceneNames = dir(fullfile(datasetFolder,'*_instanceID.exr'));
 
@@ -85,7 +90,7 @@ for rr = renderFolders(1):renderFolders(end)
         end
 
         % Auto Headlights
-        if params.headL_wt>0
+        if params.headL_wt > 0
             %         scene_lg{2} = piEXR2ISET(fullfile(DatasetFolder, 'renderings',[thisSName, '_headlights.exr']),'meanluminance',0);
             headlight_energy = piReadEXR(fullfile(datasetFolder, [thisSName, '_headlights.exr']), 'data type','radiance');
             %         weights(2) = params.headL_wt;
@@ -93,7 +98,7 @@ for rr = renderFolders(1):renderFolders(end)
             headlight_energy = zeros(1080, 1920, 31);
         end
 
-        if params.otherL_wt>0
+        if params.otherL_wt > 0
             %         scene_lg{3} = piEXR2ISET(fullfile(DatasetFolder, 'renderings',[thisSName, '_otherlights.exr']),'meanluminance',0);
             otherlight_energy = piReadEXR(fullfile(datasetFolder, [thisSName, '_otherlights.exr']), 'data type','radiance');
             %         weights(3) = params.otherL_wt;
@@ -102,7 +107,7 @@ for rr = renderFolders(1):renderFolders(end)
         end
 
         % Street Lamps
-        if params.streetL_wt>0
+        if params.streetL_wt > 0
             %         scene_lg{4} = piEXR2ISET(fullfile(DatasetFolder, 'renderings',[thisSName, '_streetlights.exr']));
             streetlight_energy = piReadEXR(fullfile(datasetFolder, [thisSName, '_streetlights.exr']), 'data type','radiance');
             %         weights(4) = params.streetL_wt;
@@ -173,7 +178,7 @@ for rr = renderFolders(1):renderFolders(end)
 end
 disp('***Scene Processed.***');
 
-%% Run NN on dataset
+%% Save Scene so that we can process and/or run a neural net on dataset
 function parsave(fname, scene, params)
-save('-mat',fname, 'scene','params');
+    save('-mat',fname, 'scene','params');
 end
