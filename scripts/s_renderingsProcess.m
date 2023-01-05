@@ -31,15 +31,7 @@ params.streetL_wt = 0.5;
 % Optics
 params.flare = 1;
 
-% Sensor
-% I think sensor is only used in the code currently commented out
-% at the bottom for flare testing, and we are typically creating "raw" scenes.
-% Maybe put that code in a sub-function as an option?
-% Otherwise is it almost always wrong
-% we set the correct one when the scene is rendered
-% on a specific sensor
-%params.sensor.name = 'ar0132atSensorRGB';
-%params.sensor.analoggain = 1;
+% Sensor -- Not used by default, we just create a scene
 
 % Process one or more of the rendered directories
 for rr = renderFolders(1):renderFolders(end)
@@ -122,21 +114,10 @@ for rr = renderFolders(1):renderFolders(end)
         energy = sky_energy*params.skyL_wt + headlight_energy*params.headL_wt +...
             otherlight_energy*params.otherL_wt + streetlight_energy*params.streetL_wt;
 
+        % Visual wavelengths by default
         wavelengths = 400:10:700;
 
-        %{ 
-        % try doing the scene create ourselves, maybe to
-        % save some overhead?
-        %scene = sceneCreate('empty');
-        %scene = sceneSet(scene, 'wavelength', wavelengths);
-        % set wavelengths but clear surfaceFile
-        scene = sceneCreate('dark',[],wavelengths, '');
-        scene = sceneClearData(scene);
-        scene = sceneSet(scene,'photons',photons);
-        patchSize = 8;
-        % [r,c] = size(photons(:,:,1));
-        %}
-
+        % Create an ISETCam scene based on the combination of light sources
         photons  = Energy2Quanta(wavelengths,energy);
         scene    = piSceneCreate(photons);
 
@@ -160,6 +141,9 @@ for rr = renderFolders(1):renderFolders(end)
         fprintf('---%d:Saving %s\n',ii,scenePath);
         %{
     scene = sceneAdjustLuminance(scene, params.meanluminance);
+    % this example code actually uses a sensor
+    params.sensor.name = 'ar0132atSensorRGB';
+    params.sensor.analoggain = 1;
 
     if params.flare>1
         scene = sceneSet(scene, 'distance',0.05);
