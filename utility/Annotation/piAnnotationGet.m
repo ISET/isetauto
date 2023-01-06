@@ -28,11 +28,19 @@ occluded  = 0;
 truncated = 0;
 bbox2d    = [];
 
-% No idea
+% Select based on object number. Not sure about offset.
+% However, we do seem to need to skip a few lines in the file,
+% which is what I think offset sounds like it should do, so try:
+skipObjects = 4;
 if offset==0
-    indicator = (scene_mesh == index);
+    indicator = (scene_mesh == (index + skipObjects));
 else
     indicator = ((scene_mesh <= (index+offset)) & (scene_mesh>=(index-offset)));
+end
+
+% see if we have a visible object
+if max(indicator,[],'All') > 0
+    fprintf("Found a visible Object # %d \n", index);
 end
 
 % Use coco api to find the bounding box?
