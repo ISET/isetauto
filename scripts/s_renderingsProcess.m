@@ -67,7 +67,7 @@ for rr = renderFolders(1):renderFolders(end)
 
     %% Generate dataset
     % USE PARFOR for performance, for for debugging...
-    parfor ii = 1:numel(sceneNames)
+    for ii = 1:numel(sceneNames)
         %for ii = 1:numel(sceneNames)
 
         thisSName = erase(sceneNames(ii).name,'_instanceID.exr');
@@ -133,8 +133,9 @@ for rr = renderFolders(1):renderFolders(end)
         % to read them into a db later on
         scene.metadata.lightingParams = params;
 
-        %     scene = sceneAdd(scene_lg,weights,'add');
-        %     scene = piAIdenoiseParallel(scene);
+        % We also need to load a depth map
+        scene.depthMap = piReadEXR(fullfile(datasetFolder, [thisSName, '_otherlights.exr']), 'data type','depth');
+
         if ispc
             useNvidia = false; % see if Intel also allows single channel
             scene = piAIdenoise(scene, 'quiet', true, 'useNvidia', useNvidia);
