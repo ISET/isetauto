@@ -9,6 +9,8 @@
 if ispc
     % a WebDAV mount
     datasetRootPath = 'V:\data\iset\isetauto';
+    % for speed of saving use a local SSD
+    datasetCachePath = 'B:\data\iset\isetauto';
     % pick a folder that's downloaded
     renderFolders = [6];
     maxScenes = -2; % for testing
@@ -56,7 +58,7 @@ for rr = renderFolders(1):renderFolders(end)
 
     % Then group by the ##
     sceneOutputFolder = sprintf('nighttime_%03d',rr);
-    outputFolder = fullfile(datasetRootPath,...
+    outputFolder = fullfile(datasetCachePath,...
         'dataset',experimentFolderName,sceneOutputFolder);
 
     if ~exist(outputFolder, 'dir'), mkdir(outputFolder);end
@@ -67,7 +69,7 @@ for rr = renderFolders(1):renderFolders(end)
 
     %% Generate dataset
     % USE PARFOR for performance, for for debugging...
-    for ii = 1:numel(sceneNames)
+    parfor ii = 1:numel(sceneNames)
         %for ii = 1:numel(sceneNames)
 
         thisSName = erase(sceneNames(ii).name,'_instanceID.exr');
