@@ -1,9 +1,40 @@
-% This script reads rendered EXR files from PBRT, returns ISET scenes/OIs,
+function foo = makeScenesFromRenders(renders, varargin)
+%MAKESCENESFROMRENDERS Create ISET Scene Objects from .exr files rendered
+%by PBRT
+
+% This function reads rendered EXR files from PBRT, returns ISET scenes/OIs,
 % then saves them in outputFolder in .mat format.
-% use t_COCOdatasetGeneration.m for annotation generation.
 
 % Runtime is dominated by the Intel AI Denoiser, plus exrread & save
 % We've added the option to use the Nvidia Denoiser, for those with a GPU
+
+% The overall intent is to render 3d (pbrt) scenes using various lights
+% (for example, natural light, headlights, street lamps, etc.). Those
+% renders are stored in hyperspectral .exr format files.
+%
+% This function combines the various light sources, using the provided
+% weights, into an ISET scene object. It represents the radiance from the
+% scene and a depth map of objects in the scene. It is not a true 3d
+% representation.
+
+% Heavily based on sceneRender script by Zhenyi Liu
+% D. Cardinal, Stanford University, 2023
+%
+
+p = inputparser();
+
+%% Set dataset parameters for this run
+% These appear constant so define them at the top
+addParameters(p, 'meanluminance', 5) ; % Default is currently night time
+
+% Light source weightings
+addParameter(p, 'skyL_wt', 10);
+addParameter(p, 'headL_wt' 1);
+addParameter(p,'otherL_wt', 1);
+addParameter(p,'streetL_wt',0.5);
+
+% We can also add flare simulation via the Optics
+addParameter(p, 'flare', 1);
 
 % Set initial locations -- Hard-coded for now!
 if ispc
@@ -26,16 +57,6 @@ end
 % current location, based on the way Ford has named them
 assetFolder = 'Deveshs_assets';
 
-%% Set dataset parameters for this run
-% These appear constant so define them at the top
-params.meanluminance = 5;
-% Lights
-params.skyL_wt    = 10;
-params.headL_wt   = 1;
-params.otherL_wt  = 1;
-params.streetL_wt = 0.5;
-% Optics
-params.flare = 1;
 
 % Note: A Sensor object isn't used by default, we just create a scene
 % so those parameters have been moved to the example code for them
