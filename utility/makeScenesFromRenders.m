@@ -1,4 +1,4 @@
-function makeScenesFromRenders(varargin)
+function result = makeScenesFromRenders(renderFolders, varargin)
 %MAKESCENESFROMRENDERS Create ISET Scene Objects from PBRT .exr files
 
 % TBD -- Only partially parameterized. Needs params to select folder
@@ -27,6 +27,7 @@ p = inputParser();
 
 %% Set dataset parameters for this run
 % These are constant for each run so define them at the top
+addRequired(p, 'renderFolders', '');
 addParameter(p, 'experimentname', sprintf('%s',datetime('now','Format','yy-MM-dd-HH-mm')), @ischar);
 addParameter(p, 'meanluminance', 5) ; % Default is currently night time
 
@@ -80,6 +81,9 @@ assetFolder = 'Deveshs_assets';
 % That live under the assetFolder. This assumes that the full set of
 % original scenes has been rendered into a set of sub-folders of a parent
 % render folder:
+
+if ~isempty(p.Result.renderFolders), renderFolders = p.Result.renderFolders; end
+
 for rr = renderFolders(1):renderFolders(end)
     processFolder = sprintf('ISETScene_%03d_renderings', rr);
     datasetFolder = fullfile(datasetRootPath,assetFolder,processFolder);
@@ -185,6 +189,9 @@ for rr = renderFolders(1):renderFolders(end)
         fprintf('---%d:Saving %s\n',ii,scenePath);
 
     end
+
+% return how many scenes we've written (in theory at least)
+result = numel(sceneNames);
 
     % params.dataset = dataset;
     % write dataset parameters out in a json file
