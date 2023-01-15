@@ -31,6 +31,7 @@ addParameter(p, 'experimentname', sprintf('%s',datetime('now','Format','yy-MM-dd
 addParameter(p, 'meanluminance', 5) ; % Default is currently night time
 
 % Light source weightings, Defaults are what was used for Ford Project
+% If/when we build other scenes the lighting types should be more general
 addParameter(p, 'skyl_wt', 10);
 addParameter(p, 'headl_wt', 1);
 addParameter(p, 'otherl_wt', 1);
@@ -94,17 +95,16 @@ for rr = renderFolders(1):renderFolders(end)
     % using these parameters
     experimentFolderName = ['scenes-' p.Results.experimentname];
 
-    % Then group by the ## and create folders
-    sceneOutputFolder = sprintf('nighttime_%03d',rr);
-
     datasetCacheFolder = fullfile(datasetCachePath,...
         'dataset');
     if ~exist(datasetCacheFolder, 'dir'), mkdir(datasetCacheFolder);end
 
     experimentFolder = fullfile(datasetCacheFolder,experimentFolderName);
     if ~exist(experimentFolder, 'dir'), mkdir(experimentFolder);end
-    
-    outputFolder = fullfile(experimentFolder,sceneOutputFolder);
+
+    % Abstraction here in case we want to keep batches of images
+    % in separate folders
+    outputFolder = experimentFolder;
     if ~exist(outputFolder, 'dir'), mkdir(outputFolder);end
 
 
@@ -118,8 +118,7 @@ for rr = renderFolders(1):renderFolders(end)
    
     %% Generate dataset
     % USE PARFOR for performance, for for debugging...
-    % Except we get an error call save for parsave from this loop?
-    parfor ii = 1:2 % debug with 2 numel(sceneNames)
+    parfor ii = 1:numel(sceneNames)
         %for ii = 1:numel(sceneNames)
 
         thisSName = erase(sceneNames(ii).name,'_instanceID.exr');
