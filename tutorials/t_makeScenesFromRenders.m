@@ -10,24 +10,13 @@
 %
 % D. Cardinal, Stanford University, 2023
 
-useArgs = [];
-useArgs = [useArgs, 'experimentname', sprintf('%s',datetime('now','Format','yy-MM-dd-HH-mm'))];
-
-% Set mean illuminance
-useArgs = [useArgs, 'meanluminance', 5]; % Default is currently night time
-
-% Set lighting weights
-
-useArgs = [useArgs, 'skyl_wt', 10];
-useArgs = [useArgs, 'headl_wt', 1];
-useArgs = [useArgs, 'otherl_wt', 1];
-useArgs = [useArgs, 'streetl_wt',0.5];
-
-% We can also add flare simulation via the Optics
-% Although currently this doesn't get used
-useArgs = [useArgs, 'flare', 1];
-
 % Choose folder of rendered files to turn into scenes
+renderFolder = fullfile(iaFileDataRoot, 'xxx');
+
+maxImages = 10; % set for debugging, otherwise < 0 means all
+useArgs = {'experimentname', sprintf('%s',datetime('now','Format','yy-MM-dd-HH-mm')), ...
+    'skyl_wt', 10, 'meanluminance', 5, 'headl_wt', 1, ...
+    'otherl_wt', 1, 'streetl_wt', .5, 'maxImages', maxImages};
 
 % Now execute the conversion. This can take a long time.
-result = makeScenesFromRenders(renderFolder, useArgs);
+result = makeScenesFromRenders(renderFolder, useArgs{:});

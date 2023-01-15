@@ -27,7 +27,6 @@ p = inputParser();
 
 %% Set dataset parameters for this run
 % These are constant for each run so define them at the top
-addRequired(p, 'renderFolders', '');
 addParameter(p, 'experimentname', sprintf('%s',datetime('now','Format','yy-MM-dd-HH-mm')), @ischar);
 addParameter(p, 'meanluminance', 5) ; % Default is currently night time
 
@@ -37,6 +36,8 @@ addParameter(p, 'skyl_wt', 10);
 addParameter(p, 'headl_wt', 1);
 addParameter(p, 'otherl_wt', 1);
 addParameter(p, 'streetl_wt',0.5);
+addParameter(p, 'maximages', -1); % By Default process all images
+addParameter(p, 'quiet', false); % report each image processed
 
 % We can also add flare simulation via the Optics
 addParameter(p, 'flare', 1);
@@ -53,36 +54,14 @@ params.otherL_wt = p.Results.otherl_wt;
 params.streetL_wt = p.Results.streetl_wt;
 params.flare = p.Results.flare;
 
-% Set initial locations -- Hard-coded for now!
-if ispc
-    % a WebDAV mount
-    datasetRootPath = 'V:\data\iset\isetauto';
-    % for speed of saving use a local SSD
-    datasetCachePath = 'C:\data\iset\isetauto';
-    % pick a folder that's downloaded
-    renderFolders = [6];
-    maxScenes = -2; % for testing
+datasetRootPath = iaFileDataRoot();
 
-else
-    % assume Mux or similar
-    datasetRootPath = '/acorn/data/iset/isetauto';
-    % Zhenyi's current test set
-    renderFolders = [9];
-    maxScenes = -1;
-end
-
-% current location, based on the way Ford has named them
-assetFolder = 'Deveshs_assets';
-
-% Note: A Sensor object isn't used by default, we just create a scene
-% so those parameters have been moved to the example code for them
-
-% Process one or more of the rendered directories
+% Process the rendered directories
 % That live under the assetFolder. This assumes that the full set of
 % original scenes has been rendered into a set of sub-folders of a parent
 % render folder:
 
-if ~isempty(p.Result.renderFolders), renderFolders = p.Result.renderFolders; end
+renderFolders = p.Results.renderFolders;
 
 for rr = renderFolders(1):renderFolders(end)
     processFolder = sprintf('ISETScene_%03d_renderings', rr);
@@ -99,10 +78,7 @@ for rr = renderFolders(1):renderFolders(end)
     % using these parameters
     experimentFolderName = ['scenes-' p.Results.experimentname];
 
-    datasetCacheFolder = fullfile(datasetCachePath,...
-        'dataset');
-    if ~exist(datasetCacheFolder, 'dir'), mkdir(datasetCacheFolder);end
-
+    % FIX
     experimentFolder = fullfile(datasetCacheFolder,experimentFolderName);
     if ~exist(experimentFolder, 'dir'), mkdir(experimentFolder);end
 
@@ -131,32 +107,35 @@ for rr = renderFolders(1):renderFolders(end)
         % by default we don't regenerate output files
         if exist(scenePath,'file'),continue;end
 
+        % For now parameterize scene size, but assume 1080p
+        sceneRez = [1080 1920];
+
         % Combine pre-rendered .exr files (which each have one type of
         % light source) into the desired combination.
         if params.skyL_wt > 0
             sky_energy = piReadEXR(fullfile(datasetFolder, [thisSName, '_skymap.exr']), 'data type','radiance');
         else
-            sky_energy = zeros(1080, 1920, numBands);
+            sky_energy = zeros([sceneRez, numBands]);
         end
 
         % Auto Headlights
         if params.headL_wt > 0
             headlight_energy = piReadEXR(fullfile(datasetFolder, [thisSName, '_headlights.exr']), 'data type','radiance');
         else
-            headlight_energy = zeros(1080, 1920, numBands);
+            headlight_energy = zeros([sceneRez, numBands]);
         end
 
         if params.otherL_wt > 0
             otherlight_energy = piReadEXR(fullfile(datasetFolder, [thisSName, '_otherlights.exr']), 'data type','radiance');
         else
-            otherlight_energy = zeros(1080, 1920, numBands);
+            otherlight_energy = zeros([sceneRez, numBands]);
         end
 
         % Street Lamps
         if params.streetL_wt > 0
             streetlight_energy = piReadEXR(fullfile(datasetFolder, [thisSName, '_streetlights.exr']), 'data type','radiance');
         else
-            streetlight_energy = zeros(1080, 1920, numBands);
+            streetlight_energy = zeros([sceneRez, numBands]);
         end
 
         % Compose the scene with light groups radiance.

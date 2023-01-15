@@ -5,6 +5,10 @@
 % Runtime is dominated by the Intel AI Denoiser, plus exrread & save
 % We've added the option to use the Nvidia Denoiser, for those with a GPU
 
+%% SHOULD BE LEGACY NOW, USE:
+%  t_makeScenesFromRenders & makeScenesFromRenders instead
+
+
 % Set initial locations -- Hard-coded for now!
 if ispc
     % a WebDAV mount
