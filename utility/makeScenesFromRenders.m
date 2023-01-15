@@ -1,6 +1,5 @@
 function foo = makeScenesFromRenders(renders, varargin)
-%MAKESCENESFROMRENDERS Create ISET Scene Objects from .exr files rendered
-%by PBRT
+%MAKESCENESFROMRENDERS Create ISET Scene Objects from PBRT .exr files
 
 % This function reads rendered EXR files from PBRT, returns ISET scenes/OIs,
 % then saves them in outputFolder in .mat format.
@@ -25,16 +24,20 @@ p = inputparser();
 
 %% Set dataset parameters for this run
 % These appear constant so define them at the top
-addParameters(p, 'meanluminance', 5) ; % Default is currently night time
+addParameter(p, 'meanluminance', 5) ; % Default is currently night time
 
-% Light source weightings
+% Light source weightings, Defaults are what was used for Ford Project
 addParameter(p, 'skyL_wt', 10);
-addParameter(p, 'headL_wt' 1);
+addParameter(p, 'headL_wt', 1);
 addParameter(p,'otherL_wt', 1);
 addParameter(p,'streetL_wt',0.5);
 
 % We can also add flare simulation via the Optics
 addParameter(p, 'flare', 1);
+
+% convert our args to ieStandard and parse
+varargin = ieParamFormat(varargin);
+p.parse(varargin{:});
 
 % Set initial locations -- Hard-coded for now!
 if ispc
@@ -57,11 +60,13 @@ end
 % current location, based on the way Ford has named them
 assetFolder = 'Deveshs_assets';
 
-
 % Note: A Sensor object isn't used by default, we just create a scene
 % so those parameters have been moved to the example code for them
 
 % Process one or more of the rendered directories
+% That live under the assetFolder. This assumes that the full set of
+% original scenes has been rendered into a set of sub-folders of a parent
+% render folder:
 for rr = renderFolders(1):renderFolders(end)
     processFolder = sprintf('ISETScene_%03d_renderings', rr);
     datasetFolder = fullfile(datasetRootPath,assetFolder,processFolder);
@@ -90,7 +95,8 @@ for rr = renderFolders(1):renderFolders(end)
 
     %% Generate dataset
     % USE PARFOR for performance, for for debugging...
-    parfor ii = 1:numel(sceneNames)
+    % Except we get an error call save for parsave from this loop?
+    for ii = 1:numel(sceneNames)
         %for ii = 1:numel(sceneNames)
 
         thisSName = erase(sceneNames(ii).name,'_instanceID.exr');
@@ -101,7 +107,7 @@ for rr = renderFolders(1):renderFolders(end)
 
         % Combine pre-rendered .exr files (which each have one type of
         % light source) into the desired combination.
-        if params.skyL_wt > 0
+        if p.Results.skyL_wt > 0
             %         scene_lg{1} = piEXR2ISET(fullfile(DatasetFolder, 'renderings',[thisSName, '_skymap.exr']),'meanluminance',0);
 
             sky_energy = piReadEXR(fullfile(datasetFolder, [thisSName, '_skymap.exr']), 'data type','radiance');
@@ -113,7 +119,7 @@ for rr = renderFolders(1):renderFolders(end)
         end
 
         % Auto Headlights
-        if params.headL_wt > 0
+        if p.Results.headL_wt > 0
             %         scene_lg{2} = piEXR2ISET(fullfile(DatasetFolder, 'renderings',[thisSName, '_headlights.exr']),'meanluminance',0);
             headlight_energy = piReadEXR(fullfile(datasetFolder, [thisSName, '_headlights.exr']), 'data type','radiance');
             %         weights(2) = params.headL_wt;
@@ -121,7 +127,7 @@ for rr = renderFolders(1):renderFolders(end)
             headlight_energy = zeros(1080, 1920, 31);
         end
 
-        if params.otherL_wt > 0
+        if p.Results.otherL_wt > 0
             %         scene_lg{3} = piEXR2ISET(fullfile(DatasetFolder, 'renderings',[thisSName, '_otherlights.exr']),'meanluminance',0);
             otherlight_energy = piReadEXR(fullfile(datasetFolder, [thisSName, '_otherlights.exr']), 'data type','radiance');
             %         weights(3) = params.otherL_wt;
@@ -130,7 +136,7 @@ for rr = renderFolders(1):renderFolders(end)
         end
 
         % Street Lamps
-        if params.streetL_wt > 0
+        if p.Results.streetL_wt > 0
             %         scene_lg{4} = piEXR2ISET(fullfile(DatasetFolder, 'renderings',[thisSName, '_streetlights.exr']));
             streetlight_energy = piReadEXR(fullfile(datasetFolder, [thisSName, '_streetlights.exr']), 'data type','radiance');
             %         weights(4) = params.streetL_wt;
@@ -200,7 +206,8 @@ for rr = renderFolders(1):renderFolders(end)
     % write dataset parameters out in a json file
     % jsonwrite(fullfile(outputFolder,'datasetParams.json'), params);
 end
-disp('***Scene Processed.***');
+
+end
 
 %% Save Scene so that we can process and/or run a neural net on dataset
 function parsave(fname, scene, params)
