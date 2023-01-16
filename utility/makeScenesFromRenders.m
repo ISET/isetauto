@@ -25,7 +25,8 @@ p = inputParser();
 %% Set dataset parameters for this run
 % These are constant for each run so define them at the top
 addParameter(p, 'experimentname', sprintf('%s',datetime('now','Format','yy-MM-dd-HH-mm')), @ischar);
-addParameter(p, 'meanluminance', 5) ; % Default is currently night time
+addParameter(p, 'meanluminance', 5); % Default is currently night time
+addParameter(p, 'outputfolder', '', @ischar); % Default is currently night time
 
 % Light source weightings, Defaults are what was used for Ford Project
 % If/when we build other scenes the lighting types should be more general
@@ -52,7 +53,7 @@ params.streetL_wt = p.Results.streetl_wt;
 params.flare = p.Results.flare;
 
 % Process the rendered directories (1 or more)
-% for now we're assuming just one folder 
+% for now we're assuming just one folder
 renderFolders = {renderFolders}; % lame...
 
 for rr = 1:numel(renderFolders)
@@ -67,19 +68,20 @@ for rr = 1:numel(renderFolders)
 
     % Select a folder to contain all processed scenes
     % using these parameters
-    if ~isfolder(fullfile(renderFolders{rr}))
-        experimentFolder = fullfile(iaFileDataRoot(),experimentFolderName);
+    if isempty(p.Results.outputfolder)
+        if ~isfolder(fullfile(renderFolders{rr}))
+            % We can probably skip this render folder
+            warning('Folder %s does not exist',fullfile(renderFolders{rr}));
+            continue;
+        else
+            % make a folder at the parent of our SceneEXR folder
+            experimentFolder = fullfile(renderFolders{rr}, '..', ['ISETScenes-' p.Results.experimentname]);
+            if ~exist(experimentFolder, 'dir'), mkdir(experimentFolder);end
+        end
+        outputFolder = experimentFolder;
     else
-        experimentFolder = fullfile(renderFolders{rr}, ['scenes-' p.Results.experimentname]);
-        if ~exist(experimentFolder, 'dir'), mkdir(experimentFolder);end
+        outputFolder = p.Results.outputfolder;
     end
-    experimentFolderName = fullfile(renderFolders{rr},['scenes-' p.Results.experimentname]);
-
-    % THIS ISN'T quite right, we need to find a real output folder!
-
-    % Abstraction here in case we want to keep batches of images
-    % in separate folders
-    outputFolder = experimentFolder;
     if ~exist(outputFolder, 'dir'), mkdir(outputFolder);end
 
 
@@ -90,12 +92,12 @@ for rr = 1:numel(renderFolders)
     wavelengths = 400:10:700;
     numBands = numel(wavelengths);
 
-   
+
     %% Generate dataset
     % USE PARFOR for performance, for for debugging...
     % There may also be an issue when using parfor when we are called
     % from the tutorial script. It claims it can't find our source code?
-    for ii = 1:numel(sceneNames)
+    parfor ii = 1:numel(sceneNames)
         %for ii = 1:numel(sceneNames)
 
         thisSName = erase(sceneNames(ii).name,'_instanceID.exr');
@@ -154,20 +156,21 @@ for rr = 1:numel(renderFolders)
         scene.depthMap = piReadEXR(fullfile(datasetFolder, [thisSName, '_otherlights.exr']), 'data type','depth');
 
         if ispc
-            useNvidia = false; % see if Intel also allows single channel
             scene = piAIdenoise(scene, 'quiet', true, 'useNvidia', useNvidia);
         else
             scene = piAIdenoise(scene, 'quiet', true, 'useNvidia', false);
         end
 
         % Save scene and parameters
-        parsave(scenePath, scene, params);
-        fprintf('---%d:Saving %s\n',ii,scenePath);
-
+        parameterSave(scenePath, scene, params);
+        if isequal(p.Results.quiet, false)
+            fprintf('---%d:Saving %s\n',ii,scenePath);
+        end
     end
 
-% return how many scenes we've written (in theory at least)
-result = numel(sceneNames);
+    % return how many scenes we've written (in theory at least)
+    % Can't use ii because it is used by parfor
+    result = numel(sceneNames);
 
     % params.dataset = dataset;
     % write dataset parameters out in a json file
@@ -177,6 +180,6 @@ end
 end
 
 %% Save Scene so that we can process and/or run a neural net on dataset
-function parsave(fname, scene, params)
+function parameterSave(fname, scene, params)
     save('-mat',fname, 'scene','params');
 end
