@@ -1,9 +1,6 @@
 function result = makeScenesFromRenders(renderFolders, varargin)
 %MAKESCENESFROMRENDERS Create ISET Scene Objects from PBRT .exr files
 
-% TBD -- Only partially parameterized. Needs params to select folder
-% with .exr files to be assembled -- DJC
-
 % This function reads rendered EXR files from PBRT, returns ISET scenes/OIs,
 % then saves them in outputFolder in .mat format.
 
@@ -60,7 +57,6 @@ renderFolders = {renderFolders}; % lame...
 
 for rr = 1:numel(renderFolders)
 
-
     sceneNames = dir(fullfile(renderFolders{rr},'*_instanceID.exr'));
     datasetFolder = renderFolders(rr);
 
@@ -71,11 +67,15 @@ for rr = 1:numel(renderFolders)
 
     % Select a folder to contain all processed scenes
     % using these parameters
-    experimentFolderName = ['scenes-' p.Results.experimentname];
+    if ~isfolder(fullfile(renderFolders{rr}))
+        experimentFolder = fullfile(iaFileDataRoot(),experimentFolderName);
+    else
+        experimentFolder = fullfile(renderFolders{rr}, ['scenes-' p.Results.experimentname]);
+        if ~exist(experimentFolder, 'dir'), mkdir(experimentFolder);end
+    end
+    experimentFolderName = fullfile(renderFolders{rr},['scenes-' p.Results.experimentname]);
 
     % THIS ISN'T quite right, we need to find a real output folder!
-    experimentFolder = fullfile(iaFileDataRoot(),experimentFolderName);
-    if ~exist(experimentFolder, 'dir'), mkdir(experimentFolder);end
 
     % Abstraction here in case we want to keep batches of images
     % in separate folders
