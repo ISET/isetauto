@@ -11,7 +11,7 @@
 % D. Cardinal, Stanford University, 2023
 
 % Choose folder of rendered files to turn into scenes
-renderFolder = fullfile(iaFileDataRoot, 'xxx');
+renderFolder = fullfile(iaFileDataRoot('local', true), 'Ford', 'SceneEXRs');
 
 maxImages = 10; % set for debugging, otherwise < 0 means all
 useArgs = {'experimentname', sprintf('%s',datetime('now','Format','yy-MM-dd-HH-mm')), ...

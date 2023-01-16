@@ -54,32 +54,27 @@ params.otherL_wt = p.Results.otherl_wt;
 params.streetL_wt = p.Results.streetl_wt;
 params.flare = p.Results.flare;
 
-datasetRootPath = iaFileDataRoot();
+% Process the rendered directories (1 or more)
+% for now we're assuming just one folder 
+renderFolders = {renderFolders}; % lame...
 
-% Process the rendered directories
-% That live under the assetFolder. This assumes that the full set of
-% original scenes has been rendered into a set of sub-folders of a parent
-% render folder:
+for rr = 1:numel(renderFolders)
 
-renderFolders = p.Results.renderFolders;
 
-for rr = renderFolders(1):renderFolders(end)
-    processFolder = sprintf('ISETScene_%03d_renderings', rr);
-    datasetFolder = fullfile(datasetRootPath,assetFolder,processFolder);
-
-    sceneNames = dir(fullfile(datasetFolder,'*_instanceID.exr'));
+    sceneNames = dir(fullfile(renderFolders{rr},'*_instanceID.exr'));
+    datasetFolder = renderFolders(rr);
 
     % For testing allow limiting number of scenes
-    if maxScenes > 0
-        sceneNames = sceneNames(30:34);
+    if p.Results.maximages > 0
+        sceneNames = sceneNames(1:p.Results.maximages);
     end
 
     % Select a folder to contain all processed scenes
     % using these parameters
     experimentFolderName = ['scenes-' p.Results.experimentname];
 
-    % FIX
-    experimentFolder = fullfile(datasetCacheFolder,experimentFolderName);
+    % THIS ISN'T quite right, we need to find a real output folder!
+    experimentFolder = fullfile(iaFileDataRoot(),experimentFolderName);
     if ~exist(experimentFolder, 'dir'), mkdir(experimentFolder);end
 
     % Abstraction here in case we want to keep batches of images
@@ -98,7 +93,9 @@ for rr = renderFolders(1):renderFolders(end)
    
     %% Generate dataset
     % USE PARFOR for performance, for for debugging...
-    parfor ii = 1:numel(sceneNames)
+    % There may also be an issue when using parfor when we are called
+    % from the tutorial script. It claims it can't find our source code?
+    for ii = 1:numel(sceneNames)
         %for ii = 1:numel(sceneNames)
 
         thisSName = erase(sceneNames(ii).name,'_instanceID.exr');
