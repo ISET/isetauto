@@ -40,6 +40,9 @@ addParameter(p, 'quiet', false); % report each image processed
 % We can also add flare simulation via the Optics
 addParameter(p, 'flare', 1);
 
+% option to try and use the Nvidia denoiser if available
+addParameter(p, 'usenvidia', false);
+
 % convert our args to ieStandard and parse
 varargin = ieParamFormat(varargin);
 p.parse(varargin{:});
@@ -52,6 +55,8 @@ params.otherL_wt = p.Results.otherl_wt;
 params.streetL_wt = p.Results.streetl_wt;
 params.flare = p.Results.flare;
 
+useNvidia = p.Results.usenvidia;
+
 % Process the rendered directories (1 or more)
 % for now we're assuming just one folder
 renderFolders = {renderFolders}; % lame...
@@ -60,6 +65,7 @@ for rr = 1:numel(renderFolders)
 
     sceneNames = dir(fullfile(renderFolders{rr},'*_instanceID.exr'));
     datasetFolder = renderFolders(rr);
+    datasetFolder = datasetFolder{1};
 
     % For testing allow limiting number of scenes
     if p.Results.maximages > 0
@@ -104,7 +110,7 @@ for rr = 1:numel(renderFolders)
         scenePath = fullfile(outputFolder, [thisSName '.mat']);
 
         % by default we don't regenerate output files
-        if exist(scenePath,'file'),continue;end
+        if isfile(scenePath),continue;end
 
         % For now parameterize scene size, but assume 1080p
         sceneRez = [1080 1920];
@@ -152,7 +158,8 @@ for rr = 1:numel(renderFolders)
         % to read them into a db later on
         scene.metadata.lightingParams = []; %params;
 
-        % We also need to load a depth map
+        % We also need to load a depth map (can we batch this request with
+        % a radiance request?
         scene.depthMap = piReadEXR(fullfile(datasetFolder, [thisSName, '_otherlights.exr']), 'data type','depth');
 
         if ispc
@@ -162,6 +169,8 @@ for rr = 1:numel(renderFolders)
         end
 
         % Save scene and parameters
+        scene.metadata.lightingParams = params;
+
         parameterSave(scenePath, scene, params);
         if isequal(p.Results.quiet, false)
             fprintf('---%d:Saving %s\n',ii,scenePath);

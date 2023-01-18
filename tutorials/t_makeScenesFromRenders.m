@@ -23,8 +23,8 @@ experimentName = sprintf('nighttime_%s',datetime('now','Format','yy-MM-dd-HH-mm'
 % And an output folder name if desired
 % 'local' flag is a convenience that allows using a local
 % copy of the data files when working remotely
-renderFolder = fullfile(iaFileDataRoot('local', true), project, 'SceneEXRs');
-outputFolder = fullfile(iaFileDataRoot('local', true), project, 'ISETScenes', experimentName); 
+renderFolder = fullfile(iaFileDataRoot('local', false), project, 'SceneEXRs');
+outputFolder = fullfile(iaFileDataRoot('local', false), project, 'ISETScenes', experimentName); 
 
 maxImages = 4; % set for debugging, otherwise < 0 means all
 useArgs = {'experimentname', experimentName, ...
