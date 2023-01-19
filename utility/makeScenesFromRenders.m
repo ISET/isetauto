@@ -81,7 +81,7 @@ for rr = 1:numel(renderFolders)
             continue;
         else
             % make a folder at the parent of our SceneEXR folder
-            experimentFolder = fullfile(renderFolders{rr}, '..', ['ISETScenes-' p.Results.experimentname]);
+            experimentFolder = fullfile(renderFolders{rr}, '..', 'SceneISET', p.Results.experimentname);
             if ~exist(experimentFolder, 'dir'), mkdir(experimentFolder);end
         end
         outputFolder = experimentFolder;
