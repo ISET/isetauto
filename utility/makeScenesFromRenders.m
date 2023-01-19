@@ -24,7 +24,7 @@ p = inputParser();
 
 %% Set dataset parameters for this run
 % These are constant for each run so define them at the top
-addParameter(p, 'experimentname', sprintf('%s',datetime('now','Format','yy-MM-dd-HH-mm')), @ischar);
+addParameter(p, 'scenarioname', sprintf('%s',datetime('now','Format','yy-MM-dd-HH-mm')), @ischar);
 addParameter(p, 'meanluminance', 5); % Default is currently night time
 addParameter(p, 'outputfolder', '', @ischar); % Default is currently night time
 
@@ -81,10 +81,10 @@ for rr = 1:numel(renderFolders)
             continue;
         else
             % make a folder at the parent of our SceneEXR folder
-            experimentFolder = fullfile(renderFolders{rr}, '..', 'SceneISET', p.Results.experimentname);
-            if ~exist(experimentFolder, 'dir'), mkdir(experimentFolder);end
+            scenarioFolder = fullfile(renderFolders{rr}, '..', 'SceneISET', p.Results.experimentname);
+            if ~exist(scenarioFolder, 'dir'), mkdir(scenarioFolder);end
         end
-        outputFolder = experimentFolder;
+        outputFolder = scenarioFolder;
     else
         outputFolder = p.Results.outputfolder;
     end
