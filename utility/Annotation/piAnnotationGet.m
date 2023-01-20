@@ -28,9 +28,8 @@ occluded  = 0;
 truncated = 0;
 bbox2d    = [];
 
-% Select based on object number. Not sure about offset.
-% However, we do seem to need to skip a few lines in the file,
-% which is what I think offset sounds like it should do, so try:
+% Select based on object number. Not sure how to use offset.
+% We also need to skip a few lines in the file,
 skipObjects = 4;
 if offset==0
     indicator = (scene_mesh == (index + skipObjects));
