@@ -13,14 +13,14 @@
 % Choose folder of rendered files to turn into scenes
 % based on our project and scenario
 project = 'Ford';
-experimentName = sprintf('nighttime_%s',datetime('now','Format','yy-MM-dd-HH-mm'));
+scenarioName = sprintf('nighttime_%s',datetime('now','Format','yy-MM-dd-HH-mm'));
 
 % Can pass one or more folders to render
 % And an output folder name if desired
 % 'local' flag is a convenience that allows using a local
 % copy of the data files when working remotely
 renderFolder = fullfile(iaFileDataRoot('local', false), project, 'SceneEXRs');
-outputFolder = fullfile(iaFileDataRoot('local', false), project, 'SceneISET', experimentName); 
+outputFolder = fullfile(iaFileDataRoot('local', false), project, 'SceneISET', scenarioName); 
 
 maxImages = 4; % set for debugging, otherwise < 0 means all
 useArgs = {'scenarioname', scenarioName, ...
