@@ -13,7 +13,7 @@ if useDB
     ourDB = isetdb();
 
     % retrieve our ISET-format auto scenes
-    autoScenes = ourDB.docFind('autoScenesISET');
+    autoScenes = ourDB.docFind('autoScenesISET', []);
     useScene = autoScenes(1); % pick a desired scene from our collection
     
     % Make this more elegant
