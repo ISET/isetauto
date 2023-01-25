@@ -19,15 +19,25 @@ if useDB
     % Make this more elegant
     sceneFile = fullfile(useScene.sceneFileFolder,[useScene.sceneID '.mat']);
 
-    ourScene = load(sceneFile);
+    ourSceneData = load(sceneFile);
+    ourScene = ourSceneData.scene;
 
     % No actual optics yet
-    oi = oiDefault();
+    oi = oiCreate();
     oiScene = oiCompute(ourScene, oi);
     oiFlare = piFlareApply(ourScene); 
 
     oiWindow(oiScene);
     oiWindow(oiFlare);
 
-    pause;
+    opticsWeight = .96;
+    flareWeight = .04;
+    oiCombinedData = oiScene.data.photons * opticsWeight + ...
+        flareScene.data.photons * flareWeight;
+
+    oiCombined = oiScene;
+    oiCombined.data.photons = oiCombinedData;
+
+    oiWindow(oiCombined);
+    
 end
