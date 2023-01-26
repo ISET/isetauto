@@ -50,11 +50,13 @@ oiFlare = piFlareApply(ourScene);
 oiWindow(oiScene);
 oiWindow(oiFlare);
 
-oiCombinedData = oiScene.data.photons * opticsWeight + ...
-    oiFlare.data.photons * flareWeight;
-
-oiCombined = oiScene;
-oiCombined.data.photons = oiCombinedData;
+% Try out new function
+oiCombined = oiAdd([oiScene oiFlare], [.96 .04], 'add');
+% hacked version
+%oiCombinedData = oiScene.data.photons * opticsWeight + ...
+%    oiFlare.data.photons * flareWeight;
+%oiCombined = oiScene;
+%oiCombined.data.photons = oiCombinedData;
 
 oiWindow(oiCombined);
 
