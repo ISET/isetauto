@@ -51,7 +51,7 @@ oiWindow(oiScene);
 oiWindow(oiFlare);
 
 % Try out new function
-oiCombined = oiAdd([oiScene oiFlare], [.96 .04], 'add');
+oiCombined = oiAdd({oiScene, oiFlare}, [.96 .04], 'add');
 % hacked version
 %oiCombinedData = oiScene.data.photons * opticsWeight + ...
 %    oiFlare.data.photons * flareWeight;
