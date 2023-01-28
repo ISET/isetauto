@@ -31,7 +31,8 @@ fov   = [2,  2,   3,   4,   5,   6];
 %     29 12 40 63;
 %     29 7 42 70;
 %     28 5 43 72];     % 4.2 micron sensor
-fnums = (1:0.5:12);
+% fnums = (1:0.5:12);
+fnums = (1:2:12);
 
 scene  = sceneCreate('slanted edge',1024);
 oi     = oiCreate('diffraction limited');
@@ -66,7 +67,7 @@ for SS = 1:numel(pSize)
         % oiWindow(oi);
 
         sensor = sensorCompute(sensor,oi);
-        sensorWindow(sensor);
+        % sensorWindow(sensor);
 
         % Check ip properties
         ip = ipCompute(ip,sensor);
@@ -78,7 +79,18 @@ for SS = 1:numel(pSize)
             freq = mtfData.freq;
             mtf = zeros(numel(freq),numel(fnums));
         end
-        mtf(:,ii) = mtfData.mtf(:,4);
+        thisFreq = mtfData.freq;
+
+        % Sometimes the freq range returned by the ISO method is off
+        % by 1. It is some round/floor thing in there for nn2out. We
+        % check and if freq is not equal to the ii=1 case.  If not, we
+        % interpolate to that case.
+        if isequal(mtfData.freq,freq)
+            mtf(:,ii)   = mtfData.mtf(:,4);
+        else
+            disp('Interpolating.')
+            mtf(:,ii) = interp1(mtfData.freq,mtfData.mtf(:,4),freq);
+        end
         mtfHalf(ii) = mtfData.mtf50;
     end
     % Save in a sensor file sensor-rounded(Psize)
@@ -89,7 +101,7 @@ for SS = 1:numel(pSize)
 
 end
 
-%%
+%% Load one of the pixel size files
 SS = 1;
 thisPsize = pSize(SS);
 fname = sprintf('sensor-%d',round(thisPsize*1e7));
@@ -103,7 +115,7 @@ grid on;
 xlabel('f/#'); ylabel('Spatial frequency (c/mm)'); zlabel('SFR');
 title(sprintf('Sensor: %0.1f',round(thisPsize*1e6,1)));
 
-%%
+%% FIgure of the MTF for this pixel size
 ieNewGraphWin;
 plot(freq,mtf);
 grid on;
@@ -125,13 +137,14 @@ contourf(fnums,freq,mtf);
 xlabel('f/#'); ylabel('Cyc/mm'); grid on;
 title(sprintf('Sensor: %0.1f',round(thisPsize*1e6,1)));
 
-%%
+%% Show the Optics MTF and optics-sensor MTF50
+
 chdir(fullfile(iaRootPath,'papers','EI2023'));
 
 ieNewGraphWin;
 lgnd = cell(numel(pSize)+1,1);
 
-load('opticsAnalysis','mtf50');
+load('opticsAnalysis','fnumber','mtf50');
 plot(fnumber,mtf50,'k--');
 xlabel('f/#'); ylabel('MTF 50 (c/mm)'); grid on;
 lgnd{1} = 'optics';
