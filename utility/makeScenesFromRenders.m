@@ -38,7 +38,7 @@ addParameter(p, 'maximages', -1); % By Default process all images
 addParameter(p, 'quiet', false); % report each image processed
 
 % We can also add flare simulation via the Optics
-addParameter(p, 'flare', 1);
+addParameter(p, 'flare', 0);
 
 % option to try and use the Nvidia denoiser if available
 addParameter(p, 'usenvidia', false);
