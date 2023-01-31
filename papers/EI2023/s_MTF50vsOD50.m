@@ -19,21 +19,52 @@ od = flip(od);
 %%
 ieNewGraphWin([],'tall');
 symSize = 600;
+
+delta9 = 2;
+
+symColors = [...
+    0.2 0.2 0.8; % dark blue
+    0 0.6 0.8;   % cyan
+    0.6 0 0.6;   % purple
+    1.0 0.8 0;   % orange
+    0.6 0 0.6;   % purple
+    1.0 0.8 0;   % orange
+    1 0 0;       % red
+    0 0.8 0;     % green
+    1.0 0.8 0;   % orange
+    1 0 0    ;   % red
+    0 0.8 0 ;    % green
+    1 0 0 ;      % red
+    0 0.8 0;     % green
+    ];
+sym = {'o','o','o','o','square','square','square','square','^','^','^','hexagram','hexagram'};
+
 lWidth = 1.5;
-scatter(mtf(1), od(1), symSize, 'o', 'filled','LineWidth',lWidth); hold on
-scatter(mtf(2), od(2), symSize,'o', 'filled','LineWidth',lWidth); hold on
-scatter(mtf(3), od(3), symSize,'o', 'filled','LineWidth',lWidth); hold on
-scatter(mtf(4), od(4), symSize,'o', 'filled','LineWidth',lWidth); hold on
-scatter(mtf(5), od(5), symSize,'diamond', 'filled','LineWidth',lWidth); hold on
-scatter(mtf(6), od(6), symSize,'diamond', 'filled','LineWidth',lWidth); hold on
-scatter(mtf(7), od(7), symSize,'diamond', 'filled','LineWidth',lWidth); hold on
-scatter(mtf(8), od(8), symSize,'diamond', 'filled','LineWidth',lWidth); hold on
+for ii=1:numel(mtf)
+    if ii==9
+        % Make it visible underneat the red
+        scatter(mtf(ii),od(ii)- delta9,symSize,symColors(ii,:),sym{ii},'filled','LineWidth',lWidth);
+    else
+        scatter(mtf(ii),od(ii),symSize,symColors(ii,:),sym{ii},'filled','LineWidth',lWidth);
+    end
+    hold on;
+end
+
+%{
+scatter(mtf(1), od(1), symSize, symColors(1,:),'o', 'filled','LineWidth',lWidth); hold on
+scatter(mtf(2), od(2), symSize, symColors(2,:),'o','filled','LineWidth',lWidth); hold on
+scatter(mtf(3), od(3), symSize, symColors(3,:),'o','filled','LineWidth',lWidth); hold on
+scatter(mtf(4), od(4), symSize, symColors(4,:),'o', 'filled','LineWidth',lWidth); hold on
+scatter(mtf(5), od(5), symSize,'square', 'filled','LineWidth',lWidth); hold on
+scatter(mtf(6), od(6), symSize,'square', 'filled','LineWidth',lWidth); hold on
+scatter(mtf(7), od(7), symSize,'square', 'filled','LineWidth',lWidth); hold on
+scatter(mtf(8), od(8), symSize,'square', 'filled','LineWidth',lWidth); hold on
 scatter(mtf(9), od(9), symSize,'^', 'filled','LineWidth',lWidth); hold on
 scatter(mtf(10), od(10), symSize,'^', 'filled','LineWidth',lWidth); hold on
 scatter(mtf(11), od(11), symSize,'^', 'filled','LineWidth',lWidth); hold on
 scatter(mtf(12), od(12), symSize,"hexagram", 'filled','LineWidth',lWidth); hold on
 scatter(mtf(13), od(13), symSize,"hexagram", 'filled','LineWidth',lWidth); 
-
+%}
 % xlabel('MTF50 (c/mm)');
 % ylabel('OD50 (meters)'); 
 % ylim([50,300]); xlim([50, 200]);
@@ -42,28 +73,39 @@ set(gca,'fontsize', 28);
 
 
 
-%%
+%%  Add the night time values
 
 od = od50_night;
 od = flip(od);
 
 hold on
-% ieNewGraphWin;
 lWidth = 2;
+for ii=1:numel(mtf)
+    if ii==9
+        % Make it visible underneat the red
+        scatter(mtf(ii),od(ii)-delta9,symSize,symColors(ii,:),sym{ii},'LineWidth',lWidth);
+    else
+        scatter(mtf(ii),od(ii),symSize,symColors(ii,:),sym{ii},'LineWidth',lWidth);
+    end
+    hold on;
+end
+
+%{
 
 scatter(mtf(1), od(1), symSize, 'o', 'LineWidth',lWidth); hold on
 scatter(mtf(2), od(2), symSize,'o', 'LineWidth',lWidth); hold on
 scatter(mtf(3), od(3), symSize,'o', 'LineWidth',lWidth); hold on
 scatter(mtf(4), od(4), symSize,'o', 'LineWidth',lWidth); hold on
-scatter(mtf(5), od(5), symSize,'diamond', 'LineWidth',lWidth); hold on
-scatter(mtf(6), od(6), symSize,'diamond', 'LineWidth',lWidth); hold on
-scatter(mtf(7), od(7), symSize,'diamond', 'LineWidth',lWidth); hold on
-scatter(mtf(8), od(8), symSize,'diamond', 'LineWidth',lWidth); hold on
+scatter(mtf(5), od(5), symSize,'square', 'LineWidth',lWidth); hold on
+scatter(mtf(6), od(6), symSize,'square', 'LineWidth',lWidth); hold on
+scatter(mtf(7), od(7), symSize,'square', 'LineWidth',lWidth); hold on
+scatter(mtf(8), od(8), symSize,'square', 'LineWidth',lWidth); hold on
 scatter(mtf(9), od(9), symSize,'^', 'LineWidth',lWidth); hold on
 scatter(mtf(10), od(10), symSize,'^', 'LineWidth',lWidth); hold on
 scatter(mtf(11), od(11), symSize,'^', 'LineWidth',lWidth); hold on
 scatter(mtf(12), od(12), symSize,"hexagram", 'LineWidth',lWidth); hold on
 scatter(mtf(13), od(13), symSize,"hexagram", 'LineWidth',lWidth); 
+%}
 
 % xlabel('MTF {50} (cycles/mm)');
 % ylabel('OD {50} (m)'); 
