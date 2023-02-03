@@ -19,6 +19,8 @@ unit = 'mm';
 fnumber = (1:0.5:12);
 mtf50 = zeros(numel(fnumber),1);
 
+
+%%
 ieNewGraphWin; hold on;
 for ii=1:numel(fnumber)
     oi = oiSet(oi,'fnumber',fnumber(ii));
@@ -102,6 +104,3 @@ plot(fnumber,mtf50,'k--');
 xlabel('f/#'); ylabel('MTF 50 c/mm'); grid on
 
 %%
-chdir(fullfile(iaRootPath,'papers','EI2023'));
-save('opticsAnalysis','mtf50');
-
