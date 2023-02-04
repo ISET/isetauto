@@ -26,7 +26,7 @@ scenarioName = sprintf('daytime_20_500');
 renderFolder = fullfile(iaFileDataRoot('local', true), project, 'SceneEXRs');
 outputFolder = fullfile(iaFileDataRoot('local', true), project, 'SceneISET', scenarioName); 
 
-maxImages = 100; % set for debugging, otherwise < 0 means all
+maxImages = 3; % set for debugging, otherwise < 0 means all
 
 % Original nighttime params
 %useArgs = {'scenarioname', scenarioName, ...
@@ -38,7 +38,29 @@ maxImages = 100; % set for debugging, otherwise < 0 means all
 useArgs = {'scenarioname', scenarioName, ...
     'skyl_wt', 20, 'meanluminance', 500, 'headl_wt', 0, ...
     'otherl_wt', 1, 'streetl_wt', 0, 'flare', 0, 'maxImages', maxImages, ...
-    'outputFolder', outputFolder, 'useNvidia', true};
+    'outputFolder', outputFolder, 'useNvidia', false};
+
+% Experiment with creating a scenario object
+useScenario = scenario();
+useScenario.scenarioName = scenarioName;
+useScenario.scenarioProject = project;
+useScenario.scenarioType = 'isetscene';
+useScenario.scenarioInput = renderFolder;
+useScenario.scenarioParameters = useArgs;
+
+% for debugging
+%useScenario.print;
 
 % Now execute the conversion. This can take a long time.
-result = makeScenesFromRenders(renderFolder, useArgs{:});
+result = useScenario.run();
+fprintf('Processed %d scenes\n', result);
+
+if result > 0 % it worked so store the scenario
+    try
+        isetdb().store(useScenario, 'scenarios');
+    catch
+        % Probably just a duplicate
+        % possibly we should do an 'upsert" once we have
+        % support for it
+    end
+end

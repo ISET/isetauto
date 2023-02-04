@@ -4,12 +4,15 @@
 % different pixel sizes.  Then use these same sensors and lenses with the
 % metric scenes.  
 %
+% This script is just scratch.  The two scripts below are more
+% complete.
+%
 % This issue relates to the use of the MTF for autonomous driving.
 % Remember the abstract that includes Alexander Braun and the work of the
 % automobile committee.
 %
 % See also
-%
+%   s_eiSensorFnumber, s_eiOpticsFnumber
 
 %% The test scene
 
@@ -70,6 +73,7 @@ sensor = sensorSet(sensor,'fov',1,oi);
 
 % Realistic exposure duration
 sensor = sensorSet(sensor,'exposure duration',16*1e-3);
+oi = oiCompute(oi,scene);
 sensor = sensorCompute(sensor,oi);
 sensorWindow(sensor);
 
