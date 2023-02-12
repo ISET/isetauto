@@ -27,3 +27,5 @@ colorbar;
 foo = gray*0.7 + ones(size(gray))*0.3;
 colormap(foo);
 set(gca,'ytick',[0 1 2],'YTickLabel',{'1','10','100'});
+
+%%
