@@ -1,4 +1,4 @@
-%% plot the AP data for the different cameras
+%% plot the AP data for the different cameras for MTF50, day and night
 %
 % Plots are made for both the day and night simulations
 % There are thirteen different cameras

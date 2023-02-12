@@ -25,6 +25,20 @@ mtf50    = [150 100 75 55];
 % The scene collection has these six distances
 distance = [25 50 75 100 150 200];
 
-save('eiAPData',"ap_night","ap_day","distance","mtf50","mtf50Cols")
+
+%% Illumination
+
+ap_illumination = ...
+    [0.87  0.896 0.893 0.895 0.882 0.811 0.637
+    0.859 0.886 0.886 0.895 0.895 0.816 0.518
+    0.807 0.813 0.819 0.825 0.81  0.738 0.415
+    0.692 0.748 0.751 0.761 0.763 0.611 0.293
+    0.547 0.623 0.63  0.625 0.582 0.303 0.0787
+    0.481 0.565 0.6   0.621 0.473 0.239 0.0158];
+
+illuminance = [500 100 50 10 5 1 0.25];
 
 %%
+
+save('eiAPData',"ap_night","ap_day","distance","ap_illumination","illuminance","mtf50","mtf50Cols")
+

@@ -72,7 +72,7 @@ set(gca,'FontSize',fontSize);      % Fonts on the axis
 clim([0 1]);
 colorbar;
 colormap(gray.^0.5);
-set(gca,'ylim',[55 150],'YTick',[75:25:150]);
+set(gca,'ylim',[55 150],'YTick',75:25:150);
 
 %% Average precision for night time
 
@@ -90,6 +90,6 @@ set(gca,'FontSize',fontSize);      % Fonts on the axis
 clim([0 1]);
 colorbar;
 colormap(gray.^0.5);
-set(gca,'ylim',[55 150],'YTick',[75:25:150]);
+set(gca,'ylim',[55 150],'YTick',75:25:150);
 
 %%
