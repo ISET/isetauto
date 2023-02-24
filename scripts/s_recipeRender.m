@@ -1,7 +1,11 @@
 % Test script to see if we can read and render the Ford recipes
 % that we have on Acorn:
 
-sampleRecipe = '/acorn/data/iset/isetauto/Ford/SceneRecipes/1112153442_headlights.pbrt';
+recipeWrapper = load('/acorn/data/iset/isetauto/Ford/SceneRecipes/1112154540.mat');
 
-thisR = piRead(sampleRecipe);
+% The .mat file includes an @recipe struct called thisR
+ourRecipe = recipeWrapper.thisR;
+
+piWRS(ourRecipe);
+
 
