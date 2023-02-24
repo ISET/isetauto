@@ -32,14 +32,14 @@ fid_gpu_3 = fopen(fullfile(piRootPath, 'local', sceneName, 'render_gpu_3.sh'),'w
 %% Road initiation
 
 % assetDir = fullfile(iaRootPath,'local','assets');
-assetDir = '/Volumes/SSDZhenyi/Ford Project/PBRT_assets';
+assetDir = iaFileDataRoot('type','PBRT_assets');
 roadNames = {'road_001', 'road_002','road_003','road_004','road_005','road_006',...
     'road_011','road_012','road_013','road_015','road_020'};
 for ii = 1:25%numel(roadNames)
 %     roadName = roadNames{ii};
     roadName = roadNames{randi(11)};
     roadName = 'road_001';
-    roadDir  = sprintf('/Volumes/SSDZhenyi/Ford Project/PBRT_assets/road/%s', roadName);
+    roadDir  = fullfile(iaFileDataRoot('type','PBRT_assets','road'),roadName);
 
     % The road data
     roadData = roadgen('road directory',roadDir, 'asset directory',assetDir);
@@ -141,7 +141,8 @@ for ii = 1:25%numel(roadNames)
 
     thisR.set('outputFile',outputFile);
     %% Set up the rendering skymap
-    skymapLists     = dir('/Volumes/SSDZhenyi/Ford Project/PBRT_assets/skymap/sky*.exr');
+    skymapLists     = dir([fullfile(iaFileDataRoot('type','PBRT_assets'), 'skymap'), ...
+        filesep(), 'sky*.exr']);
     skymapRandIndex = randi(size(skymapLists,1));
     skymapName      = skymapLists(skymapRandIndex).name;
 %     skymapName = 'sky-noon_009.exr';
