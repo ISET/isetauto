@@ -21,15 +21,17 @@ switch (p.Results.type)
         % These are a bit of a guess, but based on acorn fs
         if isempty(dataRoot)
             if ispc
+                % Arbitrary mount points
                 if p.Results.local == true
-                    dataRoot = 'v:\data\iset\isetauto';
+                    dataDrive = 'v:';
                 else
-                    dataRoot = 'y:\data\iset\isetauto';
+                    dataDrive = 'y:';
                 end
+                dataRoot = fullfile(dataDrive, 'data','iset','isetauto');
             else
-                dataRoot = '/acorn/data/iset/isetauto';
+                dataRoot = fullfile(filesep, 'acorn','data','iset','isetauto');
             end
         end
     case 'PBRT_assets'
-        dataRoot = '/acorn/data/iset/isetauto/PBRT_assets';
+        dataRoot = fullfile(filesep, 'acorn','data','iset','isetauto', 'PBRT_assets');
 end
