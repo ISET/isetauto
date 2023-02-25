@@ -24,6 +24,11 @@ ourRecipe = recipeWrapper.thisR;
 % Hack for the road recipe folder structure
 assetFolder = iaFileDataRoot('type','PBRT_assets');
 recipePBRT = fullfile(assetFolder, 'road', rName, rName, [rName rExtension]);
+
+% Experiment: What if we use the version created by piWrite as our
+% pbrt file -- Oops, piWriteCopy then pulls everything ...
+%recipePBRT = fullfile(recipeFolder, [sceneID '.pbrt']);
+
 ourRecipe.inputFile = recipePBRT;
 
 ourRecipe.outputFile = fullfile(piDirGet('local'), sceneID, [sceneID '.pbrt']);
@@ -51,6 +56,8 @@ piWrite(ourRecipe);
 scene = piRender(ourRecipe);
 
 sceneWindow(scene);
+
+
 
 
 
