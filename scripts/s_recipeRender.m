@@ -3,16 +3,20 @@
 
 % Pick an arbitrary scene/recipe
 sceneID = '1112154540';
+
+%% Read in the @recipe object
+% We can't read back the piWrite() version of a recipe, so
+% we need to read the @recipe object from a .mat file
 recipeFolder = fullfile(iaFileDataRoot(), 'Ford','SceneRecipes');
 recipeFile = fullfile(recipeFolder,[sceneID '.mat']);
 recipeWrapper = load(recipeFile);
 
-% The .mat file includes an @recipe struct called thisR
+% The .mat file includes an @recipe object called thisR
 ourRecipe = recipeWrapper.thisR;
 
+%% Fix up our recipe in lieu of piRead()
 % Since we aren't/can't use piRead() the normal path fixes for input and
-% output have not been applied (leaving the same as the original authors)
-
+% output have not been applied, so we need to do that manually...
 
 % So the next idea is to set the inputfile to the original base recipe
 % file (in the Ford case that is always 1 of 12 road recipes).
@@ -35,6 +39,7 @@ ourRecipe.outputFile = fullfile(piDirGet('local'), sceneID, [sceneID '.pbrt']);
 
 piWrite(ourRecipe);
 
+%% Try to get the written out recipe to render
 % Our first issue is that a lot of the textures get copied to the recipe
 % folder, not the textures sub-folder (maybe the ones we found in our
 % path?)
@@ -44,7 +49,7 @@ piWrite(ourRecipe);
 % [1m[31mError[0m: Couldn't open PLY file "geometry/car_020_body.001_mat0.ply"
 % So we try copying all 18GB of meshes to our geometry folder by hand
 
-% Then we find the same issue with mixing textures, so we copy all of 
+% Then we find the same issue with missing textures, so we copy all of 
 % those into our scene in local by hand
 
 % Then we get to trickier stuff like this:
@@ -52,6 +57,7 @@ piWrite(ourRecipe);
 
 % Which I think takes someone with more understanding of pbrt recipes ...
 
+%% What we'd like to have work:
 
 scene = piRender(ourRecipe);
 
