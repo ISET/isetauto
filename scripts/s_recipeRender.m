@@ -29,13 +29,16 @@ ourRecipe = recipeWrapper.thisR;
 assetFolder = iaFileDataRoot('type','PBRT_assets');
 recipePBRT = fullfile(assetFolder, 'road', rName, rName, [rName rExtension]);
 
-% Failed Experiment: What if we use the version created by piWrite as our
-% pbrt file -- Oops, piWriteCopy then pulls everything ...
-%recipePBRT = fullfile(recipeFolder, [sceneID '.pbrt']);
-
 % These fixups are normally done by piRead()
 ourRecipe.inputFile = recipePBRT; 
 ourRecipe.outputFile = fullfile(piDirGet('local'), sceneID, [sceneID '.pbrt']);
+
+% Other 'assets' need to be in a place where they can be found
+% For now a semi-hack:
+pbrtAssets = iaFileDataRoot('type', 'PBRT_assets');
+addpath(fullfile(pbrtAssets, 'textures'));
+addpath(fullfile(pbrtAssets, 'geometry'));
+addpath(fullfile(pbrtAssets, 'skymap'));
 
 piWrite(ourRecipe);
 
@@ -48,9 +51,6 @@ piWrite(ourRecipe);
 % Next issue is that we don't seem to have all the needed meshes:
 % [1m[31mError[0m: Couldn't open PLY file "geometry/car_020_body.001_mat0.ply"
 % So we try copying all 18GB of meshes to our geometry folder by hand
-
-% Then we find the same issue with missing textures, so we copy all of 
-% those into our scene in local by hand
 
 % Then we get to trickier stuff like this:
 % Error[0m: 1112154540_materials.pbrt:2:74: Couldn't find spectrum texture named "road_012_Concrete1.reflectance.Concrete1_Diff.png" for parameter "reflectance"
