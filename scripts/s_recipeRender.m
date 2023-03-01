@@ -25,6 +25,10 @@ ourRecipe = recipeWrapper.thisR;
 
 [rPath, rName, rExtension] = fileparts(ourRecipe.inputFile);
 
+% Experiment with moving the camera above the car
+ourRecipe.lookAt.from(2) = ourRecipe.lookAt.from(2) + 3;
+
+
 % Hack for the road recipe folder structure
 assetFolder = iaFileDataRoot('type','PBRT_assets');
 recipePBRT = fullfile(assetFolder, 'road', rName, rName, [rName rExtension]);
@@ -34,33 +38,21 @@ ourRecipe.inputFile = recipePBRT;
 ourRecipe.outputFile = fullfile(piDirGet('local'), sceneID, [sceneID '.pbrt']);
 
 % Other 'assets' need to be in a place where they can be found
-% For now a semi-hack:
+% For now add them to our path. In reality they are already on the
+% rendering server, but piWrite/piWriteCopy doesn't know that and complains
+% if it can't find them on the local machine.
 pbrtAssets = iaFileDataRoot('type', 'PBRT_assets');
 addpath(fullfile(pbrtAssets, 'textures'));
 addpath(fullfile(pbrtAssets, 'geometry'));
 addpath(fullfile(pbrtAssets, 'skymap'));
 
+% Write our recipe to a file tree, so that pbrt can process it
 piWrite(ourRecipe);
 
-%% Try to get the written out recipe to render
-% Our first issue is that a lot of the textures get copied to the recipe
-% folder, not the textures sub-folder (maybe the ones we found in our
-% path?)
-% Short term I just brute move them in /local after running piWrite()
-
-% Next issue is that we don't seem to have all the needed meshes:
-% [1m[31mError[0m: Couldn't open PLY file "geometry/car_020_body.001_mat0.ply"
-% So we try copying all 18GB of meshes to our geometry folder by hand
-
-% Then we get to trickier stuff like this:
-% Error[0m: 1112154540_materials.pbrt:2:74: Couldn't find spectrum texture named "road_012_Concrete1.reflectance.Concrete1_Diff.png" for parameter "reflectance"
-
-% Which I think takes someone with more understanding of pbrt recipes ...
-
-%% What we'd like to have work:
-
+% Render our recipe into an ISET scene object
 scene = piRender(ourRecipe);
 
+% Show the result
 sceneWindow(scene);
 
 
