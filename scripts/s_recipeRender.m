@@ -83,6 +83,10 @@ ourRecipe = recipeWrapper.thisR;
 
 [rPath, rName, rExtension] = fileparts(ourRecipe.inputFile);
 
+% Experiment with moving the camera above the car
+ourRecipe.lookAt.from(2) = ourRecipe.lookAt.from(2) + 3;
+
+
 % Hack for the road recipe folder structure
 assetFolder = iaFileDataRoot('type','PBRT_assets');
 recipePBRT = fullfile(assetFolder, 'road', rName, rName, [rName rExtension]);
@@ -113,6 +117,7 @@ piWrite(ourRecipe);
 
 scene = piRender(ourRecipe);
 
+% Show the result
 sceneWindow(scene);
 
 
