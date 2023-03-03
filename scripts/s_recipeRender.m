@@ -1,14 +1,13 @@
 % Test script to see if we can read and render the Ford recipes
 % that we have on Acorn:
 
-% Pick an arbitrary scene/recipe
-sceneID = '1112154540';
+% Pick an arbitrary scene/recipe from those in isetauto/data
+sceneID = '1112194628';
 
 %% Read in the @recipe object
 % We can't read back the piWrite() version of a recipe, so
 % we need to read the @recipe object from a .mat file
-recipeFolder = fullfile(iaFileDataRoot(), 'Ford','SceneRecipes');
-recipeFile = fullfile(recipeFolder,[sceneID '.mat']);
+recipeFile = [sceneID '.mat'];
 recipeWrapper = load(recipeFile);
 
 % The .mat file includes an @recipe object called thisR
@@ -20,8 +19,6 @@ ourRecipe = recipeWrapper.thisR;
 
 % So the next idea is to set the inputfile to the original base recipe
 % file (in the Ford case that is always 1 of 12 road recipes).
-% Here is an example of what is coded in the @recipe:
-% '/Volumes/SSDZhenyi/Ford Project/PBRT_assets/road/road_012/road_012/road_012.pbrt'
 
 [rPath, rName, rExtension] = fileparts(ourRecipe.inputFile);
 
