@@ -35,16 +35,10 @@ ourRecipe.inputFile = recipePBRT;
 ourRecipe.outputFile = fullfile(piDirGet('local'), sceneID, [sceneID '.pbrt']);
 
 % Other 'assets' need to be in a place where they can be found
-% For now add them to our path. In reality they are already on the
-% rendering server, but piWrite/piWriteCopy doesn't know that and complains
-% if it can't find them on the local machine.
-pbrtAssets = iaFileDataRoot('type', 'PBRT_assets');
-addpath(fullfile(pbrtAssets, 'textures'));
-addpath(fullfile(pbrtAssets, 'geometry'));
-addpath(fullfile(pbrtAssets, 'skymap'));
+% We're going to assume they are on our rendering server
 
 % Write our recipe to a file tree, so that pbrt can process it
-piWrite(ourRecipe);
+piWrite(ourRecipe, 'useremoteresources', true);
 
 % Render our recipe into an ISET scene object
 scene = piRender(ourRecipe);
