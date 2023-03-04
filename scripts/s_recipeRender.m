@@ -1,50 +1,60 @@
 % Test script to see if we can read and render the Ford recipes
 % that we have on Acorn:
 
-% Pick an arbitrary scene/recipe from those in isetauto/data
-sceneID = '1112194628';
+% Pick an arbitrary scene/recipe
+sceneID = '1112154540';
 
 %% Read in the @recipe object
 % We can't read back the piWrite() version of a recipe, so
 % we need to read the @recipe object from a .mat file
-recipeFile = [sceneID '.mat'];
+recipeFolder = fullfile(iaFileDataRoot(), 'Ford','SceneRecipes');
+recipeFile = fullfile(recipeFolder,[sceneID '.mat']);
 recipeWrapper = load(recipeFile);
 
 % The .mat file includes an @recipe object called thisR
-ourRecipe = recipeWrapper.thisR;
+initialRecipe = recipeWrapper.thisR;
 
 %% Fix up our recipe in lieu of piRead()
 % Since we aren't/can't use piRead() the normal path fixes for input and
 % output have not been applied, so we need to do that manually...
-
-% So the next idea is to set the inputfile to the original base recipe
-% file (in the Ford case that is always 1 of 12 road recipes).
-
-[rPath, rName, rExtension] = fileparts(ourRecipe.inputFile);
-
-% Experiment with moving the camera above the car
-ourRecipe.lookAt.from(2) = ourRecipe.lookAt.from(2) + 3;
-
+[rPath, rName, rExtension] = fileparts(initialRecipe.inputFile);
 
 % Hack for the road recipe folder structure
 assetFolder = iaFileDataRoot('type','PBRT_assets');
 recipePBRT = fullfile(assetFolder, 'road', rName, rName, [rName rExtension]);
 
 % These fixups are normally done by piRead()
-ourRecipe.inputFile = recipePBRT; 
-ourRecipe.outputFile = fullfile(piDirGet('local'), sceneID, [sceneID '.pbrt']);
+initialRecipe.inputFile = recipePBRT;
+initialRecipe.outputFile = fullfile(piDirGet('local'), sceneID, [sceneID '-initial.pbrt']);
+
+% Move the camera to the front-right of the car
+% initial position is behind windshield
+rightGrillRecipe = piRecipeCopy(initialRecipe);
+rightGrillRecipe = piCameraTranslate(rightGrillRecipe, 'x shift', -.5, ...
+    'y shift', -.5, 'z shift', 2);
+rightGrillRecipe.outputFile = fullfile(piDirGet('local'), sceneID, [sceneID '-rgrill.pbrt']);
 
 % Other 'assets' need to be in a place where they can be found
-% We're going to assume they are on our rendering server
+% For now add them to our path. In reality they are already on the
+% rendering server, but piWrite/piWriteCopy doesn't know that and complains
+% if it can't find them on the local machine.
+pbrtAssets = iaFileDataRoot('type', 'PBRT_assets');
+addpath(fullfile(pbrtAssets, 'textures'));
+addpath(fullfile(pbrtAssets, 'geometry'));
+addpath(fullfile(pbrtAssets, 'skymap'));
 
 % Write our recipe to a file tree, so that pbrt can process it
-piWrite(ourRecipe, 'useremoteresources', true);
+piWrite(initialRecipe);
+piWrite(rightGrillRecipe);
 
-% Render our recipe into an ISET scene object
-scene = piRender(ourRecipe);
-
+initialScene = piRender(initialRecipe);
 % Show the result
-sceneWindow(scene);
+sceneWindow(initialScene);
+
+rightGrillScene = piRender(rightGrillRecipe);
+sceneWindow(rightGrillScene);
+
+
 
 
 
