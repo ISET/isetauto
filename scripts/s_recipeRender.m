@@ -27,25 +27,21 @@ recipePBRT = fullfile(assetFolder, 'road', rName, rName, [rName rExtension]);
 initialRecipe.inputFile = recipePBRT;
 initialRecipe.outputFile = fullfile(piDirGet('local'), sceneID, [sceneID '-initial.pbrt']);
 
+% Scale down the scene resolution to make it faster to render
+% (Auto scenes are 1080p native)
+recipeSet(initialRecipe,'filmresolution', [480 270])
+
 % Move the camera to the front-right of the car
 % initial position is behind windshield
+% x is vertical, y is left, and z is forward
 rightGrillRecipe = piRecipeCopy(initialRecipe);
 rightGrillRecipe = piCameraTranslate(rightGrillRecipe, 'x shift', -.5, ...
     'y shift', -.5, 'z shift', 2);
-rightGrillRecipe.outputFile = fullfile(piDirGet('local'), sceneID, [sceneID '-rgrill.pbrt']);
-
-% Other 'assets' need to be in a place where they can be found
-% For now add them to our path. In reality they are already on the
-% rendering server, but piWrite/piWriteCopy doesn't know that and complains
-% if it can't find them on the local machine.
-pbrtAssets = iaFileDataRoot('type', 'PBRT_assets');
-addpath(fullfile(pbrtAssets, 'textures'));
-addpath(fullfile(pbrtAssets, 'geometry'));
-addpath(fullfile(pbrtAssets, 'skymap'));
+rightGrillRecipe.outputFile = fullfile(piDirGet('local'), [sceneID '-rgrill'], [sceneID '-rgrill.pbrt']);
 
 % Write our recipe to a file tree, so that pbrt can process it
-piWrite(initialRecipe);
-piWrite(rightGrillRecipe);
+piWrite(initialRecipe, 'useRemoteResources', true);
+piWrite(rightGrillRecipe, 'useRemoteResources', true);
 
 initialScene = piRender(initialRecipe);
 % Show the result
