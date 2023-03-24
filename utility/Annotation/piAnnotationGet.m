@@ -30,7 +30,7 @@ bbox2d    = [];
 
 % Select based on object number. Not sure how to use offset.
 % We also need to skip a few lines in the file,
-skipObjects = 4;
+skipObjects = 0;
 if offset==0
     indicator = (scene_mesh == (index + skipObjects));
 else

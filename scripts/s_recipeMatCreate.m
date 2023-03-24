@@ -1,4 +1,5 @@
-assetdirectory = '/Volumes/SSDZhenyi/Ford Project/PBRT_assets';
+% Look for our major asset recipes and turn them into ISET objects
+assetdirectory = iaFileDataRoot('type','PBRT_assets');
 assetTypeList = {'road', 'car', 'pedestrian', 'truck', 'bus','tree','animal','grass','rock', 'streetlight','biker'};
 for aa = 1%1:numel(assetTypeList)
     assetType = assetTypeList{aa};
