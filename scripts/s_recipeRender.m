@@ -7,7 +7,9 @@ sceneID = '1112154540';
 %% Read in the @recipe object
 % We can't read back the piWrite() version of a recipe, so
 % we need to read the @recipe object from a .mat file
-recipeFolder = fullfile(iaFileDataRoot(), 'Ford','SceneRecipes');
+% recipeFolder = fullfile(iaFileDataRoot(), 'Ford','SceneRecipes');
+
+recipeFolder = '/Volumes/acorn.stanford.edu/Vistalab/data/iset/isetauto/Ford/SceneRecipes';
 recipeFile = fullfile(recipeFolder,[sceneID '.mat']);
 recipeWrapper = load(recipeFile);
 
@@ -40,8 +42,8 @@ rightGrillRecipe = piCameraTranslate(rightGrillRecipe, 'x shift', -.5, ...
 rightGrillRecipe.outputFile = fullfile(piDirGet('local'), [sceneID '-rgrill'], [sceneID '-rgrill.pbrt']);
 
 % Write our recipe to a file tree, so that pbrt can process it
-piWrite(initialRecipe, 'useRemoteResources', true);
-piWrite(rightGrillRecipe, 'useRemoteResources', true);
+piWrite(initialRecipe, 'remoteResources', true);
+piWrite(rightGrillRecipe, 'remoteResources', true);
 
 initialScene = piRender(initialRecipe);
 % Show the result
