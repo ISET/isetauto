@@ -7,6 +7,7 @@ function dataRoot = iaFileDataRoot(varargin)
 
 p = inputParser();
 addParameter(p, 'local', false); % Use a local cache for performance
+addParameter(p, 'type', 'filedata');
 
 % convert our args to ieStandard and parse
 varargin = ieParamFormat(varargin);
