@@ -14,31 +14,25 @@ addParameter(p, 'type', 'filedata');
 varargin = ieParamFormat(varargin);
 p.parse(varargin{:});
 
-if ispc
+% For custom locations set this preference:
+if ~isempty(getpref('isetauto','dataDrive',''))        
+    dataRoot = getpref('isetauto', 'filedataroot', '');
+elseif ispc
     % Arbitrary mount points
     if p.Results.local == true
         dataDrive = 'v:';
     else
         dataDrive = 'y:';
     end
+elseif ismac
+    dataDrive = '/volumes/acorn.stanford.edu';
+else
+    dataDrive = '/acorn';
 end
 
 switch (p.Results.type)
     case 'filedata'
-        dataRoot = getpref('isetauto', 'filedataroot', '');
-
-        % These are a bit of a guess, but based on acorn fs
-        if isempty(dataRoot)
-            if ispc
-                dataRoot = fullfile(dataDrive, 'data','iset','isetauto');
-            else
-                dataRoot = fullfile(filesep, 'acorn','data','iset','isetauto');
-            end
-        end
+        dataRoot = fullfile(dataDrive, 'data','iset','isetauto');
     case 'PBRT_assets'
-        if ispc
-            dataRoot = fullfile(dataDrive, 'iset','isetauto', 'PBRT_assets');
-        else
-            dataRoot = fullfile(filesep, 'acorn','data','iset','isetauto', 'PBRT_assets');
-        end
+        dataRoot = fullfile(dataDrive, 'data', 'iset','isetauto', 'PBRT_assets');
 end
