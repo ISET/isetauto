@@ -15,13 +15,13 @@ p.parse(varargin{:});
 
 % For custom locations set this preference:
 if ~isempty(getpref('isetauto','dataDrive',''))        
-    dataRoot = getpref('isetauto', 'filedataroot', '');
+    dataDrive = getpref('isetauto', 'DataDrive', '');
 elseif ispc
     % Arbitrary mount points
     if p.Results.local == true
         dataDrive = 'v:';
     else
-        dataRoot = '/acorn/data/iset/isetauto';
+        dataDrive = 'y:';
     end
 elseif ismac
     dataDrive = '/volumes/acorn.stanford.edu';
