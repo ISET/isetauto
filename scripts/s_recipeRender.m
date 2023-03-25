@@ -23,8 +23,6 @@ else
     recipeFile = fullfile(recipeFolder,recipeFileName);
 end
 
-recipeFolder = '/Volumes/acorn.stanford.edu/Vistalab/data/iset/isetauto/Ford/SceneRecipes';
-recipeFile = fullfile(recipeFolder,[sceneID '.mat']);
 recipeWrapper = load(recipeFile);
 
 % The .mat file includes an @recipe object called thisR
