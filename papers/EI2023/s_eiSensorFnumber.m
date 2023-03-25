@@ -20,12 +20,10 @@ ieInit;
 
 %% Multiple sensor pixel sizes from very small to very large
 
-% Pixel sizes from ridiculously small to currently considered large
+% Pixel sizes from ridiculously small to current large
 % pSize = [1 2.1]*1e-6;
 pSize = [1, 1.4, 2.1, 2.8, 3.5, 4.2]*1e-6;  % Meters
 fov   = [2,  2,   3,   4,   5,   6];
-camera.pSize = [4.2 3.5 2.8 2.1 2.8 2.1 1.4 1.0 2.1 1.4 1.0 1.4 1.0];
-camera.fnum =  [3.1 6.4 9.1 10.9 3.8 6.4 3.3 8.9 2.7 5.4 5.1 1.9 3.3];
 
 % rect = [14 6 23 31;
 %     30 10 34 62;
@@ -160,33 +158,6 @@ for SS=1:numel(pSize)
 end
 legend(lgnd);
 
-
-%% This one without the optics and all the lines gray
-
-chdir(fullfile(iaRootPath,'papers','EI2023'));
-
-ieNewGraphWin;
-lgnd = cell(numel(pSize),1);
-
-load('opticsAnalysis','fnumber','mtf50');
-% xlabel('f/#'); ylabel('MTF 50 (c/mm)'); 
-grid on;
-for SS=1:numel(pSize)
-    thisPsize = pSize(SS);
-    fname = sprintf('sensor-%d',round(thisPsize*1e7));
-    load(fname,'mtfHalf');
-    hold on;
-    lgnd{SS} = sprintf(' %0.1f um',round(thisPsize*1e6,1));
-    plot(fnums,mtfHalf,'LineWidth',2,'Color',[1 1 1]*SS/(numel(pSize)+3));
-end
-set(gca,'ylim',[0 250],'fontsize',28);
-
-% For each camera, assign its MTF50
-hold on
-mtfVals = [ 50 50 50 50 75 75 75 75 100 100 100 150 150];
-for ii = 1:numel(camera.fnum)
-    scatter(camera.fnum(ii), mtfVals(ii),symSize,symColors(ii,:),sym{ii},'filled','LineWidth',lWidth);
-end
 
 
 %% END

@@ -5,10 +5,8 @@ function dataRoot = iaFileDataRoot(varargin)
 %   for performance cloning it and setting your pref to use the cloned
 %   version is certainly possible.
 
-
 p = inputParser();
 addParameter(p, 'local', false); % Use a local cache for performance
-addParameter(p, 'type', 'filedata');
 
 % convert our args to ieStandard and parse
 varargin = ieParamFormat(varargin);
@@ -22,7 +20,7 @@ elseif ispc
     if p.Results.local == true
         dataDrive = 'v:';
     else
-        dataDrive = 'y:';
+        dataRoot = '/acorn/data/iset/isetauto';
     end
 elseif ismac
     dataDrive = '/volumes/acorn.stanford.edu';
