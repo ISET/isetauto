@@ -7,10 +7,22 @@ sceneID = '1112154540';
 %% Read in the @recipe object
 % We can't read back the piWrite() version of a recipe, so
 % we need to read the @recipe object from a .mat file
-% recipeFolder = fullfile(iaFileDataRoot(), 'Ford','SceneRecipes');
 
-recipeFolder = '/Volumes/acorn.stanford.edu/Vistalab/data/iset/isetauto/Ford/SceneRecipes';
-recipeFile = fullfile(recipeFolder,[sceneID '.mat']);
+% NOTE: iaFileDataRoot needs to point to the root of where
+%       you have access to the scenes and assets. It tries
+%       to guess, but you can also:
+%           setpref('isetauto', 'filedataroot', '<location>')
+%
+recipeFolder = fullfile(iaFileDataRoot(), 'Ford','SceneRecipes');
+recipeFileName = [sceneID '.mat'];
+
+% We may have checked this in to the repo
+if which(recipeFileName)
+    recipeFile = recipeFileName;
+else
+    recipeFile = fullfile(recipeFolder,recipeFileName);
+end
+
 recipeWrapper = load(recipeFile);
 
 % The .mat file includes an @recipe object called thisR
@@ -42,8 +54,9 @@ rightGrillRecipe = piCameraTranslate(rightGrillRecipe, 'x shift', -.5, ...
 rightGrillRecipe.outputFile = fullfile(piDirGet('local'), [sceneID '-rgrill'], [sceneID '-rgrill.pbrt']);
 
 % Write our recipe to a file tree, so that pbrt can process it
-piWrite(initialRecipe, 'remoteResources', true);
-piWrite(rightGrillRecipe, 'remoteResources', true);
+% setpref('docker','remoteResources', false);
+piWrite(initialRecipe);
+piWrite(rightGrillRecipe);
 
 initialScene = piRender(initialRecipe);
 % Show the result

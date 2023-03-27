@@ -7,23 +7,31 @@ function dataRoot = iaFileDataRoot(varargin)
 
 p = inputParser();
 addParameter(p, 'local', false); % Use a local cache for performance
+addParameter(p, 'type', 'filedata');
 
 % convert our args to ieStandard and parse
 varargin = ieParamFormat(varargin);
 p.parse(varargin{:});
 
-dataRoot = getpref('isetauto', 'filedataroot', '');
-
-% These are a bit of a guess, but based on acorn fs
-if isempty(dataRoot)
-    if ispc
-        if p.Results.local == true
-            dataRoot = 'v:\data\iset\isetauto';
-        else
-            dataRoot = 'y:\data\iset\isetauto';
-        end
+% For custom locations set this preference:
+if ~isempty(getpref('isetauto','dataDrive',''))        
+    dataDrive = getpref('isetauto', 'DataDrive', '');
+elseif ispc
+    % Arbitrary mount points
+    if p.Results.local == true
+        dataDrive = 'v:';
     else
-        dataRoot = '/acorn/data/iset/isetauto';
+        dataDrive = 'y:';
     end
+elseif ismac
+    dataDrive = '/volumes/acorn.stanford.edu';
+else
+    dataDrive = '/acorn';
 end
 
+switch (p.Results.type)
+    case 'filedata'
+        dataRoot = fullfile(dataDrive, 'data','iset','isetauto');
+    case 'PBRT_assets'
+        dataRoot = fullfile(dataDrive, 'data', 'iset','isetauto', 'PBRT_assets');
+end
