@@ -62,6 +62,17 @@ classdef roadgen < matlab.mixin.Copyable
 
             % Road runner data information
             rrMapPath = p.Results.roaddirectory;
+            if ~exist(rrMapPath,'folder')
+                % If fullpath to the asset is not given, 
+                % we will find it in our database
+                roadInfo = sceneDB.docFind('assetsPBRT', ...
+                    sprintf("{""name"": ""%s""}", road_name));
+                if ~isempty(roadInfo)
+                    rrMapPath = roadInfo.folder;
+                else
+                    error('Road Directory can not be located.');
+                end
+            end
             [~,roadName] = fileparts(rrMapPath);
             obj.sceneName = roadName;
 
