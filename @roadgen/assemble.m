@@ -172,14 +172,25 @@ function obj = addOBJ(obj, OBJClass, thisName)
 id = piAssetFind(obj.recipe.assets, 'name',[thisName,'_m_B']); % check whether it's there already
 
 if isempty(id)
-    pbrtFile = fullfile(obj.assetdirectory, OBJClass, thisName, [thisName,'.pbrt']);
-    recipeFile = fullfile(obj.assetdirectory, OBJClass, thisName, [thisName,'.mat']);
+    if isa(obj.assetdirectory,'idb')
+        assetDB = obj.assetdirectory;
+        thisAsset = assetDB.docFind('assetsPBRT', ...
+            sprintf("{""name"": ""%s""}", thisName));
+
+        pbrtFile = fullfile(thisAsset.folder, [thisName,'.pbrt']);
+        recipeFile = fullfile(thisAsset.folder, [thisName,'.mat']);        
+    else
+        pbrtFile = fullfile(obj.assetdirectory, OBJClass, thisName, [thisName,'.pbrt']);
+        recipeFile = fullfile(obj.assetdirectory, OBJClass, thisName, [thisName,'.mat']);
+    end
+
     if exist(recipeFile,'file')
         thisAssetRecipe = load(recipeFile);
         thisAssetRecipe = thisAssetRecipe.recipe;
     else
         thisAssetRecipe = piRead(pbrtFile);
     end
+    
     obj.recipe = piRecipeMerge(obj.recipe, thisAssetRecipe, 'objectInstance',true);
 end
 
