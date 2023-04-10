@@ -5,8 +5,12 @@
 % Examine some of the night time scenes acquired with bracketed exposure on
 % the Google Pixel 4a
 %
+% Currently assumes we change directory to the location of the images
 %{
-chdir('/Volumes/Wandell/nightscenes/20221106')
+% location on orange and mux
+chdir('/acorn/data/iset/source_images/pixel4a/night_images/20221106');
+% Legacy
+% chdir('/Volumes/Wandell/nightscenes/20221106')
 %}
 %{
 ddir = '/Volumes/GoogleDrive/My Drive/Data/Natural spectra dynamic range/night camera images (google pixel 4a)/20221106';
