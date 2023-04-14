@@ -14,24 +14,26 @@ addParameter(p, 'type', 'filedata');
 varargin = ieParamFormat(varargin);
 p.parse(varargin{:});
 
-switch (p.Results.type)
-    case 'filedata'
-        dataRoot = getpref('isetauto', 'filedataroot', '');
 
-        % These are a bit of a guess, but based on acorn fs
-        if isempty(dataRoot)
-            if ispc
-                % Arbitrary mount points
-                if p.Results.local == true
-                    dataDrive = 'v:';
-                else
-                    dataDrive = 'y:';
-                end
-                dataRoot = fullfile(dataDrive, 'data','iset','isetauto');
-            else
-                dataRoot = fullfile(filesep, 'acorn','data','iset','isetauto');
-            end
+dataRoot = getpref('isetauto', 'filedataroot', '');
+
+% These are a bit of a guess, but based on acorn fs
+if isempty(dataRoot)
+    if ispc
+        % Arbitrary mount points
+        if p.Results.local == true
+            dataDrive = 'v:';
+        else
+            dataDrive = 'y:';
         end
-    case 'PBRT_assets'
-        dataRoot = fullfile(filesep, 'acorn','data','iset','isetauto', 'PBRT_assets');
+        dataRoot = fullfile(dataDrive, 'data','iset','isetauto');
+    else
+        dataRoot = fullfile(filesep, 'acorn','data','iset','isetauto');
+    end
+    switch (p.Results.type)
+        case 'PBRT_assets'
+            dataRoot = fullfile(dataRoot, 'PBRT_assets');
+        case 'filedata'
+            dataRoot = dataRoot;
+    end
 end
