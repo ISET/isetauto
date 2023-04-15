@@ -65,10 +65,17 @@ recipeSet(initialRecipe,'filmresolution', [480 270])
 
 % Move the camera to the front-right of the car
 % initial position is behind windshield
+
+% I'm pretty sure this was right when I first rendered the scene:
 % x is vertical, y is left, and z is forward
+
+% Now it seems like
+% x is vertical, y is right, and z is backward
+
+% recipe copy might not be working
 rightGrillRecipe = piRecipeCopy(initialRecipe);
 rightGrillRecipe = piCameraTranslate(rightGrillRecipe, 'x shift', -.5, ...
-    'y shift', -.5, 'z shift', 2);
+    'y shift', 1, 'z shift', -1.5);
 
 % Give it its own output pbrt filename
 rightGrillRecipe.outputFile = fullfile(piDirGet('local'), [sceneID '-rgrill'], [sceneID '-rgrill.pbrt']);
