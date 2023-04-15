@@ -12,6 +12,12 @@
 % NOTE: These are HDR scenes, so they will initially appear black
 %       in the scene window until to change the render to HDR
 
+% NOTE: If you have access to a server that has ISET resources
+%       pre-loaded (like the ones in our lab at Stanford)
+%       then you can run this script as is, using 'remoteResources', true
+%
+%       Otherwise it depends on the assets needed to render the scene
+
 % D.Cardinal, Stanford University, 2023
 
 % Pick an arbitrary scene/recipe -- default is the one that we've added
