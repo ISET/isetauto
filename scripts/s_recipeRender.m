@@ -70,9 +70,12 @@ initialRecipe.inputFile = recipePBRT;
 % So we'll call it <sceneID>-initial
 initialRecipe.outputFile = fullfile(piDirGet('local'), sceneID, [sceneID '-initial.pbrt']);
 
-% Scale down the scene resolution to make it faster to render
-% (Auto scenes are 1080p native)
-recipeSet(initialRecipe,'filmresolution', [480 270])
+% Scale down the scene resolution & rays per pixel to make it faster to render
+% For testing purposes. Turn these off for full fidelity!
+% (Most of our Auto scenes are 1080p native)
+recipeSet(initialRecipe,'filmresolution', [480 270]);
+recipeSet(initialRecipe,'rays per pixel', 64);
+recipeSet(initialRecipe, 'nbounces', 3);
 
 % first make a copy before we make changes 
 rightGrillRecipe = piRecipeCopy(initialRecipe);
