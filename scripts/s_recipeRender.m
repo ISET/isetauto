@@ -1,5 +1,14 @@
-% Test script to see if we can read and render the Ford recipes
-% that we have on Acorn:
+% Sample script for rendering one of our Auto scenes.
+%  It loads the @recipe for the scene, writes it out,
+%  and renders it remotely
+%
+%  It then demonstrates how to move the camera position to the right
+%  grille of the vehicle and re-render the scene.
+%
+% NOTE: These are HDR scenes, so they will initially appear black
+%       in the scene window until to change the render to HDR
+
+% D.Cardinal, Stanford University, 2023
 
 % Pick an arbitrary scene/recipe -- default is the one that we've added
 % to data/scenes in the ISETAuto repo
