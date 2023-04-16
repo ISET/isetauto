@@ -7,10 +7,11 @@
 %
 
 % NOTE: Our Auto scenes consume around 12GB of GPU memory when
-%       rendered on a GPU
+%       rendered on a GPU, so make sure you have one with sufficent VRAM
 
 % NOTE: These are HDR scenes, so they will initially appear black
-%       in the scene window until to change the render to HDR
+%       in the scene window until you change the render to HDR
+%       (it'd be good to use a param to start with HDR)
 
 % NOTE: If you have access to a server that has ISET resources
 %       pre-loaded (like the ones in our lab at Stanford)
