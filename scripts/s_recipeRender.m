@@ -84,11 +84,19 @@ recipeSet(initialRecipe,'filmresolution', [480 270]);
 recipeSet(initialRecipe,'rays per pixel', 64);
 recipeSet(initialRecipe, 'nbounces', 3);
 
-% first make a copy before we make changes 
+%% NOTE on higher-performance alternative
+%  If we are okay over-writing the output .pbrt we can use the
+%  mainfileonly flag to piWrite() to save the time spent regenerating
+%  the geometry and texture files -- since we are only moving the camera
+%  We'd then need to render each version in turn, as they will write over
+%  each other
+
+%% Currently we make a full copy of the recipe for our modified camera position
+% Make a copy before we make changes 
 rightGrillRecipe = piRecipeCopy(initialRecipe);
 
 % Move the camera to the front-right of the car
-% initial position is behind windshield
+% (initial position is behind windshield)
 % x is vertical, y is right, and z is backward
 rightGrillRecipe = piCameraTranslate(rightGrillRecipe, 'x shift', -.5, ...
     'y shift', 1, 'z shift', -1.5);
