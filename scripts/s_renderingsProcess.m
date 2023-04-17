@@ -5,17 +5,13 @@
 % Runtime is dominated by the Intel AI Denoiser, plus exrread & save
 % We've added the option to use the Nvidia Denoiser, for those with a GPU
 
-% Set initial locations -- Hard-coded for now!
+datasetRootPath = iaFileDataRoot;
 if ispc
-    % a WebDAV mount
-    datasetRootPath = 'V:\data\iset\isetauto';
     % pick a folder that's downloaded
     renderFolders = [6];
     maxScenes = -2; % for testing
 
 else
-    % assume Mux or similar
-    datasetRootPath = '/acorn/data/iset/isetauto';
     % Zhenyi's current test set
     renderFolders = [9];
     maxScenes = -1;
