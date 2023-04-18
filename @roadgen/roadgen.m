@@ -48,7 +48,7 @@ classdef roadgen < matlab.mixin.Copyable
 
             p = inputParser;
             p.addParameter('roaddirectory','');
-            p.addParameter('assetdirectory','/Volumes/SSDZhenyi/Ford Project/PBRT_assets',@ischar)
+            p.addParameter('assetdirectory','/Volumes/SSDZhenyi/Ford Project/PBRT_assets')
             %             p.addParameter('lane','');
             %             p.addParameter('pos','');
             %             p.addParameter('pointnum',0);
@@ -59,14 +59,14 @@ classdef roadgen < matlab.mixin.Copyable
 
             % Assets for this project.  Will generalize later.
             obj.assetdirectory = p.Results.assetdirectory;
-
+           
             % Road runner data information
             rrMapPath = p.Results.roaddirectory;
-            if ~exist(rrMapPath,'folder')
+            if ~exist(rrMapPath,'dir')
                 % If fullpath to the asset is not given, 
                 % we will find it in our database
-                roadInfo = sceneDB.docFind('assetsPBRT', ...
-                    sprintf("{""name"": ""%s""}", road_name));
+                roadInfo = obj.assetdirectory.docFind('assetsPBRT', ...
+                    sprintf("{""name"": ""%s""}", rrMapPath));
                 if ~isempty(roadInfo)
                     rrMapPath = roadInfo.folder;
                 else
