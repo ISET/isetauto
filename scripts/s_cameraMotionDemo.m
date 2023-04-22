@@ -82,9 +82,16 @@ for ii=1:numel(scenes)
     % Scale down the scene resolution & rays per pixel to make it faster to render
     % For testing purposes. Turn these off for full fidelity!
     % (Most of our Auto scenes are 1080p native)
+    %{
     recipeSet(initialRecipe,'filmresolution', [480 270]);
     recipeSet(initialRecipe,'rays per pixel', 64);
     recipeSet(initialRecipe, 'nbounces', 3);
+    %}
+    % High-fidelity
+    recipeSet(initialRecipe,'filmresolution', [1920 1080]);
+    recipeSet(initialRecipe,'rays per pixel', 1024);
+    recipeSet(initialRecipe, 'nbounces', 6);
+    
 
     %% NOTE on higher-performance alternative
     %  If we are okay over-writing the output .pbrt we can use the
@@ -110,7 +117,8 @@ for ii=1:numel(scenes)
         'y shift', 1 * reverse, 'z shift', -1.5);
 
     % Give our modified recipe its own output pbrt filename
-    rightGrillRecipe.outputFile = fullfile(piDirGet('local'), [sceneID '-rgrill'], [sceneID '-rgrill.pbrt']);
+    rightGrillRecipe.outputFile = fullfile(piDirGet('local'), ...
+        [sceneID '-rgrill'], [sceneID '-rgrill.pbrt']);
 
     % Write our recipes to file trees in 'local', so that pbrt can process it
     piWrite(initialRecipe);
@@ -126,13 +134,16 @@ for ii=1:numel(scenes)
         mkdir(imageFolder);
     end
 
-    imwrite(initialImage,fullfile(imageFolder, [scenes{ii}{1} '-initial.jpg']));
-    % Show the result
-    %sceneWindow(initialScene);
+    imType = '.png'; % Use JPEG for smaller output
+
+    imwrite(initialImage,fullfile(imageFolder, [scenes{ii}{1} '-initial' imType]));
 
     % Now render and show our scene with the camera on the right side of the grill
     rightGrillScene = piRender(rightGrillRecipe, 'remoteResources', true);
     rightGrilllImage = sceneShowImage(rightGrillScene,-3);
-    imwrite(rightGrilllImage,fullfile(imageFolder,[scenes{ii}{1} '-rgrill.jpg']));
+    imwrite(rightGrilllImage,fullfile(imageFolder,[scenes{ii}{1} '-rgrill' imType]));
+
+    % Show the results if desired
+    %sceneWindow(initialScene);
     %sceneWindow(rightGrillScene);
 end
