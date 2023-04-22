@@ -24,12 +24,13 @@
 
 % Choose some representative scenes demonstrating the impact of camera
 % position depending on which people or vehicles are closest
+% Some scenes also require reversing x & y
 scenes = {
-    '1112163159', ... close motorcycle
-    '1112160522',  ... close person
-    '1113025845',  ... close deer
-    '1113014552',  ... close car
-    '1113112125'   ... close truck
+    {'1112163159', true}, ... close motorcycle
+    {'1112160522', true}, ... close person
+    {'1113025845', true}, ... close deer
+    {'1113014552', false}, ... close car
+    {'1113112125', false}   ... close truck
     };
 
 %% Read in the @recipe object
@@ -48,7 +49,7 @@ scenes = {
 for ii=1:numel(scenes)
 
     % Our @recipe objects are stored in .mat files by sceneID
-    recipeFileName = [scenes{ii} '.mat'];
+    recipeFileName = [scenes{ii}{1} '.mat'];
 
     % if not, look for it where our ISETAuto data is
     % This could also be an isetdb() lookup 
@@ -99,8 +100,14 @@ for ii=1:numel(scenes)
     % Move the camera to the front-right of the car
     % (initial position is behind windshield)
     % x is vertical, y is right, and z is backward
-    rightGrillRecipe = piCameraTranslate(rightGrillRecipe, 'x shift', -.5, ...
-        'y shift', 1, 'z shift', -1.5);
+    % unless reversed, then x & y are opposite
+    if scenes{ii}{2}
+        reverse = -1;
+    else
+        reverse = 1;
+    end
+    rightGrillRecipe = piCameraTranslate(rightGrillRecipe, 'x shift', -.5 * reverse, ...
+        'y shift', 1 * reverse, 'z shift', -1.5);
 
     % Give our modified recipe its own output pbrt filename
     rightGrillRecipe.outputFile = fullfile(piDirGet('local'), [sceneID '-rgrill'], [sceneID '-rgrill.pbrt']);
