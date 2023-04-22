@@ -1,7 +1,8 @@
-% Demonstrate moving the camera position in the vehicle
-
-%  Demonstrate how to move the camera position to the right
-%  grille of the vehicle and re-render the scene.
+%  Demonstrate rendering scenes with the camera in multiple positions.
+%
+%  By default, render scene(s) with the camera behind the mirror, and
+%  then move the camera position to the left and right
+%  grille of the vehicle and re-render the scene(s).
 %
 
 % NOTE: Our Auto scenes consume around 12GB of GPU memory when
@@ -19,20 +20,25 @@
 
 % D.Cardinal, Stanford University, 2023
 
-% Pick an arbitrary scene/recipe -- default is the one that we've added
-% to data/scenes in the ISETAuto repo
+% Pick @recipe objects for scenes
+% 
+% To run as a demo using the scene that is checked in to the
+% isetauto repo, use this:
+% scenes = {'1112154540', 'false'};
 
-% Choose some representative scenes demonstrating the impact of camera
+% Otherwise we choose some representative scenes demonstrating the impact of camera
 % position depending on which people or vehicles are closest
 % Some scenes also require reversing x & y
 scenes = {
     {'1112163159', true}, ... close motorcycle
+    };
+%{
     {'1112160522', true}, ... close person
     {'1113025845', true}, ... close deer
     {'1113014552', false}, ... close car
     {'1113112125', false}   ... close truck
     };
-
+%}
 %% Read in the @recipe object
 % We can't read back the piWrite()->.pbrt version of our Auto recipes, so
 % we need to read the initial @recipe object from the the .mat file
@@ -43,9 +49,6 @@ scenes = {
 %           setpref('isetauto', 'filedataroot', '<location>')
 %       or scenes need to be in your Matlab path.
 
-% We have checked one sample scene into the ISETAuto repo, so you can
-% run this script as a tutorial using it without any other setup
-
 for ii=1:numel(scenes)
 
     % Our @recipe objects are stored in .mat files by sceneID
@@ -53,8 +56,12 @@ for ii=1:numel(scenes)
 
     % if not, look for it where our ISETAuto data is
     % This could also be an isetdb() lookup 
-    recipeFolder = fullfile(iaFileDataRoot(), 'Ford','SceneRecipes');
-    recipeFile = fullfile(recipeFolder,recipeFileName);
+    if which(recipeFileName)
+        recipeFile = which(recipeFileName);
+    else
+        recipeFolder = fullfile(iaFileDataRoot(), 'Ford','SceneRecipes');
+        recipeFile = fullfile(recipeFolder,recipeFileName);
+    end
 
     % The .mat file contains a thisR @recipe inside
     recipeWrapper = load(recipeFile);
@@ -102,7 +109,8 @@ for ii=1:numel(scenes)
 
     %% Currently we make a full copy of the recipe for our modified camera position
     % Make a copy before we make changes 
-    rightGrillRecipe = piRecipeCopy(initialRecipe);
+    rightGrilleRecipe = piRecipeCopy(initialRecipe);
+    leftGrilleRecipe = piRecipeCopy(initialRecipe);
 
     % Move the camera to the front-right of the car
     % (initial position is behind windshield)
@@ -113,22 +121,27 @@ for ii=1:numel(scenes)
     else
         reverse = 1;
     end
-    rightGrillRecipe = piCameraTranslate(rightGrillRecipe, 'x shift', -.5 * reverse, ...
-        'y shift', 1 * reverse, 'z shift', -1.5);
+    grillShift = [-.5 1 -1.5];
+    rightGrilleRecipe = piCameraTranslate(rightGrilleRecipe, ...
+        'x shift', grillShift(1) * reverse, ...
+        'y shift', grillShift(2) * reverse, ...
+        'z shift', grillShift(3));
+    leftGrilleRecipe = piCameraTranslate(leftGrilleRecipe, ...
+        'x shift', grillShift(1) * reverse, ...
+        'y shift', grillShift(2) * -1 * reverse, ... % go left
+        'z shift', grillShift(3));
 
     % Give our modified recipe its own output pbrt filename
-    rightGrillRecipe.outputFile = fullfile(piDirGet('local'), ...
+    rightGrilleRecipe.outputFile = fullfile(piDirGet('local'), ...
         [sceneID '-rgrill'], [sceneID '-rgrill.pbrt']);
+    leftGrilleRecipe.outputFile = fullfile(piDirGet('local'), ...
+        [sceneID '-rgrill'], [sceneID '-lgrill.pbrt']);
 
-    % Write our recipes to file trees in 'local', so that pbrt can process it
-    piWrite(initialRecipe);
-    piWrite(rightGrillRecipe);
+    initialImage = createImage(initialRecipe);
+    rightGrilleImage = createImage(rightGrilleRecipe);
+    leftGrilleImage = createImage(leftGrilleRecipe);
 
-    % Render our initial scene using the resources already on our server
-    initialScene = piRender(initialRecipe, 'remoteResources',true);
-    initialImage = sceneShowImage(initialScene,-3);
-
-    % set output folder
+    % set output folder for our rendered images
     imageFolder = fullfile(iaRootPath, 'local', 'sceneAuto_demo');
     if ~isfolder(imageFolder)
         mkdir(imageFolder);
@@ -136,14 +149,29 @@ for ii=1:numel(scenes)
 
     imType = '.png'; % Use JPEG for smaller output
 
+    % Finally, write out our rendered images in the desired format
     imwrite(initialImage,fullfile(imageFolder, [scenes{ii}{1} '-initial' imType]));
+    imwrite(rightGrilleImage,fullfile(imageFolder,[scenes{ii}{1} '-rgrill' imType]));
+    imwrite(leftGrilleImage,fullfile(imageFolder,[scenes{ii}{1} '-lgrill' imType]));
 
-    % Now render and show our scene with the camera on the right side of the grill
-    rightGrillScene = piRender(rightGrillRecipe, 'remoteResources', true);
-    rightGrilllImage = sceneShowImage(rightGrillScene,-3);
-    imwrite(rightGrilllImage,fullfile(imageFolder,[scenes{ii}{1} '-rgrill' imType]));
+end
 
-    % Show the results if desired
-    %sceneWindow(initialScene);
-    %sceneWindow(rightGrillScene);
+% Render our @recipe object to a displayable RGB
+function ourImage = createImage(recipeObject)
+    piWrite(recipeObject);
+    ourScene = piRender(recipeObject, 'remoteResources',true);
+    ourOI = oiCreate('default');
+    ourOI = oiCompute(ourScene,ourOI);
+    ourImage = oiShowImage(ourOI,-5);
+
+    %{ 
+      %  Zhenyi scene creation code
+        scene = piRenderZhenyi(thisR);
+    % sceneWindow(scene);
+    oi = piOICreate(scene.data.photons,'meanilluminance',5);
+    % millum = oiGet(oi, 'meanilluminance');
+    ip = piRadiance2RGB(oi,'etime',1/30,'sensor', 'ar0132atSensorRGB', 'analoggain', 1);
+    img = ipGet(ip,'srgb');
+    figure;imshow(img);
+    %}
 end
