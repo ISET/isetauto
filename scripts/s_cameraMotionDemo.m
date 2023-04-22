@@ -118,7 +118,7 @@ for ii=1:numel(scenes)
 
     % Render our initial scene using the resources already on our server
     initialScene = piRender(initialRecipe, 'remoteResources',true);
-    initialImage = sceneShowImage(initialScene,0);
+    initialImage = sceneShowImage(initialScene,-3);
 
     % set output folder
     imageFolder = fullfile(iaRootPath, 'local', 'sceneAuto_demo');
@@ -132,7 +132,7 @@ for ii=1:numel(scenes)
 
     % Now render and show our scene with the camera on the right side of the grill
     rightGrillScene = piRender(rightGrillRecipe, 'remoteResources', true);
-    rightGrilllImage = sceneShowImage(rightGrillScene,0);
+    rightGrilllImage = sceneShowImage(rightGrillScene,-3);
     imwrite(rightGrilllImage,fullfile(imageFolder,[scenes{ii}{1} '-rgrill.jpg']));
     %sceneWindow(rightGrillScene);
 end
