@@ -31,14 +31,12 @@
 % Some scenes also require reversing x & y
 scenes = {
     {'1112163159', true}, ... close motorcycle
-    };
-%{
     {'1112160522', true}, ... close person
     {'1113025845', true}, ... close deer
     {'1113014552', false}, ... close car
     {'1113112125', false}   ... close truck
     };
-%}
+
 %% Read in the @recipe object
 % We can't read back the piWrite()->.pbrt version of our Auto recipes, so
 % we need to read the initial @recipe object from the the .mat file
@@ -52,8 +50,8 @@ scenes = {
 for ii=1:numel(scenes)
 
     % Our @recipe objects are stored in .mat files by sceneID
-    recipeFileName = [scenes{ii}{1} '.mat'];
-
+    sceneID = scenes{ii}{1};
+    recipeFileName = [sceneID '.mat'];
     % if not, look for it where our ISETAuto data is
     % This could also be an isetdb() lookup 
     if which(recipeFileName)
