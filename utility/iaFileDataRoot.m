@@ -24,7 +24,9 @@ if isempty(dataRoot)
         if p.Results.local == true
             dataDrive = 'v:';
         else
-            dataDrive = 'y:';
+            % so far is D on desktop G on laptop
+            % don't know if there is a UNC path
+            dataDrive = 'D:\My Drive\Vistalab';
         end
         dataRoot = fullfile(dataDrive, 'data','iset','isetauto');
     else
