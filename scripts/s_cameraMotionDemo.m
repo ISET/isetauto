@@ -94,10 +94,10 @@ for ii=1:numel(scenes)
     recipeSet(initialRecipe,'rays per pixel', 64);
     recipeSet(initialRecipe, 'nbounces', 3);
     %}
-    % High-fidelity
-    recipeSet(initialRecipe,'filmresolution', [1920 1080]);
-    recipeSet(initialRecipe,'rays per pixel', 1024);
-    recipeSet(initialRecipe, 'nbounces', 6);
+    % High-fidelity (1080p native, 720p for testing)
+    recipeSet(initialRecipe,'filmresolution', [1280 720]);
+    recipeSet(initialRecipe,'rays per pixel', 512);
+    recipeSet(initialRecipe, 'nbounces', 5);
     
 
     %% NOTE on higher-performance alternative
@@ -135,11 +135,8 @@ for ii=1:numel(scenes)
     rightGrilleRecipe.outputFile = fullfile(piDirGet('local'), ...
         [sceneID '-rgrill'], [sceneID '-rgrill.pbrt']);
     leftGrilleRecipe.outputFile = fullfile(piDirGet('local'), ...
-        [sceneID '-rgrill'], [sceneID '-lgrill.pbrt']);
+        [sceneID '-lgrill'], [sceneID '-lgrill.pbrt']);
 
-    initialImage = createImage(initialRecipe);
-    rightGrilleImage = createImage(rightGrilleRecipe);
-    leftGrilleImage = createImage(leftGrilleRecipe);
 
     % set output folder for our rendered images
     imageFolder = fullfile(iaRootPath, 'local', 'sceneAuto_demo');
@@ -147,9 +144,13 @@ for ii=1:numel(scenes)
         mkdir(imageFolder);
     end
 
-    imType = '.png'; % Use JPEG for smaller output
+
+    initialImage = createImage(initialRecipe, fullfile(imageFolder, [scenes{ii}{1} '-initial' imType]));
+    rightGrilleImage = createImage(rightGrilleRecipe, fullfile(imageFolder,[scenes{ii}{1} '-rgrill' imType]));
+    leftGrilleImage = createImage(leftGrilleRecipe, fullfile([scenes{ii}{1} '-lgrill' imType]));
 
     % Finally, write out our rendered images in the desired format
+    imType = '.jpg'; % Use JPEG for smaller output
     imwrite(initialImage,fullfile(imageFolder, [scenes{ii}{1} '-initial' imType]));
     imwrite(rightGrilleImage,fullfile(imageFolder,[scenes{ii}{1} '-rgrill' imType]));
     imwrite(leftGrilleImage,fullfile(imageFolder,[scenes{ii}{1} '-lgrill' imType]));
@@ -157,21 +158,25 @@ for ii=1:numel(scenes)
 end
 
 % Render our @recipe object to a displayable RGB
-function ourImage = createImage(recipeObject)
+function ourImage = createImage(recipeObject, savedImageName)
+
+    % Use one of our automotive sensors
+    useSensor = 'ar0132atSensorRGB';
+
     piWrite(recipeObject);
     ourScene = piRender(recipeObject, 'remoteResources',true);
-    ourOI = oiCreate('default');
-    ourOI = oiCompute(ourScene,ourOI);
-    ourImage = oiShowImage(ourOI,-5);
+    ourScene = piAIdenoise(ourScene);
 
-    %{ 
-      %  Zhenyi scene creation code
-        scene = piRenderZhenyi(thisR);
-    % sceneWindow(scene);
-    oi = piOICreate(scene.data.photons,'meanilluminance',5);
-    % millum = oiGet(oi, 'meanilluminance');
-    ip = piRadiance2RGB(oi,'etime',1/30,'sensor', 'ar0132atSensorRGB', 'analoggain', 1);
-    img = ipGet(ip,'srgb');
-    figure;imshow(img);
-    %}
+    ourOI = piOICreate(ourScene.data.photons,'meanilluminance',5);
+
+    % meanIllumination = oiGet(oi, 'meanilluminance');
+    % fix shutter to 1/30s
+    ip = piRadiance2RGB(ourOI,'etime',1/30,'sensor', useSensor, 'analoggain', 1);
+    ourImage = ipGet(ip,'srgb');
+
+    % alternative pipeline
+    %ourImage = oiShowImage(ourOI,-5);
+    %ourSensor = sensorCompute(useSensor, ourOI);
+    %ourImage = sensorSaveImage(ourSensor, savedImageName);
+
 end
