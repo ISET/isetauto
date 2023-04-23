@@ -95,8 +95,8 @@ for ii=1:numel(scenes)
     recipeSet(initialRecipe, 'nbounces', 3);
     %}
     % High-fidelity (1080p native, 720p for testing)
-    recipeSet(initialRecipe,'filmresolution', [1280 720]);
-    recipeSet(initialRecipe,'rays per pixel', 512);
+    recipeSet(initialRecipe,'filmresolution', [1920 1080]);
+    recipeSet(initialRecipe,'rays per pixel', 1024);
     recipeSet(initialRecipe, 'nbounces', 5);
     
 
@@ -145,12 +145,13 @@ for ii=1:numel(scenes)
     end
 
 
+    imType = '.png'; % Use JPEG for smaller output
+
     initialImage = createImage(initialRecipe, fullfile(imageFolder, [scenes{ii}{1} '-initial' imType]));
     rightGrilleImage = createImage(rightGrilleRecipe, fullfile(imageFolder,[scenes{ii}{1} '-rgrill' imType]));
     leftGrilleImage = createImage(leftGrilleRecipe, fullfile([scenes{ii}{1} '-lgrill' imType]));
 
     % Finally, write out our rendered images in the desired format
-    imType = '.jpg'; % Use JPEG for smaller output
     imwrite(initialImage,fullfile(imageFolder, [scenes{ii}{1} '-initial' imType]));
     imwrite(rightGrilleImage,fullfile(imageFolder,[scenes{ii}{1} '-rgrill' imType]));
     imwrite(leftGrilleImage,fullfile(imageFolder,[scenes{ii}{1} '-lgrill' imType]));
@@ -167,7 +168,8 @@ function ourImage = createImage(recipeObject, savedImageName)
     ourScene = piRender(recipeObject, 'remoteResources',true);
     ourScene = piAIdenoise(ourScene);
 
-    ourOI = piOICreate(ourScene.data.photons,'meanilluminance',5);
+    setMeanIlluminace = 50; % was 5
+    ourOI = piOICreate(ourScene.data.photons,'meanilluminance',setMeanIlluminace);
 
     % meanIllumination = oiGet(oi, 'meanilluminance');
     % fix shutter to 1/30s
