@@ -57,8 +57,13 @@ for ii=1:numel(scenes)
     if which(recipeFileName)
         recipeFile = which(recipeFileName);
     else
-        recipeFolder = fullfile(iaFileDataRoot(), 'Ford','SceneRecipes');
-        recipeFile = fullfile(recipeFolder,recipeFileName);
+        if ispc % use Google shared drive if needed
+            recipeFolder = 'D:\Shared drives\ISETData\ISET Scenes -- PBRT Files';
+        else
+            recipeFolder = fullfile(iaFileDataRoot(), 'Ford','SceneRecipes');
+        end
+        recipeFile = sprintf('%s',fullfile(recipeFolder,recipeFileName));
+
     end
 
     % The .mat file contains a thisR @recipe inside
@@ -145,33 +150,50 @@ for ii=1:numel(scenes)
 
     imType = '.png'; % Use JPEG for smaller output
 
-    initialImage = createImage(initialRecipe, fullfile(imageFolder, [scenes{ii}{1} '-initial' imType]));
-    rightGrilleImage = createImage(rightGrilleRecipe, fullfile(imageFolder,[scenes{ii}{1} '-rgrill' imType]));
-    leftGrilleImage = createImage(leftGrilleRecipe, fullfile([scenes{ii}{1} '-lgrill' imType]));
+    hdr = false;
+    if hdr
+        for ii=[.5 1 2] %#ok<FXSET>
+            initialImage = createImage(initialRecipe, ii);
+            rightGrilleImage = createImage(rightGrilleRecipe, ii);
+            leftGrilleImage = createImage(leftGrilleRecipe, ii);
 
-    % Finally, write out our rendered images in the desired format
-    imwrite(initialImage,fullfile(imageFolder, [scenes{ii}{1} '-initial' imType]));
-    imwrite(rightGrilleImage,fullfile(imageFolder,[scenes{ii}{1} '-rgrill' imType]));
-    imwrite(leftGrilleImage,fullfile(imageFolder,[scenes{ii}{1} '-lgrill' imType]));
+            exValue = sprintf('-%s', num2str(ii));
+            imwrite(initialImage,fullfile(imageFolder, [scenes{ii}{1} '-initial' exValue imType]));
+            imwrite(rightGrilleImage,fullfile(imageFolder,[scenes{ii}{1} '-rgrill' exValue imType]));
+            imwrite(leftGrilleImage,fullfile(imageFolder,[scenes{ii}{1} '-lgrill' exValue imType]));
 
+        end
+    else
+        initialImage = createImage(initialRecipe, 1);
+        rightGrilleImage = createImage(rightGrilleRecipe, 1);
+        leftGrilleImage = createImage(leftGrilleRecipe, 1);
+
+        imwrite(initialImage,fullfile(imageFolder, [scenes{ii}{1} '-initial' imType]));
+        imwrite(rightGrilleImage,fullfile(imageFolder,[scenes{ii}{1} '-rgrill' imType]));
+        imwrite(leftGrilleImage,fullfile(imageFolder,[scenes{ii}{1} '-lgrill' imType]));
+    end
+
+    
 end
 
 % Render our @recipe object to a displayable RGB
-function ourImage = createImage(recipeObject, savedImageName)
+function ourImage = createImage(recipeObject, exposureMultiple)
 
     % Use one of our automotive sensors
     useSensor = 'ar0132atSensorRGB';
 
     piWrite(recipeObject);
     ourScene = piRender(recipeObject, 'remoteResources',true);
-    ourScene = piAIdenoise(ourScene);
+    ourScene = piAIdenoise(ourScene,'useNvidia',true);
 
     setMeanIlluminace = 50; % was 5
     ourOI = piOICreate(ourScene.data.photons,'meanilluminance',setMeanIlluminace);
 
     % meanIllumination = oiGet(oi, 'meanilluminance');
     % fix shutter to 1/30s
-    ip = piRadiance2RGB(ourOI,'etime',1/30,'sensor', useSensor, 'analoggain', 1);
+    baseExposure = 1/30;
+    useExposure = baseExposure * exposureMultiple;
+    ip = piRadiance2RGB(ourOI,'etime',useExposure,'sensor', useSensor, 'analoggain', 1);
     ourImage = ipGet(ip,'srgb');
 
     % alternative pipeline
