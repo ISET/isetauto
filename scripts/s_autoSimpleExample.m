@@ -48,5 +48,12 @@ thisR.set('nbounces', 3);
 %  each other
 
 scene = piWRS(thisR,'remote resources',true);
+scene = piAIdenoise(scene);
+ieReplaceObject(scene);
+
+%%
+oi = oiCreate;
+oi = oiCompute(oi,scene);
+oiWindow(oi);
 
 %% END
