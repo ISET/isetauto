@@ -24,11 +24,12 @@
 % 
 % To run as a demo using the scene that is checked in to the
 % isetauto repo, use this:
-% scenes = {'1112154540', 'false'};
+scenes = {{'1112154540', 'false'}};
 
 % Otherwise we choose some representative scenes demonstrating the impact of camera
 % position depending on which people or vehicles are closest
 % Some scenes also require reversing x & y
+%{
 scenes = {
     {'1112163159', true}, ... close motorcycle
     {'1112160522', true}, ... close person
@@ -36,7 +37,7 @@ scenes = {
     {'1113014552', false}, ... close car
     {'1113112125', false}   ... close truck
     };
-
+%}
 %% Read in the @recipe object
 % We can't read back the piWrite()->.pbrt version of our Auto recipes, so
 % we need to read the initial @recipe object from the the .mat file
@@ -67,8 +68,7 @@ for ii=1:numel(scenes)
     end
 
     % The .mat file contains a thisR @recipe inside
-    recipeWrapper = load(recipeFile);
-    initialRecipe = recipeWrapper.thisR;
+    initialRecipe = load(recipeFile,'thisR').thisR;
 
     %% Fix up our recipe in lieu of piRead()
     % These fixups are normally done by piRead()
@@ -150,21 +150,21 @@ for ii=1:numel(scenes)
 
     imType = '.png'; % Use JPEG for smaller output
 
-    hdr = false;
+    hdr = true;
     if hdr
-        for ii=[.5 1 2] %#ok<FXSET>
+        for ii=[15 30 60] %#ok<FXSET>
             initialImage = createImage(initialRecipe, ii);
             rightGrilleImage = createImage(rightGrilleRecipe, ii);
             leftGrilleImage = createImage(leftGrilleRecipe, ii);
 
             exValue = sprintf('-%s', num2str(ii));
-            imwrite(initialImage,fullfile(imageFolder, [scenes{ii}{1} '-initial' exValue imType]));
-            imwrite(rightGrilleImage,fullfile(imageFolder,[scenes{ii}{1} '-rgrill' exValue imType]));
-            imwrite(leftGrilleImage,fullfile(imageFolder,[scenes{ii}{1} '-lgrill' exValue imType]));
+            imwrite(initialImage,fullfile(imageFolder, [scenes{ii}{1} '-initial-' exValue imType]));
+            imwrite(rightGrilleImage,fullfile(imageFolder,[scenes{ii}{1} '-rgrill-' exValue imType]));
+            imwrite(leftGrilleImage,fullfile(imageFolder,[scenes{ii}{1} '-lgrill-' exValue imType]));
 
         end
     else
-        initialImage = createImage(initialRecipe, 1);
+        initialImage = createImage(initialRecipe, 30);
         rightGrilleImage = createImage(rightGrilleRecipe, 1);
         leftGrilleImage = createImage(leftGrilleRecipe, 1);
 
@@ -184,15 +184,15 @@ function ourImage = createImage(recipeObject, exposureMultiple)
 
     piWrite(recipeObject);
     ourScene = piRender(recipeObject, 'remoteResources',true);
+    % Nvidia only works on Windows with GPU
     ourScene = piAIdenoise(ourScene,'useNvidia',true);
 
     setMeanIlluminace = 50; % was 5
     ourOI = piOICreate(ourScene.data.photons,'meanilluminance',setMeanIlluminace);
 
     % meanIllumination = oiGet(oi, 'meanilluminance');
-    % fix shutter to 1/30s
-    baseExposure = 1/30;
-    useExposure = baseExposure * exposureMultiple;
+    % fix shutter to 1/30s or HDR
+    useExposure = 1/ii;
     ip = piRadiance2RGB(ourOI,'etime',useExposure,'sensor', useSensor, 'analoggain', 1);
     ourImage = ipGet(ip,'srgb');
 
