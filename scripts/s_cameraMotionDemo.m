@@ -24,7 +24,7 @@
 % 
 % To run as a demo using the scene that is checked in to the
 % isetauto repo, use this:
-scenes = {{'1112154540', 'false'}};
+scenes = {{'1112154540', 'true'}};
 
 % Otherwise we choose some representative scenes demonstrating the impact of camera
 % position depending on which people or vehicles are closest
@@ -98,10 +98,11 @@ for ii=1:numel(scenes)
     recipeSet(initialRecipe, 'nbounces', 3);
     %}
     % High-fidelity (1080p native, 720p for testing)
+    %
     recipeSet(initialRecipe,'filmresolution', [1920 1080]);
-    recipeSet(initialRecipe,'rays per pixel', 1024);
+    recipeSet(initialRecipe,'rays per pixel', 2048);
     recipeSet(initialRecipe, 'nbounces', 5);
-    
+    %
 
     %% NOTE on higher-performance alternative
     %  If we are okay over-writing the output .pbrt we can use the
@@ -112,8 +113,8 @@ for ii=1:numel(scenes)
 
     %% Currently we make a full copy of the recipe for our modified camera position
     % Make a copy before we make changes 
-    rightGrilleRecipe = piRecipeCopy(initialRecipe);
-    leftGrilleRecipe = piRecipeCopy(initialRecipe);
+    rGrilleRecipe = piRecipeCopy(initialRecipe);
+    lGrilleRecipe = piRecipeCopy(initialRecipe);
 
     % Move the camera to the front-right of the car
     % (initial position is behind windshield)
@@ -125,19 +126,19 @@ for ii=1:numel(scenes)
         reverse = 1;
     end
     grillShift = [-.5 1 -1.5];
-    rightGrilleRecipe = piCameraTranslate(rightGrilleRecipe, ...
+    rGrilleRecipe = piCameraTranslate(rGrilleRecipe, ...
         'x shift', grillShift(1) * reverse, ...
         'y shift', grillShift(2) * reverse, ...
         'z shift', grillShift(3));
-    leftGrilleRecipe = piCameraTranslate(leftGrilleRecipe, ...
+    lGrilleRecipe = piCameraTranslate(lGrilleRecipe, ...
         'x shift', grillShift(1) * reverse, ...
         'y shift', grillShift(2) * -1 * reverse, ... % go left
         'z shift', grillShift(3));
 
     % Give our modified recipe its own output pbrt filename
-    rightGrilleRecipe.outputFile = fullfile(piDirGet('local'), ...
+    rGrilleRecipe.outputFile = fullfile(piDirGet('local'), ...
         [sceneID '-rgrill'], [sceneID '-rgrill.pbrt']);
-    leftGrilleRecipe.outputFile = fullfile(piDirGet('local'), ...
+    lGrilleRecipe.outputFile = fullfile(piDirGet('local'), ...
         [sceneID '-lgrill'], [sceneID '-lgrill.pbrt']);
 
 
@@ -147,52 +148,60 @@ for ii=1:numel(scenes)
         mkdir(imageFolder);
     end
 
+    moveCamera = false;
 
+    initialScene = renderRecipe(initialRecipe);
+    if moveCamera
+        rGrilleScene = renderRecipe(rGrilleRecipe);
+        lGrilleScene = renderRecipe(lGrilleRecipe);
+    end
     imType = '.png'; % Use JPEG for smaller output
 
+    % turn off camera motion to speed up prototyping
     hdr = true;
     if hdr
-        for ii=[15 30 60] %#ok<FXSET>
-            initialImage = createImage(initialRecipe, ii);
-            rightGrilleImage = createImage(rightGrilleRecipe, ii);
-            leftGrilleImage = createImage(leftGrilleRecipe, ii);
-
-            exValue = sprintf('-%s', num2str(ii));
+        exposureTimes = [15 60 120];
+    else
+        exposureTimes = 20;
+    end
+        for jj=1:numel(exposureTimes)
+            exValue = sprintf('-%s', num2str(exposureTimes(jj)));
+            initialImage = createImage(initialScene, exposureTimes(jj));
             imwrite(initialImage,fullfile(imageFolder, [scenes{ii}{1} '-initial-' exValue imType]));
-            imwrite(rightGrilleImage,fullfile(imageFolder,[scenes{ii}{1} '-rgrill-' exValue imType]));
-            imwrite(leftGrilleImage,fullfile(imageFolder,[scenes{ii}{1} '-lgrill-' exValue imType]));
+            if moveCamera
+                rgrilleImage = createImage(rGrilleScene, exposureTimes(jj));
+                lgrilleImage = createImage(lGrilleScene, exposureTimes(jj));
+                imwrite(rGrilleImage,fullfile(imageFolder,[scenes{ii}{1} '-rgrill-' exValue imType]));
+                imwrite(lGrilleImage,fullfile(imageFolder,[scenes{ii}{1} '-lgrill-' exValue imType]));
+            end
+
 
         end
-    else
-        initialImage = createImage(initialRecipe, 30);
-        rightGrilleImage = createImage(rightGrilleRecipe, 1);
-        leftGrilleImage = createImage(leftGrilleRecipe, 1);
-
-        imwrite(initialImage,fullfile(imageFolder, [scenes{ii}{1} '-initial' imType]));
-        imwrite(rightGrilleImage,fullfile(imageFolder,[scenes{ii}{1} '-rgrill' imType]));
-        imwrite(leftGrilleImage,fullfile(imageFolder,[scenes{ii}{1} '-lgrill' imType]));
-    end
 
     
 end
 
-% Render our @recipe object to a displayable RGB
-function ourImage = createImage(recipeObject, exposureMultiple)
-
-    % Use one of our automotive sensors
-    useSensor = 'ar0132atSensorRGB';
+function ourScene = renderRecipe(recipeObject)
 
     piWrite(recipeObject);
     ourScene = piRender(recipeObject, 'remoteResources',true);
     % Nvidia only works on Windows with GPU
-    ourScene = piAIdenoise(ourScene,'useNvidia',true);
+    [ourScene, ~, hdrFile] = piAIdenoise(ourScene,'useNvidia',true, 'keepHDR', true);
+    fprintf('HDR file is: %s\n',hdrFile);
+end
 
-    setMeanIlluminace = 50; % was 5
+% Render our scene to a displayable RGB
+    function ourImage = createImage(ourScene, exposureFraction)
+
+    % Use one of our automotive sensors
+    useSensor = 'ar0132atSensorRGB';
+
+    setMeanIlluminace = 20; % was 5
     ourOI = piOICreate(ourScene.data.photons,'meanilluminance',setMeanIlluminace);
 
     % meanIllumination = oiGet(oi, 'meanilluminance');
     % fix shutter to 1/30s or HDR
-    useExposure = 1/ii;
+    useExposure = 1/exposureFraction;
     ip = piRadiance2RGB(ourOI,'etime',useExposure,'sensor', useSensor, 'analoggain', 1);
     ourImage = ipGet(ip,'srgb');
 

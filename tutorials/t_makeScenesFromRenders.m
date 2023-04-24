@@ -26,7 +26,7 @@ scenarioName = sprintf('daytime_20_500');
 renderFolder = fullfile(iaFileDataRoot('local', true), project, 'SceneEXRs');
 outputFolder = fullfile(iaFileDataRoot('local', true), project, 'SceneISET', scenarioName); 
 
-maxImages = 3; % set for debugging, otherwise < 0 means all
+maxImages = 1; % set for debugging, otherwise < 0 means all
 
 % Original nighttime params
 %useArgs = {'scenarioname', scenarioName, ...
@@ -38,15 +38,15 @@ maxImages = 3; % set for debugging, otherwise < 0 means all
 useArgs = {'scenarioname', scenarioName, ...
     'skyl_wt', 20, 'meanluminance', 500, 'headl_wt', 0, ...
     'otherl_wt', 1, 'streetl_wt', 0, 'flare', 0, 'maxImages', maxImages, ...
-    'outputFolder', outputFolder, 'useNvidia', false};
+    'outputFolder', outputFolder, 'useNvidia', true};
 
 % Experiment with creating a scenario object
 useScenario = scenario();
 useScenario.scenarioName = scenarioName;
-useScenario.scenarioProject = project;
-useScenario.scenarioType = 'isetscene';
+useScenario.sourceProject = project;
+useScenario.sourceType = 'isetscene';
 useScenario.scenarioInput = renderFolder;
-useScenario.scenarioParameters = useArgs;
+useScenario.lightingParameters = useArgs;
 
 % for debugging
 %useScenario.print;
