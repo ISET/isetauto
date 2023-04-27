@@ -10,6 +10,7 @@
 
 st = scitran('stanfordlabs');
 
+%%
 project = st.lookup('wandell/ISETAutoEval20200108');
 sessions = project.sessions();
 subjects = project.subjects();
@@ -54,15 +55,15 @@ for ii=1:100:numel(acq)
     id = st.containerCreate(project.group, project.label,...
                 'subject','renderings',...
                 'session',thisName);
-    for jj=ii:(ii+99)
+    for jj=ii:min(numel(acq),(ii+99))
         disp(acq{jj}.label);
         acq{jj}.update('session',id.session);
     end
 end
 
-%%
+% Delete the empty acquisitions
 sessions = project.sessions();
-subSessions = stSelect(sessions,'label','suburb_');
+subSessions = stSelect(sessions,'label','city2_');
 stPrint(subSessions,'label');
 
 for jj=1:numel(subSessions)
