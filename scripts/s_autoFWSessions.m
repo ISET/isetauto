@@ -18,7 +18,7 @@ stPrint(sessions,'label');
 stPrint(sessions,'subject','label');
 stPrint(subjects,'label');
 
-% This is the first one with subject renderings
+%% This is the first one with subject renderings
 from = sessions{7};
 disp(from.label)
 disp(from.subject.label)
@@ -49,7 +49,7 @@ disp(numel(acq));
 
 %% Sessions of 100 scenes.
 
-for ii=201:100:numel(acq)
+for ii=1:100:numel(acq)
     thisName = sprintf('%s_%03d',from.label,ii);
     id = st.containerCreate(project.group, project.label,...
                 'subject','renderings',...
@@ -60,15 +60,22 @@ for ii=201:100:numel(acq)
     end
 end
 
-% Remove the empty acquisitions.  There seem to be a lot of them.
-newSession = st.fw.get(id.session);
-newAcq = newSession.acquisitions();
-for ii=1:numel(newAcq)
-    if isempty(newAcq{ii}.files)
-        st.containerDelete(newAcq{ii});
+%%
+sessions = project.sessions();
+subSessions = stSelect(sessions,'label','suburb_');
+stPrint(subSessions,'label');
+
+for jj=1:numel(subSessions)
+    thisS = subSessions{jj};
+    % Remove the empty acquisitions.  There seem to be a lot of them.
+    acqs = thisS.acquisitions();
+    for ii=1:numel(acqs)
+        if isempty(acqs{ii}.files)
+            disp(acqs{ii}.label);
+            st.containerDelete(acqs{ii});
+        end
     end
 end
-fprintf('Remaining acq %d\n',numel(newSession.acquisitions()));
 
 
 %% Move
