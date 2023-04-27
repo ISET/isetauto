@@ -100,7 +100,7 @@ for ii=1:numel(scenes)
     % High-fidelity (1080p native, 720p for testing)
     %
     recipeSet(initialRecipe,'filmresolution', [1920 1080]);
-    recipeSet(initialRecipe,'rays per pixel', 2048);
+    recipeSet(initialRecipe,'rays per pixel', 1024);
     recipeSet(initialRecipe, 'nbounces', 5);
     %
 
