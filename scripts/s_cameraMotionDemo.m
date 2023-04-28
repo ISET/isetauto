@@ -59,7 +59,13 @@ for ii=1:numel(scenes)
         recipeFile = which(recipeFileName);
     else
         if ispc % use Google shared drive if needed
-            recipeFolder = 'D:\Shared drives\ISETData\ISET Scenes -- PBRT Files';
+            % Hack for PC where we don't have a simple UNC that I've found
+            [~, hostName] = system('hostname');
+            if isequal(hostName, 'synth')
+                recipeFolder = 'G:\Shared drives\ISETData\ISET Scenes -- PBRT Files';
+            elseif isequal(hostName, 'decimate')
+                recipeFolder = 'D:\Shared drives\ISETData\ISET Scenes -- PBRT Files';
+            end
         else
             recipeFolder = fullfile(iaFileDataRoot(), 'Ford','SceneRecipes');
         end
