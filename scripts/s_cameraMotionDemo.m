@@ -192,7 +192,7 @@ function ourScene = renderRecipe(recipeObject)
     piWrite(recipeObject);
     ourScene = piRender(recipeObject, 'remoteResources',true);
     % Nvidia only works on Windows with GPU
-    [ourScene, ~, hdrFile] = piAIdenoise(ourScene,'useNvidia',true, 'keepHDR', true);
+    [ourScene, ~, hdrFile] = piAIdenoise(ourScene,'useNvidia',false, 'keepHDR', true);
     fprintf('HDR file is: %s\n',hdrFile);
 end
 
