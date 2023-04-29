@@ -166,7 +166,7 @@ for ii=1:numel(scenes)
     % turn off camera motion to speed up prototyping
     hdr = true;
     if hdr
-        exposureTimes = [15 60 120];
+        exposureTimes = [5 30 120];
     else
         exposureTimes = 20;
     end
