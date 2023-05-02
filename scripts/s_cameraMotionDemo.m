@@ -10,21 +10,22 @@
 
 % NOTE: These are HDR scenes, so they will initially appear black
 %       in the scene window until you change the render to HDR
-%       (it'd be good to use a param to start with HDR)
 
 % NOTE: If you have access to a server that has ISET resources
 %       pre-loaded (like the ones in our lab at Stanford)
 %       then you can run this script as is, using 'remoteResources', true
 %
-%       Otherwise it depends on the assets needed to render the scene
+%       Otherwise it depends on the assets needed to render the scene,
+%       the same as any other use of piRender();
 
 % D.Cardinal, Stanford University, 2023
 
 % Pick @recipe objects for scenes
-% 
+%
 % To run as a demo using the scene that is checked in to the
 % isetauto repo, use this:
 scenes = {{'1112154540', 'true'}};
+%scenes = {{'road_001', 'true'}};
 
 % Otherwise we choose some representative scenes demonstrating the impact of camera
 % position depending on which people or vehicles are closest
@@ -53,11 +54,14 @@ for ii=1:numel(scenes)
     % Our @recipe objects are stored in .mat files by sceneID
     sceneID = scenes{ii}{1};
     recipeFileName = [sceneID '.mat'];
-    % if not, look for it where our ISETAuto data is
-    % This could also be an isetdb() lookup 
+
     if which(recipeFileName)
+        % if the @recipe (.mat) file is on our path, use it
         recipeFile = which(recipeFileName);
     else
+        % if not, look for it where our ISETAuto data is
+        % If you've mounted our Google Shared Drive, you can use it
+        % directly
         if ispc % use Google shared drive if needed
             % Hack for PC where we don't have a simple UNC that I've found
             [~, hostName] = system('hostname');
@@ -67,6 +71,7 @@ for ii=1:numel(scenes)
                 recipeFolder = 'D:\Shared drives\ISETData\ISET Scenes -- PBRT Files';
             end
         else
+            % Otherwise set the folder that has the @recipe files.
             recipeFolder = fullfile(iaFileDataRoot(), 'Ford','SceneRecipes');
         end
         recipeFile = sprintf('%s',fullfile(recipeFolder,recipeFileName));
@@ -76,23 +81,18 @@ for ii=1:numel(scenes)
     % The .mat file contains a thisR @recipe inside
     initialRecipe = load(recipeFile,'thisR').thisR;
 
+
     %% Fix up our recipe in lieu of piRead()
     % These fixups are normally done by piRead()
     % But since we are getting @recipe directly from a .mat file we need
-    % to handle updating the inputfile and outputfile ourselves.
-
-    [rPath, rName, rExtension] = fileparts(initialRecipe.inputFile);
-
-    %% Fix the inputfile path to the road recipe used -- may not be needed?
-    % ALSO: Auto recipes currently all use one of just a few Road scenes
-    %       as their inputfile, even though the thousands of scenes are unique.
-
-    % Fix-up for the road recipe folder structure
-    assetFolder = iaFileDataRoot('type','PBRT_assets');
+    % to handle updating the outputfile ourselves.
 
     % This Recipe is prior to any edits we make
     % So we'll call it <sceneID>-initial
     initialRecipe.outputFile = fullfile(piDirGet('local'), sceneID, [sceneID '-initial.pbrt']);
+
+    % Fix-up for the road recipe folder structure
+    assetFolder = iaFileDataRoot('type','PBRT_assets');
 
     % OPTIONALLY!
     % Scale down the scene resolution & rays per pixel to make it faster to render
@@ -103,22 +103,15 @@ for ii=1:numel(scenes)
     recipeSet(initialRecipe,'rays per pixel', 64);
     recipeSet(initialRecipe, 'nbounces', 3);
     %}
-    % High-fidelity (1080p native, 720p for testing)
+    % High-fidelity (1080p native)
     %
     recipeSet(initialRecipe,'filmresolution', [1920 1080]);
     recipeSet(initialRecipe,'rays per pixel', 1024);
     recipeSet(initialRecipe, 'nbounces', 5);
     %
 
-    %% NOTE on higher-performance alternative
-    %  If we are okay over-writing the output .pbrt we can use the
-    %  mainfileonly flag to piWrite() to save the time spent regenerating
-    %  the geometry and texture files -- since we are only moving the camera
-    %  We'd then need to render each version in turn, as they will write over
-    %  each other
-
     %% Currently we make a full copy of the recipe for our modified camera position
-    % Make a copy before we make changes 
+    % Make a copy before we make changes
     rGrilleRecipe = piRecipeCopy(initialRecipe);
     lGrilleRecipe = piRecipeCopy(initialRecipe);
 
@@ -154,66 +147,70 @@ for ii=1:numel(scenes)
         mkdir(imageFolder);
     end
 
-    moveCamera = false;
+    % Set to false if you just want to run one position for testing
+    moveCamera = true;
 
     initialScene = renderRecipe(initialRecipe);
     if moveCamera
         rGrilleScene = renderRecipe(rGrilleRecipe);
         lGrilleScene = renderRecipe(lGrilleRecipe);
     end
-    imType = '.png'; % Use JPEG for smaller output
+    imType = '.jpg'; % Use JPEG for smaller output, PNG for less artifacts
 
-    % turn off camera motion to speed up prototyping
-    hdr = true;
+    % Optionally allow for simulating an HDR sensor or bracketing
+    hdr = false;
     if hdr
         exposureTimes = [15 60 120];
     else
-        exposureTimes = 20;
+        exposureTimes = 30;
     end
-        for jj=1:numel(exposureTimes)
-            exValue = sprintf('-%s', num2str(exposureTimes(jj)));
-            initialImage = createImage(initialScene, exposureTimes(jj));
-            imwrite(initialImage,fullfile(imageFolder, [scenes{ii}{1} '-initial-' exValue imType]));
-            if moveCamera
-                rgrilleImage = createImage(rGrilleScene, exposureTimes(jj));
-                lgrilleImage = createImage(lGrilleScene, exposureTimes(jj));
-                imwrite(rGrilleImage,fullfile(imageFolder,[scenes{ii}{1} '-rgrill-' exValue imType]));
-                imwrite(lGrilleImage,fullfile(imageFolder,[scenes{ii}{1} '-lgrill-' exValue imType]));
-            end
-
-
+    for jj=1:numel(exposureTimes)
+        exValue = sprintf('-%s', num2str(exposureTimes(jj)));
+        initialImage = createImage(initialScene, exposureTimes(jj));
+        imwrite(initialImage,fullfile(imageFolder, [scenes{ii}{1} '-initial-' exValue imType]));
+        if moveCamera
+            rGrilleImage = createImage(rGrilleScene, exposureTimes(jj));
+            lGrilleImage = createImage(lGrilleScene, exposureTimes(jj));
+            imwrite(rGrilleImage,fullfile(imageFolder,[scenes{ii}{1} '-rgrill-' exValue imType]));
+            imwrite(lGrilleImage,fullfile(imageFolder,[scenes{ii}{1} '-lgrill-' exValue imType]));
         end
 
-    
+
+    end
+
+
 end
 
 function ourScene = renderRecipe(recipeObject)
 
-    piWrite(recipeObject);
-    ourScene = piRender(recipeObject, 'remoteResources',true);
-    % Nvidia only works on Windows with GPU
-    [ourScene, ~, hdrFile] = piAIdenoise(ourScene,'useNvidia',false, 'keepHDR', true);
-    fprintf('HDR file is: %s\n',hdrFile);
+piWrite(recipeObject);
+ourScene = piRender(recipeObject);
+
+% Nvidia only works on Windows with CUDA GPU, so set to false by default
+[ourScene, ~, hdrFile] = piAIdenoise(ourScene,'useNvidia',false, 'keepHDR', true);
+fprintf('HDR file is: %s\n',hdrFile);
 end
 
 % Render our scene to a displayable RGB
-    function ourImage = createImage(ourScene, exposureFraction)
+function ourImage = createImage(ourScene, exposureFraction)
 
-    % Use one of our automotive sensors
-    useSensor = 'ar0132atSensorRGB';
+% Use one of our automotive sensors
+useSensor = 'ar0132atSensorRGB';
 
-    setMeanIlluminace = 20; % was 5
-    ourOI = piOICreate(ourScene.data.photons,'meanilluminance',setMeanIlluminace);
+setMeanIlluminace = 20;
+ourOI = piOICreate(ourScene.data.photons,'meanilluminance',setMeanIlluminace);
 
-    % meanIllumination = oiGet(oi, 'meanilluminance');
-    % fix shutter to 1/30s or HDR
-    useExposure = 1/exposureFraction;
-    ip = piRadiance2RGB(ourOI,'etime',useExposure,'sensor', useSensor, 'analoggain', 1);
-    ourImage = ipGet(ip,'srgb');
+% Show the user what we've rendered
+oiWindow(ourOI);
 
-    % alternative pipeline
-    %ourImage = oiShowImage(ourOI,-5);
-    %ourSensor = sensorCompute(useSensor, ourOI);
-    %ourImage = sensorSaveImage(ourSensor, savedImageName);
+% fix shutter to requested time
+useExposure = 1/exposureFraction;
+ip = piRadiance2RGB(ourOI,'etime',useExposure,'sensor', useSensor, 'analoggain', 1);
+ourImage = ipGet(ip,'srgb');
+
+% alternative pipeline
+%ourImage = oiShowImage(ourOI,-5);
+%ourSensor = sensorCompute(useSensor, ourOI);
+%ourImage = sensorSaveImage(ourSensor, savedImageName);
 
 end
