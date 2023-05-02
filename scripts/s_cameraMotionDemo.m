@@ -160,7 +160,7 @@ for ii=1:numel(scenes)
     % Optionally allow for simulating an HDR sensor or bracketing
     hdr = false;
     if hdr
-        exposureTimes = [15 60 120];
+        exposureTimes = [5 30 120];
     else
         exposureTimes = 30;
     end
