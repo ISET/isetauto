@@ -9,7 +9,7 @@ function thisR = iaObjectsAssemble(thisR, objects, varargin)
 %
 % Inputs:
 %   thisR   - scene recipe
-%   objects  - isetauo object list, a list example showed below:
+%   objects  - isetauto object list, a list example is shown below:
 %
 %              tree: [1×8 struct]
 %         billboard: [1×2 struct]
