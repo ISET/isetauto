@@ -92,6 +92,12 @@ for ii=1:numel(scenes)
     % So we'll call it <sceneID>-initial
     initialRecipe.outputFile = fullfile(piDirGet('local'), sceneID, [sceneID '-initial.pbrt']);
 
+    % If we're not using remoteResource rendering, we also need to fix the
+    % inputfile path to something in our auto directory structure
+    if ~getpref('docker','remoteResources', false)
+        initialRecipe.inputFile = replaceBetween(initialRecipe.inputFile, 1, 'PBRT_assets', [iaFileDataRoot() filesep()]);
+    end
+    
     % Fix-up for the road recipe folder structure
     assetFolder = iaFileDataRoot('type','PBRT_assets');
 
@@ -151,6 +157,7 @@ for ii=1:numel(scenes)
     % Set to false if you just want to run one position for testing
     moveCamera = true;
 
+    %% Render our recipes using Dockerized PBRT
     initialScene = renderRecipe(initialRecipe);
     if moveCamera
         rGrilleScene = renderRecipe(rGrilleRecipe);

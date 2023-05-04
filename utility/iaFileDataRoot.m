@@ -32,10 +32,10 @@ if isempty(dataRoot)
     else
         dataRoot = fullfile(filesep, 'acorn','data','iset','isetauto');
     end
-    switch (p.Results.type)
-        case 'PBRT_assets'
-            dataRoot = fullfile(dataRoot, 'PBRT_assets');
-        case 'filedata'
-            dataRoot = dataRoot;
-    end
+end
+
+% Check if user wants a sub-folder
+switch (p.Results.type)
+    case 'PBRT_assets'
+        dataRoot = fullfile(dataRoot, 'PBRT_assets');
 end
