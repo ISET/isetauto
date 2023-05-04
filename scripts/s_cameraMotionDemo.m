@@ -24,13 +24,13 @@
 %
 % To run as a demo using the scene that is checked in to the
 % isetauto repo, use this:
-scenes = {{'1112154540', 'true'}};
+%scenes = {{'1112154540', 'true'}};
 %scenes = {{'road_001', 'true'}};
 
 % Otherwise we choose some representative scenes demonstrating the impact of camera
 % position depending on which people or vehicles are closest
 % Some scenes also require reversing x & y
-%{
+%
 scenes = {
     {'1112163159', true}, ... close motorcycle
     {'1112160522', true}, ... close person
@@ -38,7 +38,7 @@ scenes = {
     {'1113014552', false}, ... close car
     {'1113112125', false}   ... close truck
     };
-%}
+%
 %% Read in the @recipe object
 % We can't read back the piWrite()->.pbrt version of our Auto recipes, so
 % we need to read the initial @recipe object from the the .mat file
@@ -65,6 +65,7 @@ for ii=1:numel(scenes)
         if ispc % use Google shared drive if needed
             % Hack for PC where we don't have a simple UNC that I've found
             [~, hostName] = system('hostname');
+            hostName = lower(strtrim(hostName));
             if isequal(hostName, 'synth')
                 recipeFolder = 'G:\Shared drives\ISETData\ISET Scenes -- PBRT Files';
             elseif isequal(hostName, 'decimate')
@@ -201,6 +202,7 @@ setMeanIlluminace = 20;
 ourOI = piOICreate(ourScene.data.photons,'meanilluminance',setMeanIlluminace);
 
 % Show the user what we've rendered
+ourOI.name = ['Scene: ' ourScene.name];
 oiWindow(ourOI);
 
 % fix shutter to requested time

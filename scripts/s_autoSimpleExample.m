@@ -15,7 +15,9 @@ if ~piDockerExists, piDockerConfig; end
 
 % This recipe is part of the data/scenes in the ISETAuto repo.  Most of the
 % recipes are stored elsewhere.
-sceneID = '1112154540';
+%sceneID = '1112154540';
+sceneID = 'road_001';
+%sceneID = 'road_001_textures';
 recipeFileName = [sceneID '.mat'];
 
 % The variable with this recipe is thisR.
@@ -34,9 +36,15 @@ thisR.set('output file',fullfile(piDirGet('local'), sceneID, [sceneID '-initial.
 % Set the resolution & rays per pixel 
 % For testing purposes we make these numbers small.
 % (Auto scenes are typically rendered at 1080p (1920,1080).
-thisR.set('filmresolution', [1920 1080]);
-thisR.set('rays per pixel', 2048);
+%thisR.set('filmresolution', [1920 1080]);
+%thisR.set('rays per pixel', 2048);
+%thisR.set('nbounces', 3);
+% 
+% for testing
+thisR.set('filmresolution', [320 240]);
+thisR.set('rays per pixel', 64);
 thisR.set('nbounces', 3);
+%
 % fprintf('This scene has %d objects\n',thisR.get('n objects'));
 
 %% NOTE on higher-performance alternative
@@ -47,8 +55,11 @@ thisR.set('nbounces', 3);
 %  We'd then need to render each version in turn, as they will write over
 %  each other
 
-scene = piWRS(thisR,'remote resources',true);
-scene = piAIdenoise(scene);
+%% NOTE: SHOULD BE TRUE EXCEPT FOR DEBUGGING!
+sceneRaw = piWRS(thisR,'remote resources', false); %,true);
+scene = piAIdenoise(sceneRaw);
+
+ieReplaceObject(sceneRaw);
 ieReplaceObject(scene);
 
 %%
@@ -56,4 +67,8 @@ oi = oiCreate;
 oi = oiCompute(oi,scene);
 oiWindow(oi);
 
+% Optionally show the not denoised output
+oiRaw = oiCreate;
+oiRaw = oiCompute(oiRaw, sceneRaw);
+oiWindow(oiRaw);
 %% END
