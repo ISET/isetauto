@@ -9,11 +9,13 @@ sessions = project.sessions();
 subjects = project.subjects();
 
 %% Try a search
+%{
 % Search for scenes
 res = st.search('acquisition',...
           'project label exact',project.label,...
           'subjectcode','renderings',...
           'fw',true);
+%}
 %%
 stPrint(sessions,'label');
 stPrint(subjects,'label');

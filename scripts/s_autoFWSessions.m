@@ -1,4 +1,4 @@
-%% s_autoFWSessions
+s%% s_autoFWSessions
 %
 % This script is no longer relevant.  It is just a record of how I
 % opened up the project and regrouped the scenes into smaller chunks.
