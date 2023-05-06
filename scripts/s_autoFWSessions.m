@@ -1,16 +1,18 @@
 %% s_autoFWSessions
 %
-% Move the rendered data into smaller size sessions to make our lives
-% simpler.  The download time for 3612 acquisitions, which is what we
-% have in some single sessions, is too long. 
+% This script is no longer relevant.  It is just a record of how I
+% opened up the project and regrouped the scenes into smaller chunks.
 %
+% I moved the rendered data into smaller size sessions to make our
+% lives simpler.  
 %
 % See also
-%   
+%   s_fwAutoScenesData
+%
 
 st = scitran('stanfordlabs');
 
-%%
+%% Read the project
 project = st.lookup('wandell/ISETAutoEval20200108');
 sessions = project.sessions();
 subjects = project.subjects();
@@ -19,7 +21,7 @@ stPrint(sessions,'label');
 stPrint(sessions,'subject','label');
 stPrint(subjects,'label');
 
-%% This is the first one with subject renderings
+%% This is the first one with subject name renderings
 from = sessions{7};
 disp(from.label)
 disp(from.subject.label)
@@ -61,10 +63,11 @@ for ii=1:100:numel(acq)
     end
 end
 
-% Delete the empty acquisitions
+
+%% Delete the empty acquisitions
 sessions = project.sessions();
 subSessions = stSelect(sessions,'label','city2_');
-stPrint(subSessions,'label');
+% stPrint(subSessions,'label');
 
 for jj=1:numel(subSessions)
     thisS = subSessions{jj};
