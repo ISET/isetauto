@@ -8,7 +8,6 @@ project = st.lookup('wandell/ISETAutoEval20200108');
 sessions = project.sessions();
 subjects = project.subjects();
 
-%% Try a search
 %{
 % Search for scenes
 res = st.search('acquisition',...
@@ -61,6 +60,6 @@ sceneWindow(scene);
 scene = piAIdenoise(scene);
 sceneWindow(scene);
 
-
+%%
 isetObj = piDat2ISET(fullfile(localDirectory,res{i}.label,'renderings',sprintf('%s.dat',res{i}.label)),...
         'label','radiance','recipe',thisR);
