@@ -1,0 +1,134 @@
+MakeNamedMaterial "road_001_Asphalt1"
+	"string type" "coateddiffuse"
+	"texture displacement" "road_001_Asphalt1.displacement.vhwmdias_4K_Displacement.exr"
+	"string normalmap" "textures/vhwmdias_4K_Normal.jpg"
+	"texture reflectance" "road_001_Asphalt1.reflectance.vhwmdias_4K_Albedo.jpg"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"texture roughness" "road_001_Asphalt1.roughness.vhwmdias_4K_Roughness.jpg"
+MakeNamedMaterial "road_001_cracks"
+	"string type" "coateddiffuse"
+	"texture reflectance" "road_001_cracks.reflectance.road_cracks.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.15909093618392944]
+MakeNamedMaterial "road_001_cracks.001"
+	"string type" "coateddiffuse"
+	"texture reflectance" "road_001_cracks.001.reflectance.road_cracks.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.15909093618392944]
+MakeNamedMaterial "road_001_deer_cross_retro"
+	"string type" "coateddiffuse"
+	"texture reflectance" "road_001_deer_cross_retro.reflectance.deer_traffic_sign.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5181818008422852]
+MakeNamedMaterial "road_001_deer_cross_retro.001"
+	"string type" "coateddiffuse"
+	"texture reflectance" "road_001_deer_cross_retro.001.reflectance.deer_traffic_sign.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5181818008422852]
+MakeNamedMaterial "road_001_DirtPath01_rrx_Marking_left"
+	"string type" "coateddiffuse"
+	"texture displacement" "road_001_DirtPath01_rrx_Marking_left.displacement.vcpoajjs_4K_Displacement.exr"
+	"string normalmap" "textures/vcpoajjs_4K_Normal.jpg"
+	"texture reflectance" "road_001_DirtPath01_rrx_Marking_left.reflectance.vcpoajjs_4K_Albedo.jpg"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"texture roughness" "road_001_DirtPath01_rrx_Marking_left.roughness.vcpoajjs_4K_Roughness.jpg"
+MakeNamedMaterial "road_001_DirtPath01_rrx_Marking_right"
+	"string type" "coateddiffuse"
+	"texture displacement" "road_001_DirtPath01_rrx_Marking_right.displacement.vcpoajjs_4K_Displacement.exr"
+	"string normalmap" "textures/vcpoajjs_4K_Normal.jpg"
+	"texture reflectance" "road_001_DirtPath01_rrx_Marking_right.reflectance.vcpoajjs_4K_Albedo.jpg"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"texture roughness" "road_001_DirtPath01_rrx_Marking_right.roughness.vcpoajjs_4K_Roughness.jpg"
+MakeNamedMaterial "road_001_Grass1_Ground"
+	"string type" "coateddiffuse"
+	"texture displacement" "road_001_Grass1_Ground.displacement.vcpoajjs_4K_Displacement.exr"
+	"string normalmap" "textures/vcpoajjs_4K_Normal.jpg"
+	"texture reflectance" "road_001_Grass1_Ground.reflectance.vcpoajjs_4K_Albedo.jpg"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"texture roughness" "road_001_Grass1_Ground.roughness.vcpoajjs_4K_Roughness.jpg"
+MakeNamedMaterial "road_001_Grass1_Ground.002"
+	"string type" "coateddiffuse"
+	"texture displacement" "road_001_Grass1_Ground.002.displacement.vcpoajjs_4K_Displacement.exr"
+	"string normalmap" "textures/vcpoajjs_4K_Normal.jpg"
+	"texture reflectance" "road_001_Grass1_Ground.002.reflectance.vcpoajjs_4K_Albedo.jpg"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"texture roughness" "road_001_Grass1_Ground.002.roughness.vcpoajjs_4K_Roughness.jpg"
+MakeNamedMaterial "road_001_LaneMarking1"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/LaneMarking1_Norm.png"
+	"texture reflectance" "road_001_LaneMarking1.reflectance.LaneMarking1_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9683772325515747]
+MakeNamedMaterial "road_001_LaneMarkingYellow1"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/LaneMarking1_Norm.png"
+	"texture reflectance" "road_001_LaneMarkingYellow1.reflectance.LaneMarking1_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9683772325515747]
+MakeNamedMaterial "road_001_Material"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.04141472652554512 0.04141472652554512 0.04141472652554512]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "road_001_Material.001"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.04141472652554512 0.04141472652554512 0.04141472652554512]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "road_001_speedlimit_pole.001"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/Signals_TextureSheet01_Norm.png"
+	"texture reflectance" "road_001_speedlimit_pole.001.reflectance.Signals_TextureSheet01_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9776393175125122]
+MakeNamedMaterial "road_001_speedlimit_pole.002"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/Signals_TextureSheet01_Norm.png"
+	"texture reflectance" "road_001_speedlimit_pole.002.reflectance.Signals_TextureSheet01_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9776393175125122]

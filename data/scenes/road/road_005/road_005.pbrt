@@ -1,0 +1,23 @@
+Film "gbuffer" "integer xresolution" [1920] "integer yresolution" [1080] "string filename" "output.exr"
+PixelFilter "box" "float xradius" [0.5] "float yradius" [0.5] 
+Accelerator "bvh" 
+"string splitmethod" "sah"
+"integer maxnodeprims" [4]
+Sampler "halton"
+"integer pixelsamples" [100]
+
+Integrator "path"
+"integer maxdepth" [10]
+
+Scale -1 1 1 #avoid the 'flipped image' bug..
+LookAt	37.33513641357422 0.538661003112793 1.182435393333435
+	36.370121002197266 0.2764725089073181 1.1824387311935425
+	3.325834086354007e-06 6.563466286024777e-07 1.0000001192092896
+
+Camera "perspective"
+"float fov" [22.89519204617112]
+WorldBegin
+
+Include "road_005_materials.pbrt"
+Include "road_005_texture.pbrt"
+Include "road_005_geometry.pbrt"
