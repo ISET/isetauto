@@ -172,8 +172,8 @@ function obj = addOBJ(obj, OBJClass, thisName)
 id = piAssetFind(obj.recipe.assets, 'name',[thisName,'_m_B']); % check whether it's there already
 
 if isempty(id)
-    if isa(obj.assetdirectory,'idb')
-        assetDB = obj.assetdirectory;
+    if ~isfolder(obj.assetdirectory)
+        assetDB = isetdb;
         thisAsset = assetDB.docFind('assetsPBRT', ...
             sprintf("{""name"": ""%s""}", thisName));
 

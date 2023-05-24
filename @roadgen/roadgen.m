@@ -73,8 +73,6 @@ classdef roadgen < matlab.mixin.Copyable
                     error('Road Directory can not be located.');
                 end
             end
-            [~,roadName] = fileparts(rrMapPath);
-            obj.sceneName = roadName;
 
             % read road runner map
             obj = rrMapRead(obj, rrMapPath);
