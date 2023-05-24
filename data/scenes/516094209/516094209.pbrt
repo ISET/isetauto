@@ -1,0 +1,40 @@
+# PBRT file created with piWrite on 2023/5/16 9:52:12.10 
+# PBRT version = 4 
+
+Scale -1.00 1.00 1.00 
+
+LookAt 23.798311 -4.704275 1.029800 24.798029 -4.728016 1.029800 0.000000 0.000000 1.000000 
+
+# camera 
+Camera "omni" 
+  "string lensfile" "lens/fisheye.87deg.3.0mm.json" 
+  "float aperturediameter" [5.000000] 
+  "float focusdistance" [10.000000] 
+
+# sampler 
+Sampler "pmj02bn" 
+  "integer pixelsamples" [128] 
+
+# film 
+Film "gbuffer" 
+  "integer xresolution" [1280] 
+  "integer yresolution" [720] 
+  "float diagonal" [10.000000] 
+  "bool saveRadiance" true 
+  "bool saveRadianceAsBasis" false 
+  "bool saveDepth" true 
+
+# filter 
+PixelFilter "box" 
+  "float xradius" [0.500000] 
+  "float yradius" [0.500000] 
+
+# integrator 
+Integrator "path" 
+  "integer maxdepth" [5] 
+
+WorldBegin 
+Include "516094209_materials.pbrt" 
+ 
+Include "516094209_geometry.pbrt" 
+ 
