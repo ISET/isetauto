@@ -72,9 +72,17 @@ roadData.set('offroad tree lane', {'rightshoulder','leftshoulder'});
 % the roadData object comes with a base ISET3d recipe for rendering
 thisR = roadData.recipe;
 
+<<<<<<< HEAD
 %% We want to write out the final recipe in local for rendering by PBRT
 % Our convention is <iaRootDir>/local/<scenename>/<scenename.pbrt>
 thisR.set('outputfile',[piDirGet('local'),num2str(iaImageID),num2str(iaImageID),'.pbrt']);
+=======
+%% We want to write out the final recipe in local for rendering
+thisR.set('outputfile',[piDirGet('local'),num2str(iaImageID),num2str(iaImageID),'.pbrt']);
+
+%% Set up the rendering skymap -- this is just one of many available
+skymapName = 'sky-noon_009.exr'; % this file is in matlab path already
+>>>>>>> parent of 31dbee2 (add road scenes (just pbrt not assets))
 
 %% Set the rendering skymap -- this is just one of many available
 skymapName = 'sky-noon_009.exr'; % Most skymaps are in the Matlab path already

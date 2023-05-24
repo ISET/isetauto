@@ -62,7 +62,7 @@ classdef roadgen < matlab.mixin.Copyable
            
             % Road runner data information
             rrMapPath = p.Results.roaddirectory;
-            if ~exist(rrMapPath,'dir')
+            if ~isfolder(rrMapPath)
                 
                 % Not sure where else roadName is set
                 roadName = rrMapPath;
