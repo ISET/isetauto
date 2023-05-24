@@ -20,8 +20,10 @@
 ieInit;
 if ~piDockerExists, piDockerConfig; end
 
-localSceneDir = '/home/zhenyiliu/git_repo/ISETDemo';
-setpref('docker','localVolumePath',localSceneDir);
+%% Maybe we can just have Docker mount iset3d local like usual?
+%localSceneDir = '/home/zhenyiliu/git_repo/ISETDemo';
+%setpref('docker','localVolumePath',localSceneDir);
+
 %% Road initiation
 % setup stanford server
 setpref('db','server','acorn.stanford.edu'); 
@@ -34,59 +36,59 @@ sceneDB = isetdb();
 % If fullpath to the asset is not given, we will find it in our database
 road_name  = 'road_020';
 
-% The road data
+% The road data object that we will populate with vehicles
+% and other objects for eventual assembly into our scene
 roadData = roadgen('road directory',road_name, 'asset directory', sceneDB);
 
-%% Place the onroad elements
+%% First we place the onroad elements
 
 % The driving lanes
 roadData.set('onroad car lanes',{'leftdriving','rightdriving'});
 % roadData.set('onroad car lanes', {'leftdriving'});
 
-% Cars on the road
+% Types of cars we'll place on the road in our scene
+% car_001 is a white MB Sedan
+% car_002 is a white VW Golf or similar
+% car_003 is a red Audi hatchback
+% car_058 is a silver/gray Ford F150
 roadData.set('onroad car names',{'car_001','car_002','car_003','car_058'});% 
 
-% How many cars on each driving lane.
+% Set how many cars we'll place in each driving lane.
 % The vector length of these numbers should be the same as the number
-% of driving lanes.
+% of driving lanes; e.g. [10, 10] is 10 cars in each of 2 lanes
+% (Some may overlap, so the final scene may have less)
 nCars = [10, 10];
 roadData.set('onroad n cars', nCars);
 
 % Now place the animals
+% We have multiple different animal objects, but just use one type in this demo
 roadData.set('onroad animal names',{'deer_001'});
 roadData.set('onroad n animals', [3, 3]);
 roadData.set('onroad animal lane',{'leftdriving','rightdriving'});
 
 %% Place the offroad elements.  These are animals and trees.  Not cars.
-
+% In this demo we only use 3 types of trees
 roadData.set('offroad tree names', {'tree_001','tree_002','tree_003'});
 roadData.set('offroad n trees', [50, 1, 1]); % [50, 100, 150]
 roadData.set('offroad tree lane', {'rightshoulder','leftshoulder'});
 
+%% Not used in current demo script
+%outputFolder = '/acorn/data/iset/Resources';
 
-%% Set up the rendering skymap
-
-% skymapLists     = dir(fullfile(iaRootPath,'data/skymap/*.exr'));
-% skymapRandIndex = randi(size(skymapLists,1));
-% skymapName      = skymapLists(skymapRandIndex).name;
-outputFolder = '/acorn/data/iset/Resources';
-
+% the roadData object comes with a base ISET3d recipe for rendering
 thisR = roadData.recipe;
 
-thisR.set('outputfile',[localSceneDir,'/Demo/',num2str(iaImageID),'.pbrt']);
+%% We want to write out the final recipe in local for rendering
+thisR.set('outputfile',[piDirGet('local'),num2str(iaImageID),num2str(iaImageID),'.pbrt']);
 
+%% Set up the rendering skymap -- this is just one of many available
 skymapName = 'sky-noon_009.exr'; % this file is in matlab path already
 
 thisR.set('skymap',skymapName);
+
+% Dim the sun to simulate a night scene
 skymapNode = strrep(skymapName, '.exr','_L');
 thisR.set('light',skymapNode, 'specscale', 0.001);
-
-% useful Docker cmd for reading or making a skymap.
-%{
-piDockerImgtool('makeequiarea','infile','iset3d/data/lights/dikhololo_night_4k.exr');
-%}
-
-
 
 %% Assemble the scene using ISET3d methods
 
@@ -96,21 +98,20 @@ fprintf('---> Scene assembled in %.f seconds.\n',toc(assemble_tic));
 
 % sceneData.rrDraw('points',points, 'dir',dirs); % visualization function is to fix
 
-%% Use a camera for this car
-
+%% Optionally specify a lens for our camera
 % lensfile  = 'wide.40deg.6.0mm.json';    % 30 38 18 10
 % fprintf('Using lens: %s\n',lensfile);
 
-% random pick a car, use the camera on it.  This are the types of cameras
-% so far:
+% We can randomly pick a car, and place the camera on it.  
+% These are the types of cameras so far:
 %
-%   front
-%   back
-%   left
-%   camera_type = 'right'
+%   'front', 'back', 'left, 'right'
+
 camera_type = 'front';
 
-% random pick a car, use the camera on it.
+%% We can randomly pick a car, and place the camera on it.
+% BUT for this demo we'll actually set it to be on an F150
+% later in the script
 branchID = roadData.cameraSet('camera type', camera_type); 
 % direction = thisR.get('object direction');
 % thisR.set('object distance', 0.95);
@@ -121,31 +122,29 @@ branchID = roadData.cameraSet('camera type', camera_type);
 
 thisR.set('film render type',{'radiance','depth'});
 
-% render quality
+% Set the render quality parameters
+% For publication 1080p by as many as 4096 rays per pixel are used
 thisR.set('film resolution',[1920 1080]/1.5); % Divide by 4 for speed
 thisR.set('pixel samples',128);            % 256 for speed
-thisR.set('max depth',5);                  %
+thisR.set('max depth',5);                  % Number of bounces
 thisR.set('sampler subtype','pmj02bn');
-thisR.set('fov',45);
+thisR.set('fov',45);                       % Field of View
 
-%% Render the scene, and maybe an OI
+%% For camera placement simulation we want a specific model of car
 
-% piWrite(thisR);
-% scene = piRender(thisR);
-% sceneWindow(scene);
-% ip = piRadiance2RGB(scene,'etime',1/30,'analoggain',1/5);rgb = ipGet(ip, 'srgb');figure;imshow(rgb);
-
-% set camera on a specified type of car
+% We look for a Ford F150 (car_058) in the scene
+% NOTE: If there is no F150, you may need to generate a new scene
 branchID = roadData.cameraSet('camera type', camera_type,...
                                 'car name','car_058'); 
 
+%% Render the scene, and maybe an OI (Optical Image through the lens)
 % thisR.set('object distance', 0.95);
 piWrite(thisR);
 scene = piRender(thisR);
 sceneWindow(scene);
 ip = piRadiance2RGB(scene,'etime',1/30,'analoggain',1/5);rgb = ipGet(ip, 'srgb');figure;imshow(rgb);
 
-% change pitch angle for the camera 
+% Re-render with modified pitch angle for the camera 
 branchID = roadData.cameraSet('camera type', camera_type,...
                                 'car name','car_058',...
                                 'branch ID',branchID,...
@@ -155,10 +154,16 @@ branchID = roadData.cameraSet('camera type', camera_type,...
 piWrite(thisR);
 scene = piRender(thisR);
 sceneWindow(scene);
-ip = piRadiance2RGB(scene,'etime',1/30,'analoggain',1/5);rgb = ipGet(ip, 'srgb');figure;imshow(rgb);
 
-% move the camera to front grille
-% front grille position can be found in blender file
+% Calculate our camera response, currently with a fixed exposure
+% time of 1/30s.
+ip = piRadiance2RGB(scene,'etime',1/30,'analoggain',1/5);
+
+% Now get an sRGB approximation of the resulting image and show it
+rgb = ipGet(ip, 'srgb');figure;imshow(rgb);
+
+%% We can also move the camera to the front grille
+% The front grille position can be found in blender file
 branchID = roadData.cameraSet('camera type', camera_type,...
                                 'car name','car_058',...
                                 'branch ID',branchID,...
@@ -168,13 +173,15 @@ scene = piRender(thisR);
 sceneWindow(scene);
 ip = piRadiance2RGB(scene,'etime',1/30,'analoggain',1/5);rgb = ipGet(ip, 'srgb');figure;imshow(rgb);title('Front Grille');
 
-% fisheye
+%% Compare with a simulated fisheye lens
 thisR.camera = piCameraCreate('omni','lensfile','fisheye.87deg.3.0mm.json');
 piWrite(thisR);
 oi = piRender(thisR);
 oiWindow(oi);
 ip = piRadiance2RGB(oi,'etime',1/100,'analoggain',1);rgb = ipGet(ip, 'srgb');figure;imshow(rgb);title('fisheye');
 
+fprintf("This is probably where the current demo ends.\n");
+pause;
 
 % 
 % [objectslist,instanceMap] = piRenderLabel(thisR);
