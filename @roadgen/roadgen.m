@@ -67,14 +67,19 @@ classdef roadgen < matlab.mixin.Copyable
                 % Not sure where else roadName is set
                 roadName = rrMapPath;
 
-                % If fullpath to the asset is not given, 
-                % we will find it in our database
+                % If fullpath to the road "meta-scene" is not given, 
+                % we will find it in our database or our path
                 roadInfo = obj.assetdirectory.docFind('assetsPBRT', ...
                     sprintf("{""name"": ""%s""}", rrMapPath));
-                if ~isempty(roadInfo)
+                if ~isempty(roadInfo) && isfolder(roadInfo.folder)
                     rrMapPath = roadInfo.folder;
-                else
-                    error('Road Directory can not be located.');
+                else % we don't have the db folder so check locally
+                    possiblePath = fullfile(iaRootPath, 'data', 'scenes', 'road', rrMapPath);
+                    if isfolder(possiblePath)
+                        rrMapPath = possiblePath;
+                    else
+                        error('Road Directory can not be located.');
+                    end                    
                 end
             end
 
