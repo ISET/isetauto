@@ -1,0 +1,109 @@
+ObjectBegin "road_004_Camera_m"
+#Instance MeshName: "road_004_Camera"
+ObjectEnd
+
+ObjectBegin "SceneNode_m"
+#Instance MeshName: "SceneNode"
+	AttributeBegin
+	#MeshName: "SceneNode"
+		AttributeBegin
+		#MeshName: "Tile_0_0Node"
+			AttributeBegin
+			#MeshName: "road_004_Landscape.001" #Dimension:[450.0 197.61953735351562 17.012516021728516]" 
+				Transform [45.000000 0.000000 0.000000 0.000000 0.000000 39.523907 0.000000 0.000000 0.000000 0.000000 30.000000 0.000000 0.000000 138.914780 0.010000 1.000000 ]
+				AttributeBegin
+					NamedMaterial "road_004_Material.002"
+					Shape "plymesh" "string filename" ["geometry/road_004_Landscape.001_mat0.ply"]
+				AttributeEnd
+			AttributeEnd
+			AttributeBegin
+			#MeshName: "road_004_Landscape.002" #Dimension:[300.0 150.0 17.012516021728516]" 
+				Transform [-0.000001 30.000000 0.000000 0.000000 -30.000000 -0.000001 0.000000 0.000000 0.000000 0.000000 30.000000 0.000000 295.777954 -1.550720 0.000000 1.000000 ]
+				AttributeBegin
+					NamedMaterial "road_004_Material.002"
+					Shape "plymesh" "string filename" ["geometry/road_004_Landscape.002_mat0.ply"]
+				AttributeEnd
+			AttributeEnd
+			AttributeBegin
+			#MeshName: "road_004_Landscape.003" #Dimension:[450.0 216.091796875 17.012516021728516]" 
+				Transform [45.000000 0.000000 0.000000 0.000000 0.000000 43.218361 0.000000 0.000000 0.000000 0.000000 30.000000 0.000000 0.000000 -151.098785 0.010000 1.000000 ]
+				AttributeBegin
+					NamedMaterial "road_004_Material.002"
+					Shape "plymesh" "string filename" ["geometry/road_004_Landscape.003_mat0.ply"]
+				AttributeEnd
+			AttributeEnd
+			AttributeBegin
+			#MeshName: "road_004_Landscape.004" #Dimension:[300.0 150.0 17.012516021728516]" 
+				Transform [-0.000001 30.000000 0.000000 0.000000 -30.000000 -0.000001 0.000000 0.000000 0.000000 0.000000 30.000000 0.000000 -292.491577 -1.550720 0.000000 1.000000 ]
+				AttributeBegin
+					NamedMaterial "road_004_Material.002"
+					Shape "plymesh" "string filename" ["geometry/road_004_Landscape.004_mat0.ply"]
+				AttributeEnd
+			AttributeEnd
+			AttributeBegin
+			#MeshName: "road_004_RoadsNode" #Dimension:[399.833984375 16.33251953125 0.0]" 
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AttributeBegin
+					NamedMaterial "LaneMarkingYellow1"
+					Shape "plymesh" "string filename" ["geometry/road_004_RoadsNode_mat0.ply"]
+				AttributeEnd
+			AttributeEnd
+			AttributeBegin
+			#MeshName: "road_004_RoadsNode.002" #Dimension:[401.16912841796875 25.62158203125 0.0]" 
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 -0.001000 1.000000 ]
+				AttributeBegin
+					NamedMaterial "Asphalt1"
+					Shape "plymesh" "string filename" ["geometry/road_004_RoadsNode.002_mat0.ply"]
+				AttributeEnd
+			AttributeEnd
+			AttributeBegin
+			#MeshName: "road_004_RoadsNode.003" #Dimension:[399.54071044921875 17.24835205078125 0.0]" 
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AttributeBegin
+					NamedMaterial "road_004_Grass1_Ground.002"
+					Shape "plymesh" "string filename" ["geometry/road_004_RoadsNode.003_mat0.ply"]
+					"texture alpha" ["road_004_Grass1_Ground.002.alphamap.DirtPath01_Diff_alphamap_lower.png"]					
+				AttributeEnd
+			AttributeEnd
+			AttributeBegin
+			#MeshName: "road_004_RoadsNode.004" #Dimension:[400.40618896484375 17.45758056640625 0.0]" 
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AttributeBegin
+					NamedMaterial "road_004_Grass1_Ground.001"
+					Shape "plymesh" "string filename" ["geometry/road_004_RoadsNode.004_mat0.ply"]
+					"texture alpha" ["road_004_Grass1_Ground.001.alphamap.DirtPath01_Diff_alphamap_upper.png"]					
+				AttributeEnd
+			AttributeEnd
+			AttributeBegin
+			#MeshName: "road_004_RoadsNode.005" #Dimension:[400.80572509765625 23.08245849609375 0.0]" 
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AttributeBegin
+					NamedMaterial "LaneMarking1.001"
+					Shape "plymesh" "string filename" ["geometry/road_004_RoadsNode.005_mat0.ply"]
+				AttributeEnd
+			AttributeEnd
+			AttributeBegin
+			#MeshName: "road_004_TerrainNode.001" #Dimension:[454.7349853515625 103.79376220703125 0.0]" 
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AttributeBegin
+					NamedMaterial "road_004_Grass1_Ground"
+					Shape "plymesh" "string filename" ["geometry/road_004_TerrainNode.001_mat0.ply"]
+				AttributeEnd
+			AttributeEnd
+		AttributeEnd
+	AttributeEnd
+ObjectEnd
+
+AttributeBegin
+#CollectionName: "Scene Collection"
+	AttributeBegin
+	#MeshName: "road_004_Camera"
+		Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+		ObjectInstance "road_004_Camera_m"
+	AttributeEnd
+	AttributeBegin
+	#MeshName: "SceneNode"
+		Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+		ObjectInstance "SceneNode_m"
+	AttributeEnd
+AttributeEnd

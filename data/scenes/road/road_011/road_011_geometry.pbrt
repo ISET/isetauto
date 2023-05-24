@@ -1,0 +1,452 @@
+ObjectBegin "road_011_SceneNode_m"
+#Instance MeshName: "road_011_SceneNode"
+	AttributeBegin
+	#MeshName: "road_011_SceneNode"
+		AttributeBegin
+		#MeshName: "road_011_Tile_0_0Node"
+			AttributeBegin
+			#MeshName: "road_011_PropsNode"
+				AttributeBegin
+				#MeshName: "road_011_PropNode" #Dimension:[369.46514892578125 74.71952819824219 0.8100000023841858]" 
+					Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+					AttributeBegin
+						NamedMaterial "road_011_Material"
+						Shape "plymesh" "string filename" ["geometry/road_011_PropNode_mat0.ply"]
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_011_{476ab176-3b51-4a8d-a1ef-2d5ff69ea36b}WoodPost_8ftNode"
+					AttributeBegin
+					#MeshName: "road_011_RootNode_2Node"
+						AttributeBegin
+						#MeshName: "road_011_WoodPost_8ftNode"
+							AttributeBegin
+							#MeshName: "road_011_wood_postNode" #Dimension:[0.09651977568864822 0.09652038663625717 2.694981575012207]" 
+								Transform [-0.010000 -0.000000 0.000000 0.000000 0.000000 -0.010000 0.000000 0.000000 0.000000 0.000000 0.010000 0.000000 139.561859 -22.837601 0.000000 1.000000 ]
+								AttributeBegin
+									NamedMaterial "road_011_SharedTexture02_2.001"
+									Shape "trianglemesh"
+									"point3 P" [
+									-4.82598876953125 -4.82598876953125 -25.399999618530273 4.82598876953125 -4.82598876953125 -25.399999618530273 -4.82598876953125 -4.8260498046875 244.09815979003906 -4.82598876953125 -4.8260498046875 244.09815979003906 4.82598876953125 -4.82598876953125 -25.399999618530273 4.82598876953125 -4.8260498046875 244.09815979003906 -4.82598876953125 -4.8260498046875 244.09815979003906 4.82598876953125 -4.8260498046875 244.09815979003906 -4.82598876953125 4.82598876953125 244.09817504882812 -4.82598876953125 4.82598876953125 244.09817504882812 4.82598876953125 -4.8260498046875 244.09815979003906 4.82598876953125 4.82598876953125 244.09817504882812 -4.82598876953125 4.82598876953125 244.09817504882812 4.82598876953125 4.82598876953125 244.09817504882812 -4.82598876953125 4.82598876953125 -25.399999618530273 -4.82598876953125 4.82598876953125 -25.399999618530273 4.82598876953125 4.82598876953125 244.09817504882812 4.82598876953125 4.82598876953125 -25.399999618530273 4.82598876953125 -4.82598876953125 -25.399999618530273 4.82598876953125 4.82598876953125 -25.399999618530273 4.82598876953125 -4.8260498046875 244.09815979003906 4.82598876953125 -4.8260498046875 244.09815979003906 4.82598876953125 4.82598876953125 -25.399999618530273 4.82598876953125 4.82598876953125 244.09817504882812 -4.82598876953125 4.82598876953125 -25.399999618530273 -4.82598876953125 -4.82598876953125 -25.399999618530273 -4.82598876953125 4.82598876953125 244.09817504882812 -4.82598876953125 4.82598876953125 244.09817504882812 -4.82598876953125 -4.82598876953125 -25.399999618530273 -4.82598876953125 -4.8260498046875 244.09815979003906									
+									]
+									"normal N" [
+									0.0 -1.0 -2.2877711103319598e-07 0.0 -1.0 -2.2877711103319598e-07 0.0 -1.0 -2.2877711103319598e-07 0.0 -1.0 -2.2584406167425186e-07 0.0 -1.0 -2.2584406167425186e-07 0.0 -1.0 -2.2584406167425186e-07 0.0 -1.5808876696610241e-06 1.0 0.0 -1.5808876696610241e-06 1.0 0.0 -1.5808876696610241e-06 1.0 0.0 -1.5808876696610241e-06 0.9999999403953552 0.0 -1.5808876696610241e-06 0.9999999403953552 0.0 -1.5808876696610241e-06 0.9999999403953552 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 9.385667709693735e-08 0.0 1.0 9.385667709693735e-08 0.0 1.0 9.385667709693735e-08 0.0 -1.0 0.0 0.0 -1.0 0.0 0.0 -1.0 0.0 0.0 -1.0 9.38566842023647e-08 0.0 -1.0 9.38566842023647e-08 0.0 -1.0 9.38566842023647e-08 0.0									
+									]
+									"point2 uv" [
+									0.48302412033081055 -0.5911245346069336 
+									0.3963799476623535 -0.5911245346069336 
+									0.48302459716796875 1.5294904708862305 
+									0.48302459716796875 1.5294904708862305 
+									0.3963799476623535 -0.5911245346069336 
+									0.3963804244995117 1.5294904708862305 
+									0.5001278519630432 0.60649573802948 
+									0.5506841540336609 0.60649573802948 
+									0.5001278519630432 0.6570520401000977 
+									0.5001278519630432 0.6570520401000977 
+									0.5506841540336609 0.60649573802948 
+									0.5506841540336609 0.6570520401000977 
+									0.39637991786003113 1.5294909477233887 
+									0.48302409052848816 1.5294914245605469 
+									0.39637991786003113 -0.5911250114440918 
+									0.39637991786003113 -0.5911250114440918 
+									0.48302409052848816 1.5294914245605469 
+									0.48302415013313293 -0.59112548828125 
+									0.3963799476623535 -0.59112548828125 
+									0.48302415013313293 -0.59112548828125 
+									0.39637935161590576 1.529489517211914 
+									0.39637935161590576 1.529489517211914 
+									0.48302415013313293 -0.59112548828125 
+									0.48302409052848816 1.5294914245605469 
+									0.39637991786003113 -0.5911250114440918 
+									0.48302412033081055 -0.5911245346069336 
+									0.39637991786003113 1.5294909477233887 
+									0.39637991786003113 1.5294909477233887 
+									0.48302412033081055 -0.5911245346069336 
+									0.48302459716796875 1.5294904708862305 
+									]
+									"integer indices" [
+									0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 
+									]
+								AttributeEnd
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_011_{481e65e2-ea61-4096-b739-5d157aa30f71}Sign_R1-3P_0Node"
+					AttributeBegin
+					#MeshName: "road_011_Sign_R1-3P_0Node" #Dimension:[2.6391749382019043 6.123233601181349e-17 1.0]" 
+						Transform [-0.342020 -0.939692 0.000000 0.000000 0.939692 -0.342020 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 139.525589 -22.812391 2.440982 1.000000 ]
+						AttributeBegin
+							NamedMaterial "road_011_Sign_R1-3P-Back.png.001"
+							Shape "trianglemesh"
+							"point3 P" [
+							-1.3195875883102417 -3.0616171314629196e-17 -0.5 1.3195875883102417 3.0616171314629196e-17 0.5 1.3195875883102417 -3.0616171314629196e-17 -0.5 -1.3195875883102417 -3.0616171314629196e-17 -0.5 -1.3195875883102417 3.0616171314629196e-17 0.5 1.3195875883102417 3.0616171314629196e-17 0.5							
+							]
+							"normal N" [
+							0.0 1.0 -6.123234924670329e-17 0.0 1.0 -6.123234924670329e-17 0.0 0.9999999403953552 -6.123234262925839e-17 0.0 1.0 -6.123234924670329e-17 0.0 0.9999999403953552 -6.123234262925839e-17 0.0 1.0 -6.123234924670329e-17							
+							]
+							"point2 uv" [
+							0.0 0.0 
+							1.0 1.0 
+							1.0 0.0 
+							0.0 0.0 
+							0.0 1.0 
+							1.0 1.0 
+							]
+							"integer indices" [
+							0 1 2 3 4 5 
+							]
+							"texture alpha" ["road_011_Sign_R1-3P-Back.png.001.alphamap.Sign_R1-3P-Back.png"]							
+						AttributeEnd
+					AttributeEnd
+					AttributeBegin
+					#MeshName: "road_011_Sign_R1-3P_0Node.001" #Dimension:[2.6391749382019043 6.123233601181349e-17 1.0]" 
+						Transform [-0.342020 -0.939692 0.000000 0.000000 0.939692 -0.342020 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 139.507111 -22.817675 2.440982 1.000000 ]
+						AttributeBegin
+							NamedMaterial "road_011_Sign_R1-3P.svg_rrx.001"
+							Shape "trianglemesh"
+							"point3 P" [
+							-1.3195875883102417 -3.0616171314629196e-17 -0.5 1.3195875883102417 -3.0616171314629196e-17 -0.5 1.3195875883102417 3.0616171314629196e-17 0.5 -1.3195875883102417 -3.0616171314629196e-17 -0.5 1.3195875883102417 3.0616171314629196e-17 0.5 -1.3195875883102417 3.0616171314629196e-17 0.5							
+							]
+							"normal N" [
+							0.0 -1.0 6.123234924670329e-17 0.0 -0.9999999403953552 6.123234262925839e-17 0.0 -1.0 6.123234924670329e-17 0.0 -1.0 6.123234924670329e-17 0.0 -1.0 6.123234924670329e-17 0.0 -0.9999999403953552 6.123234262925839e-17							
+							]
+							"point2 uv" [
+							0.0 0.0 
+							1.0 0.0 
+							1.0 1.0 
+							0.0 0.0 
+							1.0 1.0 
+							0.0 1.0 
+							]
+							"integer indices" [
+							0 1 2 3 4 5 
+							]
+							"texture alpha" ["road_011_Sign_R1-3P.svg_rrx.001.alphamap.Sign_R1-3P.png"]							
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_011_{716859cb-5d24-453d-8198-bd3b74d29335}Sign_R2-1(55)_0N"
+					AttributeBegin
+					#MeshName: "road_011_Sign_R2-1(55)_0Node" #Dimension:[0.79296875 6.123234262925839e-17 1.0]" 
+						Transform [-0.000000 1.000000 0.000000 0.000000 -1.000000 -0.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 23.276501 58.155800 2.440981 1.000000 ]
+						AttributeBegin
+							NamedMaterial "road_011_Sign_R2-1(55)-Back.png.001"
+							Shape "trianglemesh"
+							"point3 P" [
+							-0.396484375 -3.0616171314629196e-17 -0.5 0.396484375 3.0616171314629196e-17 0.5 0.396484375 -3.0616171314629196e-17 -0.5 -0.396484375 -3.0616171314629196e-17 -0.5 -0.396484375 3.0616171314629196e-17 0.5 0.396484375 3.0616171314629196e-17 0.5							
+							]
+							"normal N" [
+							0.0 1.0 -6.123234924670329e-17 0.0 1.0 -6.123234924670329e-17 0.0 1.0 -6.123234262925839e-17 0.0 1.0 -6.123234924670329e-17 0.0 1.0 -6.123234262925839e-17 0.0 1.0 -6.123234924670329e-17							
+							]
+							"point2 uv" [
+							0.0 0.0 
+							1.0 1.0 
+							1.0 0.0 
+							0.0 0.0 
+							0.0 1.0 
+							1.0 1.0 
+							]
+							"integer indices" [
+							0 1 2 3 4 5 
+							]
+							"texture alpha" ["road_011_Sign_R2-1(55)-Back.png.001.alphamap.Sign_R2-1(55)-Back.png"]							
+						AttributeEnd
+					AttributeEnd
+					AttributeBegin
+					#MeshName: "road_011_Sign_R2-1(55)_0Node.001" #Dimension:[0.79296875 6.123234262925839e-17 1.0]" 
+						Transform [-0.000000 1.000000 0.000000 0.000000 -1.000000 -0.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 23.296501 58.155800 2.440981 1.000000 ]
+						AttributeBegin
+							NamedMaterial "road_011_Sign_R2-1(55).svg_rrx.001"
+							Shape "trianglemesh"
+							"point3 P" [
+							-0.396484375 -3.0616171314629196e-17 -0.5 0.396484375 -3.0616171314629196e-17 -0.5 0.396484375 3.0616171314629196e-17 0.5 -0.396484375 -3.0616171314629196e-17 -0.5 0.396484375 3.0616171314629196e-17 0.5 -0.396484375 3.0616171314629196e-17 0.5							
+							]
+							"normal N" [
+							0.0 -1.0 6.123234924670329e-17 0.0 -1.0 6.123234262925839e-17 0.0 -1.0 6.123234924670329e-17 0.0 -1.0 6.123234924670329e-17 0.0 -1.0 6.123234924670329e-17 0.0 -1.0 6.123234262925839e-17							
+							]
+							"point2 uv" [
+							0.0 0.0 
+							1.0 0.0 
+							1.0 1.0 
+							0.0 0.0 
+							1.0 1.0 
+							0.0 1.0 
+							]
+							"integer indices" [
+							0 1 2 3 4 5 
+							]
+							"texture alpha" ["road_011_Sign_R2-1(55).svg_rrx.001.alphamap.Sign_R2-1(55).png"]							
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_011_{a14979c1-f3c8-4338-8cf7-58fd4afeeb8f}SignPost_10ftNod"
+					AttributeBegin
+					#MeshName: "road_011_RootNodeNode"
+						AttributeBegin
+						#MeshName: "road_011_SignPost_10ftNode"
+							AttributeBegin
+							#MeshName: "road_011_sign_post_10_meshNode" #Dimension:[0.04496566578745842 0.04496581852436066 3.047999858856201]" 
+								Transform [-0.010000 -0.000000 0.000000 0.000000 0.000000 -0.010000 0.000000 0.000000 0.000000 0.000000 0.010000 0.000000 -127.774292 -16.716789 0.000000 1.000000 ]
+								AttributeBegin
+									NamedMaterial "road_011_SharedTexture02.001"
+									Shape "plymesh" "string filename" ["geometry/road_011_sign_post_10_meshNode_mat0.ply"]
+								AttributeEnd
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_011_{e8e4fae9-17f4-41be-88c6-44c068600688}SignPost_8ftNode"
+					AttributeBegin
+					#MeshName: "road_011_RootNode_1Node"
+						AttributeBegin
+						#MeshName: "road_011_SignPost_8ftNode"
+							AttributeBegin
+							#MeshName: "road_011_sign_post_8_meshNode" #Dimension:[0.04496566578745842 0.04496581852436066 2.440981388092041]" 
+								Transform [-0.010000 -0.000000 0.000000 0.000000 0.000000 -0.010000 0.000000 0.000000 0.000000 0.000000 0.010000 0.000000 23.267229 58.155800 -0.000000 1.000000 ]
+								AttributeBegin
+									NamedMaterial "road_011_SharedTexture02_1.001"
+									Shape "plymesh" "string filename" ["geometry/road_011_sign_post_8_meshNode_mat0.ply"]
+								AttributeEnd
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_011_{f9684e40-35ab-40ae-81f1-0fb53dc00e92}Sign_FlaggerAhea"
+					AttributeBegin
+					#MeshName: "road_011_Sign_FlaggerAhead_0Node" #Dimension:[1.0 6.123234262925839e-17 1.0]" 
+						Transform [0.500000 -0.866025 0.000000 0.000000 0.866025 0.500000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 -127.790977 -16.726425 3.048000 1.000000 ]
+						AttributeBegin
+							NamedMaterial "road_011_Sign_FlaggerAhead-Back.png.001"
+							Shape "trianglemesh"
+							"point3 P" [
+							-0.5 -3.0616171314629196e-17 -0.5 0.5 3.0616171314629196e-17 0.5 0.5 -3.0616171314629196e-17 -0.5 -0.5 -3.0616171314629196e-17 -0.5 -0.5 3.0616171314629196e-17 0.5 0.5 3.0616171314629196e-17 0.5							
+							]
+							"normal N" [
+							0.0 1.0 -6.123234262925839e-17 0.0 1.0 -6.123234262925839e-17 0.0 1.0 -6.123234262925839e-17 0.0 1.0 -6.123234262925839e-17 0.0 1.0 -6.123234262925839e-17 0.0 1.0 -6.123234262925839e-17							
+							]
+							"point2 uv" [
+							0.0 0.0 
+							1.0 1.0 
+							1.0 0.0 
+							0.0 0.0 
+							0.0 1.0 
+							1.0 1.0 
+							]
+							"integer indices" [
+							0 1 2 3 4 5 
+							]
+							"texture alpha" ["road_011_Sign_FlaggerAhead-Back.png.001.alphamap.Sign_FlaggerAhead-Back.png"]							
+						AttributeEnd
+					AttributeEnd
+					AttributeBegin
+					#MeshName: "road_011_Sign_FlaggerAhead_0Node.001" #Dimension:[1.0 6.123234262925839e-17 1.0]" 
+						Transform [0.500000 -0.866025 0.000000 0.000000 0.866025 0.500000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 -127.799637 -16.731424 3.048000 1.000000 ]
+						AttributeBegin
+							NamedMaterial "road_011_Sign_FlaggerAhead.svg_rrx.001"
+							Shape "trianglemesh"
+							"point3 P" [
+							-0.5 -3.0616171314629196e-17 -0.5 0.5 -3.0616171314629196e-17 -0.5 0.5 3.0616171314629196e-17 0.5 -0.5 -3.0616171314629196e-17 -0.5 0.5 3.0616171314629196e-17 0.5 -0.5 3.0616171314629196e-17 0.5							
+							]
+							"normal N" [
+							0.0 -1.0 6.123234262925839e-17 0.0 -1.0 6.123234262925839e-17 0.0 -1.0 6.123234262925839e-17 0.0 -1.0 6.123234262925839e-17 0.0 -1.0 6.123234262925839e-17 0.0 -1.0 6.123234262925839e-17							
+							]
+							"point2 uv" [
+							0.0 0.0 
+							1.0 0.0 
+							1.0 1.0 
+							0.0 0.0 
+							1.0 1.0 
+							0.0 1.0 
+							]
+							"integer indices" [
+							0 1 2 3 4 5 
+							]
+							"texture alpha" ["road_011_Sign_FlaggerAhead.svg_rrx.001.alphamap.Sign_FlaggerAhead.png"]							
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+			AttributeEnd
+			AttributeBegin
+			#MeshName: "road_011_RoadsNode.001" #Dimension:[395.0079345703125 111.852783203125 0.0]" 
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 -0.001000 1.000000 ]
+				AttributeBegin
+					NamedMaterial "road_011_Road001"
+					Shape "plymesh" "string filename" ["geometry/road_011_RoadsNode.001_mat0.ply"]
+				AttributeEnd
+			AttributeEnd
+			AttributeBegin
+			#MeshName: "road_011_RoadsNode.002" #Dimension:[395.0079345703125 79.68316650390625 0.0]" 
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AttributeBegin
+					NamedMaterial "road_011_grass_wild.001"
+					Shape "plymesh" "string filename" ["geometry/road_011_RoadsNode.002_mat0.ply"]
+					"texture alpha" ["road_011_grass_wild.001.alphamap.DirtPath01_Diff_alphamap_lower.png"]					
+				AttributeEnd
+			AttributeEnd
+			AttributeBegin
+			#MeshName: "road_011_RoadsNode.003" #Dimension:[390.76513671875 105.68487548828125 0.0]" 
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AttributeBegin
+					NamedMaterial "road_011_LaneMarking1.001"
+					Shape "plymesh" "string filename" ["geometry/road_011_RoadsNode.003_mat0.ply"]
+				AttributeEnd
+			AttributeEnd
+			AttributeBegin
+			#MeshName: "road_011_RoadsNode.004" #Dimension:[373.48651123046875 80.56451416015625 0.0]" 
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AttributeBegin
+					NamedMaterial "road_011_LaneMarkingYellow1.001"
+					Shape "plymesh" "string filename" ["geometry/road_011_RoadsNode.004_mat0.ply"]
+				AttributeEnd
+			AttributeEnd
+			AttributeBegin
+			#MeshName: "road_011_RoadsNode.005" #Dimension:[215.9212646484375 29.9647216796875 0.0]" 
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AttributeBegin
+					NamedMaterial "road_011_Cracks01_rrx.001"
+					Shape "plymesh" "string filename" ["geometry/road_011_RoadsNode.005_mat0.ply"]
+					"texture alpha" ["road_011_Cracks01_rrx.001.alphamap.Cracks01_Diff.png"]					
+				AttributeEnd
+			AttributeEnd
+			AttributeBegin
+			#MeshName: "road_011_RoadsNode.006" #Dimension:[10.614501953125 5.11138916015625 0.0]" 
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AttributeBegin
+					NamedMaterial "road_011_TarStreaks01_rrx.001"
+					Shape "plymesh" "string filename" ["geometry/road_011_RoadsNode.006_mat0.ply"]
+					"texture alpha" ["road_011_TarStreaks01_rrx.001.alphamap.TarStreaks01_Diff.png"]					
+				AttributeEnd
+			AttributeEnd
+			AttributeBegin
+			#MeshName: "road_011_RoadsNode.007" #Dimension:[15.02838134765625 5.9796142578125 0.0]" 
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AttributeBegin
+					NamedMaterial "road_011_PartingLines01_rrx.001"
+					Shape "plymesh" "string filename" ["geometry/road_011_RoadsNode.007_mat0.ply"]
+					"texture alpha" ["road_011_PartingLines01_rrx.001.alphamap.PartingLines01_Diff.png"]					
+				AttributeEnd
+			AttributeEnd
+			AttributeBegin
+			#MeshName: "road_011_RoadsNode.008" #Dimension:[28.67816162109375 5.8941650390625 0.0]" 
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AttributeBegin
+					NamedMaterial "road_011_LinearCracks01.001"
+					Shape "plymesh" "string filename" ["geometry/road_011_RoadsNode.008_mat0.ply"]
+					"texture alpha" ["road_011_LinearCracks01.001.alphamap.LinearCracks01_Diff.png"]					
+				AttributeEnd
+			AttributeEnd
+			AttributeBegin
+			#MeshName: "road_011_RoadsNode.009" #Dimension:[345.0172119140625 71.35284423828125 0.0]" 
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AttributeBegin
+					NamedMaterial "road_011_grass_wild.002"
+					Shape "plymesh" "string filename" ["geometry/road_011_RoadsNode.009_mat0.ply"]
+					"texture alpha" ["road_011_grass_wild.002.alphamap.DirtPath01_Diff_alphamap_upper.png"]					
+				AttributeEnd
+			AttributeEnd
+			AttributeBegin
+			#MeshName: "road_011_TerrainNode" #Dimension:[459.91680908203125 167.19940185546875 0.0]" 
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AttributeBegin
+					NamedMaterial "road_011_grass_wild"
+					Shape "plymesh" "string filename" ["geometry/road_011_TerrainNode_mat0.ply"]
+				AttributeEnd
+			AttributeEnd
+		AttributeEnd
+	AttributeEnd
+ObjectEnd
+
+ObjectBegin "road_011_Camera_m"
+#Instance MeshName: "road_011_Camera"
+ObjectEnd
+
+ObjectBegin "road_011_Landscape.003_m"
+#Instance MeshName: "road_011_Landscape.003"
+	AttributeBegin
+	#MeshName: "road_011_Landscape.003" #Dimension:[473.7223815917969 94.74447631835938 10.0]" 
+		Transform [47.372238 0.000000 0.000000 0.000000 0.000000 47.372238 0.000000 0.000000 0.000000 0.000000 36.711376 0.000000 0.000000 106.967026 0.000000 1.000000 ]
+		AttributeBegin
+			NamedMaterial "road_011_rock_mountain"
+			Shape "plymesh" "string filename" ["geometry/road_011_Landscape.003_mat0.ply"]
+		AttributeEnd
+	AttributeEnd
+ObjectEnd
+
+ObjectBegin "road_011_Landscape.002_m"
+#Instance MeshName: "road_011_Landscape.002"
+	AttributeBegin
+	#MeshName: "road_011_Landscape.002" #Dimension:[175.80824279785156 35.16164779663086 9.132417678833008]" 
+		Transform [-2.450301 -17.409233 0.000000 0.000000 17.409233 -2.450301 0.000000 0.000000 0.000000 0.000000 33.526360 0.000000 -231.851135 4.781731 0.000000 1.000000 ]
+		AttributeBegin
+			NamedMaterial "road_011_rock_mountain"
+			Shape "plymesh" "string filename" ["geometry/road_011_Landscape.002_mat0.ply"]
+		AttributeEnd
+	AttributeEnd
+ObjectEnd
+
+ObjectBegin "road_011_Landscape.004_m"
+#Instance MeshName: "road_011_Landscape.004"
+	AttributeBegin
+	#MeshName: "road_011_Landscape.004" #Dimension:[175.80824279785156 35.16164779663086 5.0]" 
+		Transform [-2.450301 -17.409233 0.000000 0.000000 17.409233 -2.450301 0.000000 0.000000 0.000000 0.000000 18.355688 0.000000 221.313446 4.781731 0.000000 1.000000 ]
+		AttributeBegin
+			NamedMaterial "road_011_rock_mountain"
+			Shape "plymesh" "string filename" ["geometry/road_011_Landscape.004_mat0.ply"]
+		AttributeEnd
+	AttributeEnd
+ObjectEnd
+
+ObjectBegin "road_011_Landscape.001_m"
+#Instance MeshName: "road_011_Landscape.001"
+	AttributeBegin
+	#MeshName: "road_011_Landscape.001" #Dimension:[473.7223815917969 94.74447631835938 10.0]" 
+		Transform [47.372238 0.000000 0.000000 0.000000 0.000000 47.372238 0.000000 0.000000 0.000000 0.000000 36.711376 0.000000 0.000000 -105.764709 0.000000 1.000000 ]
+		AttributeBegin
+			NamedMaterial "road_011_rock_mountain"
+			Shape "plymesh" "string filename" ["geometry/road_011_Landscape.001_mat0.ply"]
+		AttributeEnd
+	AttributeEnd
+ObjectEnd
+
+AttributeBegin
+#CollectionName: "Scene Collection"
+	AttributeBegin
+	#CollectionName: "Collection"
+		AttributeBegin
+		#MeshName: "road_011_Camera"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "road_011_Camera_m"
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "road_011_SceneNode"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "road_011_SceneNode_m"
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "road_011_Landscape.003"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "road_011_Landscape.003_m"
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "road_011_Landscape.001"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "road_011_Landscape.001_m"
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "road_011_Landscape.002"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "road_011_Landscape.002_m"
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "road_011_Landscape.004"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "road_011_Landscape.004_m"
+		AttributeEnd
+	AttributeEnd
+AttributeEnd
