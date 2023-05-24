@@ -146,7 +146,8 @@ classdef roadgen < matlab.mixin.Copyable
             end
             fieldNameLists = fieldnames(obj.road);
             for ii = 1:numel(fieldNameLists)
-                lanePoints = obj.road.(fieldNameLists{ii});
+                if ~contains(fieldNameLists{ii},'Coordinates'),continue;end
+                lanePoints = obj.road.(fieldNameLists{ii}){1};
                 plot(lanePoints(:,1),lanePoints(:,2),'-');
                 axis equal;hold on;
             end
@@ -159,6 +160,8 @@ classdef roadgen < matlab.mixin.Copyable
                         'HorizontalAlignment','center');
                 end
             end
+
+            
             title('Bird view of the road');
             xlabel('meters');
             ylabel('meters');
