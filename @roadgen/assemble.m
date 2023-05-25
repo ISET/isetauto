@@ -172,8 +172,14 @@ function obj = addOBJ(obj, OBJClass, thisName)
 id = piAssetFind(obj.recipe.assets, 'name',[thisName,'_m_B']); % check whether it's there already
 
 if isempty(id)
+
+    % First check to see if we already have the asset
+    if exist([thisName '.mat'], 'file')
+        recipeFile = [thisName '.mat'];
+    elseif exist([thisName '.pbrt'], 'file')
+        pbrtFile = [thisName '.pbrt'];
     % We might get a non-existent directory or a database connection
-    if ~ischar(obj.assetdirectory) || ~isfolder(obj.assetdirectory)
+    elseif ~ischar(obj.assetdirectory) || ~isfolder(obj.assetdirectory)
         assetDB = isetdb;
         thisAsset = assetDB.docFind('assetsPBRT', ...
             sprintf("{""name"": ""%s""}", thisName));
