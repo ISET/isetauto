@@ -1,0 +1,401 @@
+ObjectBegin "Camera_m"
+#Instance MeshName: "Camera"
+ObjectEnd
+
+ObjectBegin "car_046_m"
+#Instance MeshName: "car_046"
+	AttributeBegin
+	#MeshName: "car_046"
+		AttributeBegin
+		#MeshName: "car_046_body.001" #Dimension:[2.1586380004882812 1.3619887828826904 0.39171963930130005]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "car_046_windowglass"
+				Shape "plymesh" "string filename" ["geometry/car_046_body.001_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "car_046_body.002" #Dimension:[4.028066158294678 1.6131185293197632 1.227988839149475]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "car_046_black"
+				Shape "plymesh" "string filename" ["geometry/car_046_body.002_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "car_046_body.003" #Dimension:[3.984126091003418 1.605438470840454 0.5615193843841553]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "car_046_mattemetal"
+				Shape "plymesh" "string filename" ["geometry/car_046_body.003_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "car_046_body.005" #Dimension:[4.378095626831055 1.6976282596588135 1.191329002380371]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "car_046_chrome"
+				Shape "plymesh" "string filename" ["geometry/car_046_body.005_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "car_046_body.007" #Dimension:[0.09135985374450684 1.3223986625671387 0.28348976373672485]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "car_046_redglass"
+				Shape "plymesh" "string filename" ["geometry/car_046_body.007_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "car_046_body.008" #Dimension:[2.1603176593780518 1.3522186279296875 1.1014089584350586]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "car_046_interior"
+				Shape "plymesh" "string filename" ["geometry/car_046_body.008_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "car_046_body.009" #Dimension:[4.114796161651611 1.6467483043670654 1.2359987497329712]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "car_046_carpaint"
+				Shape "plymesh" "string filename" ["geometry/car_046_body.009_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "car_046_body.010" #Dimension:[4.046875953674316 1.6477683782577515 0.5883795022964478]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "car_046_mirror"
+				Shape "plymesh" "string filename" ["geometry/car_046_body.010_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "car_046_body.011" #Dimension:[2.9491472244262695 1.5396186113357544 0.5131896138191223]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "car_046_rim"
+				Shape "plymesh" "string filename" ["geometry/car_046_body.011_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "car_046_body.012" #Dimension:[3.0820469856262207 1.5356186628341675 0.6463695168495178]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "car_046_tire"
+				Shape "plymesh" "string filename" ["geometry/car_046_body.012_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "car_046_body.014" #Dimension:[4.058376312255859 1.6530183553695679 0.36562949419021606]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "car_046_clearglass"
+				Shape "plymesh" "string filename" ["geometry/car_046_body.014_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "car_046_body.015" #Dimension:[0.07973003387451172 1.46751868724823 0.04605996608734131]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "car_046_orangeglass"
+				Shape "plymesh" "string filename" ["geometry/car_046_body.015_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "car_046_license_3D" #Dimension:[0.015359938144683838 0.2716805636882782 0.14094173908233643]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "car_046_license_holder"
+				Shape "plymesh" "string filename" ["geometry/car_046_license_3D_mat0.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "car_046_screw"
+				Shape "plymesh" "string filename" ["geometry/car_046_license_3D_mat1.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "car_046_green_paper"
+				Shape "trianglemesh"
+				"point3 P" [
+				0.6965596675872803 0.11817891895771027 0.5524572730064392 0.6965596675872803 0.11817891895771027 0.5312137603759766 0.696559727191925 0.08418922126293182 0.5312137603759766 0.6965596675872803 0.11817891895771027 0.5524572730064392 0.696559727191925 0.08418922126293182 0.5312137603759766 0.696559727191925 0.08418922126293182 0.5524572730064392				
+				]
+				"normal N" [
+				-1.0 -2.579620058895671e-06 0.0 -1.0 -2.579620058895671e-06 0.0 -1.0 -2.579620058895671e-06 0.0 -1.0 -2.579620058895671e-06 0.0 -1.0 -2.579620058895671e-06 0.0 -1.0 -2.579620058895671e-06 0.0				
+				]
+				"point2 uv" [
+				0.0 0.0 
+				1.0 0.0 
+				1.0 1.0 
+				0.0 0.0 
+				1.0 1.0 
+				0.0 1.0 
+				]
+				"integer indices" [
+				0 1 2 3 4 5 
+				]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "car_046_license_plate"
+				Shape "plymesh" "string filename" ["geometry/car_046_license_3D_mat3.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "car_046_white_paper"
+				Shape "trianglemesh"
+				"point3 P" [
+				0.6965597867965698 -0.0668642520904541 0.5524572730064392 0.6965597867965698 -0.0668642520904541 0.5312137603759766 0.6965598464012146 -0.10085393488407135 0.5312137603759766 0.6965597867965698 -0.0668642520904541 0.5524572730064392 0.6965598464012146 -0.10085393488407135 0.5312137603759766 0.6965598464012146 -0.10085393488407135 0.5524572730064392				
+				]
+				"normal N" [
+				-1.0 -2.5796266527322587e-06 0.0 -1.0 -2.5796266527322587e-06 0.0 -1.0 -2.5796266527322587e-06 0.0 -1.0 -2.5796266527322587e-06 0.0 -1.0 -2.5796266527322587e-06 0.0 -1.0 -2.5796266527322587e-06 0.0				
+				]
+				"point2 uv" [
+				0.0 0.0 
+				1.0 0.0 
+				1.0 1.0 
+				0.0 0.0 
+				1.0 1.0 
+				0.0 1.0 
+				]
+				"integer indices" [
+				0 1 2 3 4 5 
+				]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "car_046_California"
+				Shape "plymesh" "string filename" ["geometry/car_046_license_3D_mat5.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "car_046_black_paper"
+				Shape "trianglemesh"
+				"point3 P" [
+				0.6964748501777649 -0.06652446836233139 0.5526697635650635 0.6964748501777649 -0.06652446836233139 0.5310013294219971 0.6964748501777649 -0.10119395703077316 0.5310013294219971 0.6964748501777649 -0.06652446836233139 0.5526697635650635 0.6964748501777649 -0.10119395703077316 0.5310013294219971 0.6964748501777649 -0.10119395703077316 0.5526697635650635 0.6964747309684753 0.11851879209280014 0.5526697635650635 0.6964747309684753 0.11851879209280014 0.5310013294219971 0.6964747309684753 0.08384931832551956 0.5310013294219971 0.6964747309684753 0.11851879209280014 0.5526697635650635 0.6964747309684753 0.08384931832551956 0.5310013294219971 0.6964747309684753 0.08384931832551956 0.5526697635650635				
+				]
+				"normal N" [
+				-1.0 0.0 0.0 -1.0 0.0 0.0 -1.0 0.0 0.0 -1.0 0.0 0.0 -1.0 0.0 0.0 -1.0 0.0 0.0 -1.0 0.0 0.0 -1.0 0.0 0.0 -1.0 0.0 0.0 -1.0 0.0 0.0 -1.0 0.0 0.0 -1.0 0.0 0.0				
+				]
+				"point2 uv" [
+				0.0 0.0 
+				1.0 0.0 
+				1.0 1.0 
+				0.0 0.0 
+				1.0 1.0 
+				0.0 1.0 
+				0.0 0.0 
+				1.0 0.0 
+				1.0 1.0 
+				0.0 0.0 
+				1.0 1.0 
+				0.0 1.0 
+				]
+				"integer indices" [
+				0 1 2 3 4 5 6 7 8 9 10 11 
+				]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "car_046_Year"
+				Shape "plymesh" "string filename" ["geometry/car_046_license_3D_mat7.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "car_046_Month"
+				Shape "plymesh" "string filename" ["geometry/car_046_license_3D_mat8.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "car_046_license_3D"
+				Shape "plymesh" "string filename" ["geometry/car_046_license_3D_mat9.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "car_046_license_surface"
+				Shape "plymesh" "string filename" ["geometry/car_046_license_3D_mat10.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "car_046_license_3D_rear" #Dimension:[0.01807570457458496 0.31972116231918335 0.16586410999298096]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "car_046_license_holder"
+				Shape "plymesh" "string filename" ["geometry/car_046_license_3D_rear_mat0.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "car_046_screw"
+				Shape "plymesh" "string filename" ["geometry/car_046_license_3D_rear_mat1.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "car_046_green_paper"
+				Shape "trianglemesh"
+				"point3 P" [
+				-3.380397081375122 -0.12599453330039978 0.6124842762947083 -3.380397081375122 -0.12599453330039978 0.5874842405319214 -3.380397081375122 -0.08599451929330826 0.5874842405319214 -3.380397081375122 -0.12599453330039978 0.6124842762947083 -3.380397081375122 -0.08599451929330826 0.5874842405319214 -3.380397081375122 -0.08599451929330826 0.6124842762947083				
+				]
+				"normal N" [
+				1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0				
+				]
+				"point2 uv" [
+				0.0 0.0 
+				1.0 0.0 
+				1.0 1.0 
+				0.0 0.0 
+				1.0 1.0 
+				0.0 1.0 
+				]
+				"integer indices" [
+				0 1 2 3 4 5 
+				]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "car_046_license_plate"
+				Shape "plymesh" "string filename" ["geometry/car_046_license_3D_rear_mat3.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "car_046_white_paper"
+				Shape "trianglemesh"
+				"point3 P" [
+				-3.380397081375122 0.09176936000585556 0.6124842762947083 -3.380397081375122 0.09176936000585556 0.5874842405319214 -3.380397081375122 0.1317693591117859 0.5874842405319214 -3.380397081375122 0.09176936000585556 0.6124842762947083 -3.380397081375122 0.1317693591117859 0.5874842405319214 -3.380397081375122 0.1317693591117859 0.6124842762947083				
+				]
+				"normal N" [
+				1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0				
+				]
+				"point2 uv" [
+				0.0 0.0 
+				1.0 0.0 
+				1.0 1.0 
+				0.0 0.0 
+				1.0 1.0 
+				0.0 1.0 
+				]
+				"integer indices" [
+				0 1 2 3 4 5 
+				]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "car_046_California"
+				Shape "plymesh" "string filename" ["geometry/car_046_license_3D_rear_mat5.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "car_046_black_paper"
+				Shape "trianglemesh"
+				"point3 P" [
+				-3.3802971839904785 0.09136948734521866 0.6127342581748962 -3.3802971839904785 0.09136948734521866 0.5872342586517334 -3.3802971839904785 0.13216948509216309 0.5872342586517334 -3.3802971839904785 0.09136948734521866 0.6127342581748962 -3.3802971839904785 0.13216948509216309 0.5872342586517334 -3.3802971839904785 0.13216948509216309 0.6127342581748962 -3.3802971839904785 -0.12639451026916504 0.6127342581748962 -3.3802971839904785 -0.12639451026916504 0.5872342586517334 -3.3802971839904785 -0.08559451252222061 0.5872342586517334 -3.3802971839904785 -0.12639451026916504 0.6127342581748962 -3.3802971839904785 -0.08559451252222061 0.5872342586517334 -3.3802971839904785 -0.08559451252222061 0.6127342581748962				
+				]
+				"normal N" [
+				1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0				
+				]
+				"point2 uv" [
+				0.0 0.0 
+				1.0 0.0 
+				1.0 1.0 
+				0.0 0.0 
+				1.0 1.0 
+				0.0 1.0 
+				0.0 0.0 
+				1.0 0.0 
+				1.0 1.0 
+				0.0 0.0 
+				1.0 1.0 
+				0.0 1.0 
+				]
+				"integer indices" [
+				0 1 2 3 4 5 6 7 8 9 10 11 
+				]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "car_046_Year"
+				Shape "plymesh" "string filename" ["geometry/car_046_license_3D_rear_mat7.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "car_046_Month"
+				Shape "plymesh" "string filename" ["geometry/car_046_license_3D_rear_mat8.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "car_046_license_3D"
+				Shape "plymesh" "string filename" ["geometry/car_046_license_3D_rear_mat9.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "car_046_license_surface"
+				Shape "plymesh" "string filename" ["geometry/car_046_license_3D_rear_mat10.ply"]
+			AttributeEnd
+		AttributeEnd
+	AttributeEnd
+ObjectEnd
+
+AttributeBegin
+#CollectionName: "Scene Collection"
+	AttributeBegin
+	#MeshName: "Camera"
+		Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+		ObjectInstance "Camera_m"
+	AttributeEnd
+	AttributeBegin
+	#MeshName: "car_046"
+		Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+		ObjectInstance "car_046_m"
+		AttributeBegin
+		#MeshName: "car_046_body.004" #Dimension:[0.06802988052368164 1.311438798904419 0.028399884700775146]" 
+			AttributeBegin
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AreaLightSource "diffuse"				
+				"rgb L" [ 1.0 1.0 1.0]				
+				"float scale" [ 2.0 ]				
+				"float spread" [ 90.0 ]				
+				Shape "plymesh" "string filename" ["geometry/car_046_body.004_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "car_046_body.006" #Dimension:[2.965987205505371 1.6145983934402466 0.2501399517059326]" 
+			AttributeBegin
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AreaLightSource "diffuse"				
+				"rgb L" [ 0.24127262830734253 0.0 0.0001081448863260448]				
+				"float scale" [ 5.0 ]				
+				"float spread" [ 90.0 ]				
+				Shape "plymesh" "string filename" ["geometry/car_046_body.006_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "car_046_body.013" #Dimension:[3.9719462394714355 1.6145983934402466 0.2980796694755554]" 
+			AttributeBegin
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AreaLightSource "diffuse"				
+				"rgb L" [ 1.0 0.11714613437652588 0.0012488471111282706]				
+				"float scale" [ 1.0 ]				
+				"float spread" [ 90.0 ]				
+				Shape "plymesh" "string filename" ["geometry/car_046_body.013_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+			#MeshName: "car_046_front_cam" 
+			Transform [-0.000000 -1.000000 0.000000 0.000000 -0.000000 0.000000 1.000000 0.000000 -1.000000 0.000000 -0.000000 0.000000 -0.590000 0.032000 1.244000 1.000000 ]
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "car_046_headlamp_left_converted" #Dimension:[0.00919651985168457 0.05296063423156738 0.05215609073638916]" 
+			AttributeBegin
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AreaLightSource "diffuse"				
+				"rgb L" [ 1.0 1.0 1.0]				
+				"float scale" [ 150.0 ]				
+				"float spread" [ 22.5 ]				
+				Shape "plymesh" "string filename" ["geometry/car_046_headlamp_left_converted_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "car_046_headlamp_right_converted" #Dimension:[0.00919651985168457 0.05296063423156738 0.05215609073638916]" 
+			AttributeBegin
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AreaLightSource "diffuse"				
+				"rgb L" [ 1.0 1.0 1.0]				
+				"float scale" [ 150.0 ]				
+				"float spread" [ 22.5 ]				
+				Shape "plymesh" "string filename" ["geometry/car_046_headlamp_right_converted_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+			#MeshName: "car_046_left_mirror_cam" 
+			Transform [0.325568 0.945519 0.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.945519 -0.325568 -0.000000 0.000000 -0.687000 0.802000 1.040000 1.000000 ]
+		AttributeEnd
+		AttributeBegin
+			#MeshName: "car_046_rear_cam" 
+			Transform [-0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 1.000000 0.000000 -0.000000 0.000000 -3.303000 0.032000 0.850000 1.000000 ]
+		AttributeEnd
+		AttributeBegin
+			#MeshName: "car_046_right_mirror_cam" 
+			Transform [-0.291230 0.956653 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.956653 0.291230 -0.000000 0.000000 -0.687000 -0.802000 1.040000 1.000000 ]
+		AttributeEnd
+	AttributeEnd
+AttributeEnd

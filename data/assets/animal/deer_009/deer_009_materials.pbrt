@@ -1,0 +1,9 @@
+MakeNamedMaterial "deer_009_body"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/deer_009_normal.jpg"
+	"texture reflectance" "deer_009_body.reflectance.deer_009_diffuse.jpg"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5471998453140259]

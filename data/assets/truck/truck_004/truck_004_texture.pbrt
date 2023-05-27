@@ -1,0 +1,4 @@
+Texture "truck_004_dlal.reflectance.Interior_textures_Antos.jpg" "spectrum" "imagemap" "string filename" ["textures/Interior_textures_Antos.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "truck_004_logl_Metal.reflectance.Mercedes-Benz-Logo_refrakt.jpg" "spectrum" "imagemap" "string filename" ["textures/Mercedes-Benz-Logo_refrakt.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "truck_004_middle_tire.reflectance.Michelin.jpg" "spectrum" "imagemap" "string filename" ["textures/Michelin.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "truck_004_side_tire.reflectance.Tyre.jpg" "spectrum" "imagemap" "string filename" ["textures/Tyre.jpg"] "float uscale" [1.0] "float vscale" [1.0]

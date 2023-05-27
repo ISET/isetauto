@@ -1,0 +1,746 @@
+MakeNamedMaterial "car_014_black"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.858578622341156]
+MakeNamedMaterial "car_014_black.001"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.07840000092983246 0.07840000092983246 0.07840000092983246]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.21040725708007812]
+MakeNamedMaterial "car_014_black_paper"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "car_014_black_paper.001"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "car_014_brakedisk"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.30000001192092896 0.30000001192092896 0.30000001192092896]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.04792368412017822]
+MakeNamedMaterial "car_014_brakedisk.001"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.30000001192092896 0.30000001192092896 0.30000001192092896]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.04792368412017822]
+MakeNamedMaterial "car_014_brakedisk.002"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.30000001192092896 0.30000001192092896 0.30000001192092896]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.04792368412017822]
+MakeNamedMaterial "car_014_brakedisk.003"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.30000001192092896 0.30000001192092896 0.30000001192092896]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.04792368412017822]
+MakeNamedMaterial "car_014_brakedisk.004"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.30000001192092896 0.30000001192092896 0.30000001192092896]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.04792368412017822]
+MakeNamedMaterial "car_014_brakedisk.005"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.30000001192092896 0.30000001192092896 0.30000001192092896]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.04792368412017822]
+MakeNamedMaterial "car_014_brakedisk_red"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [1.0 0.05029090493917465 0.05029090493917465]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.17189094424247742]
+MakeNamedMaterial "car_014_California"
+	"string type" "diffuse"
+	"rgb reflectance" [0.7450982332229614 0.03802880644798279 0.033548109233379364]
+MakeNamedMaterial "car_014_California.001"
+	"string type" "diffuse"
+	"rgb reflectance" [0.7450982332229614 0.03802880644798279 0.033548109233379364]
+MakeNamedMaterial "car_014_carpaint"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.30980393290519714 0.38431376218795776 0.4078431725502014]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.009999999776482582]
+MakeNamedMaterial "car_014_carpaint.001"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.8688793182373047 0.8688793182373047 0.8688793182373047]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.06336088478565216]
+MakeNamedMaterial "car_014_chrome"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.1764705926179886 0.1764705926179886 0.1764705926179886]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.08585137128829956]
+MakeNamedMaterial "car_014_chrome.001"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.5372999906539917 0.5372999906539917 0.5372999906539917]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.09258514642715454]
+MakeNamedMaterial "car_014_chrome.002"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.1764705926179886 0.1764705926179886 0.1764705926179886]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.08585137128829956]
+MakeNamedMaterial "car_014_chrome.005"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.1764705926179886 0.1764705926179886 0.1764705926179886]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.08585137128829956]
+MakeNamedMaterial "car_014_chrome.006"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.1764705926179886 0.1764705926179886 0.1764705926179886]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.08585137128829956]
+MakeNamedMaterial "car_014_clearglass"
+	"string type" "dielectric"
+	"rgb eta" [1.5 1.5 1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "car_014_glass_blue_lv1_mat1"
+	"string type" "dielectric"
+	"rgb eta" [1.5 1.5 1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "car_014_glass_blue_lv1_mat2"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.12941177189350128 0.6901960968971252]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.858578622341156]
+MakeNamedMaterial "car_014_glass_blue"
+	"string type" "mix"
+	"float amount" [0.5]
+	"string materials" ["car_014_glass_blue_lv1_mat1" "car_014_glass_blue_lv1_mat2"]
+MakeNamedMaterial "car_014_glass_clear"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [1.0 1.0 1.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.858578622341156]
+MakeNamedMaterial "car_014_glass_dark"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.1725490242242813 0.1725490242242813 0.1725490242242813]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.858578622341156]
+MakeNamedMaterial "car_014_glass_lens"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.8470589518547058 0.9058824777603149 0.9686275720596313]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.858578622341156]
+MakeNamedMaterial "car_014_glass_orange"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [1.0 0.1764705926179886 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.858578622341156]
+MakeNamedMaterial "car_014_glass_red"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.572549045085907 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.858578622341156]
+MakeNamedMaterial "car_014_green_paper"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.021515654399991035 0.8000000715255737 0.40078291296958923]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "car_014_green_paper.001"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.021515654399991035 0.8000000715255737 0.40078291296958923]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "car_014_grey"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.3294117748737335 0.3294117748737335 0.3294117748737335]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.858578622341156]
+MakeNamedMaterial "car_014_ground"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.06372042745351791 0.06372042745351791 0.06372042745351791]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "car_014_interiorA"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.22352944314479828 0.21176473796367645 0.20000003278255463]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.858578622341156]
+MakeNamedMaterial "car_014_interiorB"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.1568627506494522 0.1568627506494522 0.1568627506494522]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.858578622341156]
+MakeNamedMaterial "car_014_leather"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.12941177189350128 0.06666667014360428 0.06666667014360428]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.858578622341156]
+MakeNamedMaterial "car_014_leatherB"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.11372550576925278 0.11372550576925278 0.11372550576925278]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.858578622341156]
+MakeNamedMaterial "car_014_leatherC"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.13333334028720856 0.13333334028720856 0.13333334028720856]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.858578622341156]
+MakeNamedMaterial "car_014_ledBlue"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.3882353603839874 0.9686275720596313]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.858578622341156]
+MakeNamedMaterial "car_014_license_3D"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [1.0 1.0 1.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "car_014_license_3D.001"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [1.0 1.0 1.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "car_014_license_holder"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.7136363983154297]
+MakeNamedMaterial "car_014_license_holder.001"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.7136363983154297]
+MakeNamedMaterial "car_014_license_plate"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.800000011920929 0.800000011920929 0.800000011920929]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.4909090995788574]
+MakeNamedMaterial "car_014_license_plate.001"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.800000011920929 0.800000011920929 0.800000011920929]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.4909090995788574]
+MakeNamedMaterial "car_014_license_surface"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "car_014_license_surface.001"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "car_014_Material.001"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.800000011920929 0.800000011920929 0.800000011920929]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "car_014_metal_dark"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.13725490868091583 0.13725490868091583 0.13725490868091583]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.10403317213058472]
+MakeNamedMaterial "car_014_metal_dark.001"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.13725490868091583 0.13725490868091583 0.13725490868091583]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.10403317213058472]
+MakeNamedMaterial "car_014_metal_dark.004"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.13725490868091583 0.13725490868091583 0.13725490868091583]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.10403317213058472]
+MakeNamedMaterial "car_014_metal_dark.005"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.13725490868091583 0.13725490868091583 0.13725490868091583]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.10403317213058472]
+MakeNamedMaterial "car_014_mirror"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [1.0 1.0 1.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "car_014_Month"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.040013473480939865 0.011621527373790741 0.8000000715255737]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "car_014_Month.001"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.040013473480939865 0.011621527373790741 0.8000000715255737]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "car_014_plastic_int"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.058823537081480026 0.058823537081480026 0.058823537081480026]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.858578622341156]
+MakeNamedMaterial "car_014_plasticblack"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.10588236898183823 0.10588236898183823 0.10588236898183823]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.20403319597244263]
+MakeNamedMaterial "car_014_plasticblackD"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.027450984343886375 0.027450984343886375 0.027450984343886375]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.858578622341156]
+MakeNamedMaterial "car_014_plasticGlossy"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.019607843831181526 0.019607843831181526 0.019607843831181526]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.585893988609314]
+MakeNamedMaterial "car_014_plasticGlossy.001"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.019607843831181526 0.019607843831181526 0.019607843831181526]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.585893988609314]
+MakeNamedMaterial "car_014_plasticGlossy.004"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.019607843831181526 0.019607843831181526 0.019607843831181526]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.585893988609314]
+MakeNamedMaterial "car_014_plasticGlossy.005"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.019607843831181526 0.019607843831181526 0.019607843831181526]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.585893988609314]
+MakeNamedMaterial "car_014_Red Chrome"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.800000011920929 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "car_014_redglass_lv1_mat1"
+	"string type" "dielectric"
+	"rgb eta" [1.5 1.5 1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "car_014_redglass_lv1_mat2"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.9900000095367432 0.009999999776482582 0.009999999776482582]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "car_014_redglass"
+	"string type" "mix"
+	"float amount" [0.5]
+	"string materials" ["car_014_redglass_lv1_mat1" "car_014_redglass_lv1_mat2"]
+MakeNamedMaterial "car_014_redglass_frosted_lv1_mat1"
+	"string type" "dielectric"
+	"rgb eta" [1.5 1.5 1.5]
+	"float roughness" [0.10000000149011612]
+MakeNamedMaterial "car_014_redglass_frosted_lv1_mat2"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.9900000095367432 0.009999999776482582 0.009999999776482582]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "car_014_redglass_frosted"
+	"string type" "mix"
+	"float amount" [0.5]
+	"string materials" ["car_014_redglass_frosted_lv1_mat1" "car_014_redglass_frosted_lv1_mat2"]
+MakeNamedMaterial "car_014_reflect"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.23137257993221283 0.23137257993221283 0.23137257993221283]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.858578622341156]
+MakeNamedMaterial "car_014_reflectB"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [1.0 1.0 1.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.858578622341156]
+MakeNamedMaterial "car_014_reflectDark"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.8810793161392212]
+MakeNamedMaterial "car_014_rim"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.6783999800682068 0.6783999800682068 0.6783999800682068]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.24948769807815552]
+MakeNamedMaterial "car_014_rim_Bright.005"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.9098040461540222 0.9098040461540222 0.9098040461540222]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.858578622341156]
+MakeNamedMaterial "car_014_rimBright"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.9098040461540222 0.9098040461540222 0.9098040461540222]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.858578622341156]
+MakeNamedMaterial "car_014_rimBright.001"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.9098040461540222 0.9098040461540222 0.9098040461540222]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.858578622341156]
+MakeNamedMaterial "car_014_rimBright.004"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.9098040461540222 0.9098040461540222 0.9098040461540222]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.858578622341156]
+MakeNamedMaterial "car_014_rimDark"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.11764707416296005 0.11764707416296005 0.11764707416296005]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.8197498917579651]
+MakeNamedMaterial "car_014_rimDark.001"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.11764707416296005 0.11764707416296005 0.11764707416296005]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.8197498917579651]
+MakeNamedMaterial "car_014_rimDark.004"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.11764707416296005 0.11764707416296005 0.11764707416296005]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.8197498917579651]
+MakeNamedMaterial "car_014_rimDark.005"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.11764707416296005 0.11764707416296005 0.11764707416296005]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.8197498917579651]
+MakeNamedMaterial "car_014_roof_window_lv1_mat1"
+	"string type" "dielectric"
+	"rgb eta" [1.5 1.5 1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "car_014_roof_window_lv1_mat2"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.020462045446038246 0.020462045446038246 0.020462045446038246]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "car_014_roof_window"
+	"string type" "mix"
+	"float amount" [0.5]
+	"string materials" ["car_014_roof_window_lv1_mat1" "car_014_roof_window_lv1_mat2"]
+MakeNamedMaterial "car_014_screw"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.5372551083564758 0.5372551083564758 0.5372551083564758]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.15909090638160706]
+MakeNamedMaterial "car_014_screw.001"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.5372551083564758 0.5372551083564758 0.5372551083564758]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.15909090638160706]
+MakeNamedMaterial "car_014_silver"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.4588235914707184 0.4588235914707184 0.4588235914707184]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.858578622341156]
+MakeNamedMaterial "car_014_texInt"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [1.0 1.0 1.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.8964735269546509]
+MakeNamedMaterial "car_014_tire"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.08627451211214066 0.08627451211214066 0.08627451211214066]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.858578622341156]
+MakeNamedMaterial "car_014_tire.001"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.01106879860162735 0.01106879860162735 0.01106879860162735]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.3032609224319458]
+MakeNamedMaterial "car_014_tire.002"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.08627451211214066 0.08627451211214066 0.08627451211214066]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.858578622341156]
+MakeNamedMaterial "car_014_tire.005"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.08627451211214066 0.08627451211214066 0.08627451211214066]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.858578622341156]
+MakeNamedMaterial "car_014_tire.006"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.08627451211214066 0.08627451211214066 0.08627451211214066]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.858578622341156]
+MakeNamedMaterial "car_014_white_paper"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [1.0 1.0 1.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "car_014_white_paper.001"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [1.0 1.0 1.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "car_014_windowglass_lv1_mat1"
+	"string type" "dielectric"
+	"rgb eta" [1.5 1.5 1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "car_014_windowglass_lv1_mat2"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0683356523513794 0.06946627795696259 0.05966745316982269]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "car_014_windowglass"
+	"string type" "mix"
+	"float amount" [0.5]
+	"string materials" ["car_014_windowglass_lv1_mat1" "car_014_windowglass_lv1_mat2"]
+MakeNamedMaterial "car_014_Year"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "car_014_Year.001"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]

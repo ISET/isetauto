@@ -1,0 +1,45 @@
+ObjectBegin "Camera_m"
+#Instance MeshName: "Camera"
+ObjectEnd
+
+ObjectBegin "pedestrian_032_m"
+#Instance MeshName: "pedestrian_032"
+	AttributeBegin
+	#MeshName: "pedestrian_032"
+		AttributeBegin
+		#MeshName: "pedestrian_032_body" #Dimension:[0.7268595695495605 0.5896233916282654 1.805419683456421]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "pedestrian_032_body"
+				Shape "plymesh" "string filename" ["geometry/pedestrian_032_body_mat0.ply"]
+				"texture alpha" ["pedestrian_032_body.alphamap.pedestrian_032_10838out_001.png"]				
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "pedestrian_032_phone" #Dimension:[0.07681477069854736 0.13165545463562012 0.06163585186004639]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "pedestrian_032_phone"
+				Shape "plymesh" "string filename" ["geometry/pedestrian_032_phone_mat0.ply"]
+				"texture alpha" ["pedestrian_032_phone.alphamap.10838out_003.png"]				
+			AttributeEnd
+		AttributeEnd
+	AttributeEnd
+ObjectEnd
+
+AttributeBegin
+#CollectionName: "Scene Collection"
+	AttributeBegin
+	#CollectionName: "Collection"
+		AttributeBegin
+		#MeshName: "Camera"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "Camera_m"
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "pedestrian_032"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "pedestrian_032_m"
+		AttributeEnd
+	AttributeEnd
+AttributeEnd

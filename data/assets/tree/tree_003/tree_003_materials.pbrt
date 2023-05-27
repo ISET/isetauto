@@ -1,0 +1,26 @@
+MakeNamedMaterial "tree_003_bark"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/AM171_003_tree_nrm.jpg"
+	"texture reflectance" "tree_003_bark.reflectance.AM171_003_tree_color.jpg"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.858578622341156]
+MakeNamedMaterial "tree_003_leaf"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/AM171_003_leaf_nrm.png"
+	"texture reflectance" "tree_003_leaf.reflectance.AM171_003_leaf_color.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.858578622341156]
+MakeNamedMaterial "tree_003_red"
+	"string type" "coateddiffuse"
+	"texture reflectance" "tree_003_red.reflectance.AM171_003_Fruit_color.jpg"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.858578622341156]

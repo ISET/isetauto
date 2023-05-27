@@ -1,0 +1,32 @@
+ObjectBegin "Camera_m"
+#Instance MeshName: "Camera"
+ObjectEnd
+
+ObjectBegin "pedestrian_005_m"
+#Instance MeshName: "pedestrian_005"
+	AttributeBegin
+	#MeshName: "pedestrian_005" #Dimension:[0.5927071571350098 0.6430193185806274 1.750402569770813]" 
+		Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+		AttributeBegin
+			NamedMaterial "pedestrian_005"
+			Shape "plymesh" "string filename" ["geometry/pedestrian_005_mat0.ply"]
+		AttributeEnd
+	AttributeEnd
+ObjectEnd
+
+AttributeBegin
+#CollectionName: "Scene Collection"
+	AttributeBegin
+	#CollectionName: "Collection"
+		AttributeBegin
+		#MeshName: "Camera"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "Camera_m"
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "pedestrian_005"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "pedestrian_005_m"
+		AttributeEnd
+	AttributeEnd
+AttributeEnd

@@ -1,0 +1,8 @@
+Texture "tex_grass_001.displacement.wiljearqx_4K_Displacement.jpg" "float" "imagemap" "string filename" ["textures/wiljearqx_4K_Displacement.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "grass_001.displacement.wiljearqx_4K_Displacement.jpg" "float" "scale" "float scale" [1.0] "texture tex" "tex_grass_001.displacement.wiljearqx_4K_Displacement.jpg"
+Texture "grass_001.reflectance.wiljearqx_4K_Albedo.jpg" "spectrum" "imagemap" "string filename" ["textures/wiljearqx_4K_Albedo.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "tex_grass_001.roughness.wiljearqx_4K_Roughness.jpg" "float" "imagemap" "string filename" ["textures/wiljearqx_4K_Roughness.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "grass_001.roughness.wiljearqx_4K_Roughness.jpg" "float" "scale" "float scale" [1.0] "texture tex" "tex_grass_001.roughness.wiljearqx_4K_Roughness.jpg"
+Texture "lambert1.001.reflectance.wiljearqx_4K_Albedo.jpg" "spectrum" "imagemap" "string filename" ["textures/wiljearqx_4K_Albedo.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "tex_lambert1.001.roughness.wiljearqx_4K_Roughness.jpg" "float" "imagemap" "string filename" ["textures/wiljearqx_4K_Roughness.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "lambert1.001.roughness.wiljearqx_4K_Roughness.jpg" "float" "scale" "float scale" [1.0] "texture tex" "tex_lambert1.001.roughness.wiljearqx_4K_Roughness.jpg"

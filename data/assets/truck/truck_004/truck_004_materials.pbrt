@@ -1,0 +1,305 @@
+MakeNamedMaterial "truck_004_alumimium"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.7137255072593689 0.7137255072593689 0.7137255072593689]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5405206680297852]
+MakeNamedMaterial "truck_004_black"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.071803517639637 0.071803517639637 0.071803517639637]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.06363636255264282]
+MakeNamedMaterial "truck_004_black_glass_lv1_mat1"
+	"string type" "dielectric"
+	"rgb eta" [1.5 1.5 1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "truck_004_black_glass_lv1_mat2"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.01883992739021778 0.01883992739021778 0.01883992739021778]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "truck_004_black_glass"
+	"string type" "mix"
+	"float amount" [0.5]
+	"string materials" ["truck_004_black_glass_lv1_mat1" "truck_004_black_glass_lv1_mat2"]
+MakeNamedMaterial "truck_004_black_paint_Polisheid"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.1764705926179886 0.1764705926179886 0.1764705926179886]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.17178794741630554]
+MakeNamedMaterial "truck_004_black_paper"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "truck_004_black_plastic"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.024064065888524055 0.024064065888524055 0.024064065888524055]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.8590909242630005]
+MakeNamedMaterial "truck_004_blueplastic"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.3176470696926117 0.6666666865348816 0.8156864047050476]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.8524963855743408]
+MakeNamedMaterial "truck_004_California"
+	"string type" "diffuse"
+	"rgb reflectance" [0.7450982332229614 0.03802880644798279 0.033548109233379364]
+MakeNamedMaterial "truck_004_carpaint"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.800000011920929 0.800000011920929 0.800000011920929]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.09180327504873276]
+MakeNamedMaterial "truck_004_chrome"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.800000011920929 0.800000011920929 0.800000011920929]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.26363635063171387]
+MakeNamedMaterial "truck_004_clearglass"
+	"string type" "dielectric"
+	"rgb eta" [1.5 1.5 1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "truck_004_dlal"
+	"string type" "coateddiffuse"
+	"texture reflectance" "truck_004_dlal.reflectance.Interior_textures_Antos.jpg"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.4343145787715912]
+MakeNamedMaterial "truck_004_green_paper"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.021515654399991035 0.8000000715255737 0.40078291296958923]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "truck_004_ground"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.05496846139431 0.05496846139431 0.05496846139431]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "truck_004_interior"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.42195630073547363 0.42195630073547363 0.42195630073547363]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.8999999761581421]
+MakeNamedMaterial "truck_004_license_3D"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [1.0 1.0 1.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "truck_004_license_holder"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.7136363983154297]
+MakeNamedMaterial "truck_004_license_plate"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.800000011920929 0.800000011920929 0.800000011920929]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.4909090995788574]
+MakeNamedMaterial "truck_004_license_surface"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "truck_004_logl_Metal"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/Mercedes-Benz-Logo_bamp.jpg"
+	"texture reflectance" "truck_004_logl_Metal.reflectance.Mercedes-Benz-Logo_refrakt.jpg"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.4343145787715912]
+MakeNamedMaterial "truck_004_middle_tire"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/Michelin_bamp.jpg"
+	"texture reflectance" "truck_004_middle_tire.reflectance.Michelin.jpg"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9161328077316284]
+MakeNamedMaterial "truck_004_Month"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.040013473480939865 0.011621527373790741 0.8000000715255737]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "truck_004_orangeglass_lv1_mat1"
+	"string type" "dielectric"
+	"rgb eta" [1.5 1.5 1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "truck_004_orangeglass_lv1_mat2"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [1.0 0.6581085920333862 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "truck_004_orangeglass"
+	"string type" "mix"
+	"float amount" [0.5]
+	"string materials" ["truck_004_orangeglass_lv1_mat1" "truck_004_orangeglass_lv1_mat2"]
+MakeNamedMaterial "truck_004_Plack_Paint_Mixer"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0941176638007164 0.0941176638007164 0.0941176638007164]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.4343145787715912]
+MakeNamedMaterial "truck_004_red_plastic"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.658823549747467 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.4343145787715912]
+MakeNamedMaterial "truck_004_redglass_lv1_mat1"
+	"string type" "dielectric"
+	"rgb eta" [1.5 1.5 1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "truck_004_redglass_lv1_mat2"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [1.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "truck_004_redglass"
+	"string type" "mix"
+	"float amount" [0.5]
+	"string materials" ["truck_004_redglass_lv1_mat1" "truck_004_redglass_lv1_mat2"]
+MakeNamedMaterial "truck_004_rim"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.800000011920929 0.800000011920929 0.800000011920929]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.3116244375705719]
+MakeNamedMaterial "truck_004_rubber"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.1568627506494522 0.1568627506494522 0.1568627506494522]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.4343145787715912]
+MakeNamedMaterial "truck_004_screw"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.5372551083564758 0.5372551083564758 0.5372551083564758]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.15909090638160706]
+MakeNamedMaterial "truck_004_side_tire"
+	"string type" "coateddiffuse"
+	"texture reflectance" "truck_004_side_tire.reflectance.Tyre.jpg"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.8797690868377686]
+MakeNamedMaterial "truck_004_white_paper"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [1.0 1.0 1.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "truck_004_windowglass_lv1_mat1"
+	"string type" "dielectric"
+	"rgb eta" [1.5 1.5 1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "truck_004_windowglass_lv1_mat2"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.39808276295661926 0.8000000715255737 0.6846837401390076]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "truck_004_windowglass"
+	"string type" "mix"
+	"float amount" [0.5]
+	"string materials" ["truck_004_windowglass_lv1_mat1" "truck_004_windowglass_lv1_mat2"]
+MakeNamedMaterial "truck_004_Year"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "truck_004_Yello_plastic_retro"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [1.0 0.7058823704719543 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.4343145787715912]
+MakeNamedMaterial "truck_004_yellow_metal"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.5176470875740051 0.34648317098617554 0.09495323896408081]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.4343145787715912]

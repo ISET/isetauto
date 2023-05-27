@@ -1,0 +1,23 @@
+Film "gbuffer" "integer xresolution" [1280] "integer yresolution" [720] "string filename" "output.exr"
+PixelFilter "box" "float xradius" [0.5] "float yradius" [0.5] 
+Accelerator "bvh" 
+"string splitmethod" "sah"
+"integer maxnodeprims" [4]
+Sampler "halton"
+"integer pixelsamples" [100]
+
+Integrator "path"
+"integer maxdepth" [10]
+
+Scale -1 1 1 #avoid the 'flipped image' bug..
+LookAt	4.40974760055542 -3.534236431121826 1.1844080686569214
+	3.667055368423462 -2.865513563156128 1.1495084762573242
+	-0.025935381650924683 0.023352492600679398 0.9993908405303955
+
+Camera "perspective"
+"float fov" [22.89519204617112]
+WorldBegin
+
+Include "deer_003_materials.pbrt"
+Include "deer_003_texture.pbrt"
+Include "deer_003_geometry.pbrt"

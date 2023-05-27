@@ -1,0 +1,5 @@
+Texture "tex_rock_003.displacement.vd5rffe_4K_Displacement.exr" "float" "imagemap" "string filename" ["textures/vd5rffe_4K_Displacement.exr"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "rock_003.displacement.vd5rffe_4K_Displacement.exr" "float" "scale" "float scale" [1.0] "texture tex" "tex_rock_003.displacement.vd5rffe_4K_Displacement.exr"
+Texture "rock_003.reflectance.vd5rffe_4K_Albedo.jpg" "spectrum" "imagemap" "string filename" ["textures/vd5rffe_4K_Albedo.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "tex_rock_003.roughness.vd5rffe_4K_Roughness.jpg" "float" "imagemap" "string filename" ["textures/vd5rffe_4K_Roughness.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "rock_003.roughness.vd5rffe_4K_Roughness.jpg" "float" "scale" "float scale" [1.0] "texture tex" "tex_rock_003.roughness.vd5rffe_4K_Roughness.jpg"

@@ -1,0 +1,4 @@
+Texture "tree_012_bark.reflectance.AM171_012_trunk_diff.jpg" "spectrum" "imagemap" "string filename" ["textures/AM171_012_trunk_diff.jpg"] "float uscale" [1] "float vscale" [1]
+Texture "tree_012_leaf.reflectance.AM171_012_leaf_color.jpg" "spectrum" "imagemap" "string filename" ["textures/AM171_012_leaf_color.jpg"] "float uscale" [1] "float vscale" [1]
+Texture "tex_tree_012_leaf.alphamap.AM171_012_leaf_alpha.jpg" "float" "imagemap" "string filename" ["textures/AM171_012_leaf_alpha.jpg"] "float uscale" [1] "float vscale" [1]
+Texture "tree_012_leaf.alphamap.AM171_012_leaf_alpha.jpg" "float" "scale" "float scale" [1.0] "texture tex" "tex_tree_012_leaf.alphamap.AM171_012_leaf_alpha.jpg"

@@ -1,0 +1,32 @@
+ObjectBegin "Camera_m"
+#Instance MeshName: "Camera"
+ObjectEnd
+
+ObjectBegin "rock_003_m"
+#Instance MeshName: "rock_003"
+	AttributeBegin
+	#MeshName: "rock_003" #Dimension:[0.14000000059604645 0.04768825322389603 0.10552400350570679]" 
+		Transform [0.009883 0.000000 -0.001526 0.000000 0.001526 -0.000000 0.009883 0.000000 -0.000000 -0.010000 -0.000000 0.000000 0.000000 0.000000 0.020504 1.000000 ]
+		AttributeBegin
+			NamedMaterial "rock_003"
+			Shape "plymesh" "string filename" ["geometry/rock_003_mat0.ply"]
+		AttributeEnd
+	AttributeEnd
+ObjectEnd
+
+AttributeBegin
+#CollectionName: "Scene Collection"
+	AttributeBegin
+	#CollectionName: "Collection"
+		AttributeBegin
+		#MeshName: "Camera"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "Camera_m"
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "rock_003"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "rock_003_m"
+		AttributeEnd
+	AttributeEnd
+AttributeEnd
