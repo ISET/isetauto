@@ -1,3 +1,0 @@
-Texture "truck_009_carpaint_fixed.reflectance.Seagrave_Marauder_II_Fire_Truck_2014_livery.png" "spectrum" "imagemap" "string filename" ["textures/Seagrave_Marauder_II_Fire_Truck_2014_livery.png"] "float uscale" [1.0] "float vscale" [1.0]
-Texture "tex_truck_009_carpaint_fixed.alphamap.Seagrave_Marauder_II_Fire_Truck_2014_livery.png" "float" "imagemap" "string filename" ["textures/Seagrave_Marauder_II_Fire_Truck_2014_livery.png"] "float uscale" [1.0] "float vscale" [1.0]
-Texture "truck_009_carpaint_fixed.alphamap.Seagrave_Marauder_II_Fire_Truck_2014_livery.png" "float" "scale" "float scale" [1.0] "texture tex" "tex_truck_009_carpaint_fixed.alphamap.Seagrave_Marauder_II_Fire_Truck_2014_livery.png"

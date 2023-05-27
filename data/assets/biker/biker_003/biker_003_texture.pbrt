@@ -1,5 +1,0 @@
-Texture "biker_003_07Bikes_02.reflectance.Humano_07Bikes_02_Diffuse01.jpg" "spectrum" "imagemap" "string filename" ["textures/Humano_07Bikes_02_Diffuse01.jpg"] "float uscale" [1.0] "float vscale" [1.0]
-Texture "biker_003_BikeBag.reflectance.Humano_07Bikes_Bike_Bag01.jpg" "spectrum" "imagemap" "string filename" ["textures/Humano_07Bikes_Bike_Bag01.jpg"] "float uscale" [1.0] "float vscale" [1.0]
-Texture "biker_003_BikeBagZipper.reflectance.Humano_07Bikes_Bike_BagZipper01.jpg" "spectrum" "imagemap" "string filename" ["textures/Humano_07Bikes_Bike_BagZipper01.jpg"] "float uscale" [1.0] "float vscale" [1.0]
-Texture "biker_003_BikeHelmetStrips.reflectance.Humano_07Bikes_Bike_HelmetStrips.jpg" "spectrum" "imagemap" "string filename" ["textures/Humano_07Bikes_Bike_HelmetStrips.jpg"] "float uscale" [1.0] "float vscale" [1.0]
-Texture "biker_003_BikeLeather.000.reflectance.Humano_07Bikes_Bike_Leather_by_cc0textures-com.jpg" "spectrum" "imagemap" "string filename" ["textures/Humano_07Bikes_Bike_Leather_by_cc0textures-com.jpg"] "float uscale" [1.0] "float vscale" [1.0]

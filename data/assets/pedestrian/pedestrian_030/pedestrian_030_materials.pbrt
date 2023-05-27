@@ -1,9 +1,0 @@
-MakeNamedMaterial "pedestrian_030"
-	"string type" "coateddiffuse"
-	"string normalmap" "textures/pedestrian_030_mat0_n.png"
-	"texture reflectance" "pedestrian_030.reflectance.pedestrian_030_mat0_c.png"
-	"rgb albedo" [0.0 0.0 0.0]
-	"float thickness" [0.009999999776482582]
-	"float g" [0.0]
-	"float eta" [1.5]
-	"float roughness" [0.5527864098548889]

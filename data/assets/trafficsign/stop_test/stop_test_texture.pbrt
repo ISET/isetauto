@@ -1,3 +1,0 @@
-Texture "stopSigns_retro.reflectance.Signs_EU_Diffuse_tqt_4096.png" "spectrum" "imagemap" "string filename" ["textures/Signs_EU_Diffuse_tqt_4096.png"] "float uscale" [1] "float vscale" [1]
-Texture "tex_stopSigns_retro.alphamap.Signs_EU_Diffuse_tqt_4096.png" "float" "imagemap" "string filename" ["textures/Signs_EU_Diffuse_tqt_4096.png"] "float uscale" [1] "float vscale" [1]
-Texture "stopSigns_retro.alphamap.Signs_EU_Diffuse_tqt_4096.png" "float" "scale" "float scale" [1.0] "texture tex" "tex_stopSigns_retro.alphamap.Signs_EU_Diffuse_tqt_4096.png"

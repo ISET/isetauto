@@ -1,3 +1,0 @@
-Texture "biker_002_person.reflectance.Humano_07Bikes_01_Diffuse01.jpg" "spectrum" "imagemap" "string filename" ["textures/Humano_07Bikes_01_Diffuse01.jpg"] "float uscale" [1.0] "float vscale" [1.0]
-Texture "cyclist_002_BikeBasket.001.reflectance.Humano_07Bikes_Bike_Wicker_by_cc0textures-com.jpg" "spectrum" "imagemap" "string filename" ["textures/Humano_07Bikes_Bike_Wicker_by_cc0textures-com.jpg"] "float uscale" [1.0] "float vscale" [1.0]
-Texture "cyclist_002_BikeLeather.001.reflectance.Humano_07Bikes_Bike_Leather_by_cc0textures-com.jpg" "spectrum" "imagemap" "string filename" ["textures/Humano_07Bikes_Bike_Leather_by_cc0textures-com.jpg"] "float uscale" [1.0] "float vscale" [1.0]

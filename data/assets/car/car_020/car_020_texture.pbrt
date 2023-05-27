@@ -1,5 +1,0 @@
-Texture "car_020_brakes1.reflectance.Brakes_01_DM.jpg" "spectrum" "imagemap" "string filename" ["textures/Brakes_01_DM.jpg"] "float uscale" [1.0] "float vscale" [1.0]
-Texture "car_020_dash.reflectance.dash.jpg" "spectrum" "imagemap" "string filename" ["textures/dash.jpg"] "float uscale" [1.0] "float vscale" [1.0]
-Texture "car_020_logo.reflectance.logo.jpg" "spectrum" "imagemap" "string filename" ["textures/logo.jpg"] "float uscale" [1.0] "float vscale" [1.0]
-Texture "car_020_m_logo.reflectance.m_logo.jpg" "spectrum" "imagemap" "string filename" ["textures/m_logo.jpg"] "float uscale" [1.0] "float vscale" [1.0]
-Texture "car_020_tire_mat4.reflectance.Tire_04_DM.jpg" "spectrum" "imagemap" "string filename" ["textures/Tire_04_DM.jpg"] "float uscale" [1.0] "float vscale" [1.0]

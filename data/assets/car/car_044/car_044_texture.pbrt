@@ -1,2 +1,0 @@
-Texture "car_044_brakedisk.reflectance.brakes_03.jpg" "spectrum" "imagemap" "string filename" ["textures/brakes_03.jpg"] "float uscale" [1.0] "float vscale" [1.0]
-Texture "car_044_tire.reflectance.tire11_1.jpg" "spectrum" "imagemap" "string filename" ["textures/tire11_1.jpg"] "float uscale" [1.0] "float vscale" [1.0]

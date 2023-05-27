@@ -1,9 +1,0 @@
-MakeNamedMaterial "Deer"
-	"string type" "coateddiffuse"
-	"string normalmap" "textures/Normal.jpg"
-	"texture reflectance" "Deer.reflectance.Diffuse.jpg"
-	"rgb albedo" [0.0 0.0 0.0]
-	"float thickness" [0.009999999776482582]
-	"float g" [0.0]
-	"float eta" [1.5]
-	"float roughness" [0.808158278465271]

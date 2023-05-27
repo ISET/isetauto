@@ -1,2 +1,0 @@
-Texture "motorbike_012_disk.reflectance.felgi_ref.jpg" "spectrum" "imagemap" "string filename" ["textures/felgi_ref.jpg"] "float uscale" [1.0] "float vscale" [1.0]
-Texture "motorbike_012_human_tex.reflectance.Human_07Bikes_02_Diffuse02.jpg" "spectrum" "imagemap" "string filename" ["textures/Human_07Bikes_02_Diffuse02.jpg"] "float uscale" [1.0] "float vscale" [1.0]

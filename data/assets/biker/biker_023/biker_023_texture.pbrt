@@ -1,2 +1,0 @@
-Texture "Human_023_tex.reflectance.human_tex.jpg" "spectrum" "imagemap" "string filename" ["textures/human_tex.jpg"] "float uscale" [1.0] "float vscale" [1.0]
-Texture "motorbike_023_humano_Bikes_Bag.reflectance.Humano_07Bikes_Bike_Bag01.jpg" "spectrum" "imagemap" "string filename" ["textures/Humano_07Bikes_Bike_Bag01.jpg"] "float uscale" [1.0] "float vscale" [1.0]

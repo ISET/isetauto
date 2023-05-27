@@ -1,3 +1,0 @@
-Texture "steel.reflectance.Metal_Roughness_mqt_2048.jpg" "spectrum" "imagemap" "string filename" ["textures/Metal_Roughness_mqt_2048.jpg"] "float uscale" [1] "float vscale" [1]
-Texture "steel.001.reflectance.Metal_Roughness_mqt_2048.jpg" "spectrum" "imagemap" "string filename" ["textures/Metal_Roughness_mqt_2048.jpg"] "float uscale" [1] "float vscale" [1]
-Texture "streetSign_banbike_Signs_retro.reflectance.Signs_EU_Other_Diffuse_tqt_4096.png" "spectrum" "imagemap" "string filename" ["textures/Signs_EU_Other_Diffuse_tqt_4096.png"] "float uscale" [1] "float vscale" [1]
