@@ -75,7 +75,7 @@ thisR = roadData.recipe;
 %% We want to write out the final recipe in local for rendering by PBRT
 % Our convention is <iaRootDir>/local/<scenename>/<scenename.pbrt>
 % even though road scenes in /data are have two levels of nesting
-thisR.set('outputfile',[piDirGet('local'),num2str(iaImageID),num2str(iaImageID),'.pbrt']);
+thisR.set('outputfile',fullfile(piDirGet('local'),num2str(iaImageID),[num2str(iaImageID),'.pbrt']));
 
 %% Set up the rendering skymap -- this is just one of many available
 skymapName = 'sky-noon_009.exr'; % Most skymaps are in the Matlab path already
