@@ -1,0 +1,374 @@
+ObjectBegin "Camera_m"
+#Instance MeshName: "Camera"
+ObjectEnd
+
+ObjectBegin "bus_004_m"
+#Instance MeshName: "bus_004"
+	AttributeBegin
+	#MeshName: "bus_004"
+		AttributeBegin
+		#MeshName: "bus_004_body" #Dimension:[6.5165252685546875 2.473872661590576 0.5197514295578003]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "bus_004_rim"
+				Shape "plymesh" "string filename" ["geometry/bus_004_body_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "bus_004_body.002" #Dimension:[0.5574283599853516 3.0058205127716064 1.8280117511749268]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "bus_004_mirror"
+				Shape "plymesh" "string filename" ["geometry/bus_004_body.002_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "bus_004_body.004" #Dimension:[11.170812606811523 2.5235280990600586 3.4499781131744385]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "bus_004_clearglass"
+				Shape "plymesh" "string filename" ["geometry/bus_004_body.004_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "bus_004_body.005" #Dimension:[11.227142333984375 2.563359260559082 4.160459518432617]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "bus_004_carpaint"
+				Shape "plymesh" "string filename" ["geometry/bus_004_body.005_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "bus_004_body.006" #Dimension:[11.009330749511719 2.515493631362915 0.42090028524398804]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "bus_004_chrome"
+				Shape "plymesh" "string filename" ["geometry/bus_004_body.006_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "bus_004_body.007" #Dimension:[6.954842567443848 2.489901065826416 0.9591218829154968]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "bus_004_tire"
+				Shape "plymesh" "string filename" ["geometry/bus_004_body.007_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "bus_004_body.008" #Dimension:[11.156072616577148 2.5420773029327393 4.029378414154053]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "bus_004_interior"
+				Shape "plymesh" "string filename" ["geometry/bus_004_body.008_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "bus_004_body.009" #Dimension:[11.066276550292969 2.5479893684387207 2.1869094371795654]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "bus_004_carpaint"
+				Shape "plymesh" "string filename" ["geometry/bus_004_body.009_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "bus_004_body.010" #Dimension:[11.218035697937012 3.0425102710723877 3.682638645172119]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "bus_004_black"
+				Shape "plymesh" "string filename" ["geometry/bus_004_body.010_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "bus_004_body.011" #Dimension:[8.548454284667969 2.328512668609619 3.1849894523620605]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "bus_004_yellowplastic"
+				Shape "plymesh" "string filename" ["geometry/bus_004_body.011_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "bus_004_license_3D" #Dimension:[0.2528914213180542 0.1311943531036377 0.01429754588752985]" 
+			Transform [-0.000000 0.851066 0.000000 0.000000 0.000000 0.000000 0.579619 0.000000 0.790975 0.000000 -0.000000 0.000000 2.556638 0.100743 0.492822 1.000000 ]
+			AttributeBegin
+				NamedMaterial "bus_004_Year"
+				Shape "plymesh" "string filename" ["geometry/bus_004_license_3D_mat0.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "bus_004_license_plate"
+				Shape "plymesh" "string filename" ["geometry/bus_004_license_3D_mat1.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "bus_004_California"
+				Shape "plymesh" "string filename" ["geometry/bus_004_license_3D_mat2.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "bus_004_white_paper"
+				Shape "trianglemesh"
+				"point3 P" [
+				-0.18378084897994995 0.027576057240366936 -0.00010001967166317627 -0.18378084897994995 -0.006540102884173393 -0.00010001748887589201 -0.22095656394958496 -0.006540102884173393 -0.00010001351620303467 -0.18378084897994995 0.027576057240366936 -0.00010001967166317627 -0.22095656394958496 -0.006540102884173393 -0.00010001351620303467 -0.22095656394958496 0.027576057240366936 -0.00010001569899031892				
+				]
+				"normal N" [
+				-1.0684814100159201e-07 -6.398105512062102e-08 -1.0 -1.0684814100159201e-07 -6.398105512062102e-08 -1.0 -1.0684814100159201e-07 -6.398105512062102e-08 -1.0 -1.0684814100159201e-07 -6.398105512062102e-08 -1.0 -1.0684814100159201e-07 -6.398105512062102e-08 -1.0 -1.0684814100159201e-07 -6.398105512062102e-08 -1.0				
+				]
+				"point2 uv" [
+				0.0 0.0 
+				1.0 0.0 
+				1.0 1.0 
+				0.0 0.0 
+				1.0 1.0 
+				0.0 1.0 
+				]
+				"integer indices" [
+				0 1 2 3 4 5 
+				]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "bus_004_black_paper"
+				Shape "trianglemesh"
+				"point3 P" [
+				-0.1834092140197754 0.02791721746325493 -0.00020001980010420084 -0.1834092140197754 -0.006881263107061386 -0.0002000175736611709 -0.22132843732833862 -0.006881263107061386 -0.00020001351367682219 -0.1834092140197754 0.02791721746325493 -0.00020001980010420084 -0.22132843732833862 -0.006881263107061386 -0.00020001351367682219 -0.22132843732833862 0.02791721746325493 -0.00020001574011985213 0.018979135900735855 0.02791721746325493 -0.00020000350195914507 0.018979135900735855 -0.006881263107061386 -0.00020000127551611513 -0.018940094858407974 -0.006881263107061386 -0.00019999721553176641 0.018979135900735855 0.02791721746325493 -0.00020000350195914507 -0.018940094858407974 -0.006881263107061386 -0.00019999721553176641 -0.018940094858407974 0.02791721746325493 -0.00019999944197479635				
+				]
+				"normal N" [
+				-1.0752391688129137e-07 -6.398104801519366e-08 -1.0 -1.0752391688129137e-07 -6.398104801519366e-08 -1.0 -1.0752391688129137e-07 -6.398104801519366e-08 -1.0 -1.0752391688129137e-07 -6.398104801519366e-08 -1.0 -1.0752391688129137e-07 -6.398104801519366e-08 -1.0 -1.0752391688129137e-07 -6.398104801519366e-08 -1.0 -1.0752388845958194e-07 -6.398104090976631e-08 -1.0 -1.0752388845958194e-07 -6.398104090976631e-08 -1.0 -1.0752388845958194e-07 -6.398104090976631e-08 -1.0 -1.0752388845958194e-07 -6.398104090976631e-08 -1.0 -1.0752388845958194e-07 -6.398104090976631e-08 -1.0 -1.0752388845958194e-07 -6.398104090976631e-08 -1.0				
+				]
+				"point2 uv" [
+				0.0 0.0 
+				1.0 0.0 
+				1.0 1.0 
+				0.0 0.0 
+				1.0 1.0 
+				0.0 1.0 
+				0.0 0.0 
+				1.0 0.0 
+				1.0 1.0 
+				0.0 0.0 
+				1.0 1.0 
+				0.0 1.0 
+				]
+				"integer indices" [
+				0 1 2 3 4 5 6 7 8 9 10 11 
+				]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "bus_004_green_paper"
+				Shape "trianglemesh"
+				"point3 P" [
+				0.018607379868626595 0.027576057240366936 -0.0001000033735181205 0.018607379868626595 -0.006540102884173393 -0.00010000119073083624 -0.018568338826298714 -0.006540102884173393 -9.99972180579789e-05 0.018607379868626595 0.027576057240366936 -0.0001000033735181205 -0.018568338826298714 -0.006540102884173393 -9.99972180579789e-05 -0.018568338826298714 0.027576057240366936 -9.999940084526315e-05				
+				]
+				"normal N" [
+				-1.068481267907373e-07 -6.398103380433895e-08 -1.0 -1.068481267907373e-07 -6.398103380433895e-08 -1.0 -1.068481267907373e-07 -6.398103380433895e-08 -1.0 -1.068481267907373e-07 -6.398103380433895e-08 -1.0 -1.068481267907373e-07 -6.398103380433895e-08 -1.0 -1.068481267907373e-07 -6.398103380433895e-08 -1.0				
+				]
+				"point2 uv" [
+				0.0 0.0 
+				1.0 0.0 
+				1.0 1.0 
+				0.0 0.0 
+				1.0 1.0 
+				0.0 1.0 
+				]
+				"integer indices" [
+				0 1 2 3 4 5 
+				]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "bus_004_Month"
+				Shape "plymesh" "string filename" ["geometry/bus_004_license_3D_mat6.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "bus_004_license_3D"
+				Shape "plymesh" "string filename" ["geometry/bus_004_license_3D_mat7.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "bus_004_license_surface"
+				Shape "plymesh" "string filename" ["geometry/bus_004_license_3D_mat8.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "bus_004_license_holder"
+				Shape "plymesh" "string filename" ["geometry/bus_004_license_3D_mat9.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "bus_004_screw"
+				Shape "plymesh" "string filename" ["geometry/bus_004_license_3D_mat10.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "bus_004_license_3D_rear" #Dimension:[0.23157663643360138 0.12013672292232513 0.01309248711913824]" 
+			Transform [0.000000 -0.779335 0.000000 0.000000 -0.000000 -0.000000 0.530766 0.000000 -0.724308 -0.000000 -0.000000 0.000000 -8.613788 -0.053784 0.472273 1.000000 ]
+			AttributeBegin
+				NamedMaterial "bus_004_Year"
+				Shape "plymesh" "string filename" ["geometry/bus_004_license_3D_rear_mat0.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "bus_004_license_plate"
+				Shape "plymesh" "string filename" ["geometry/bus_004_license_3D_rear_mat1.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "bus_004_California"
+				Shape "plymesh" "string filename" ["geometry/bus_004_license_3D_rear_mat2.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "bus_004_white_paper"
+				Shape "trianglemesh"
+				"point3 P" [
+				-0.18378084897994995 0.027576057240366936 -0.00010001967166317627 -0.18378084897994995 -0.006540102884173393 -0.00010001748887589201 -0.22095656394958496 -0.006540102884173393 -0.00010001351620303467 -0.18378084897994995 0.027576057240366936 -0.00010001967166317627 -0.22095656394958496 -0.006540102884173393 -0.00010001351620303467 -0.22095656394958496 0.027576057240366936 -0.00010001569899031892				
+				]
+				"normal N" [
+				-1.0684814100159201e-07 -6.398105512062102e-08 -1.0 -1.0684814100159201e-07 -6.398105512062102e-08 -1.0 -1.0684814100159201e-07 -6.398105512062102e-08 -1.0 -1.0684814100159201e-07 -6.398105512062102e-08 -1.0 -1.0684814100159201e-07 -6.398105512062102e-08 -1.0 -1.0684814100159201e-07 -6.398105512062102e-08 -1.0				
+				]
+				"point2 uv" [
+				0.0 0.0 
+				1.0 0.0 
+				1.0 1.0 
+				0.0 0.0 
+				1.0 1.0 
+				0.0 1.0 
+				]
+				"integer indices" [
+				0 1 2 3 4 5 
+				]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "bus_004_black_paper"
+				Shape "trianglemesh"
+				"point3 P" [
+				-0.1834092140197754 0.02791721746325493 -0.00020001980010420084 -0.1834092140197754 -0.006881263107061386 -0.0002000175736611709 -0.22132843732833862 -0.006881263107061386 -0.00020001351367682219 -0.1834092140197754 0.02791721746325493 -0.00020001980010420084 -0.22132843732833862 -0.006881263107061386 -0.00020001351367682219 -0.22132843732833862 0.02791721746325493 -0.00020001574011985213 0.018979135900735855 0.02791721746325493 -0.00020000350195914507 0.018979135900735855 -0.006881263107061386 -0.00020000127551611513 -0.018940094858407974 -0.006881263107061386 -0.00019999721553176641 0.018979135900735855 0.02791721746325493 -0.00020000350195914507 -0.018940094858407974 -0.006881263107061386 -0.00019999721553176641 -0.018940094858407974 0.02791721746325493 -0.00019999944197479635				
+				]
+				"normal N" [
+				-1.0752391688129137e-07 -6.398104801519366e-08 -1.0 -1.0752391688129137e-07 -6.398104801519366e-08 -1.0 -1.0752391688129137e-07 -6.398104801519366e-08 -1.0 -1.0752391688129137e-07 -6.398104801519366e-08 -1.0 -1.0752391688129137e-07 -6.398104801519366e-08 -1.0 -1.0752391688129137e-07 -6.398104801519366e-08 -1.0 -1.0752388845958194e-07 -6.398104090976631e-08 -1.0 -1.0752388845958194e-07 -6.398104090976631e-08 -1.0 -1.0752388845958194e-07 -6.398104090976631e-08 -1.0 -1.0752388845958194e-07 -6.398104090976631e-08 -1.0 -1.0752388845958194e-07 -6.398104090976631e-08 -1.0 -1.0752388845958194e-07 -6.398104090976631e-08 -1.0				
+				]
+				"point2 uv" [
+				0.0 0.0 
+				1.0 0.0 
+				1.0 1.0 
+				0.0 0.0 
+				1.0 1.0 
+				0.0 1.0 
+				0.0 0.0 
+				1.0 0.0 
+				1.0 1.0 
+				0.0 0.0 
+				1.0 1.0 
+				0.0 1.0 
+				]
+				"integer indices" [
+				0 1 2 3 4 5 6 7 8 9 10 11 
+				]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "bus_004_green_paper"
+				Shape "trianglemesh"
+				"point3 P" [
+				0.018607379868626595 0.027576057240366936 -0.0001000033735181205 0.018607379868626595 -0.006540102884173393 -0.00010000119073083624 -0.018568338826298714 -0.006540102884173393 -9.99972180579789e-05 0.018607379868626595 0.027576057240366936 -0.0001000033735181205 -0.018568338826298714 -0.006540102884173393 -9.99972180579789e-05 -0.018568338826298714 0.027576057240366936 -9.999940084526315e-05				
+				]
+				"normal N" [
+				-1.068481267907373e-07 -6.398103380433895e-08 -1.0 -1.068481267907373e-07 -6.398103380433895e-08 -1.0 -1.068481267907373e-07 -6.398103380433895e-08 -1.0 -1.068481267907373e-07 -6.398103380433895e-08 -1.0 -1.068481267907373e-07 -6.398103380433895e-08 -1.0 -1.068481267907373e-07 -6.398103380433895e-08 -1.0				
+				]
+				"point2 uv" [
+				0.0 0.0 
+				1.0 0.0 
+				1.0 1.0 
+				0.0 0.0 
+				1.0 1.0 
+				0.0 1.0 
+				]
+				"integer indices" [
+				0 1 2 3 4 5 
+				]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "bus_004_Month"
+				Shape "plymesh" "string filename" ["geometry/bus_004_license_3D_rear_mat6.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "bus_004_license_3D"
+				Shape "plymesh" "string filename" ["geometry/bus_004_license_3D_rear_mat7.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "bus_004_license_surface"
+				Shape "plymesh" "string filename" ["geometry/bus_004_license_3D_rear_mat8.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "bus_004_license_holder"
+				Shape "plymesh" "string filename" ["geometry/bus_004_license_3D_rear_mat9.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "bus_004_screw"
+				Shape "plymesh" "string filename" ["geometry/bus_004_license_3D_rear_mat10.ply"]
+			AttributeEnd
+		AttributeEnd
+	AttributeEnd
+ObjectEnd
+
+AttributeBegin
+#CollectionName: "Scene Collection"
+	AttributeBegin
+	#MeshName: "Camera"
+		Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+		ObjectInstance "Camera_m"
+	AttributeEnd
+	AttributeBegin
+	#MeshName: "bus_004"
+		Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+		ObjectInstance "bus_004_m"
+		AttributeBegin
+		#MeshName: "bus_004_body.001" #Dimension:[0.04083728790283203 1.7825754880905151 0.32091212272644043]" 
+			AttributeBegin
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AreaLightSource "diffuse"				
+				"rgb L" [ 1.0 0.0 0.0]				
+				"float scale" [ 5.0 ]				
+				"float spread" [ 90.0 ]				
+				Shape "plymesh" "string filename" ["geometry/bus_004_body.001_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "bus_004_body.003" #Dimension:[10.984813690185547 2.1544790267944336 0.4140242338180542]" 
+			AttributeBegin
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AreaLightSource "diffuse"				
+				"rgb L" [ 1.0 1.0 1.0]				
+				"float scale" [ 2.5 ]				
+				"float spread" [ 90.0 ]				
+				Shape "plymesh" "string filename" ["geometry/bus_004_body.003_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+			#MeshName: "bus_004_front_cam" 
+			Transform [-0.000000 -1.000000 -0.000000 0.000000 -0.000000 -0.000000 1.000000 0.000000 -1.000000 0.000000 -0.000000 0.000000 2.523000 0.000000 1.972000 1.000000 ]
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "bus_004_headlamp_left_converted" #Dimension:[0.01389169692993164 0.08000004291534424 0.07878458499908447]" 
+			AttributeBegin
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AreaLightSource "diffuse"				
+				"rgb L" [ 1.0 1.0 1.0]				
+				"float scale" [ 150.0 ]				
+				"float spread" [ 22.5 ]				
+				Shape "plymesh" "string filename" ["geometry/bus_004_headlamp_left_converted_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "bus_004_headlamp_right_converted" #Dimension:[0.01389169692993164 0.08000004291534424 0.07878458499908447]" 
+			AttributeBegin
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AreaLightSource "diffuse"				
+				"rgb L" [ 1.0 1.0 1.0]				
+				"float scale" [ 150.0 ]				
+				"float spread" [ 22.5 ]				
+				Shape "plymesh" "string filename" ["geometry/bus_004_headlamp_right_converted_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+			#MeshName: "bus_004_left_mirror_cam" 
+			Transform [0.323409 0.946259 -0.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.946259 -0.323409 -0.000000 0.000000 2.292000 1.316000 2.182000 1.000000 ]
+		AttributeEnd
+		AttributeBegin
+			#MeshName: "bus_004_rear_cam" 
+			Transform [-0.000000 1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 1.000000 0.000000 -0.000000 0.000000 -8.705000 0.000000 2.252000 1.000000 ]
+		AttributeEnd
+		AttributeBegin
+			#MeshName: "bus_004_right_mirror_cam" 
+			Transform [-0.291230 0.956653 -0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.956653 0.291230 -0.000000 0.000000 1.930000 -1.471000 2.017000 1.000000 ]
+		AttributeEnd
+	AttributeEnd
+AttributeEnd

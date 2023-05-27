@@ -1,0 +1,702 @@
+ObjectBegin "Camera_m"
+#Instance MeshName: "Camera"
+ObjectEnd
+
+ObjectBegin "cyclist_004_m"
+#Instance MeshName: "cyclist_004"
+	AttributeBegin
+	#MeshName: "cyclist_004"
+		AttributeBegin
+		#MeshName: "cyclist_004_07Bikes_03_100k" #Dimension:[0.8229292631149292 0.7318759560585022 1.7654461860656738]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "Humano_07Bikes_03"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_07Bikes_03_100k_mat0.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Humano_Eyeglasses-Frame"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_07Bikes_03_100k_mat1.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "/Humano_BikeFrame.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_07Bikes_03_100k_mat2.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.001" #Dimension:[0.16772960126399994 0.005769014358520508 0.16769246757030487]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeSteel.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.001_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.002" #Dimension:[0.3396640121936798 0.11148414760828018 0.0697125792503357]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeFrame.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.002_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.003" #Dimension:[0.051003217697143555 0.13039422035217285 0.1933523416519165]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeFrame.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.003_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.004" #Dimension:[0.4004419445991516 0.14373788237571716 0.3620544970035553]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeFrame.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.004_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.005" #Dimension:[0.17487111687660217 0.1426958292722702 0.421101450920105]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeFrame.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.005_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.006" #Dimension:[0.10346335172653198 0.11369167268276215 0.09413796663284302]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeFrame.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.006_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.007" #Dimension:[0.30039337277412415 0.1431489884853363 0.3674491047859192]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeFrame.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.007_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.008" #Dimension:[0.07571601867675781 0.07282784581184387 0.07293093204498291]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeChrome.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.008_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.010" #Dimension:[0.4866864085197449 0.025832559913396835 0.17434726655483246]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeFrame.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.010_mat0.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #2132741969 Slot #3.004"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #2132741969 Slot #4.004"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #2132741969 Slot #5.004"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #2132741969 Slot #6.004"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #2132741969 Slot #7.004"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #2132741969 Slot #8.004"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #2132741969 Slot #9.004"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #2132741969 Slot #10.004"
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.011" #Dimension:[0.36151057481765747 0.12296860665082932 0.10582783818244934]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeSteel.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.011_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.012" #Dimension:[0.06998658180236816 0.13103926181793213 0.05060383677482605]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeFrame.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.012_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.013" #Dimension:[0.18626829981803894 0.12788745760917664 0.3547949194908142]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeFrame.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.013_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.014" #Dimension:[0.4201194941997528 0.14150142669677734 0.08938518166542053]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeFrame.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.014_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.015" #Dimension:[0.25681036710739136 0.16767188906669617 0.06331157684326172]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeLeather.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.015_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.016" #Dimension:[0.04473596811294556 0.11333993077278137 0.03349754214286804]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeFrame.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.016_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.017" #Dimension:[0.585854172706604 0.15196174383163452 0.5857062339782715]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "Material #3.006"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.017_mat0.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #20.002"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.017_mat1.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.018" #Dimension:[0.5793492197990417 0.13026899099349976 0.5842002630233765]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "Material #3.006"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.018_mat0.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #20.002"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.018_mat1.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.019" #Dimension:[0.6282463073730469 0.04854108393192291 0.6570549011230469]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeFrame.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.019_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.021" #Dimension:[0.034000009298324585 0.07496451586484909 0.0356597900390625]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeFrame.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.021_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.022" #Dimension:[0.09512236714363098 0.04400866478681564 0.29002875089645386]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeChrome.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.022_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.023" #Dimension:[0.04201123118400574 0.043298427015542984 0.03558391332626343]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeSteel.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.023_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.024" #Dimension:[0.05910855531692505 0.13514822721481323 0.061150312423706055]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeSteel.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.024_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.025" #Dimension:[0.05016721785068512 0.0481627881526947 0.027369320392608643]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeChrome.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.025_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.026" #Dimension:[0.04365488886833191 0.05378057062625885 0.026439130306243896]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeChrome.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.026_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.027" #Dimension:[0.14938107132911682 0.0647788867354393 0.05990922451019287]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeChrome.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.027_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.028" #Dimension:[0.11846107244491577 0.03282194584608078 0.3272802233695984]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeChrome.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.028_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.029" #Dimension:[0.20410485565662384 0.692970871925354 0.10208523273468018]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeChrome.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.029_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.030" #Dimension:[0.17632077634334564 0.7014544010162354 0.08031952381134033]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeLeather.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.030_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.031" #Dimension:[0.03933963179588318 0.040118299424648285 0.019196927547454834]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeSteel.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.031_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.032" #Dimension:[0.037999995052814484 0.008816726505756378 0.03757059574127197]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeSteel.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.032_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.033" #Dimension:[0.037999995052814484 0.008816752582788467 0.037570610642433167]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeSteel.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.033_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.034" #Dimension:[0.041737645864486694 0.04029197245836258 0.02598506212234497]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeSteel.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.034_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.035" #Dimension:[0.01439155638217926 0.011745682917535305 0.014284253120422363]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeSteel.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.035_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.036" #Dimension:[0.415042519569397 0.1390535980463028 0.4190351068973541]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeFrame.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.036_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.037" #Dimension:[0.7243408560752869 0.06486326456069946 0.41917020082473755]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeFrame.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.037_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.038" #Dimension:[0.05328524112701416 0.018913276493549347 0.07423347234725952]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeSteel.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.038_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.039" #Dimension:[0.042031288146972656 0.012202291749417782 0.018469929695129395]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeSteel.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.039_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.040" #Dimension:[0.037168681621551514 0.04472482204437256 0.034732937812805176]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeChrome.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.040_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.041" #Dimension:[0.04361081123352051 0.11043154448270798 0.04510253667831421]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikePlastic.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.041_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.042" #Dimension:[0.029693245887756348 0.0340130440890789 0.07771795988082886]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikePlastic.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.042_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.043" #Dimension:[0.6711552739143372 0.14794448018074036 0.6771179437637329]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeTyre.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.043_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.044" #Dimension:[0.6157900094985962 0.13626736402511597 0.6185492873191833]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeChrome.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.044_mat0.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #3.007"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.044_mat1.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #17 Slot #3.008"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #17 Slot #4.008"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #17 Slot #5.008"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #17 Slot #6.008"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #17 Slot #7.008"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #17 Slot #8.008"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #17 Slot #9.008"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #17 Slot #10.008"
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.045" #Dimension:[0.6788150072097778 0.05716539919376373 0.6786435842514038]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeTyre.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.045_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.046" #Dimension:[0.6177327632904053 0.04873950034379959 0.6183314323425293]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeChrome.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.046_mat0.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #3.007"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.046_mat1.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #17 Slot #3.009"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #17 Slot #4.009"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #17 Slot #5.009"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #17 Slot #6.009"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #17 Slot #7.009"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #17 Slot #8.009"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #17 Slot #9.009"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #17 Slot #10.009"
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.047" #Dimension:[0.051977336406707764 0.11481005698442459 0.0445096492767334]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeSteel.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.047_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.048" #Dimension:[0.20697514712810516 0.007967852056026459 0.04691028594970703]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeSteel.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.048_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.049" #Dimension:[0.022598179057240486 0.0025074854493141174 0.02263745665550232]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeSteel.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.049_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.050" #Dimension:[0.20697511732578278 0.007967852056026459 0.04691028594970703]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeSteel.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.050_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.051" #Dimension:[0.011920513585209846 0.13191191852092743 0.014811545610427856]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeSteel.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.051_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.052" #Dimension:[0.022598177194595337 0.0025074854493141174 0.02263742685317993]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeSteel.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.052_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.053" #Dimension:[0.5724111795425415 0.015209414064884186 0.19256119430065155]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeSteel.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.053_mat0.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #5.005"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.053_mat1.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #16 Slot #3.004"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #16 Slot #4.004"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #16 Slot #5.004"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #16 Slot #6.004"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #16 Slot #7.004"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #16 Slot #8.004"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #16 Slot #9.004"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #16 Slot #10.004"
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.054" #Dimension:[0.07779964804649353 0.14061704277992249 0.03960582613945007]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeChrome.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.054_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.055" #Dimension:[0.0925297662615776 0.12009074538946152 0.04408840835094452]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikePlastic.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.055_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.056" #Dimension:[0.08015166223049164 0.1519460827112198 0.0589030385017395]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeChrome.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.056_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.057" #Dimension:[0.09628772735595703 0.13011577725410461 0.0673062801361084]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikePlastic.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.057_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.079" #Dimension:[0.021115899085998535 0.006980680860579014 0.049742817878723145]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikePlastic.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.079_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.110" #Dimension:[0.004566669464111328 0.026810161769390106 0.02465677261352539]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeLight.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.110_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.111" #Dimension:[0.02274376153945923 0.034172479063272476 0.03357410430908203]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeLight.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.111_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.112" #Dimension:[0.01958942413330078 0.03408188372850418 0.046725571155548096]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeLight_2.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.112_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.113" #Dimension:[0.007726848125457764 0.02672261744737625 0.041841089725494385]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikeLight_2.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.113_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Bikes.114" #Dimension:[0.0625 0.034172479063272476 0.07995390892028809]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/Humano_BikePlastic.001"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Bikes.114_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Eyeglasses.024" #Dimension:[0.13949112594127655 0.024922426789999008 0.03790545463562012]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "Humano_Eyeglasses-Frame"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Eyeglasses.024_mat0.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "nose_cap"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "black_plastic"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Eyeglasses.024_mat2.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "glass"
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Eyeglasses.025" #Dimension:[0.1343676745891571 0.045190103352069855 0.03794240951538086]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "Humano_Eyeglasses-Frame"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Eyeglasses.025_mat0.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "nose_cap"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "black_plastic"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Eyeglasses.025_mat2.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "glass"
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004_Eyeglasses.026" #Dimension:[0.03824465721845627 0.13264867663383484 0.04352927207946777]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "Humano_Eyeglasses-Glass"
+				Shape "plymesh" "string filename" ["geometry/cyclist_004_Eyeglasses.026_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+	AttributeEnd
+ObjectEnd
+
+AttributeBegin
+#CollectionName: "Scene Collection"
+	AttributeBegin
+	#CollectionName: "Collection"
+		AttributeBegin
+		#MeshName: "Camera"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "Camera_m"
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "cyclist_004"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "cyclist_004_m"
+			AttributeBegin
+			#MeshName: "cyclist_004_headlight_converted" #Dimension:[0.004860669374465942 0.04294074326753616 0.04266476631164551]" 
+				AttributeBegin
+					Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+					AreaLightSource "diffuse"					
+					"rgb L" [ 1.0 1.0 1.0]					
+					"float scale" [ 10.0 ]					
+					"float spread" [ 45.0 ]					
+					Shape "plymesh" "string filename" ["geometry/cyclist_004_headlight_converted_mat0.ply"]
+				AttributeEnd
+			AttributeEnd
+		AttributeEnd
+	AttributeEnd
+AttributeEnd

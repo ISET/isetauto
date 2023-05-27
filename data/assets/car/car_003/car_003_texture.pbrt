@@ -1,0 +1,3 @@
+Texture "car_003_Car wheels rubber.reflectance.UVW_Tyre_Sidewall.png" "spectrum" "imagemap" "string filename" ["textures/UVW_Tyre_Sidewall.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "car_003_HDM_06_008_brake disc.reflectance.Brake_disc.jpg" "spectrum" "imagemap" "string filename" ["textures/Brake_disc.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "car_003_radiator.reflectance.Main_Radiator.jpg" "spectrum" "imagemap" "string filename" ["textures/Main_Radiator.jpg"] "float uscale" [1.0] "float vscale" [1.0]

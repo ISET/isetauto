@@ -1,0 +1,5 @@
+Texture "car_026_brakes.reflectance.Brakes_01_DM.jpg" "spectrum" "imagemap" "string filename" ["textures/Brakes_01_DM.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "car_026_logo.reflectance.logo.png" "spectrum" "imagemap" "string filename" ["textures/logo.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "car_026_mpower_logo.reflectance.m_colors.jpg" "spectrum" "imagemap" "string filename" ["textures/m_colors.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "tex_car_026_logo.alphamap.logo.png" "float" "imagemap" "string filename" ["textures/logo.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "car_026_logo.alphamap.logo.png" "float" "scale" "float scale" [1.0] "texture tex" "tex_car_026_logo.alphamap.logo.png"

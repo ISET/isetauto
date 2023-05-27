@@ -1,0 +1,25 @@
+MakeNamedMaterial "deer_007"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/deer_007_normal.jpg"
+	"texture reflectance" "deer_007.reflectance.deer_007_diffuse.jpg"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "Mat3d66-5345296-2-70490"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.917647123336792 0.924644410610199 0.9472510814666748]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "Material"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.03967951610684395 0.03967951610684395 0.03967951610684395]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]

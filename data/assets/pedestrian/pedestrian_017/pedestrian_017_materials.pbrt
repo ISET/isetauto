@@ -1,0 +1,17 @@
+MakeNamedMaterial "Material"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.800000011920929 0.800000011920929 0.800000011920929]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "pedestrian_017"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/10060_w_Ina_Body_N_8k.jpg"
+	"texture reflectance" "pedestrian_017.reflectance.10060_w_Ina_Body_D_8k.jpg"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]

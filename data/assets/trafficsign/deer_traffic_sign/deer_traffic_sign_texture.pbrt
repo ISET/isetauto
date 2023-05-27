@@ -1,0 +1,4 @@
+Texture "deer_cross_retro.reflectance.deer_traffic_sign.png" "spectrum" "imagemap" "string filename" ["textures/deer_traffic_sign.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "speedlimit_pole.001.reflectance.Signals_TextureSheet01_Diff.png" "spectrum" "imagemap" "string filename" ["textures/Signals_TextureSheet01_Diff.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "tex_deer_cross_retro.alphamap.deer_traffic_sign.png" "float" "imagemap" "string filename" ["textures/deer_traffic_sign.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "deer_cross_retro.alphamap.deer_traffic_sign.png" "float" "scale" "float scale" [1.0] "texture tex" "tex_deer_cross_retro.alphamap.deer_traffic_sign.png"

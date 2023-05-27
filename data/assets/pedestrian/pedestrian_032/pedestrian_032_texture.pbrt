@@ -1,0 +1,6 @@
+Texture "pedestrian_032_body.reflectance.pedestrian_032_10838out_000.png" "spectrum" "imagemap" "string filename" ["textures/pedestrian_032_10838out_000.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "pedestrian_032_phone.reflectance.10838out_003.png" "spectrum" "imagemap" "string filename" ["textures/10838out_003.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "tex_pedestrian_032_body.alphamap.pedestrian_032_10838out_001.png" "float" "imagemap" "string filename" ["textures/pedestrian_032_10838out_001.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "pedestrian_032_body.alphamap.pedestrian_032_10838out_001.png" "float" "scale" "float scale" [1.0] "texture tex" "tex_pedestrian_032_body.alphamap.pedestrian_032_10838out_001.png"
+Texture "tex_pedestrian_032_phone.alphamap.10838out_003.png" "float" "imagemap" "string filename" ["textures/10838out_003.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "pedestrian_032_phone.alphamap.10838out_003.png" "float" "scale" "float scale" [1.0] "texture tex" "tex_pedestrian_032_phone.alphamap.10838out_003.png"

@@ -1,0 +1,41 @@
+ObjectBegin "tree_023_m"
+#Instance MeshName: "tree_023"
+	AttributeBegin
+	#MeshName: "tree_023" #Dimension:[5.309072494506836 5.387988090515137 6.889853000640869]" 
+		Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+		AttributeBegin
+			NamedMaterial "tree_023_leaf"
+			Shape "plymesh" "string filename" ["geometry/tree_023_mat0.ply"]
+			"texture alpha" ["tree_023_leaf.alphamap.AM171_023_leaf_opacity.png"]			
+		AttributeEnd
+		AttributeBegin
+			NamedMaterial "tree_023_bark"
+			Shape "plymesh" "string filename" ["geometry/tree_023_mat1.ply"]
+		AttributeEnd
+	AttributeEnd
+ObjectEnd
+
+ObjectBegin "Camera_m"
+#Instance MeshName: "Camera"
+ObjectEnd
+
+ObjectBegin "Light_m"
+#Instance MeshName: "Light"
+ObjectEnd
+
+AttributeBegin
+#CollectionName: "Scene Collection"
+	AttributeBegin
+	#CollectionName: "Collection"
+		AttributeBegin
+		#MeshName: "Camera"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "Camera_m"
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "tree_023"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "tree_023_m"
+		AttributeEnd
+	AttributeEnd
+AttributeEnd

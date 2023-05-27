@@ -1,0 +1,11 @@
+Texture "grass_007.reflectance.tlusfbvia_4K_Albedo.jpg" "spectrum" "imagemap" "string filename" ["textures/tlusfbvia_4K_Albedo.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "tex_grass_007.roughness.tlusfbvia_4K_Roughness.jpg" "float" "imagemap" "string filename" ["textures/tlusfbvia_4K_Roughness.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "grass_007.roughness.tlusfbvia_4K_Roughness.jpg" "float" "scale" "float scale" [1.0] "texture tex" "tex_grass_007.roughness.tlusfbvia_4K_Roughness.jpg"
+Texture "tex_grass_007.alphamap.tlusfbvia_4K_Opacity.jpg" "float" "imagemap" "string filename" ["textures/tlusfbvia_4K_Opacity.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "grass_007.alphamap.tlusfbvia_4K_Opacity.jpg" "float" "scale" "float scale" [1.0] "texture tex" "tex_grass_007.alphamap.tlusfbvia_4K_Opacity.jpg"
+Texture "tex_grass_007.alphamap.tlusfbvia_4K_Opacity.jpg" "float" "imagemap" "string filename" ["textures/tlusfbvia_4K_Opacity.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "grass_007.alphamap.tlusfbvia_4K_Opacity.jpg" "float" "scale" "float scale" [1.0] "texture tex" "tex_grass_007.alphamap.tlusfbvia_4K_Opacity.jpg"
+Texture "tex_grass_007.alphamap.tlusfbvia_4K_Opacity.jpg" "float" "imagemap" "string filename" ["textures/tlusfbvia_4K_Opacity.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "grass_007.alphamap.tlusfbvia_4K_Opacity.jpg" "float" "scale" "float scale" [1.0] "texture tex" "tex_grass_007.alphamap.tlusfbvia_4K_Opacity.jpg"
+Texture "tex_grass_007.alphamap.tlusfbvia_4K_Opacity.jpg" "float" "imagemap" "string filename" ["textures/tlusfbvia_4K_Opacity.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "grass_007.alphamap.tlusfbvia_4K_Opacity.jpg" "float" "scale" "float scale" [1.0] "texture tex" "tex_grass_007.alphamap.tlusfbvia_4K_Opacity.jpg"

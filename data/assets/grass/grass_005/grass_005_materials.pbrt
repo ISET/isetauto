@@ -1,0 +1,26 @@
+MakeNamedMaterial "grass_005"
+	"string type" "coateddiffuse"
+	"texture displacement" "grass_005.displacement.wiljearqx_4K_Displacement.jpg"
+	"string normalmap" "textures/wiljearqx_4K_Normal.jpg"
+	"texture reflectance" "grass_005.reflectance.wiljearqx_4K_Albedo.jpg"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"texture roughness" "grass_005.roughness.wiljearqx_4K_Roughness.jpg"
+MakeNamedMaterial "lambert1"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.7568627595901489 0.7568627595901489 0.7568627595901489]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "Material"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.800000011920929 0.800000011920929 0.800000011920929]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.4000000059604645]

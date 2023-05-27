@@ -1,0 +1,344 @@
+ObjectBegin "biker_009_bicycle_m"
+#Instance MeshName: "biker_009_bicycle"
+	AttributeBegin
+	#MeshName: "biker_009_bicycle"
+		AttributeBegin
+		#MeshName: "biker_009Bike_KidBike01" #Dimension:[0.07491058111190796 0.39253121614456177 0.16822314262390137]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "biker_009_KidBike_BlackMetal.001"
+				Shape "plymesh" "string filename" ["geometry/biker_009Bike_KidBike01_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "biker_009Bike_KidBike01.001" #Dimension:[0.01834932714700699 0.022470463067293167 0.01809680461883545]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "biker_009_KidBike_Steel.002"
+				Shape "plymesh" "string filename" ["geometry/biker_009Bike_KidBike01.001_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "biker_009Bike_KidBike01.002" #Dimension:[0.01716943085193634 0.030453871935606003 0.016934990882873535]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "biker_009_KidBike_Steel.002"
+				Shape "plymesh" "string filename" ["geometry/biker_009Bike_KidBike01.002_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "biker_009Bike_KidBike01.003" #Dimension:[0.07492397725582123 0.09221308678388596 0.01878535747528076]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "biker_009_KidBike_BlackPlastic.000"
+				Shape "plymesh" "string filename" ["geometry/biker_009Bike_KidBike01.003_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "biker_009Bike_KidBike01.004" #Dimension:[0.08094532787799835 0.04313277080655098 0.06490704417228699]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/biker_009_BikePlastic.000"
+				Shape "plymesh" "string filename" ["geometry/biker_009Bike_KidBike01.004_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "biker_009Bike_KidBike01.005" #Dimension:[0.07390840351581573 0.09221306443214417 0.049425989389419556]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "biker_009_KidBike_BlackPlastic.000"
+				Shape "plymesh" "string filename" ["geometry/biker_009Bike_KidBike01.005_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "biker_009Bike_KidBike01.006" #Dimension:[0.19432801008224487 0.12514734268188477 0.16340529918670654]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/biker_009_BikeSteel.008"
+				Shape "plymesh" "string filename" ["geometry/biker_009Bike_KidBike01.006_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "biker_009Bike_KidBike01.007" #Dimension:[0.9911224842071533 0.11133812367916107 0.6751984357833862]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/biker_009_BikeSteel"
+				Shape "plymesh" "string filename" ["geometry/biker_009Bike_KidBike01.007_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "biker_009Bike_KidBike01.008" #Dimension:[0.02225726842880249 0.021813146770000458 0.010255813598632812]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/biker_009_BikeSteel.005"
+				Shape "plymesh" "string filename" ["geometry/biker_009Bike_KidBike01.008_mat0.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #5.002"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #16 Slot #3.002"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #16 Slot #4.002"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #16 Slot #5.002"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #16 Slot #6.002"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #16 Slot #7.002"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #16 Slot #8.002"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #16 Slot #9.002"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "Material #16 Slot #10.002"
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "biker_009Bike_KidBike01.009" #Dimension:[0.09997642040252686 0.08631351590156555 0.06993252038955688]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/biker_009_BlackMetal.000"
+				Shape "plymesh" "string filename" ["geometry/biker_009Bike_KidBike01.009_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "biker_009Bike_KidBike01.010" #Dimension:[1.0294703245162964 0.10082035511732101 0.484274297952652]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "biker_009_KidBike_Frame.000"
+				Shape "plymesh" "string filename" ["geometry/biker_009Bike_KidBike01.010_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "biker_009Bike_KidBike01.010"
+			AttributeBegin
+			#MeshName: "biker_009Bike_KidBike01.010" #Dimension:[1.0294703245162964 0.10082035511732101 0.484274297952652]" 
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AttributeBegin
+					NamedMaterial "biker_009_KidBike_Frame.000"
+					Shape "plymesh" "string filename" ["geometry/biker_009Bike_KidBike01.010_mat0.ply"]
+				AttributeEnd
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "biker_009Bike_KidBike01.011" #Dimension:[0.05422833561897278 0.016531331464648247 0.139235258102417]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/biker_009_BikeChrome.000"
+				Shape "plymesh" "string filename" ["geometry/biker_009Bike_KidBike01.011_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "biker_009Bike_KidBike01.012" #Dimension:[0.02813577651977539 0.094963937997818 0.025871962308883667]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/biker_009_BikeSteel.003"
+				Shape "plymesh" "string filename" ["geometry/biker_009Bike_KidBike01.012_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "biker_009Bike_KidBike01.013" #Dimension:[0.06659010052680969 0.05371056869626045 0.06490612030029297]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/biker_009_BikeChrome.000"
+				Shape "plymesh" "string filename" ["geometry/biker_009Bike_KidBike01.013_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "biker_009Bike_KidBike01.018" #Dimension:[0.14370015263557434 0.07095594704151154 0.059769392013549805]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/biker_009_BikeChrome.000"
+				Shape "plymesh" "string filename" ["geometry/biker_009Bike_KidBike01.018_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "biker_009Bike_KidBike01.019" #Dimension:[0.029546812176704407 0.036323025822639465 0.016974806785583496]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/biker_009_BikeChrome.000"
+				Shape "plymesh" "string filename" ["geometry/biker_009Bike_KidBike01.019_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "biker_009Bike_KidBike01.020" #Dimension:[0.03390686213970184 0.03253493085503578 0.0181238055229187]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/biker_009_BikeChrome.000"
+				Shape "plymesh" "string filename" ["geometry/biker_009Bike_KidBike01.020_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "biker_009Bike_KidBike01.022" #Dimension:[0.007888942956924438 0.006907045841217041 0.007014155387878418]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/biker_009_BlackMetal.000"
+				Shape "plymesh" "string filename" ["geometry/biker_009Bike_KidBike01.022_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "biker_009Bike_KidBike01.023" #Dimension:[0.33868134021759033 0.11599211394786835 0.3338438868522644]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "biker_009_KidBike_Frame.000"
+				Shape "plymesh" "string filename" ["geometry/biker_009Bike_KidBike01.023_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "biker_009Bike_KidBike01.024" #Dimension:[0.12787219882011414 0.17893250286579132 0.29171204566955566]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "biker_009_KidBike_BlackPlastic.000"
+				Shape "plymesh" "string filename" ["geometry/biker_009Bike_KidBike01.024_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "biker_009Bike_KidBike01.025" #Dimension:[0.1833358108997345 0.03601900115609169 0.045498818159103394]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/biker_009_BlackPlastic.000"
+				Shape "plymesh" "string filename" ["geometry/biker_009Bike_KidBike01.025_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "biker_009Bike_KidBike01.026" #Dimension:[0.10191166400909424 0.05180399864912033 0.014334499835968018]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/biker_009_BikeChrome.000"
+				Shape "plymesh" "string filename" ["geometry/biker_009Bike_KidBike01.026_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "biker_009Bike_KidBike01.027" #Dimension:[0.035537004470825195 0.07703778147697449 0.041423022747039795]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/biker_009_BikeSteel.001"
+				Shape "plymesh" "string filename" ["geometry/biker_009Bike_KidBike01.027_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "biker_009Bike_KidBike01.029" #Dimension:[0.5404752492904663 0.042644500732421875 0.5404753684997559]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "biker_009_KidBike_Tire.000"
+				Shape "plymesh" "string filename" ["geometry/biker_009Bike_KidBike01.029_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "biker_009Bike_KidBike01.030" #Dimension:[0.5127219557762146 0.3280141353607178 0.8380849361419678]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/biker_009_BikeSteel"
+				Shape "plymesh" "string filename" ["geometry/biker_009Bike_KidBike01.030_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "biker_009Bike_KidBike01.031" #Dimension:[0.4950562119483948 0.03689310699701309 0.495077908039093]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "biker_009_KidBike_TireStrip.000"
+				Shape "plymesh" "string filename" ["geometry/biker_009Bike_KidBike01.031_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "biker_009Bike_KidBike01.032" #Dimension:[0.5403304696083069 0.042644500732421875 0.5403311848640442]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "biker_009_KidBike_Tire.000"
+				Shape "plymesh" "string filename" ["geometry/biker_009Bike_KidBike01.032_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "biker_009Bike_KidBike01.033" #Dimension:[0.4951092004776001 0.036892883479595184 0.4951309859752655]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "biker_009_KidBike_TireStrip.000"
+				Shape "plymesh" "string filename" ["geometry/biker_009Bike_KidBike01.033_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "biker_009Bike_KidBike01.034" #Dimension:[0.1786617785692215 0.4945712685585022 0.035953402519226074]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "/biker_009_BlackPlastic.000"
+				Shape "plymesh" "string filename" ["geometry/biker_009Bike_KidBike01.034_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "biker_009Bike_KidBike01.035" #Dimension:[0.2469463050365448 0.1634899377822876 0.10178583860397339]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "biker_009_KidBike_Seat.000"
+				Shape "plymesh" "string filename" ["geometry/biker_009Bike_KidBike01.035_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "biker_009Bike_KidBike01.036" #Dimension:[0.2369156777858734 0.16317340731620789 0.10505056381225586]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "biker_009_KidBike_BlackPlastic.000"
+				Shape "plymesh" "string filename" ["geometry/biker_009Bike_KidBike01.036_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+	AttributeEnd
+ObjectEnd
+
+ObjectBegin "Camera_m"
+#Instance MeshName: "Camera"
+ObjectEnd
+
+ObjectBegin "biker_009_person_m"
+#Instance MeshName: "biker_009_person"
+	AttributeBegin
+	#MeshName: "biker_009_person"
+		AttributeBegin
+		#MeshName: "biker_009_07Bikes_07_100k" #Dimension:[0.5273350477218628 0.5071027278900146 1.3202099800109863]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "biker_009_07Bikes_07"
+				Shape "plymesh" "string filename" ["geometry/biker_009_07Bikes_07_100k_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+	AttributeEnd
+ObjectEnd
+
+AttributeBegin
+#CollectionName: "Scene Collection"
+	AttributeBegin
+	#CollectionName: "Collection"
+		AttributeBegin
+		#MeshName: "Camera"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "Camera_m"
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "biker_009_person"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "biker_009_person_m"
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "biker_009_bicycle"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "biker_009_bicycle_m"
+			AttributeBegin
+			#MeshName: "biker_009_headlight_converted" #Dimension:[0.0017888545989990234 0.02598559856414795 0.025923967361450195]" 
+				AttributeBegin
+					Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+					AreaLightSource "diffuse"					
+					"rgb L" [ 1.0 1.0 1.0]					
+					"float scale" [ 10.0 ]					
+					"float spread" [ 47.5 ]					
+					Shape "plymesh" "string filename" ["geometry/biker_009_headlight_converted_mat0.ply"]
+				AttributeEnd
+			AttributeEnd
+		AttributeEnd
+	AttributeEnd
+AttributeEnd

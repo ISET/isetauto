@@ -1,0 +1,2 @@
+Texture "car_029_interior_screen.reflectance.MXC_Screen.jpg" "spectrum" "imagemap" "string filename" ["textures/MXC_Screen.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "car_029_logo.reflectance.Mercedes_logo_1926.png" "spectrum" "imagemap" "string filename" ["textures/Mercedes_logo_1926.png"] "float uscale" [1.0] "float vscale" [1.0]

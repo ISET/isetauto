@@ -1,0 +1,2 @@
+Texture "/Humano_BikeLeather.001.reflectance.Humano_Accesories_01Bike_Leather.jpg" "spectrum" "imagemap" "string filename" ["textures/Humano_Accesories_01Bike_Leather.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "biker_003_person.reflectance.Humano_07Bikes_03_Diffuse01.jpg" "spectrum" "imagemap" "string filename" ["textures/Humano_07Bikes_03_Diffuse01.jpg"] "float uscale" [1.0] "float vscale" [1.0]

@@ -1,0 +1,28 @@
+ObjectBegin "tree_mid_002_m"
+#Instance MeshName: "tree_mid_002"
+	AttributeBegin
+	#MeshName: "tree_mid_002" #Dimension:[2.720896005630493 2.728160858154297 4.714623928070068]" 
+		Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+		AttributeBegin
+			NamedMaterial "Bark_Cedrus_bqm"
+			Shape "plymesh" "string filename" ["geometry/tree_mid_002_mat0.ply"]
+		AttributeEnd
+		AttributeBegin
+			NamedMaterial "Leaf_Cedrus_bqm"
+			Shape "plymesh" "string filename" ["geometry/tree_mid_002_mat1.ply"]
+			"texture alpha" ["Leaf_Cedrus_bqm.alphamap.Leaf_Cedrus_2_Diffuse.png"]			
+		AttributeEnd
+	AttributeEnd
+ObjectEnd
+
+AttributeBegin
+#CollectionName: "Scene Collection"
+	AttributeBegin
+	#CollectionName: "Collection"
+		AttributeBegin
+		#MeshName: "tree_mid_002"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "tree_mid_002_m"
+		AttributeEnd
+	AttributeEnd
+AttributeEnd

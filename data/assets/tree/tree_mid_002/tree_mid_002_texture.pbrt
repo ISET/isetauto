@@ -1,0 +1,4 @@
+Texture "Bark_Cedrus_bqm.reflectance.Bark_Tilia-europaea_Diffuse.jpg" "spectrum" "imagemap" "string filename" ["textures/Bark_Tilia-europaea_Diffuse.jpg"] "float uscale" [1] "float vscale" [1]
+Texture "Leaf_Cedrus_bqm.reflectance.Leaf_Cedrus_2_Diffuse.png" "spectrum" "imagemap" "string filename" ["textures/Leaf_Cedrus_2_Diffuse.png"] "float uscale" [1] "float vscale" [1]
+Texture "tex_Leaf_Cedrus_bqm.alphamap.Leaf_Cedrus_2_Diffuse.png" "float" "imagemap" "string filename" ["textures/Leaf_Cedrus_2_Diffuse.png"] "float uscale" [1] "float vscale" [1]
+Texture "Leaf_Cedrus_bqm.alphamap.Leaf_Cedrus_2_Diffuse.png" "float" "scale" "float scale" [1.0] "texture tex" "tex_Leaf_Cedrus_bqm.alphamap.Leaf_Cedrus_2_Diffuse.png"

@@ -1,0 +1,83 @@
+ObjectBegin "Plane_m"
+#Instance MeshName: "Plane"
+	AttributeBegin
+	#MeshName: "Plane" #Dimension:[200.0 200.0 0.0]" 
+		Transform [100.000000 0.000000 0.000000 0.000000 0.000000 100.000000 0.000000 0.000000 0.000000 0.000000 28.560507 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+		AttributeBegin
+			NamedMaterial "Material.001"
+			Shape "trianglemesh"
+			"point3 P" [
+			-1.0 -1.0 0.0 1.0 -1.0 0.0 1.0 1.0 0.0 -1.0 -1.0 0.0 1.0 1.0 0.0 -1.0 1.0 0.0			
+			]
+			"normal N" [
+			0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0			
+			]
+			"point2 uv" [
+			0.0 0.0 
+			1.0 0.0 
+			1.0 1.0 
+			0.0 0.0 
+			1.0 1.0 
+			0.0 1.0 
+			]
+			"integer indices" [
+			0 1 2 3 4 5 
+			]
+		AttributeEnd
+	AttributeEnd
+ObjectEnd
+
+ObjectBegin "streetSign_banbike.004_m"
+#Instance MeshName: "streetSign_banbike.004"
+	AttributeBegin
+	#MeshName: "streetSign_banbike.004" #Dimension:[0.5499999523162842 1.1920928955078125e-07 0.5500000715255737]" 
+		Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.979381 0.000000 0.000000 1.000000 ]
+		AttributeBegin
+			NamedMaterial "streetSign_banbike_Signs_retro"
+			Shape "plymesh" "string filename" ["geometry/streetSign_banbike.004_mat0.ply"]
+		AttributeEnd
+	AttributeEnd
+ObjectEnd
+
+ObjectBegin "Camera_m"
+#Instance MeshName: "Camera"
+ObjectEnd
+
+ObjectBegin "streetSign_banbike.003_m"
+#Instance MeshName: "streetSign_banbike.003"
+	AttributeBegin
+	#MeshName: "streetSign_banbike.003" #Dimension:[0.548991322517395 0.08030390739440918 2.46449613571167]" 
+		Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.979381 0.000000 0.000000 1.000000 ]
+		AttributeBegin
+			NamedMaterial "steel.001"
+			Shape "plymesh" "string filename" ["geometry/streetSign_banbike.003_mat0.ply"]
+		AttributeEnd
+	AttributeEnd
+ObjectEnd
+
+AttributeBegin
+#CollectionName: "Scene Collection"
+	AttributeBegin
+	#MeshName: "streetSign_banbike.003"
+		Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+		ObjectInstance "streetSign_banbike.003_m"
+	AttributeEnd
+	AttributeBegin
+	#MeshName: "streetSign_banbike.004"
+		Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+		ObjectInstance "streetSign_banbike.004_m"
+	AttributeEnd
+	AttributeBegin
+	#CollectionName: "Collection"
+		AttributeBegin
+		#MeshName: "Camera"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "Camera_m"
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "Plane"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "Plane_m"
+		AttributeEnd
+	AttributeEnd
+AttributeEnd

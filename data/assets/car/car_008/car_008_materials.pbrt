@@ -1,0 +1,247 @@
+MakeNamedMaterial "black"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.07840000092983246 0.07840000092983246 0.07840000092983246]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.8999999761581421]
+MakeNamedMaterial "black_paper"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "blue"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.1412000060081482 0.1412000060081482 0.5372999906539917]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.8418861031532288]
+MakeNamedMaterial "brakedisk"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.49410000443458557 0.49410000443458557 0.49410000443458557]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.31872254610061646]
+MakeNamedMaterial "California"
+	"string type" "diffuse"
+	"rgb reflectance" [0.7450982332229614 0.03802880644798279 0.033548109233379364]
+MakeNamedMaterial "carpaint"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0038999998942017555 0.13330000638961792 0.3725000023841858]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.08686916530132294]
+MakeNamedMaterial "carpaint_second"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.058800000697374344 0.058800000697374344 0.058800000697374344]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.7550510168075562]
+MakeNamedMaterial "chrome"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.5372999906539917 0.5372999906539917 0.5372999906539917]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.001676023006439209]
+MakeNamedMaterial "clearglass"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.5879999995231628 0.5879999995231628 0.5879999995231628]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.7654792070388794]
+MakeNamedMaterial "darkglass_lv1_mat1"
+	"string type" "dielectric"
+	"rgb eta" [1.5 1.5 1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "darkglass_lv1_mat2"
+	"string type" "conductor"
+	"float roughness" [0.4076923131942749]
+MakeNamedMaterial "darkglass"
+	"string type" "mix"
+	"float amount" [0.5]
+	"string materials" ["darkglass_lv1_mat1" "darkglass_lv1_mat2"]
+MakeNamedMaterial "green_paper"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.021515654399991035 0.8000000715255737 0.40078291296958923]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "interior"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.3961000144481659 0.3961000144481659 0.3961000144481659]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.8999999761581421]
+MakeNamedMaterial "license_3D"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [1.0 1.0 1.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "license_holder"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.7136363983154297]
+MakeNamedMaterial "license_plate"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.800000011920929 0.800000011920929 0.800000011920929]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.4909090995788574]
+MakeNamedMaterial "license_surface"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "LicPlate_yellow"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.8823999762535095 0.7098000049591064 0.023499999195337296]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.8999999761581421]
+MakeNamedMaterial "Material.001"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.13624785840511322 0.1541328728199005 0.17893564701080322]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "mattemetal"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.8274999856948853 0.8274999856948853 0.8274999856948853]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.873508870601654]
+MakeNamedMaterial "mirror"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.4666999876499176 0.5372999906539917 0.5254999995231628]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "Month"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.040013473480939865 0.011621527373790741 0.8000000715255737]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "orangeglass_lv1_mat1"
+	"string type" "dielectric"
+	"rgb eta" [1.5 1.5 1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "orangeglass_lv1_mat2"
+	"string type" "conductor"
+	"float roughness" [0.0]
+MakeNamedMaterial "orangeglass"
+	"string type" "mix"
+	"float amount" [0.5]
+	"string materials" ["orangeglass_lv1_mat1" "orangeglass_lv1_mat2"]
+MakeNamedMaterial "red"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.666700005531311 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.8418861031532288]
+MakeNamedMaterial "redglass_lv1_mat1"
+	"string type" "dielectric"
+	"rgb eta" [1.5 1.5 1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "redglass_lv1_mat2"
+	"string type" "conductor"
+	"float roughness" [0.0]
+MakeNamedMaterial "redglass"
+	"string type" "mix"
+	"float amount" [0.5]
+	"string materials" ["redglass_lv1_mat1" "redglass_lv1_mat2"]
+MakeNamedMaterial "rim_second"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.1647000014781952 0.1647000014781952 0.1647000014781952]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.2494877278804779]
+MakeNamedMaterial "screw"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.5372551083564758 0.5372551083564758 0.5372551083564758]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.15909090638160706]
+MakeNamedMaterial "tire"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.07814358174800873 0.07814358174800873 0.07814358174800873]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.873508870601654]
+MakeNamedMaterial "white_paper"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [1.0 1.0 1.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "windowglass_lv1_mat1"
+	"string type" "dielectric"
+	"rgb eta" [1.5 1.5 1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "windowglass_lv1_mat2"
+	"string type" "conductor"
+	"float roughness" [0.10000002384185791]
+MakeNamedMaterial "windowglass"
+	"string type" "mix"
+	"float amount" [0.5]
+	"string materials" ["windowglass_lv1_mat1" "windowglass_lv1_mat2"]
+MakeNamedMaterial "Year"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]

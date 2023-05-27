@@ -1,0 +1,28 @@
+ObjectBegin "tree_tall_001_m"
+#Instance MeshName: "tree_tall_001"
+	AttributeBegin
+	#MeshName: "tree_tall_001" #Dimension:[6.248513698577881 6.713855743408203 8.863975524902344]" 
+		Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+		AttributeBegin
+			NamedMaterial "Bark_Larix-decidua_bqm"
+			Shape "plymesh" "string filename" ["geometry/tree_tall_001_mat0.ply"]
+		AttributeEnd
+		AttributeBegin
+			NamedMaterial "Leaf_Larix-decidua_bqm"
+			Shape "plymesh" "string filename" ["geometry/tree_tall_001_mat1.ply"]
+			"texture alpha" ["Leaf_Larix-decidua_bqm.alphamap.Leaf_Larix-decidua_2_Diffuse.png"]			
+		AttributeEnd
+	AttributeEnd
+ObjectEnd
+
+AttributeBegin
+#CollectionName: "Scene Collection"
+	AttributeBegin
+	#CollectionName: "Collection"
+		AttributeBegin
+		#MeshName: "tree_tall_001"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "tree_tall_001_m"
+		AttributeEnd
+	AttributeEnd
+AttributeEnd

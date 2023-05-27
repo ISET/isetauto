@@ -1,0 +1,6 @@
+Texture "Default.001.reflectance.mat0_c.jpg" "spectrum" "imagemap" "string filename" ["textures/deer_002_mat0_c.png"] "float uscale" [1] "float vscale" [1]
+Texture "eye gloss.001.reflectance.mat3_c.jpg" "spectrum" "imagemap" "string filename" ["textures/deer_002_mat3_c.png"] "float uscale" [1] "float vscale" [1]
+Texture "Unreal 4 Template .001.reflectance.mat3_c.jpg" "spectrum" "imagemap" "string filename" ["textures/deer_002_mat3_c.png"] "float uscale" [1] "float vscale" [1]
+Texture "Unreal 4 Template.003.reflectance.mat2_c.jpg" "spectrum" "imagemap" "string filename" ["textures/deer_002_mat2_c.png"] "float uscale" [1] "float vscale" [1]
+Texture "Unreal 4 Template.004.reflectance.mat2_c.jpg" "spectrum" "imagemap" "string filename" ["textures/deer_002_mat2_c.png"] "float uscale" [1] "float vscale" [1]
+Texture "Unreal 4 Template.005.reflectance.mat2_c.jpg" "spectrum" "imagemap" "string filename" ["textures/deer_002_mat2_c.png"] "float uscale" [1] "float vscale" [1]

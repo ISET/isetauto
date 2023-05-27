@@ -1,0 +1,43 @@
+ObjectBegin "deer_002_m"
+#Instance MeshName: "deer_002"
+	AttributeBegin
+	#MeshName: "deer_002" #Dimension:[1.3934268951416016 0.6319595575332642 1.2987785339355469]" 
+		Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+		AttributeBegin
+			NamedMaterial "Default.001"
+			Shape "plymesh" "string filename" ["geometry/deer_002_mat0.ply"]
+		AttributeEnd
+		AttributeBegin
+			NamedMaterial "Unreal 4 Template.003"
+			Shape "plymesh" "string filename" ["geometry/deer_002_mat1.ply"]
+		AttributeEnd
+		AttributeBegin
+			NamedMaterial "Unreal 4 Template.004"
+			Shape "plymesh" "string filename" ["geometry/deer_002_mat2.ply"]
+		AttributeEnd
+		AttributeBegin
+			NamedMaterial "eye gloss.001"
+			Shape "plymesh" "string filename" ["geometry/deer_002_mat3.ply"]
+		AttributeEnd
+		AttributeBegin
+			NamedMaterial "Unreal 4 Template .001"
+			Shape "plymesh" "string filename" ["geometry/deer_002_mat4.ply"]
+		AttributeEnd
+		AttributeBegin
+			NamedMaterial "Unreal 4 Template.005"
+			Shape "plymesh" "string filename" ["geometry/deer_002_mat5.ply"]
+		AttributeEnd
+	AttributeEnd
+ObjectEnd
+
+AttributeBegin
+#CollectionName: "Scene Collection"
+	AttributeBegin
+	#CollectionName: "Collection"
+		AttributeBegin
+		#MeshName: "deer_002"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "deer_002_m"
+		AttributeEnd
+	AttributeEnd
+AttributeEnd

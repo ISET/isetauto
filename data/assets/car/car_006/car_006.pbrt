@@ -1,0 +1,23 @@
+Film "gbuffer" "integer xresolution" [1920] "integer yresolution" [1080] "string filename" "output.exr"
+PixelFilter "box" "float xradius" [0.5] "float yradius" [0.5] 
+Accelerator "bvh" 
+"string splitmethod" "sah"
+"integer maxnodeprims" [4]
+Sampler "halton"
+"integer pixelsamples" [100]
+
+Integrator "path"
+"integer maxdepth" [10]
+
+Scale -1 1 1 #avoid the 'flipped image' bug..
+LookAt	-0.826449990272522 -0.9175999760627747 1.0528000593185425
+	-1.7643389701843262 -1.264535665512085 1.0528000593185425
+	4.099642936239434e-08 1.5165040778697403e-08 1.0
+
+Camera "perspective"
+"float fov" [22.89519204617112]
+WorldBegin
+
+Include "car_006_materials.pbrt"
+Include "car_006_texture.pbrt"
+Include "car_006_geometry.pbrt"
