@@ -135,25 +135,41 @@ branchID = roadData.cameraSet('camera type', camera_type,...
 piWrite(thisR);
 scene = piRender(thisR);
 sceneWindow(scene);
-ip = piRadiance2RGB(scene,'etime',1/30,'analoggain',1/5);rgb = ipGet(ip, 'srgb');figure;imshow(rgb);
 
-% Re-render the scene with a modified pitch angle for the camera 
+%% Process the scene through a sensor to the ip 
+%
+% This isn't great because the sensor is not explicit.
+ip = piRadiance2RGB(scene,'etime',1/30,'analoggain',1/5);
+
+rgb = ipGet(ip, 'srgb');
+ieNewGraphWin;
+imshow(rgb);
+
+%% Re-render the scene with a modified pitch angle for the camera 
+
+% Unclear why this would change thisR.  But it does. 
 branchID = roadData.cameraSet('camera type', camera_type,...
                                 'car name','car_058',...
                                 'branch ID',branchID,...
                                 'cam rotation',piRotationMatrix( 'zrot',-90,'yrot',0,'xrot',88)); 
+
 % direction = thisR.get('object direction');
+scene = piWRS(thisR);
 
-piWrite(thisR);
-scene = piRender(thisR);
-sceneWindow(scene);
+%piWrite(thisR);
+%scene = piRender(thisR);
+%sceneWindow(scene);
 
-% Calculate our camera's response, currently with a fixed exposure
+%% Calculate our camera's response, currently with a fixed exposure
 % time of 1/30s.
 ip = piRadiance2RGB(scene,'etime',1/30,'analoggain',1/5);
 
+rgb = ipGet(ip, 'srgb');
+ieNewGraphWin;
+imshow(rgb);
+
 % Now get an sRGB approximation of the resulting image and show it
-rgb = ipGet(ip, 'srgb');figure;imshow(rgb);
+% rgb = ipGet(ip, 'srgb');figure;imshow(rgb);
 
 %% We can also move the camera to the front grille
 % The front grille position can be found in blender file
@@ -161,10 +177,17 @@ branchID = roadData.cameraSet('camera type', camera_type,...
                                 'car name','car_058',...
                                 'branch ID',branchID,...
                                 'cam position', [0.87955; 0; 1.0298]); 
-piWrite(thisR);
-scene = piRender(thisR);
-sceneWindow(scene);
-ip = piRadiance2RGB(scene,'etime',1/30,'analoggain',1/5);rgb = ipGet(ip, 'srgb');figure;imshow(rgb);title('Front Grille');
+scene = piWRS(thisR);
+
+% piWrite(thisR);
+% scene = piRender(thisR);
+% sceneWindow(scene);
+
+ip = piRadiance2RGB(scene,'etime',1/30,'analoggain',1/5);
+rgb = ipGet(ip, 'srgb');
+ieNewGraphWin;
+imshow(rgb); 
+title('Front Grille');
 
 %% Compare with a simulated fisheye lens
 thisR.camera = piCameraCreate('omni','lensfile','fisheye.87deg.3.0mm.json');
@@ -176,6 +199,7 @@ ip = piRadiance2RGB(oi,'etime',1/100,'analoggain',1);rgb = ipGet(ip, 'srgb');fig
 fprintf("This is probably where the current demo ends.\n");
 pause;
 
+%% END
 % 
 % [objectslist,instanceMap] = piRenderLabel(thisR);
 % OBJInfo = iaGetOBJInfo(thisR, scene, instanceMap.metadata);
