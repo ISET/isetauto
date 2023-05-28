@@ -66,16 +66,25 @@ thisR.set('skymap',skymapName);
 %% Add cars manually
 % For the cars so far, z appears to be up, y is lateral, x is towards the
 % camera
+% Translation is currently done by hand, based on default object positions
+
+% Add a car coming towards us
 car1 = piRead('car_001.pbrt');
 car1Branch = piAssetTranslate(car1, 'car_001_B', [25 -4 0]);
 thisR = piRecipeMerge(thisR, car1);
+
+% Add a car ahead of us on our side of the road
 car2 = piRead('car_002.pbrt');
 car2Branch = piAssetTranslate(car2, 'car_002_B', [40 5 0]);
 car2Branch = piAssetRotate(car2, 'car_002_B', [0 0 180]);
 thisR = piRecipeMerge(thisR, car2);
+
+% Add another care coming our way, but farther away
 car3 = piRead('car_003.pbrt');
 car3Branch = piAssetTranslate(car3, 'car_003_B', [10 -1 0]);
 thisR = piRecipeMerge(thisR, car3);
+
+% Add a deer in front of our car
 deer1 = piRead('deer_001.pbrt');
 deer1Branch = piAssetTranslate(deer1, 'deer_001_B', [50 5 0]);
 thisR = piRecipeMerge(thisR,deer1);
