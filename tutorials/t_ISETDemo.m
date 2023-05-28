@@ -1,7 +1,7 @@
 %% Automatically assemble a country road scene
 %
 % Dependencies
-%   ISET3d, ISETAuto, and ISETCam
+%   ISET3d, ISETAuto, ISETonline, and ISETCam
 %   Prefix:  ia- means isetauto
 %            pi- means iset3d-v4
 %
@@ -13,6 +13,8 @@
 %   ISETCam: Converts scene radiance or optical irradiance data to an RGB
 %   image with a physically based sensor model and ISP pipeline. The 
 %   resulting image is then rendered as an sRGB approximation.
+%
+%   ISETOnline:  Looks up the road data using the database.
 %
 % Zhenyi, 2022
 
@@ -132,9 +134,10 @@ branchID = roadData.cameraSet('camera type', camera_type,...
 
 %% Render the scene, and maybe an OI (Optical Image through the lens)
 % thisR.set('object distance', 0.95);
-piWrite(thisR);
-scene = piRender(thisR);
-sceneWindow(scene);
+scene = piWRS(thisR,'render flag','hdr');
+% piWrite(thisR);
+% scene = piRender(thisR);
+% sceneWindow(scene);
 
 %% Process the scene through a sensor to the ip 
 %
@@ -154,13 +157,13 @@ branchID = roadData.cameraSet('camera type', camera_type,...
                                 'cam rotation',piRotationMatrix( 'zrot',-90,'yrot',0,'xrot',88)); 
 
 % direction = thisR.get('object direction');
-scene = piWRS(thisR);
+scene = piWRS(thisR,'render flag','hdr');
 
 %piWrite(thisR);
 %scene = piRender(thisR);
 %sceneWindow(scene);
 
-%% Calculate our camera's response, currently with a fixed exposure
+%% Calculate the camera's response, currently with a fixed exposure
 % time of 1/30s.
 ip = piRadiance2RGB(scene,'etime',1/30,'analoggain',1/5);
 
@@ -172,32 +175,37 @@ imshow(rgb);
 % rgb = ipGet(ip, 'srgb');figure;imshow(rgb);
 
 %% We can also move the camera to the front grille
+%
 % The front grille position can be found in blender file
 branchID = roadData.cameraSet('camera type', camera_type,...
                                 'car name','car_058',...
                                 'branch ID',branchID,...
                                 'cam position', [0.87955; 0; 1.0298]); 
-scene = piWRS(thisR);
 
-% piWrite(thisR);
-% scene = piRender(thisR);
-% sceneWindow(scene);
+scene = piWRS(thisR,'render flag','hdr','name','Front grille');
+
+%% Convert scene through oi and sensor to ip
 
 ip = piRadiance2RGB(scene,'etime',1/30,'analoggain',1/5);
 rgb = ipGet(ip, 'srgb');
-ieNewGraphWin;
-imshow(rgb); 
+ieNewGraphWin; imshow(rgb); 
 title('Front Grille');
 
 %% Compare with a simulated fisheye lens
 thisR.camera = piCameraCreate('omni','lensfile','fisheye.87deg.3.0mm.json');
-piWrite(thisR);
-oi = piRender(thisR);
-oiWindow(oi);
-ip = piRadiance2RGB(oi,'etime',1/100,'analoggain',1);rgb = ipGet(ip, 'srgb');figure;imshow(rgb);title('fisheye');
+oi = piWRS(thisR,'render flag','hdr');
 
-fprintf("This is probably where the current demo ends.\n");
-pause;
+% piWrite(thisR);
+% oi = piRender(thisR);
+% oiWindow(oi);
+
+ip = piRadiance2RGB(oi,'etime',1/100,'analoggain',1);
+rgb = ipGet(ip, 'srgb');
+ieNewGraphWin; imshow(rgb); 
+title('fisheye');
+
+% fprintf("This is probably where the current demo ends.\n");
+% pause;
 
 %% END
 % 
@@ -218,13 +226,13 @@ pause;
 % piWrite(thisR);
 % scene = piRender(thisR);sceneWindow(scene);
 %% create light group
-skyName = erase(skymapName,'.exr');
-recipeList = iaLightsGroup(thisR, skyName);
-%%
-for rr = 1:numel(recipeList)
-    piWrite(recipeList{rr});
-    scene_lg{rr} = piRender(recipeList{rr}, 'meanluminance',0);
-end
+% skyName = erase(skymapName,'.exr');
+% recipeList = iaLightsGroup(thisR, skyName);
+% %%
+% for rr = 1:numel(recipeList)
+%     piWrite(recipeList{rr});
+%     scene_lg{rr} = piRender(recipeList{rr}, 'meanluminance',0);
+% end
 %{
  thisR.set('film resolution',[1536 864]/2);
  scene = ieGetObject('scene');
