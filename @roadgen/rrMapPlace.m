@@ -25,7 +25,7 @@ function [points, rot] = rrMapPlace(obj,varargin)
 % We will use the diagram below to show three parameters above:
 %
 %    pointnum = [100, 50, 30]
-%    layerWidth is denoated by LW.
+%    layerWidth is denoted by LW.
 %    minDistanceToRoad is denoted by MDR
 %
 %    |< LW  >|< LW  >|< LW  >|<MDR>|--------|
@@ -38,8 +38,8 @@ function [points, rot] = rrMapPlace(obj,varargin)
 %    04-02: multiple lanes are supported, we can specify lanenum, lanenum
 %    counts from north to south.
 %
-%    We can gradually reduced the number of assets with the
-%    increase on distance to the road, this is mainly for
+%    We can gradually reduce the number of assets with the
+%    increase of distance to the road, this is mainly for
 %    saving memory sapce and rendering time.
 %
 % Output:
@@ -77,39 +77,39 @@ laneTypes = laneTypesTmp;
 % lane
 
 % When lane Id is not specified, we spread the cars on all lanes
-if laneID<=0  
+if laneID<=0
     if isempty(laneTypes)  % For all driving lanes
         laneTypes=[{'leftdriving'}, repmat({'leftdriving'}, 1 , numel(obj.road.leftdrivingID)-1), repmat({'rightdriving'}, 1, numel(obj.road.rightdrivingID))];
         laneIDlist=[(1:numel(obj.road.leftdrivingID)) (1:numel(obj.road.rightdrivingID))];
         pointnumOneLane = ceil(sumofpoints/(numel(obj.road.leftdrivingID) + numel(obj.road.rightdrivingID)));
         pointnum=ones([1, numel(laneIDlist)])*pointnumOneLane;
     else
-    switch laneTypes{1}
-        case 'leftdriving'
-            laneTypes = [repmat({'leftdriving'}, 1 , numel(obj.road.leftdrivingID))];
-            laneIDlist = 1:numel(obj.road.leftdrivingID);
-            numarray = abs(normrnd(rand(1, numel(obj.road.leftdrivingID)),0));
-            pointnum = ceil(pointnum * numarray/sum(numarray));
-        case 'leftshoulder'
-            laneTypes = {'leftshoulder'};
-            laneIDlist = 1;
-        case 'rightdriving'
-            laneTypes = [repmat({'rightdriving'}, 1 , numel(obj.road.rightdrivingID))];
-            laneIDlist = 1:numel(obj.road.rightdrivingID);
-            numarray = abs(normrnd(rand(1, numel(obj.road.rightdrivingID)),0));
-            pointnum = ceil(pointnum * numarray/sum(numarray));
-        case 'rightshoulder'
-            laneTypes = {'rightshoulder'};
-            laneIDlist = 1;            
-        case 'leftsidewalk'
-            laneTypes = {'leftsidewalk'};
-            laneIDlist = 1;            
-        case 'rightsidewalk'
-            laneTypes = {'rightsidewalk'};
-            laneIDlist = 1;
-        otherwise
-            disp('wrong lane type')
-    end        
+        switch laneTypes{1}
+            case 'leftdriving'
+                laneTypes = [repmat({'leftdriving'}, 1 , numel(obj.road.leftdrivingID))];
+                laneIDlist = 1:numel(obj.road.leftdrivingID);
+                numarray = abs(normrnd(rand(1, numel(obj.road.leftdrivingID)),0));
+                pointnum = ceil(pointnum * numarray/sum(numarray));
+            case 'leftshoulder'
+                laneTypes = {'leftshoulder'};
+                laneIDlist = 1;
+            case 'rightdriving'
+                laneTypes = [repmat({'rightdriving'}, 1 , numel(obj.road.rightdrivingID))];
+                laneIDlist = 1:numel(obj.road.rightdrivingID);
+                numarray = abs(normrnd(rand(1, numel(obj.road.rightdrivingID)),0));
+                pointnum = ceil(pointnum * numarray/sum(numarray));
+            case 'rightshoulder'
+                laneTypes = {'rightshoulder'};
+                laneIDlist = 1;
+            case 'leftsidewalk'
+                laneTypes = {'leftsidewalk'};
+                laneIDlist = 1;
+            case 'rightsidewalk'
+                laneTypes = {'rightsidewalk'};
+                laneIDlist = 1;
+            otherwise
+                disp('wrong lane type')
+        end
 
     end
 end
@@ -117,7 +117,7 @@ end
 % On road objects does not distributed on different layers, so we sum the
 % number of points here, and sum is used for onroad case.
 
-% 
+%
 
 points = []; % [x, y, z]
 dir = []; % [rotx, roty, rotz]
@@ -195,7 +195,7 @@ for ll = 1:numel(laneTypes)
                                 pointIdx = ii+placement_intervals*(ii-1);
                                 x1 = xi(pointIdx);y1 = yi(pointIdx);
                                 x2 = xi(pointIdx+1);y2 = yi(pointIdx+1);
-                                k=(y2-y1)/(x2-x1); 
+                                k=(y2-y1)/(x2-x1);
                                 dd=minDistanceToRoad+layerWidth*(layer-1)+layerWidth;
                                 points(j,1)=x1-dd*k/sqrt(k*k+1);points(j,2)=y1+dd/sqrt(k*k+1);
                                 [dir(j),~] = cart2pol(x2-x1,y2-y1);
@@ -203,7 +203,7 @@ for ll = 1:numel(laneTypes)
                                 j=j+1;
 
                             end
-                        end                        
+                        end
                     end
                 case 'rightshoulder'
                     if ~uniformSample
@@ -232,15 +232,15 @@ for ll = 1:numel(laneTypes)
                                 pointIdx = ii+placement_intervals*(ii-1);
                                 x1 = xi(pointIdx);y1 = yi(pointIdx);
                                 x2 = xi(pointIdx+1);y2 = yi(pointIdx+1);
-                                k=(y2-y1)/(x2-x1); 
+                                k=(y2-y1)/(x2-x1);
                                 dd=minDistanceToRoad+layerWidth*(layer-1)+layerWidth;
                                 points(j,1)=x1+dd*k/sqrt(k*k+1);points(j,2)=y1-dd/sqrt(k*k+1);
                                 [dir(j),~] = cart2pol(x2-x1,y2-y1);
                                 dir(j) = dir(j) - pi/2;
                                 j=j+1;
                             end
-                        end                        
-                    end                    
+                        end
+                    end
             end
         otherwise
             disp('unsupported position, only [rightshoulder, leftshoulder] are supported now');
@@ -254,7 +254,7 @@ points=all_points;
 %%
 %find z label from obj file
 geometryOBJ = obj.road.geometryOBJ;
-face_IDs = zeros(size(points,1),1);points(:,3)=0; 
+face_IDs = zeros(size(points,1),1);points(:,3)=0;
 
 rot = zeros(size(dir));
 
@@ -299,7 +299,7 @@ if ~isempty(geometryOBJ)
         end
     end
 else
-    
+
     if contains(laneType,'leftdriving') && strcmp(pos, 'onroad')
         rot = dir + pi;
     else
