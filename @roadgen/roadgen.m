@@ -24,7 +24,10 @@ classdef roadgen < matlab.mixin.Copyable
         onroad;      % Metadata about the road
         offroad;     % More metadata about the road
         roaddirectory  = '';
-        assetdirectory = '/Volumes/SSDZhenyi/Ford Project/PBRT_assets';
+
+        % Assets can be rooted here, or referenced on the rendering
+        % server using the "stub" versions that are in /data/assets
+        assetdirectory = fullfile(iaFileDataRoot,'PBRT_assets');
 
     end
 
@@ -48,7 +51,7 @@ classdef roadgen < matlab.mixin.Copyable
 
             p = inputParser;
             p.addParameter('roaddirectory','');
-            p.addParameter('assetdirectory','/Volumes/SSDZhenyi/Ford Project/PBRT_assets')
+            p.addParameter('assetdirectory',fullfile(iaFileDataRoot,'PBRT_assets'));
             %             p.addParameter('lane','');
             %             p.addParameter('pos','');
             %             p.addParameter('pointnum',0);
@@ -87,6 +90,8 @@ classdef roadgen < matlab.mixin.Copyable
             obj = rrMapRead(obj, rrMapPath);
 
             % create recipe
+            % The code currently can optionally use the .pbrt file
+            % or a .mat file that already has the asset's @recipe object
             pbrtFile = fullfile(rrMapPath,roadName,[roadName,'.pbrt']);
             recipeMat = fullfile(rrMapPath,roadName,[roadName,'.mat']);
             if exist(recipeMat, "file")
@@ -97,10 +102,12 @@ classdef roadgen < matlab.mixin.Copyable
             end
         end
 
+        %% Work in progress
         function assetList = assetListCreate(obj)
 
+            assetList = []; % Set it to prevent errors on null return
             if obj.numoftrees>0
-
+                
             end
 
             if obj.numofdeers>0
