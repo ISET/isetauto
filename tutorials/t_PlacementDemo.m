@@ -63,34 +63,28 @@ thisR.set('outputfile',fullfile(piDirGet('local'),num2str(iaImageID),[num2str(ia
 skymapName = 'sky-noon_009.exr'; % Most skymaps are in the Matlab path already
 thisR.set('skymap',skymapName);
 
-% Since we are starting with daytime, dim the Sun to simulate a night scene
-% by finding it''s node in our asset tree and setting its spectrum scale
-%skymapNode = strrep(skymapName, '.exr','_L');
-%thisR.set('light',skymapNode, 'specscale', 0.001);
+%% Add cars manually
+% For the cars so far, z appears to be up, y is lateral, x is towards the
+% camera
+car1 = piRead('car_001.pbrt');
+car1Branch = piAssetTranslate(car1, 'car_001_B', [25 -4 0]);
+thisR = piRecipeMerge(thisR, car1);
+car2 = piRead('car_002.pbrt');
+car2Branch = piAssetTranslate(car2, 'car_002_B', [40 5 0]);
+car2Branch = piAssetRotate(car2, 'car_002_B', [0 0 180]);
+thisR = piRecipeMerge(thisR, car2);
+car3 = piRead('car_003.pbrt');
+car3Branch = piAssetTranslate(car3, 'car_003_B', [10 -1 0]);
+thisR = piRecipeMerge(thisR, car3);
+deer1 = piRead('deer_001.pbrt');
+deer1Branch = piAssetTranslate(deer1, 'deer_001_B', [50 5 0]);
+thisR = piRecipeMerge(thisR,deer1);
 
 %% Now we can assemble the scene using ISET3d methods
 assemble_tic = tic(); % to time scene assembly
 roadData.assemble();
 fprintf('---> Scene assembled in %.f seconds.\n',toc(assemble_tic));
 
-% TBD: Add scene visualization
-% sceneData.rrDraw('points',points, 'dir',dirs); % visualization function is to fix
-
-%% Optionally specify a lens for our camera
-% lensfile  = 'wide.40deg.6.0mm.json';    % 30 38 18 10
-% fprintf('Using lens: %s\n',lensfile);
-
-% We can randomly pick a car, and place the camera on it.  
-% These are the types of cameras so far:
-%
-%   'front', 'back', 'left, 'right'
-camera_type = 'front';
-
-%% For this demo we'll actually set our camera to be on an F150
-%  later in the script, so we don't set camera properties here
-% branchID = roadData.cameraSet('camera type', camera_type); 
-% direction = thisR.get('object direction');
-% thisR.set('object distance', 0.95);
 
 %% Set the recipe parameters
 %  We want to render both the scene radiance and a depth map
@@ -104,20 +98,8 @@ thisR.set('max depth',5);                  % Number of bounces
 thisR.set('sampler subtype','pmj02bn');    
 thisR.set('fov',45);                       % Field of View
 
-%% For camera placement simulation we want a specific model of car
-%  so that we know the actual dimensions
-
-% In this case we look for a Ford F150 (car_058) in the scene
-% NOTE: If there is no F150, you may need to generate a new scene
-%branchID = roadData.cameraSet('camera type', camera_type,...
-%                                'car name','car_058'); 
-
 %% Render the scene, and maybe an OI (Optical Image through the lens)
-% thisR.set('object distance', 0.95);
 scene = piWRS(thisR,'render flag','hdr');
-% piWrite(thisR);
-% scene = piRender(thisR);
-% sceneWindow(scene);
 
 %% Process the scene through a sensor to the ip 
 %
