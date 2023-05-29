@@ -30,17 +30,17 @@ setpref('db','port',49153);
 % Opens a connection to the server
 sceneDB = isetdb();
 
+%% Find the road starter scene/asset and load it
 % If fullpath to the asset is not given, we will find it in our database
 % We have quite a few generated roads. Currently they are usually 400m long
 road_name  = 'road_020';
 
 % Create the road data object that we will populate with vehicles
 % and other objects for eventual assembly into our scene
+% We can find it either in our path, or the sceneDB
 roadData = roadgen('road directory',road_name, 'asset directory', sceneDB);
 
-%% First we place the elements that are on the road (onroad)
-
-% The driving lane(s)
+% Create driving lane(s) for both directions
 roadData.set('onroad car lanes',{'leftdriving','rightdriving'});
 
 
@@ -63,11 +63,11 @@ roadRecipe.set('outputfile',fullfile(piDirGet('local'),num2str(iaImageID),[num2s
 skymapName = 'sky-noon_009.exr'; % Most skymaps are in the Matlab path already
 roadRecipe.set('skymap',skymapName);
 
-%% Add cars, animals, and people manually
-% For the cars so far, z appears to be up, y is L/R, x is towards the
-% camera
+%% Place the elements that are on the road (onroad)
+% For this demo we add cars, animals, and people manually
+% For the cars so far, z appears to be up, y is L/R, x is towards us
 
-% We're going to try to make iaAssetPlacement relative to the car
+% iaAssetPlacement is relative to the car
 % For x and y, and relative to the ground for z
 
 % Add a car coming towards us
@@ -95,17 +95,12 @@ assemble_tic = tic(); % to time scene assembly
 roadData.assemble();
 fprintf('---> Scene assembled in %.f seconds.\n',toc(assemble_tic));
 
-
 %% Set the recipe parameters
 %  We want to render both the scene radiance and a depth map
 roadRecipe.set('film render type',{'radiance','depth'});
 
-% Set the render quality parameters
-% For publication 1080p by as many as 4096 rays per pixel are used
-roadRecipe.set('film resolution',[1920 1080]/1.5); % Divide by 4 for speed
-roadRecipe.set('pixel samples',128);            % 256 for speed
-roadRecipe.set('max depth',5);                  % Number of bounces
-roadRecipe.set('sampler subtype','pmj02bn');    
+% Set the render quality parameters, use 'quick' preset for demo
+roadRecipe = iaQualitySet(roadRecipe, 'preset', 'HD');
 roadRecipe.set('fov',45);                       % Field of View
 
 %% Render the scene, and maybe an OI (Optical Image through the lens)
