@@ -81,10 +81,14 @@ iaPlaceAsset(roadRecipe, 'car_001', [15 -8 0], []);
 roadRecipe = iaPlaceAsset(roadRecipe,'car_002',[20 0 0], [0 0 180]);
 
 % Add another care coming our way, but farther away
-roadRecipe = iaPlaceAsset(roadRecipe, 'car_003', [25 -12 0], [0 0 0]);
+roadRecipe = iaPlaceAsset(roadRecipe, 'car_003', [18 -12 0], [0 0 0]);
 
 % Add a deer in front of our car
 roadRecipe = iaPlaceAsset(roadRecipe, 'deer_001', [10 -1 0], [0 0 90]);
+
+% Add a pedestrian coming across to our side of the road
+% At 90 rotation he is walking down the centerline towards us
+roadRecipe = iaPlaceAsset(roadRecipe, 'pedestrian_001', [8 -5 0], [0 0 180]);
 
 %% Now we can assemble the scene using ISET3d methods
 assemble_tic = tic(); % to time scene assembly
