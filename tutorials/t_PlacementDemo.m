@@ -52,42 +52,39 @@ roadData.set('offroad n trees', [50, 1, 1]); % [50, 100, 150]
 roadData.set('offroad tree lane', {'rightshoulder','leftshoulder'});
 
 % the roadData object comes with a base ISET3d recipe for rendering
-thisR = roadData.recipe;
+roadRecipe = roadData.recipe;
 
 %% We want to write out the final recipe in local for rendering by PBRT
 % Our convention is <iaRootDir>/local/<scenename>/<scenename.pbrt>
 % even though road scenes in /data are have two levels of nesting
-thisR.set('outputfile',fullfile(piDirGet('local'),num2str(iaImageID),[num2str(iaImageID),'.pbrt']));
+roadRecipe.set('outputfile',fullfile(piDirGet('local'),num2str(iaImageID),[num2str(iaImageID),'.pbrt']));
 
 %% Set up the rendering skymap -- this is just one of many available
 skymapName = 'sky-noon_009.exr'; % Most skymaps are in the Matlab path already
-thisR.set('skymap',skymapName);
+roadRecipe.set('skymap',skymapName);
 
-%% Add cars manually
-% For the cars so far, z appears to be up, y is lateral, x is towards the
+%% Add cars, animals, and people manually
+% For the cars so far, z appears to be up, y is L/R, x is towards the
 % camera
-% Translation is currently done by hand, based on default object positions
+
+% We're going to try to make iaAssetPlacement relative to the car
+% For x and y, and relative to the ground for z
 
 % Add a car coming towards us
-car1 = piRead('car_001.pbrt');
-car1Branch = piAssetTranslate(car1, 'car_001_B', [25 -4 0]);
-thisR = piRecipeMerge(thisR, car1);
+iaPlaceAsset(roadRecipe, 'car_001', [15 -8 0], []);
+% Old way was:
+%car1 = piRead('car_001.pbrt');
+%car1Branch = piAssetTranslate(car1, 'car_001_B', cameraLocation + [-35 -4 0]);
+%thisR = piRecipeMerge(thisR, car1);
 
-% Add a car ahead of us on our side of the road
-car2 = piRead('car_002.pbrt');
-car2Branch = piAssetTranslate(car2, 'car_002_B', [40 5 0]);
-car2Branch = piAssetRotate(car2, 'car_002_B', [0 0 180]);
-thisR = piRecipeMerge(thisR, car2);
+% Add a car ahead of us in our lane
+roadRecipe = iaPlaceAsset(roadRecipe,'car_002',[20 0 0], [0 0 180]);
 
 % Add another care coming our way, but farther away
-car3 = piRead('car_003.pbrt');
-car3Branch = piAssetTranslate(car3, 'car_003_B', [10 -1 0]);
-thisR = piRecipeMerge(thisR, car3);
+roadRecipe = iaPlaceAsset(roadRecipe, 'car_003', [25 -12 0], [0 0 0]);
 
 % Add a deer in front of our car
-deer1 = piRead('deer_001.pbrt');
-deer1Branch = piAssetTranslate(deer1, 'deer_001_B', [50 5 0]);
-thisR = piRecipeMerge(thisR,deer1);
+roadRecipe = iaPlaceAsset(roadRecipe, 'deer_001', [10 -1 0], [0 0 90]);
 
 %% Now we can assemble the scene using ISET3d methods
 assemble_tic = tic(); % to time scene assembly
@@ -97,18 +94,18 @@ fprintf('---> Scene assembled in %.f seconds.\n',toc(assemble_tic));
 
 %% Set the recipe parameters
 %  We want to render both the scene radiance and a depth map
-thisR.set('film render type',{'radiance','depth'});
+roadRecipe.set('film render type',{'radiance','depth'});
 
 % Set the render quality parameters
 % For publication 1080p by as many as 4096 rays per pixel are used
-thisR.set('film resolution',[1920 1080]/1.5); % Divide by 4 for speed
-thisR.set('pixel samples',128);            % 256 for speed
-thisR.set('max depth',5);                  % Number of bounces
-thisR.set('sampler subtype','pmj02bn');    
-thisR.set('fov',45);                       % Field of View
+roadRecipe.set('film resolution',[1920 1080]/1.5); % Divide by 4 for speed
+roadRecipe.set('pixel samples',128);            % 256 for speed
+roadRecipe.set('max depth',5);                  % Number of bounces
+roadRecipe.set('sampler subtype','pmj02bn');    
+roadRecipe.set('fov',45);                       % Field of View
 
 %% Render the scene, and maybe an OI (Optical Image through the lens)
-scene = piWRS(thisR,'render flag','hdr');
+scene = piWRS(roadRecipe,'render flag','hdr');
 
 %% Process the scene through a sensor to the ip 
 %
