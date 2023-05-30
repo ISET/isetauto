@@ -62,7 +62,7 @@ thisFile = 'city1_15:17_v0.0_f51.19front_o270.00_2019626204257_mesh.dat'
 thisFile = 'citymix_14:26_v13.0_f55.88front_o270.00_2019626174329_depth.dat';
 thisFile = 'citymix_11:20_v13.2_f84.41rear_o270.00_2019626215249_depth.dat'
 str = sprintf('file.name = %s AND project.label = %s',thisFile,pname);
-srch = struct('structuredQuery', str, 'returnType', 'acquisition');
+srch = struct('structuredQuery', str, 'returnType', 'acquisition','allData',true);
 result = st.fw.search(srch);
 
 for ii=1:numel(fnames)
