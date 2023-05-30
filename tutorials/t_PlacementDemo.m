@@ -56,8 +56,10 @@ roadRecipe = roadData.recipe;
 
 %% We want to write out the final recipe in local for rendering by PBRT
 % Our convention is <iaRootDir>/local/<scenename>/<scenename.pbrt>
-% even though road scenes in /data are have two levels of nesting
-roadRecipe.set('outputfile',fullfile(piDirGet('local'),num2str(iaImageID),[num2str(iaImageID),'.pbrt']));
+% even though road scenes in /data have two levels of nesting
+
+sceneName = num2str(iaImageID); % random scene id, or we can give it a name
+roadRecipe.set('outputfile',fullfile(piDirGet('local'),sceneName,[sceneName,'.pbrt']));
 
 %% Set up the rendering skymap -- this is just one of many available
 skymapName = 'sky-noon_009.exr'; % Most skymaps are in the Matlab path already
@@ -100,7 +102,7 @@ fprintf('---> Scene assembled in %.f seconds.\n',toc(assemble_tic));
 roadRecipe.set('film render type',{'radiance','depth'});
 
 % Set the render quality parameters, use 'quick' preset for demo
-roadRecipe = iaQualitySet(roadRecipe, 'preset', 'HD');
+roadRecipe = iaQualitySet(roadRecipe, 'preset', 'quick');
 roadRecipe.set('fov',45);                       % Field of View
 
 %% Render the scene, and maybe an OI (Optical Image through the lens)
