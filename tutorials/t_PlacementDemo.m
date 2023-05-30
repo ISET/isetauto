@@ -72,6 +72,10 @@ roadRecipe.set('skymap',skymapName);
 % iaAssetPlacement is relative to the car
 % For x and y, and relative to the ground for z
 
+% Start with an F150 for the camera (car type 058)
+% Not sure how to place it + the camera correctly
+roadRecipe = iaPlaceAsset(roadRecipe, 'car_058', [0 0 0], [0 0 180]);
+
 % Add a car coming towards us
 iaPlaceAsset(roadRecipe, 'car_001', [15 -8 0], []);
 % Old way was:
@@ -92,6 +96,7 @@ roadRecipe = iaPlaceAsset(roadRecipe, 'deer_001', [10 -1 0], [0 0 90]);
 % At 90 rotation he is walking down the centerline towards us
 roadRecipe = iaPlaceAsset(roadRecipe, 'pedestrian_001', [8 -5 0], [0 0 180]);
 
+
 %% Now we can assemble the scene using ISET3d methods
 assemble_tic = tic(); % to time scene assembly
 roadData.assemble();
@@ -104,6 +109,16 @@ roadRecipe.set('film render type',{'radiance','depth'});
 % Set the render quality parameters, use 'quick' preset for demo
 roadRecipe = iaQualitySet(roadRecipe, 'preset', 'quick');
 roadRecipe.set('fov',45);                       % Field of View
+
+% Put the camera on the F150
+camera_type = 'front';
+cameraHeightF150 = 1.5; % meters above ground
+
+% Tweak position. Not elegant at all currently
+branchID = roadData.cameraSet('camera type', camera_type, 'car name','car_058');
+roadRecipe.lookAt.from = [roadRecipe.lookAt.from(1) ...
+    roadRecipe.lookAt.from(2) cameraHeightF150];
+roadRecipe.lookAt.to = [0 roadRecipe.lookAt.from(2) cameraHeightF150];
 
 %% Render the scene, and maybe an OI (Optical Image through the lens)
 scene = piWRS(roadRecipe,'render flag','hdr');
