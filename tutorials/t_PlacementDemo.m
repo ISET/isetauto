@@ -112,11 +112,10 @@ roadRecipe.set('fov',45);                       % Field of View
 
 % Put the camera on the F150
 camera_type = 'front';
-cameraHeightF150 = 1.5; % meters above ground
-
+cameraHeightF150 = 1.8; % meters above ground
+cameraOffsetF150 = .9; % meters offset towards rear of truck
 % Tweak position. Not elegant at all currently
-branchID = roadData.cameraSet('camera type', camera_type, 'car name','car_058');
-roadRecipe.lookAt.from = [roadRecipe.lookAt.from(1) ...
+roadRecipe.lookAt.from = [roadRecipe.lookAt.from(1) + cameraOffsetF150 ...
     roadRecipe.lookAt.from(2) cameraHeightF150];
 roadRecipe.lookAt.to = [0 roadRecipe.lookAt.from(2) cameraHeightF150];
 
