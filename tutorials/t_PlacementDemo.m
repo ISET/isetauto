@@ -65,6 +65,10 @@ roadRecipe.set('outputfile',fullfile(piDirGet('local'),sceneName,[sceneName,'.pb
 skymapName = 'sky-noon_009.exr'; % Most skymaps are in the Matlab path already
 roadRecipe.set('skymap',skymapName);
 
+% If we want to make the scene a night time scene
+skymapNode = strrep(skymapName, '.exr','_L');
+roadRecipe.set('light',skymapNode, 'specscale', 0.001);
+
 %% Place the elements that are on the road (onroad)
 % For this demo we add cars, animals, and people manually
 % For the cars so far, z appears to be up, y is L/R, x is towards us
