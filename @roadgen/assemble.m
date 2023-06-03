@@ -36,8 +36,9 @@ for ii = 1:numel(assetNames)
     switch assetNames{ii}
         % below could use refactoring into a function
         case {'car','bus', 'truck', 'biker'}
+            % ~isfield(onroadOBJ,'number') ||
             for jj = 1:numel(onroadOBJ.lane)
-                if ~isfield(onroadOBJ,'number') || onroadOBJ.number(jj) == 0, continue; end
+                if  onroadOBJ.number(jj) == 0, continue; end
                 [positions{jj}, rotations{jj}] = obj.rrMapPlace(...
                     'laneType',onroadOBJ.lane{jj},'pos','onroad',...
                     'pointnum',onroadOBJ.number(jj));
@@ -143,9 +144,7 @@ obj = obj.overlappedRemove();
 %% Place assets
 % on road
 assetNames_onroad = fieldnames(obj.onroad);
-if isfield(obj.onroad,'number')
     obj = obj.assetPlace(assetNames_onroad,'onroad');
-end
 % off road
 assetNames_offroad = fieldnames(obj.offroad);
 obj = obj.assetPlace(assetNames_offroad,'offroad');

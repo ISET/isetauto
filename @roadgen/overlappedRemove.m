@@ -8,9 +8,7 @@ offroadClassRank = {'pedestrian','animal','tree'};
 onroadClass = fieldnames(obj.onroad);
 
 for ii = 1:numel(onroadClass)
-    if isfield(onroadClass,'number')
-        obj.onroad.(onroadClass{ii}) = overlapCheckOne(assetInfo, obj.onroad.(onroadClass{ii}), 1.5, 1.5);
-    end
+    obj.onroad.(onroadClass{ii}) = overlapCheckOne(assetInfo, obj.onroad.(onroadClass{ii}), 1.5, 1.5);
 end
 
 numCheck = 1;
