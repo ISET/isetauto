@@ -19,7 +19,7 @@ function obj = assemble(obj,varargin)
 obj.initialize();
 %% Generate object lists on the road
 
-% These will be cars and animals and maybe other terms in the future
+% These will be cars, pedestrians, animals, and maybe other types in the future
 assetNames = fieldnames(obj.onroad);
 
 % For each type of asset on the road
@@ -34,6 +34,7 @@ for ii = 1:numel(assetNames)
     objIdList = cell(size(onroadOBJ.lane, 1));
     % Depending on the asset name
     switch assetNames{ii}
+        % below could use refactoring into a function
         case {'car','bus', 'truck', 'biker'}
             for jj = 1:numel(onroadOBJ.lane)
                 if ~isfield(onroadOBJ,'number') || onroadOBJ.number(jj) == 0, continue; end
