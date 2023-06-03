@@ -36,9 +36,9 @@ for ii = 1:numel(assetNames)
     switch assetNames{ii}
         % below could use refactoring into a function
         case {'car','bus', 'truck', 'biker'}
-            % ~isfield(onroadOBJ,'number') ||
+           
             for jj = 1:numel(onroadOBJ.lane)
-                if  onroadOBJ.number(jj) == 0, continue; end
+                if ~isfield(onroadOBJ,'number') || onroadOBJ.number(jj) == 0, continue; end
                 [positions{jj}, rotations{jj}] = obj.rrMapPlace(...
                     'laneType',onroadOBJ.lane{jj},'pos','onroad',...
                     'pointnum',onroadOBJ.number(jj));
