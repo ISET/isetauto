@@ -2,8 +2,9 @@ function [ip,sensor] = piRadiance2RGB(radiance,varargin)
 % Convert an OI to the IP state, carrying along the metadata
 %
 % Syntax
-%    [ip,sensor] = piOI2IP(oi,varargin)
+%    [ip,sensor] = piRadiance2RGB(radiance,varargin)
 %
+%% WARNING: Comments below are apparently left from piOI2IP!
 % Description
 %   After we simulate the OI we have both the radiance and the pixel level
 %   metadata.  This function converts the OI and metadata all the way to

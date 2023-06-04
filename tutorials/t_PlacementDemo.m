@@ -1,5 +1,5 @@
 %% Show how to manually place cars & subjects in a road scene
-%
+% 
 % Dependencies
 %   ISET3d, ISETAuto, ISETonline, and ISETCam
 %   Prefix:  ia- means isetauto
@@ -15,6 +15,8 @@
 %   resulting image is then rendered as an sRGB approximation.
 %
 %   ISETOnline:  Looks up the road data using the database.
+%
+%   Extended to use Zhenyi's Flare code
 %
 % D. Cardinal, Stanford, 2023
 
@@ -58,7 +60,7 @@ roadRecipe = roadData.recipe;
 % Our convention is <iaRootDir>/local/<scenename>/<scenename.pbrt>
 % even though road scenes in /data have two levels of nesting
 
-sceneName = num2str(iaImageID); % random scene id, or we can give it a name
+sceneName = 'PlacementDemo'; %num2str(iaImageID); % random scene id, or we can give it a name
 roadRecipe.set('outputfile',fullfile(piDirGet('local'),sceneName,[sceneName,'.pbrt']));
 
 %% Set up the rendering skymap -- this is just one of many available
@@ -82,13 +84,14 @@ roadRecipe = iaPlaceAsset(roadRecipe, 'car_058', [0 0 0], [0 0 180]);
 
 % Add a car coming towards us
 iaPlaceAsset(roadRecipe, 'car_001', [15 -8 0], []);
-% Old way was:
-%car1 = piRead('car_001.pbrt');
-%car1Branch = piAssetTranslate(car1, 'car_001_B', cameraLocation + [-35 -4 0]);
-%thisR = piRecipeMerge(thisR, car1);
 
 % Add a car ahead of us in our lane
-roadRecipe = iaPlaceAsset(roadRecipe,'car_002',[20 0 0], [0 0 180]);
+oncoming = false;
+if oncoming
+    roadRecipe = iaPlaceAsset(roadRecipe,'car_002',[20 0 0], [0 0 0]);
+else
+    roadRecipe = iaPlaceAsset(roadRecipe,'car_002',[20 0 0], [0 0 180]);
+end
 
 % Add another care coming our way, but farther away
 roadRecipe = iaPlaceAsset(roadRecipe, 'car_003', [18 -12 0], [0 0 0]);
@@ -99,7 +102,6 @@ roadRecipe = iaPlaceAsset(roadRecipe, 'deer_001', [10 -1 0], [0 0 90]);
 % Add a pedestrian coming across to our side of the road
 % At 90 rotation he is walking down the centerline towards us
 roadRecipe = iaPlaceAsset(roadRecipe, 'pedestrian_001', [8 -5 0], [0 0 180]);
-
 
 %% Now we can assemble the scene using ISET3d methods
 assemble_tic = tic(); % to time scene assembly
@@ -115,9 +117,16 @@ roadRecipe = iaQualitySet(roadRecipe, 'preset', 'quick');
 roadRecipe.set('fov',45);                       % Field of View
 
 % Put the camera on the F150
-camera_type = 'front';
-cameraHeightF150 = 1.8; % meters above ground
-cameraOffsetF150 = .9; % meters offset towards rear of truck
+camera_type = 'front'; % Or Grille
+switch camera_type
+    case 'front' % which means behind the mirrof -- IPMA in Ford speak
+        cameraHeightF150 = 1.8; % Mirror meters above ground
+        cameraOffsetF150 = .9; % meters offset towards rear of truck
+    case 'grille'
+        cameraHeightF150 = .9; % Grille 
+        cameraOffsetF150 = -1.9; % meters offset towards rear of truck
+end
+
 % Tweak position. Not elegant at all currently
 roadRecipe.lookAt.from = [roadRecipe.lookAt.from(1) + cameraOffsetF150 ...
     roadRecipe.lookAt.from(2) cameraHeightF150];
@@ -126,12 +135,33 @@ roadRecipe.lookAt.to = [0 roadRecipe.lookAt.from(2) cameraHeightF150];
 %% Render the scene, and maybe an OI (Optical Image through the lens)
 scene = piWRS(roadRecipe,'render flag','hdr');
 
-%% Process the scene through a sensor to the ip 
+%% Add Flare if desired
+% flare parameters are borrowed from other code, may not be ideal
+sceneSampleSize = sceneGet(scene,'sample size','m');
+[flareOI,pupilmask, psf] = piFlareApply(scene,...
+                    'psf sample spacing', sceneSampleSize, ...
+                    'numsidesaperture', 10, ...
+                    'fnumber',5, 'dirtylevel',0);
+
+% These parameters yield a good result, but can't be right
+flareIP = piRadiance2RGB(flareOI,'etime',1/6000,'sensor', 'MT9V024SensorRGB.mat',...
+            'analoggain', 1/5);
+
+%% Process the (non-flare) scene through a sensor to the ip 
 %
 % This isn't great because the sensor is not explicit.
-ip = piRadiance2RGB(scene,'etime',1/30,'analoggain',1/5);
+ip = piRadiance2RGB(scene,'etime',1/30,'sensor','MT9V024SensorRGB');
+
+% In case we want to check
+%oiWindow(flareOI);
 
 rgb = ipGet(ip, 'srgb');
 ieNewGraphWin;
 imshow(rgb);
+title("Rendered Image -- No flare");
+
+flareRGB = ipGet(flareIP, 'srgb');
+ieNewGraphWin;
+imshow(flareRGB);
+title("Rendered Image -- With flare");
 
