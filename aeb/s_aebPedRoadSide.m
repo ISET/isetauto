@@ -139,7 +139,7 @@ startingSceneDistance = -1 * roadRecipe.lookAt.from(1);
 
 ourVideo = struct('cdata',[],'colormap',[]);
 frameNum = 1; % video frame counter
-numFrames = 24; % for initial zero braking time to target
+numFrames = 18; % for initial zero braking time to target
 
 for testTime = [0, repelem(testLength/numFrames, numFrames+3)] % test time in seconds
     for ii = 1:numel(actors)
@@ -168,6 +168,10 @@ for testTime = [0, repelem(testLength/numFrames, numFrames+3)] % test time in se
         rgb = insertText(rgb,[0 0],caption,'FontSize',36, 'TextColor','red');
     else
         rgb = insertText(rgb,[0 0],caption,'FontSize',36);
+    end
+    if pedMeters <= .1
+        rgb = insertText(rgb, [.3,.3], "OOPS!", 'FontSize', 72, ....
+            'TextColor', 'red');
     end
     dRGB = double(rgb); % version for movie
     ourVideo(frameNum) = im2frame(dRGB); 
