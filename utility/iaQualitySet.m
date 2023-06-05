@@ -10,6 +10,11 @@ p.parse(varargin{:})
 if ~isempty(p.Results.preset)
     % Set the render quality parameters
     switch p.Results.preset
+        case 'dirty'
+            recipe.set('film resolution',[640 360]); % Divide by 4 for speed
+            recipe.set('pixel samples',64);            % 256 for speed
+            recipe.set('max depth',3);                  % Number of bounces
+            recipe.set('sampler subtype','pmj02bn');
         case 'quick'
             recipe.set('film resolution',[1920 1080]/1.5); % Divide by 4 for speed
             recipe.set('pixel samples',128);            % 256 for speed

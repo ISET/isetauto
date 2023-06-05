@@ -1,22 +1,23 @@
 function [ip,sensor] = piRadiance2RGB(radiance,varargin)
-% Convert an OI to the IP state, carrying along the metadata
+% Convert scene or OI to an IP, carrying along the metadata
 %
 % Syntax
 %    [ip,sensor] = piRadiance2RGB(radiance,varargin)
 %
-%% WARNING: Comments below are apparently left from piOI2IP!
+%
 % Description
-%   After we simulate the OI we have both the radiance and the pixel level
-%   metadata.  This function converts the OI and metadata all the way to
-%   the IP level.
+%   After we simulate the scene we have both the radiance and the pixel level
+%   metadata.  This function converts the radiance and metadata all the way to
+%   the IP level. Accepts either scene or OI.
 %
 % Input
-%   oi - This OI should generally have metadata attached to it.
+%   scene radiance - This scene should generally have metadata attached to it.
 %
 % Optional key/value pairs
 %   sensor        - File name containing the sensor (default sensorCreate)
 %   pixel size    - Size in microns (e.g. 2)
 %   film diagonal - In millimeters, default is 5 mm
+%   etime         - exposure time
 %
 % Output
 %   ip
@@ -35,7 +36,7 @@ p.addRequired('radiance',@isstruct);
 p.addParameter('sensor','',@ischar);   % A file name
 % p.addParameter('pixelsize',2,@isscalar);
 p.addParameter('filmdiagonal',5,@isscalar); % [mm]
-p.addParameter('etime',1/100,@isscalar); % [mm]\
+p.addParameter('etime',1/100,@isscalar); % 
 p.addParameter('noisefree',0,@islogical);
 p.addParameter('analoggain',1);
 

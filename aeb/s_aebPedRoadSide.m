@@ -68,13 +68,17 @@ roadRecipe.set('light',skymapNode, 'specscale', 0.001);
 % F150 is car type 058
 %roadRecipe = iaPlaceAsset(roadRecipe, 'car_058', [0 0 0], [0 0 180]);
 
+
 % This is our test vehicle
+carSpeed = 17; % 60kph
+targetDistance = testLength * carSpeed; % tests start 4 seconds away
 ourCar = actor();
 ourCar.position = [0 0 0]; % e.g. uss
 ourCar.rotation = [0 0 180]; % facing forward
 ourCar.assetType = 'car_004';
-ourCar.name = 'generic car';
-ourCar.velocity = [10 0 0]; % moving forward at 10 m/s
+ourCar.name = 'Shelby Cobra'; % car_004
+ourCar.velocity = [carSpeed 0 0]; % moving forward at 10 m/s
+ourCar.hasCamera = true; % move camera with us
 ourCar.place(roadRecipe);
 
 % Add to the actors in our scenario
@@ -96,7 +100,8 @@ else
 end
 
 % Add a pedestrian on the right side of our lane
-roadRecipe = iaPlaceAsset(roadRecipe, 'pedestrian_002', [40 1 0], [0 0 0]);
+testLength = 4; % NHTSA standard
+roadRecipe = iaPlaceAsset(roadRecipe, 'pedestrian_002', [carSpeed * testLength 1 0], [0 0 90]);
 
 %% Now we can assemble the scene using ISET3d methods
 roadData.assemble();
@@ -106,7 +111,7 @@ roadData.assemble();
 roadRecipe.set('film render type',{'radiance','depth'});
 
 % Set the render quality parameters, use 'quick' preset for demo
-roadRecipe = iaQualitySet(roadRecipe, 'preset', 'quick');
+roadRecipe = iaQualitySet(roadRecipe, 'preset', 'HD');
 roadRecipe.set('fov',45);                       % Field of View
 
 % Put the camera on the F150
@@ -122,31 +127,66 @@ end
 
 % Get a detector
 yDetect = yolov4ObjectDetector("csp-darknet53-coco");
+detectionThreshhold = .95; % How confident do we need to be
 
 % Tweak position. Not elegant at all currently
 roadRecipe.lookAt.from = [roadRecipe.lookAt.from(1) + cameraOffsetF150 ...
     roadRecipe.lookAt.from(2) cameraHeightF150];
 roadRecipe.lookAt.to = [0 roadRecipe.lookAt.from(2) cameraHeightF150];
 
+startingSceneDistance = -1 * roadRecipe.lookAt.from(1);
 %% Render the scene, and maybe an OI (Optical Image through the lens)
 
-for testTime = [0 .2 .2 .2 .2] % test time in seconds
+ourVideo = struct('cdata',[],'colormap',[]);
+frameNum = 1; % video frame counter
+numFrames = 12; % for initial zero braking time to target
+
+for testTime = [0, repelem(testLength/numFrames, numFrames+3)] % test time in seconds
     for ii = 1:numel(actors)
+        % Maybe actors should be a property of @recipe?
         actors{ii}.turn(testTime);
     end
-    scene = piWRS(roadRecipe,'render flag','hdr');
+    %scene = piWRS(roadRecipe,'render flag','hdr');
+    piWrite(roadRecipe);
+    scene = piRender(roadRecipe); %  , 'mean luminance', 100);
     ip = piRadiance2RGB(scene,'etime',1/30,'sensor','MT9V024SensorRGB');
-
+    pedMeters = targetDistance + (startingSceneDistance + roadRecipe.lookAt.from(1));
+    caption = sprintf("Speed %2f at %2f meters",actors{1}.velocity(1), pedMeters);
+    
     % Look for our pedestrian
     rgb = ipGet(ip, 'srgb');
     [bboxes,scores,labels] = detect(yDetect,rgb);
-    rgb = insertObjectAnnotation(rgb,"rectangle",bboxes,scores);
 
-    ieNewGraphWin;
-    imshow(rgb);
+    % Cheat and assume there is only one object for now:)
+    fprintf('We have %d scores\n', numel(scores));
+
+    if numel(scores) > 0 && scores(1) > detectionThreshhold
+        actors{1}.braking = true;
+    end
+    rgb = insertObjectAnnotation(rgb,"rectangle",bboxes,scores, 'FontSize', 16);
+    if actors{1}.braking % cheat & assume we are actor 1
+        rgb = insertText(rgb,[0 0],caption,'FontSize',36, 'TextColor','red');
+    else
+        rgb = insertText(rgb,[0 0],caption,'FontSize',36);
+    end
+    dRGB = double(rgb); % version for movie
+    ourVideo(frameNum) = im2frame(dRGB); 
+    frameNum = frameNum + 1;
+    %ieNewGraphWin;
+    %imshow(rgb);
     % need to set the meters as we run
-    title(sprintf("No flare -- %d meters",40));
+    %title(caption);
 end
+
+% for quick viewing use mmovie
+movie(ourVideo, 10, 1);
+
+% to save we use a Videowriter
+v = VideoWriter('paebDemoHD','MPEG-4');
+v.FrameRate = 1;
+open(v);
+writeVideo(v, ourVideo);
+close(v);
 
 %% Currently ends here
 %% Show flare version eventually
