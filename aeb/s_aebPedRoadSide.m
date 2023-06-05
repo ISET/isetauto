@@ -111,7 +111,7 @@ roadData.assemble();
 roadRecipe.set('film render type',{'radiance','depth'});
 
 % Set the render quality parameters, use 'quick' preset for demo
-roadRecipe = iaQualitySet(roadRecipe, 'preset', 'HD');
+roadRecipe = iaQualitySet(roadRecipe, 'preset', 'quick');
 roadRecipe.set('fov',45);                       % Field of View
 
 % Put the camera on the F150
@@ -139,7 +139,7 @@ startingSceneDistance = -1 * roadRecipe.lookAt.from(1);
 
 ourVideo = struct('cdata',[],'colormap',[]);
 frameNum = 1; % video frame counter
-numFrames = 12; % for initial zero braking time to target
+numFrames = 24; % for initial zero braking time to target
 
 for testTime = [0, repelem(testLength/numFrames, numFrames+3)] % test time in seconds
     for ii = 1:numel(actors)
