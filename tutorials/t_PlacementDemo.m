@@ -69,7 +69,10 @@ roadRecipe.set('skymap',skymapName);
 
 % If we want to make the scene a night time scene
 skymapNode = strrep(skymapName, '.exr','_L');
+% Really dark
 roadRecipe.set('light',skymapNode, 'specscale', 0.001);
+% Not quite so dark
+roadRecipe.set('light',skymapNode, 'specscale', 0.002);
 
 %% Place the elements that are on the road (onroad)
 % For this demo we add cars, animals, and people manually
@@ -80,24 +83,31 @@ roadRecipe.set('light',skymapNode, 'specscale', 0.001);
 
 % Start with an F150 for the camera (car type 058)
 % Not sure how to place it + the camera correctly
-roadRecipe = iaPlaceAsset(roadRecipe, 'car_058', [0 0 0], [0 0 180]);
+%roadRecipe = iaPlaceAsset(roadRecipe, 'car_058', [0 0 0], [0 0 180]);
+roadRecipe = iaPlaceAsset(roadRecipe, 'car_002', [0 0 0], [0 0 180]);
 
-% Add a car coming towards us
-iaPlaceAsset(roadRecipe, 'car_001', [15 -8 0], []);
+% Add two cars coming towards us
+roadRecipe = iaPlaceAsset(roadRecipe, 'car_001', [40 -8 0], []);
+roadRecipe = iaPlaceAsset(roadRecipe, 'car_003', [28 -12 0], [0 0 0]);
 
-% Add a car ahead of us in our lane
+% Add a truck ahead of us 
 oncoming = false;
 if oncoming
-    roadRecipe = iaPlaceAsset(roadRecipe,'car_002',[20 0 0], [0 0 0]);
+    roadRecipe = iaPlaceAsset(roadRecipe,'truck_001',[30 -3.2 0], [0 0 0]);
 else
-    roadRecipe = iaPlaceAsset(roadRecipe,'car_002',[20 0 0], [0 0 180]);
+    roadRecipe = iaPlaceAsset(roadRecipe,'truck_001',[20 -3.2 0], [0 0 180]);
 end
 
-% Add another care coming our way, but farther away
-roadRecipe = iaPlaceAsset(roadRecipe, 'car_003', [18 -12 0], [0 0 0]);
-
-% Add a deer in front of our car
-roadRecipe = iaPlaceAsset(roadRecipe, 'deer_001', [10 -1 0], [0 0 90]);
+% Add a deer or person in front of our car
+target = 'ped_right';
+switch target
+    case 'deer'
+        roadRecipe = iaPlaceAsset(roadRecipe, 'deer_001', [10 -1 0], [0 0 90]);
+    case 'ped'
+        roadRecipe = iaPlaceAsset(roadRecipe, 'pedestrian_002', [10 -1 0], [0 0 90]);
+    case 'ped_right'
+        roadRecipe = iaPlaceAsset(roadRecipe, 'pedestrian_002', [20 1 0], [0 0 0]);
+end
 
 % Add a pedestrian coming across to our side of the road
 % At 90 rotation he is walking down the centerline towards us
@@ -117,9 +127,9 @@ roadRecipe = iaQualitySet(roadRecipe, 'preset', 'quick');
 roadRecipe.set('fov',45);                       % Field of View
 
 % Put the camera on the F150
-camera_type = 'front'; % Or Grille
+camera_type = 'grille'; % Or Grille
 switch camera_type
-    case 'front' % which means behind the mirrof -- IPMA in Ford speak
+    case 'front' % which means behind the mirror -- IPMA in Ford speak
         cameraHeightF150 = 1.8; % Mirror meters above ground
         cameraOffsetF150 = .9; % meters offset towards rear of truck
     case 'grille'
@@ -155,12 +165,21 @@ ip = piRadiance2RGB(scene,'etime',1/30,'sensor','MT9V024SensorRGB');
 % In case we want to check
 %oiWindow(flareOI);
 
+% Get a detector
+yDetect = yolov4ObjectDetector("csp-darknet53-coco");
+
+% Now look at the non-flare case
 rgb = ipGet(ip, 'srgb');
+[bboxes,scores,labels] = detect(yDetect,rgb);
+rgb = insertObjectAnnotation(rgb,"rectangle",bboxes,labels);
+
 ieNewGraphWin;
 imshow(rgb);
 title("Rendered Image -- No flare");
 
 flareRGB = ipGet(flareIP, 'srgb');
+[bboxes,scores,labels] = detect(yDetect,flareRGB);
+flareRGB = insertObjectAnnotation(flareRGB,"rectangle",bboxes,labels);
 ieNewGraphWin;
 imshow(flareRGB);
 title("Rendered Image -- With flare");
