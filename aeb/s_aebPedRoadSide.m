@@ -1,6 +1,6 @@
 %% Illustrate and animate NHTSA night time PAEB Test
 % Stationary pedestrian on right side of road
-% 
+%
 % Dependencies
 %   ISET3d, ISETAuto, ISETonline, and ISETCam
 %   Prefix:  ia- means isetauto
@@ -15,11 +15,11 @@ if ~piDockerExists, piDockerConfig; end
 
 %% (Optional) isetdb() setup
 % setup stanford server (n.b. ideally in user startup file)
-setpref('db','server','acorn.stanford.edu'); 
+setpref('db','server','acorn.stanford.edu');
 setpref('db','port',49153);
-
-% Opens a connection to the server
 sceneDB = isetdb();
+
+actors = {}; % Set of actors to animate;
 
 %% Find the road starter scene/asset and load it
 % If fullpath to the asset is not given, we will find it in our database
@@ -46,7 +46,7 @@ roadRecipe = roadData.recipe;
 % There is some weird light in this scene that we need to remove:
 roadRecipe.set('light','all','delete');
 
-sceneName = 'PAEB_Roadside'; 
+sceneName = 'PAEB_Roadside';
 roadRecipe.set('outputfile',fullfile(piDirGet('local'),sceneName,[sceneName,'.pbrt']));
 
 %% Set up the rendering skymap -- this is just one of many available
@@ -59,22 +59,35 @@ roadRecipe.set('skymap',skymapName);
 skymapNode = strrep(skymapName, '.exr','_L');
 roadRecipe.set('light',skymapNode, 'specscale', 0.001);
 
-%% Place the elements that are on the road (onroad)
-% For this demo we add cars, animals, and people manually
+%% Place our "actors" and static assets
 % For the cars so far, z appears to be up, y is L/R, x is towards us
 
 % iaAssetPlacement is relative to the car
 % For x and y, and relative to the ground for z
 
-% F150 is car type 058)
+% F150 is car type 058
 %roadRecipe = iaPlaceAsset(roadRecipe, 'car_058', [0 0 0], [0 0 180]);
-roadRecipe = iaPlaceAsset(roadRecipe, 'car_004', [0 0 0], [0 0 180]);
+
+% This is our test vehicle
+ourCar = actor();
+ourCar.position = [0 0 0]; % e.g. uss
+ourCar.rotation = [0 0 180]; % facing forward
+ourCar.assetType = 'car_004';
+ourCar.name = 'generic car';
+ourCar.velocity = [10 0 0]; % moving forward at 10 m/s
+ourCar.place(roadRecipe);
+
+% Add to the actors in our scenario
+actors{end+1} = ourCar;
+
+% Old static placement
+%roadRecipe = iaPlaceAsset(roadRecipe, 'car_004', [0 0 0], [0 0 180]);
 
 % Add two cars coming towards us
 %roadRecipe = iaPlaceAsset(roadRecipe, 'car_001', [40 -8 0], []);
 %roadRecipe = iaPlaceAsset(roadRecipe, 'car_003', [28 -12 0], [0 0 0]);
 
-% Add a truck ahead of us 
+% Add a truck ahead of us
 oncoming = false;
 if oncoming
     roadRecipe = iaPlaceAsset(roadRecipe,'truck_001',[30 -3.2 0], [0 0 0]);
@@ -86,9 +99,7 @@ end
 roadRecipe = iaPlaceAsset(roadRecipe, 'pedestrian_002', [40 1 0], [0 0 0]);
 
 %% Now we can assemble the scene using ISET3d methods
-assemble_tic = tic(); % to time scene assembly
 roadData.assemble();
-fprintf('---> Scene assembled in %.f seconds.\n',toc(assemble_tic));
 
 %% Set the recipe parameters
 %  We want to render both the scene radiance and a depth map
@@ -105,9 +116,12 @@ switch camera_type
         cameraHeightF150 = 1.8; % Mirror meters above ground
         cameraOffsetF150 = .9; % meters offset towards rear of truck
     case 'grille'
-        cameraHeightF150 = .9; % Grille 
+        cameraHeightF150 = .9; % Grille
         cameraOffsetF150 = -1.9; % meters offset towards rear of truck
 end
+
+% Get a detector
+yDetect = yolov4ObjectDetector("csp-darknet53-coco");
 
 % Tweak position. Not elegant at all currently
 roadRecipe.lookAt.from = [roadRecipe.lookAt.from(1) + cameraOffsetF150 ...
@@ -115,8 +129,28 @@ roadRecipe.lookAt.from = [roadRecipe.lookAt.from(1) + cameraOffsetF150 ...
 roadRecipe.lookAt.to = [0 roadRecipe.lookAt.from(2) cameraHeightF150];
 
 %% Render the scene, and maybe an OI (Optical Image through the lens)
-scene = piWRS(roadRecipe,'render flag','hdr');
 
+for testTime = [0 .2 .2 .2 .2] % test time in seconds
+    for ii = 1:numel(actors)
+        actors{ii}.turn(testTime);
+    end
+    scene = piWRS(roadRecipe,'render flag','hdr');
+    ip = piRadiance2RGB(scene,'etime',1/30,'sensor','MT9V024SensorRGB');
+
+    % Look for our pedestrian
+    rgb = ipGet(ip, 'srgb');
+    [bboxes,scores,labels] = detect(yDetect,rgb);
+    rgb = insertObjectAnnotation(rgb,"rectangle",bboxes,scores);
+
+    ieNewGraphWin;
+    imshow(rgb);
+    % need to set the meters as we run
+    title(sprintf("No flare -- %d meters",40));
+end
+
+%% Currently ends here
+%% Show flare version eventually
+%{
 %% Add Flare if desired
 % flare parameters are borrowed from other code, may not be ideal
 sceneSampleSize = sceneGet(scene,'sample size','m');
@@ -129,30 +163,10 @@ sceneSampleSize = sceneGet(scene,'sample size','m');
 flareIP = piRadiance2RGB(flareOI,'etime',1/6000,'sensor', 'MT9V024SensorRGB.mat',...
             'analoggain', 1/5);
 
-%% Process the (non-flare) scene through a sensor to the ip 
-%
-% This isn't great because the sensor is not explicit.
-ip = piRadiance2RGB(scene,'etime',1/30,'sensor','MT9V024SensorRGB');
-
-% In case we want to check
-%oiWindow(flareOI);
-
-% Get a detector
-yDetect = yolov4ObjectDetector("csp-darknet53-coco");
-
-% Now look at the non-flare case
-rgb = ipGet(ip, 'srgb');
-[bboxes,scores,labels] = detect(yDetect,rgb);
-rgb = insertObjectAnnotation(rgb,"rectangle",bboxes,scores);
-
-ieNewGraphWin;
-imshow(rgb);
-title("Rendered Image -- No flare");
-
 flareRGB = ipGet(flareIP, 'srgb');
 [bboxes,scores,labels] = detect(yDetect,flareRGB);
 flareRGB = insertObjectAnnotation(flareRGB,"rectangle",bboxes,labels);
 ieNewGraphWin;
 imshow(flareRGB);
 title("Rendered Image -- With flare");
-
+%}
