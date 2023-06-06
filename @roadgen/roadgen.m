@@ -31,6 +31,7 @@ classdef roadgen < matlab.mixin.Copyable
 
         % Collection of actors (assets with behaviors over time
         actors = {};
+        targetVehicleNumber = 1; %default
 
     end
 

@@ -44,9 +44,8 @@ sceneName = 'PAEB_Roadside';
 roadRecipe.set('outputfile',fullfile(piDirGet('local'),sceneName,[sceneName,'.pbrt']));
 
 % Not sure how much we can/should put in the NHTSA preset
-testScenario = [];
-testScenario.testName = 'pedRoadsideRight';
-paebNHTSA(roadRecipe, testScenario);
+testScenario = 'pedRoadsideRight';
+paebNHTSA(roadData, testScenario);
 
 %% Set up the rendering skymap -- this is just one of many available
 skymapName = 'night.exr'; % Most skymaps are in the Matlab path already
@@ -66,6 +65,8 @@ testDuration = 4; % Set test length to NHTSA 4 seconds
 % For x and y, and relative to the ground for z
 
 % This is our test vehicle
+%{
+% should now be loaded in preset
 carSpeed = 17; % 60kph
 targetDistance = testDuration * carSpeed; % tests start 4 seconds away
 ourCar = actor();
@@ -76,9 +77,10 @@ ourCar.name = 'Shelby Cobra'; % car_004
 ourCar.velocity = [carSpeed 0 0]; % moving forward at 10 m/s
 ourCar.hasCamera = true; % move camera with us
 ourCar.place(roadRecipe);
+%}
 
 % Add to the actors in our scenario and set as target vehicle
-targetVehicleNumber = numel(roadData.actors) + 1;
+roadData.targetVehicleNumber = numel(roadData.actors) + 1;
 roadData.actors{end+1} = ourCar;
 
 %% (Optionally) Add two cars coming towards us and a truck
@@ -147,7 +149,7 @@ for testTime = [0, repelem(testLength/numFrames, numFrames+3)] % test time in se
     scene = piRender(roadRecipe); %  , 'mean luminance', 100);
     ip = piRadiance2RGB(scene,'etime',1/30,'sensor','MT9V024SensorRGB');
     pedMeters = targetDistance - (startingSceneDistance - roadRecipe.lookAt.from(1));
-    caption = sprintf("Speed %2.1f at %2.1f meters",roadData.actors{targetVehicleNumber}.velocity(1), pedMeters);
+    caption = sprintf("Speed %2.1f at %2.1f meters",roadData.actors{roadData.targetVehicleNumber}.velocity(1), pedMeters);
     
     % Look for our pedestrian
     rgb = ipGet(ip, 'srgb');
@@ -157,10 +159,10 @@ for testTime = [0, repelem(testLength/numFrames, numFrames+3)] % test time in se
     fprintf('We have %d scores\n', numel(scores));
 
     if numel(scores) > 0 && scores(1) > detectionThreshhold
-        roadData.actors{targetVehicleNumber}.braking = true;
+        roadData.actors{roadData.targetVehicleNumber}.braking = true;
     end
     rgb = insertObjectAnnotation(rgb,"rectangle",bboxes,scores, 'FontSize', 16);
-    if roadData.actors{targetVehicleNumber}.braking % cheat & assume we are actor 1
+    if roadData.actors{roadData.targetVehicleNumber}.braking % cheat & assume we are actor 1
         rgb = insertText(rgb,[0 0],caption,'FontSize',36, 'TextColor','red');
     else
         rgb = insertText(rgb,[0 0],caption,'FontSize',36);
