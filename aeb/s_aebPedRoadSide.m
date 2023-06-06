@@ -7,19 +7,19 @@
 % D. Cardinal, Stanford University, 2023
 
 %% Initialize ISET and Docker
-ieInit;
-if ~piDockerExists, piDockerConfig; end
+ieInit; if ~piDockerExists, piDockerConfig; end
 
 sceneQuality = 'quick'; % quick or HD or paper for video quality
 
-% Load the test preset
+% Load the NHTSA test preset
 testScenario = 'pedRoadsideRight';
 roadData = paebNHTSA(testScenario, 'lighting','nighttime');
 
 
 %% Place any additional "actors" and static assets
+% Optional
 
-%% Now we can assemble the scene using ISET3d methods
+%% Assemble the scene for our scenario
 % the roadData object comes with a base ISET3d recipe for rendering
 roadData.assemble();
 roadRecipe = roadData.recipe; % short-hand for convenience
@@ -32,45 +32,51 @@ roadRecipe.set('film render type',{'radiance','depth'});
 roadRecipe = iaQualitySet(roadRecipe, 'preset', sceneQuality);
 roadRecipe.set('fov',45); % Field of View
 
-% Put the camera on the F150
+% Put the camera on the test car
 camera_type = 'grille'; % Or Grille
 switch camera_type
     case 'front' % which means behind the mirror -- IPMA in Ford speak
-        cameraHeightF150 = 1.8; % Mirror meters above ground
-        cameraOffsetF150 = .9; % meters offset towards rear of truck
+        cameraHeight = 1.8; % Mirror meters above ground
+        cameraOffset = .9; % meters offset towards rear of truck
     case 'grille'
-        cameraHeightF150 = .9; % Grille
-        cameraOffsetF150 = -1.9; % meters offset towards rear of truck
+        cameraHeight = .9; % Grille
+        cameraOffset = -1.9; % meters offset towards rear of truck
 end
 
-% Get a detector
-yDetect = yolov4ObjectDetector("csp-darknet53-coco");
-detectionThreshhold = .95; % How confident do we need to be
-
 % Tweak position. Not elegant at all currently
-roadRecipe.lookAt.from = [roadRecipe.lookAt.from(1) + cameraOffsetF150 ...
-    roadRecipe.lookAt.from(2) cameraHeightF150];
-roadRecipe.lookAt.to = [0 roadRecipe.lookAt.from(2) cameraHeightF150];
+roadRecipe.lookAt.from = [roadRecipe.lookAt.from(1) + cameraOffset ...
+    roadRecipe.lookAt.from(2) cameraHeight];
+roadRecipe.lookAt.to = [0 roadRecipe.lookAt.from(2) cameraHeight];
 
 startingSceneDistance = carSpeed * testDuration;
 
-%% Render the scene, and maybe an OI (Optical Image through the lens)
+%% Render the scene and turn it into a camera image
 
 ourVideo = struct('cdata',[],'colormap',[]);
 frameNum = 1; % video frame counter
-numFrames = 18; % for initial zero braking time to target
+numFrames = 3; % for initial zero braking time to target
+bufferFrames = 2; % additional frames to allow for slowing
+shutterspeed = 1/30; % for now assume it is synced with 30fps
+useSensor = 'MT9V024SensorRGB'; % one of our automotive sensors
 
-for testTime = [0, repelem(testLength/numFrames, numFrames+3)] % test time in seconds
+% Get an object detector
+yDetect = yolov4ObjectDetector("csp-darknet53-coco");
+detectionThreshhold = .95; % How confident do we need to be
+elapsedTime = 0;
+
+%% Generate video frames over time
+for testTime = [0, repelem(testLength/numFrames, numFrames+bufferFrames)]
+    elapsedTime = elapsedTime + testTime;
+    % Move this to a .turn method for roadScenario soon
     for ii = 1:numel(roadData.actors)
-        % Maybe actors should be a property of @recipe?
         roadData.actors{ii}.turn(testTime);
     end
-    %scene = piWRS(roadRecipe,'render flag','hdr');
+
     piWrite(roadRecipe);
-    scene = piRender(roadRecipe); %  , 'mean luminance', 100);
-    ip = piRadiance2RGB(scene,'etime',1/30,'sensor','MT9V024SensorRGB');
+    scene = piRender(roadRecipe);
+    ip = piRadiance2RGB(scene,'etime',shutterspeed,'sensor',useSensor);
     pedMeters = targetDistance - (startingSceneDistance - roadRecipe.lookAt.from(1));
-    caption = sprintf("Speed %2.1f at %2.1f meters",roadData.actors{roadData.targetVehicleNumber}.velocity(1), pedMeters);
+    caption = sprintf("%2.1f m/s at %2.1f m, %2.1 s",roadData.actors{roadData.targetVehicleNumber}.velocity(1), pedMeters);
     
     % Look for our pedestrian
     rgb = ipGet(ip, 'srgb');
@@ -83,29 +89,24 @@ for testTime = [0, repelem(testLength/numFrames, numFrames+3)] % test time in se
         roadData.actors{roadData.targetVehicleNumber}.braking = true;
     end
     rgb = insertObjectAnnotation(rgb,"rectangle",bboxes,scores, 'FontSize', 16);
+    if pedMeters <= .1
+        caption = strcat(caption, " ***CRASH*** ");
+    end
     if roadData.actors{roadData.targetVehicleNumber}.braking % cheat & assume we are actor 1
-        rgb = insertText(rgb,[0 0],caption,'FontSize',36, 'TextColor','red');
+        rgb = insertText(rgb,[0 0],strcat(caption, " -- BRAKING"),'FontSize',36, 'TextColor','red');
     else
         rgb = insertText(rgb,[0 0],caption,'FontSize',36);
-    end
-    if pedMeters <= .1
-        rgb = insertText(rgb, [.3,.3], "OOPS!", 'FontSize', 72, ....
-            'TextColor', 'red');
     end
     dRGB = double(rgb); % version for movie
     ourVideo(frameNum) = im2frame(dRGB); 
     frameNum = frameNum + 1;
-    %ieNewGraphWin;
-    %imshow(rgb);
-    % need to set the meters as we run
-    %title(caption);
 end
 
 % for quick viewing use mmovie
 movie(ourVideo, 10, 1);
 
 % to save we use a Videowriter
-v = VideoWriter('paebDemoHD','MPEG-4');
+v = VideoWriter(strcat(testScenario, "-", sceneQuality),'MPEG-4');
 v.FrameRate = 1;
 open(v);
 writeVideo(v, ourVideo);
