@@ -100,7 +100,7 @@ roadData.assemble();
 roadRecipe.set('film render type',{'radiance','depth'});
 
 % Set the render quality parameters, use 'quick' preset for demo
-roadRecipe = iaQualitySet(roadRecipe, 'preset', 'quick');
+roadRecipe = iaQualitySet(roadRecipe, 'preset', 'HD');
 roadRecipe.set('fov',45); % Field of View
 
 % Put the camera on the F150
@@ -140,8 +140,8 @@ for testTime = [0, repelem(testLength/numFrames, numFrames+3)] % test time in se
     piWrite(roadRecipe);
     scene = piRender(roadRecipe); %  , 'mean luminance', 100);
     ip = piRadiance2RGB(scene,'etime',1/30,'sensor','MT9V024SensorRGB');
-    pedMeters = targetDistance + (startingSceneDistance + roadRecipe.lookAt.from(1));
-    caption = sprintf("Speed %2f at %2f meters",actors{targetVehicleNumber}.velocity(1), pedMeters);
+    pedMeters = targetDistance - (startingSceneDistance - roadRecipe.lookAt.from(1));
+    caption = sprintf("Speed %2.1f at %2.1f meters",actors{targetVehicleNumber}.velocity(1), pedMeters);
     
     % Look for our pedestrian
     rgb = ipGet(ip, 'srgb');
