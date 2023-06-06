@@ -43,7 +43,7 @@ roadRecipe.set('light','all','delete');
 sceneName = 'PAEB_Roadside';
 roadRecipe.set('outputfile',fullfile(piDirGet('local'),sceneName,[sceneName,'.pbrt']));
 
-% Not sure how much we can/should put in the NHTSA preset
+% Load the test preset
 testScenario = 'pedRoadsideRight';
 paebNHTSA(roadData, testScenario);
 
@@ -57,31 +57,10 @@ roadRecipe.set('skymap',skymapName);
 skymapNode = strrep(skymapName, '.exr','_L');
 roadRecipe.set('light',skymapNode, 'specscale', 0.001);
 
-testDuration = 4; % Set test length to NHTSA 4 seconds
-
-%% Place our "actors" and static assets
+%% Place any additional "actors" and static assets
 % For the cars so far, z appears to be up, y is L/R, x is towards us
 % iaAssetPlacement is relative to the car
 % For x and y, and relative to the ground for z
-
-% This is our test vehicle
-%{
-% should now be loaded in preset
-carSpeed = 17; % 60kph
-targetDistance = testDuration * carSpeed; % tests start 4 seconds away
-ourCar = actor();
-ourCar.position = [0 0 0]; % e.g. uss
-ourCar.rotation = [0 0 180]; % facing forward
-ourCar.assetType = 'car_004';
-ourCar.name = 'Shelby Cobra'; % car_004
-ourCar.velocity = [carSpeed 0 0]; % moving forward at 10 m/s
-ourCar.hasCamera = true; % move camera with us
-ourCar.place(roadRecipe);
-%}
-
-% Add to the actors in our scenario and set as target vehicle
-roadData.targetVehicleNumber = numel(roadData.actors) + 1;
-roadData.actors{end+1} = ourCar;
 
 %% (Optionally) Add two cars coming towards us and a truck
 %{
