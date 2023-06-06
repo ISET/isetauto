@@ -29,6 +29,9 @@ classdef roadgen < matlab.mixin.Copyable
         % server using the "stub" versions that are in /data/assets
         assetdirectory = fullfile(iaFileDataRoot,'PBRT_assets');
 
+        % Collection of actors (assets with behaviors over time
+        actors = {};
+
     end
 
     methods 

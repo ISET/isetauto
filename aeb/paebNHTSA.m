@@ -16,7 +16,7 @@ actors = []; % Static assets simply live in the @recipe
 % pedestrianSpeed; % 5-8 kph
 % pedestrianVariant; % man or child
 
-switch testScenario
+switch testScenario.testName
     case 'pedRoadsideRight'
     case 'pedRoadsideLeft'
     case 'pedBehindCars'
