@@ -6,15 +6,22 @@
 %
 % D. Cardinal, Stanford University, 2023
 
-%% Initialize ISET and Docker
+% NOTE: Assumes only one recognizable object in scene (ped)
+%       at which point it starts braking. Need to parameterize
+
+%% Initialize ISET, Docker, and general parameters
 ieInit; if ~piDockerExists, piDockerConfig; end
 
+% Adjust these depening on desired video output
 sceneQuality = 'quick'; % quick or HD or paper for video quality
+numFrames = 3; % for initial zero braking time to target
+carSpeed = 17;
+testDuration = 4; % NHTSA standard
 
 % Load the NHTSA test preset
 testScenario = 'pedRoadsideRight';
-roadData = paebNHTSA(testScenario, 'lighting','nighttime');
-
+roadData = paebNHTSA(testScenario, 'lighting','nighttime', ...
+    'carspeed', carSpeed, 'testdurationinitial', testDuration);
 
 %% Place any additional "actors" and static assets
 % Optional
@@ -48,13 +55,12 @@ roadRecipe.lookAt.from = [roadRecipe.lookAt.from(1) + cameraOffset ...
     roadRecipe.lookAt.from(2) cameraHeight];
 roadRecipe.lookAt.to = [0 roadRecipe.lookAt.from(2) cameraHeight];
 
-startingSceneDistance = carSpeed * testDuration;
+startingSceneDistance = carSpeed * testDuration; 
 
-%% Render the scene and turn it into a camera image
+%% Render the scene and turn it into camera images & a video
 
 ourVideo = struct('cdata',[],'colormap',[]);
 frameNum = 1; % video frame counter
-numFrames = 3; % for initial zero braking time to target
 bufferFrames = 2; % additional frames to allow for slowing
 shutterspeed = 1/30; % for now assume it is synced with 30fps
 useSensor = 'MT9V024SensorRGB'; % one of our automotive sensors
