@@ -12,75 +12,17 @@ if ~piDockerExists, piDockerConfig; end
 
 sceneQuality = 'quick'; % quick or HD or paper for video quality
 
-%% (Optional) isetdb() setup (using existing prefs)
-sceneDB = isetdb();
-
-
-%% Find the road starter scene/asset and load it
-% If fullpath to the asset is not given, we will find it in our database
-% We have quite a few generated roads. Currently they are usually 400m long
-road_name  = 'road_020';
-
-% Create the road data object that we will populate with vehicles
-% and other objects for eventual assembly into our scene
-% We can find it either in our path, or the sceneDB
-roadData = roadgen('road directory',road_name, 'asset directory', sceneDB);
-
-% Create driving lane(s) for both directions
-roadData.set('onroad car lanes',{'leftdriving','rightdriving'});
-
-%% Place the offroad elements.  These are only animals and trees.  Not cars.
-roadData.set('offroad tree names', {'tree_001','tree_002','tree_003'});
-roadData.set('offroad n trees', [50, 1, 1]); % [50, 100, 150]
-roadData.set('offroad tree lane', {'rightshoulder','leftshoulder'});
-
-% the roadData object comes with a base ISET3d recipe for rendering
-roadRecipe = roadData.recipe;
-
-% There is some weird light in this scene that we need to remove:
-roadRecipe.set('light','all','delete');
-
-sceneName = 'PAEB_Roadside';
-roadRecipe.set('outputfile',fullfile(piDirGet('local'),sceneName,[sceneName,'.pbrt']));
-
 % Load the test preset
 testScenario = 'pedRoadsideRight';
-paebNHTSA(roadData, testScenario);
+roadData = paebNHTSA(testScenario, 'lighting','nighttime');
 
-%% Set up the rendering skymap -- this is just one of many available
-skymapName = 'night.exr'; % Most skymaps are in the Matlab path already
-roadRecipe.set('skymap',skymapName);
-
-% Make the scene a night time scene
-% Really dark -- NHTSA says down to .2 lux needs to work
-% So we should calculate what that means for how we scale the skymap
-skymapNode = strrep(skymapName, '.exr','_L');
-roadRecipe.set('light',skymapNode, 'specscale', 0.001);
 
 %% Place any additional "actors" and static assets
-% For the cars so far, z appears to be up, y is L/R, x is towards us
-% iaAssetPlacement is relative to the car
-% For x and y, and relative to the ground for z
-
-%% (Optionally) Add two cars coming towards us and a truck
-%{
-roadRecipe = iaPlaceAsset(roadRecipe, 'car_001', [40 -8 0], []);
-roadRecipe = iaPlaceAsset(roadRecipe, 'car_003', [28 -12 0], [0 0 0]);
-
-oncoming = false;
-if oncoming
-    roadRecipe = iaPlaceAsset(roadRecipe,'truck_001',[30 -3.2 0], [0 0 0]);
-else
-    roadRecipe = iaPlaceAsset(roadRecipe,'truck_001',[60 -3.2 0], [0 0 180]);
-end
-%}
-
-% Add a pedestrian on the right side of our lane at the .25 mark
-roadRecipe = iaPlaceAsset(roadRecipe, 'pedestrian_002', [carSpeed * testDuration 1 0], [0 0 90]);
 
 %% Now we can assemble the scene using ISET3d methods
-% Modifies roadRecipe (roadData.recipe) to include our assets 
+% the roadData object comes with a base ISET3d recipe for rendering
 roadData.assemble();
+roadRecipe = roadData.recipe; % short-hand for convenience
 
 %% Set the recipe parameters
 %  We want to render both the scene radiance and a depth map
