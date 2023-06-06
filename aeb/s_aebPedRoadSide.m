@@ -3,9 +3,6 @@
 %
 % Dependencies
 %   ISET3d, ISETAuto, ISETonline, and ISETCam
-%   Prefix:  ia- means isetauto
-%            pi- means iset3d-v4
-%
 %
 % D. Cardinal, Stanford University, 2023
 
@@ -13,10 +10,7 @@
 ieInit;
 if ~piDockerExists, piDockerConfig; end
 
-%% (Optional) isetdb() setup
-% setup stanford server (n.b. ideally in user startup file)
-setpref('db','server','acorn.stanford.edu');
-setpref('db','port',49153);
+%% (Optional) isetdb() setup (using existing prefs)
 sceneDB = isetdb();
 
 actors = {}; % Set of actors to animate;
@@ -33,7 +27,6 @@ roadData = roadgen('road directory',road_name, 'asset directory', sceneDB);
 
 % Create driving lane(s) for both directions
 roadData.set('onroad car lanes',{'leftdriving','rightdriving'});
-
 
 %% Place the offroad elements.  These are only animals and trees.  Not cars.
 roadData.set('offroad tree names', {'tree_001','tree_002','tree_003'});
@@ -59,19 +52,16 @@ roadRecipe.set('skymap',skymapName);
 skymapNode = strrep(skymapName, '.exr','_L');
 roadRecipe.set('light',skymapNode, 'specscale', 0.001);
 
+testDuration = 4; % Set test length to NHTSA 4 seconds
+
 %% Place our "actors" and static assets
 % For the cars so far, z appears to be up, y is L/R, x is towards us
-
 % iaAssetPlacement is relative to the car
 % For x and y, and relative to the ground for z
 
-% F150 is car type 058
-%roadRecipe = iaPlaceAsset(roadRecipe, 'car_058', [0 0 0], [0 0 180]);
-
-
 % This is our test vehicle
 carSpeed = 17; % 60kph
-targetDistance = testLength * carSpeed; % tests start 4 seconds away
+targetDistance = testDuration * carSpeed; % tests start 4 seconds away
 ourCar = actor();
 ourCar.position = [0 0 0]; % e.g. uss
 ourCar.rotation = [0 0 180]; % facing forward
@@ -81,29 +71,28 @@ ourCar.velocity = [carSpeed 0 0]; % moving forward at 10 m/s
 ourCar.hasCamera = true; % move camera with us
 ourCar.place(roadRecipe);
 
-% Add to the actors in our scenario
+% Add to the actors in our scenario and set as target vehicle
+targetVehicleNumber = numel(actors) + 1;
 actors{end+1} = ourCar;
 
-% Old static placement
-%roadRecipe = iaPlaceAsset(roadRecipe, 'car_004', [0 0 0], [0 0 180]);
+%% (Optionally) Add two cars coming towards us and a truck
+%{
+roadRecipe = iaPlaceAsset(roadRecipe, 'car_001', [40 -8 0], []);
+roadRecipe = iaPlaceAsset(roadRecipe, 'car_003', [28 -12 0], [0 0 0]);
 
-% Add two cars coming towards us
-%roadRecipe = iaPlaceAsset(roadRecipe, 'car_001', [40 -8 0], []);
-%roadRecipe = iaPlaceAsset(roadRecipe, 'car_003', [28 -12 0], [0 0 0]);
-
-% Add a truck ahead of us
 oncoming = false;
 if oncoming
     roadRecipe = iaPlaceAsset(roadRecipe,'truck_001',[30 -3.2 0], [0 0 0]);
 else
-    %roadRecipe = iaPlaceAsset(roadRecipe,'truck_001',[60 -3.2 0], [0 0 180]);
+    roadRecipe = iaPlaceAsset(roadRecipe,'truck_001',[60 -3.2 0], [0 0 180]);
 end
+%}
 
-% Add a pedestrian on the right side of our lane
-testLength = 4; % NHTSA standard
-roadRecipe = iaPlaceAsset(roadRecipe, 'pedestrian_002', [carSpeed * testLength 1 0], [0 0 90]);
+% Add a pedestrian on the right side of our lane at the .25 mark
+roadRecipe = iaPlaceAsset(roadRecipe, 'pedestrian_002', [carSpeed * testDuration 1 0], [0 0 90]);
 
 %% Now we can assemble the scene using ISET3d methods
+% Modifies roadRecipe (roadData.recipe) to include our assets 
 roadData.assemble();
 
 %% Set the recipe parameters
@@ -112,7 +101,7 @@ roadRecipe.set('film render type',{'radiance','depth'});
 
 % Set the render quality parameters, use 'quick' preset for demo
 roadRecipe = iaQualitySet(roadRecipe, 'preset', 'quick');
-roadRecipe.set('fov',45);                       % Field of View
+roadRecipe.set('fov',45); % Field of View
 
 % Put the camera on the F150
 camera_type = 'grille'; % Or Grille
@@ -134,7 +123,8 @@ roadRecipe.lookAt.from = [roadRecipe.lookAt.from(1) + cameraOffsetF150 ...
     roadRecipe.lookAt.from(2) cameraHeightF150];
 roadRecipe.lookAt.to = [0 roadRecipe.lookAt.from(2) cameraHeightF150];
 
-startingSceneDistance = -1 * roadRecipe.lookAt.from(1);
+startingSceneDistance = carSpeed * testDuration;
+
 %% Render the scene, and maybe an OI (Optical Image through the lens)
 
 ourVideo = struct('cdata',[],'colormap',[]);
@@ -151,7 +141,7 @@ for testTime = [0, repelem(testLength/numFrames, numFrames+3)] % test time in se
     scene = piRender(roadRecipe); %  , 'mean luminance', 100);
     ip = piRadiance2RGB(scene,'etime',1/30,'sensor','MT9V024SensorRGB');
     pedMeters = targetDistance + (startingSceneDistance + roadRecipe.lookAt.from(1));
-    caption = sprintf("Speed %2f at %2f meters",actors{1}.velocity(1), pedMeters);
+    caption = sprintf("Speed %2f at %2f meters",actors{targetVehicleNumber}.velocity(1), pedMeters);
     
     % Look for our pedestrian
     rgb = ipGet(ip, 'srgb');
@@ -192,25 +182,3 @@ open(v);
 writeVideo(v, ourVideo);
 close(v);
 
-%% Currently ends here
-%% Show flare version eventually
-%{
-%% Add Flare if desired
-% flare parameters are borrowed from other code, may not be ideal
-sceneSampleSize = sceneGet(scene,'sample size','m');
-[flareOI,pupilmask, psf] = piFlareApply(scene,...
-                    'psf sample spacing', sceneSampleSize, ...
-                    'numsidesaperture', 10, ...
-                    'fnumber',5, 'dirtylevel',0);
-
-% These parameters yield a good result, but can't be right
-flareIP = piRadiance2RGB(flareOI,'etime',1/6000,'sensor', 'MT9V024SensorRGB.mat',...
-            'analoggain', 1/5);
-
-flareRGB = ipGet(flareIP, 'srgb');
-[bboxes,scores,labels] = detect(yDetect,flareRGB);
-flareRGB = insertObjectAnnotation(flareRGB,"rectangle",bboxes,labels);
-ieNewGraphWin;
-imshow(flareRGB);
-title("Rendered Image -- With flare");
-%}
