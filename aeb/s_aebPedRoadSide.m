@@ -14,14 +14,15 @@ ieInit; if ~piDockerExists, piDockerConfig; end
 
 % Adjust these depening on desired video output
 sceneQuality = 'quick'; % quick or HD or paper for video quality
-numFrames = 3; % for initial zero braking time to target
+numFrames = 12; % for initial zero braking time to target
 carSpeed = 17;
 testDuration = 4; % NHTSA standard
 
 % Load the NHTSA test preset
 testScenario = 'pedRoadsideRight';
 roadData = paebNHTSA(testScenario, 'lighting','nighttime', ...
-    'carspeed', carSpeed, 'testdurationinitial', testDuration);
+    'carspeed', carSpeed, 'testdurationinitial', testDuration,...
+    'mannequin', 'child');
 
 %% Place any additional "actors" and static assets
 % Optional
@@ -44,16 +45,17 @@ camera_type = 'grille'; % Or Grille
 switch camera_type
     case 'front' % which means behind the mirror -- IPMA in Ford speak
         cameraHeight = 1.8; % Mirror meters above ground
-        cameraOffset = .9; % meters offset towards rear of truck
+        cameraOffset = 0; % meters offset towards rear of truck
     case 'grille'
         cameraHeight = .9; % Grille
-        cameraOffset = -1.9; % meters offset towards rear of truck
+        cameraOffset = -.6; % -.6 is grille for car_004
 end
 
 % Tweak position. Not elegant at all currently
 roadRecipe.lookAt.from = [roadRecipe.lookAt.from(1) + cameraOffset ...
     roadRecipe.lookAt.from(2) cameraHeight];
-roadRecipe.lookAt.to = [0 roadRecipe.lookAt.from(2) cameraHeight];
+% Set the camera aim straight ahead in the distance
+roadRecipe.lookAt.to = [-100 roadRecipe.lookAt.from(2) cameraHeight];
 
 startingSceneDistance = carSpeed * testDuration; 
 
@@ -61,7 +63,7 @@ startingSceneDistance = carSpeed * testDuration;
 
 ourVideo = struct('cdata',[],'colormap',[]);
 frameNum = 1; % video frame counter
-bufferFrames = 2; % additional frames to allow for slowing
+bufferFrames = floor((numFrames+1)/4); % approximate additional frames to allow for slowing
 shutterspeed = 1/30; % for now assume it is synced with 30fps
 useSensor = 'MT9V024SensorRGB'; % one of our automotive sensors
 
@@ -70,28 +72,43 @@ yDetect = yolov4ObjectDetector("csp-darknet53-coco");
 detectionThreshhold = .95; % How confident do we need to be
 elapsedTime = 0;
 
+% How far from 0,0 is the pedestrian
+pedStartingLocation = startingSceneDistance - roadRecipe.lookAt.from(1);
+pedLocation = pedStartingLocation; % sometimes we don't move
+pedDistance = roadRecipe.lookAt.from(1) - pedStartingLocation;
+runData = [];
+
 %% Generate video frames over time
-for testTime = [0, repelem(testLength/numFrames, numFrames+bufferFrames)]
-    elapsedTime = elapsedTime + testTime;
+for testTime = [0, repelem(testDuration/numFrames, numFrames+bufferFrames)]
+    
+    % Once we hit something stop adding frames
+    if pedMeters < .1
+        continue 
+    end
+
     % Move this to a .turn method for roadScenario soon
     for ii = 1:numel(roadData.actors)
         roadData.actors{ii}.turn(testTime);
     end
+    pedDistance = roadRecipe.lookAt.from(1) - pedStartingLocation;
+    elapsedTime = elapsedTime + testTime;
+
+    % Should log run data here & plot!
+    runData(frameNum, 1) = elapsedTime;
+    runData(frameNum, 2) = pedDistance;
 
     piWrite(roadRecipe);
     scene = piRender(roadRecipe);
     ip = piRadiance2RGB(scene,'etime',shutterspeed,'sensor',useSensor);
-    pedMeters = targetDistance - (startingSceneDistance - roadRecipe.lookAt.from(1));
-    caption = sprintf("%2.1f m/s at %2.1f m, %2.1 s",roadData.actors{roadData.targetVehicleNumber}.velocity(1), pedMeters);
+    caption = sprintf("%2.1f m/s at %2.1f m, %2.1f s",roadData.actors{roadData.targetVehicleNumber}.velocity(1), pedDistance, elapsedTime);
     
     % Look for our pedestrian
     rgb = ipGet(ip, 'srgb');
     [bboxes,scores,labels] = detect(yDetect,rgb);
 
-    % Cheat and assume there is only one object for now:)
-    fprintf('We have %d scores\n', numel(scores));
-
-    if numel(scores) > 0 && scores(1) > detectionThreshhold
+    peds = ismember(labels,'person');
+    foundPed = scores(peds) > detectionThreshhold;
+    if foundPed > 0
         roadData.actors{roadData.targetVehicleNumber}.braking = true;
     end
     rgb = insertObjectAnnotation(rgb,"rectangle",bboxes,scores, 'FontSize', 16);
@@ -99,14 +116,19 @@ for testTime = [0, repelem(testLength/numFrames, numFrames+bufferFrames)]
         caption = strcat(caption, " ***CRASH*** ");
     end
     if roadData.actors{roadData.targetVehicleNumber}.braking % cheat & assume we are actor 1
-        rgb = insertText(rgb,[0 0],strcat(caption, " -- BRAKING"),'FontSize',36, 'TextColor','red');
+        rgb = insertText(rgb,[0 0],strcat(caption, " -- BRAKING"),'FontSize',48, 'TextColor','red');
     else
         rgb = insertText(rgb,[0 0],caption,'FontSize',36);
     end
     dRGB = double(rgb); % version for movie
     ourVideo(frameNum) = im2frame(dRGB); 
     frameNum = frameNum + 1;
+
 end
+
+% plot time versus distance
+ieNewGraphWin
+plot(runData(:,1),runData(:,2))
 
 % for quick viewing use mmovie
 movie(ourVideo, 10, 1);

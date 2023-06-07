@@ -27,6 +27,7 @@ p.addParameter('lighting','nighttime'); % or daytime
 p.addParameter('mannequin', 'man'); % or child
 p.addParameter('testdurationinitial', 4); % seconds to target without brakes
 p.addParameter('overlap', .25); % how far pedestrian is timed to cross car
+p.addParameter('pedestrian','pedestrian_002');
 
 %% Additional settings
 p.addParameter('cartype', 'car_004'); % Shelby
@@ -62,12 +63,21 @@ ourScene.actors{end+1} = ourCar;
 switch testScenario
     case 'pedRoadsideRight' % stationary at .25 across car
         % Add a pedestrian on the right side of our lane at the .25 mark
-        ourScene.recipe = iaPlaceAsset(ourScene.recipe, 'pedestrian_002', [carSpeed * testDuration 1 0], [0 0 90]);
+        ourScene.recipe = iaPlaceAsset(ourScene.recipe, p.Results.pedestrian, [carSpeed * testDuration 1 0], [0 0 90]);
 
     case 'pedRoadsideLeft'
 
     case 'pedBehindCars'
         % etc
+end
+
+switch p.Results.mannequin
+    case 'man'
+    case 'child'
+        % need to scale
+        pedBranchName = [p.Results.pedestrian '_B'];
+        piAssetScale(ourScene.recipe, pedBranchName, [.5 .5 .5]);
+
 end
 
 end
