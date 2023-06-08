@@ -26,11 +26,11 @@ varargin = ieParamFormat(varargin);
 p = inputParser;
 
 % The scene file exported from DSD
-p.addRequired('OpenDriveFile',@(x)(exist("OpenDriveFile",'file')));
+%p.addRequired('OpenDriveFile',@(x)(exist(OpenDriveFile  ,'file')));
 % unit is meter, for interpolating road coordinates
 p.addParameter('step',0.5,@isnumeric);
 
-p.parse(OpenDriveFile, varargin{:});
+p.parse(varargin{:});
 
 step = p.Results.step;
 
@@ -52,13 +52,13 @@ leftsidewalkID = ""; rightsidewalkID = "";
 
 for ii=1:numel(openDriveMap.road.lanes.laneSection.left.lane)
     if strcmp(openDriveMap.road.lanes.laneSection.left.lane(ii).typeAttribute,"shoulder")
-        leftshoulderID(i)=openDriveMap.road.lanes.laneSection.left.lane(ii).userData.vectorLane.laneIdAttribute;
+        leftshoulderID(i)=openDriveMap.road.lanes.laneSection.left.lane(ii).idAttribute;
         i=i+1;
     elseif strcmp(openDriveMap.road.lanes.laneSection.left.lane(ii).typeAttribute,"driving")
-        leftdrivingID(j)=openDriveMap.road.lanes.laneSection.left.lane(ii).userData.vectorLane.laneIdAttribute;
+        leftdrivingID(j)=openDriveMap.road.lanes.laneSection.left.lane(ii).idAttribute;
         j=j+1;
     elseif strcmp(openDriveMap.road.lanes.laneSection.left.lane(ii).typeAttribute,"sidewalk")
-        leftsidewalkID(k)=openDriveMap.road.lanes.laneSection.left.lane(ii).userData.vectorLane.laneIdAttribute;
+        leftsidewalkID(k)=openDriveMap.road.lanes.laneSection.left.lane(ii).idAttribute;
         k=k+1;
     end
 end
@@ -66,13 +66,13 @@ end
 i=1;j=1;k=1;
 for ii=1:numel(openDriveMap.road.lanes.laneSection.right.lane)
     if strcmp(openDriveMap.road.lanes.laneSection.right.lane(ii).typeAttribute,"shoulder")
-        rightshoulderID(i)=openDriveMap.road.lanes.laneSection.right.lane(ii).userData.vectorLane.laneIdAttribute;
+        rightshoulderID(i)=openDriveMap.road.lanes.laneSection.right.lane(ii).idAttribute;
         i=i+1;
     elseif strcmp(openDriveMap.road.lanes.laneSection.right.lane(ii).typeAttribute,"driving")
-        rightdrivingID(j)=openDriveMap.road.lanes.laneSection.right.lane(ii).userData.vectorLane.laneIdAttribute;
+        rightdrivingID(j)=openDriveMap.road.lanes.laneSection.right.lane(ii).idAttribute;
         j=j+1;
     elseif strcmp(openDriveMap.road.lanes.laneSection.right.lane(ii).typeAttribute,"sidewalk")
-        rightsidewalkID(k)=openDriveMap.road.lanes.laneSection.right.lane(ii).userData.vectorLane.laneIdAttribute;
+        rightsidewalkID(k)=openDriveMap.road.lanes.laneSection.right.lane(ii).idAttribute;
         k=k+1;
     end
 end
