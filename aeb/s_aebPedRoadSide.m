@@ -94,8 +94,8 @@ for testTime = [0, repelem(testDuration/numFrames, numFrames+bufferFrames)]
     elapsedTime = elapsedTime + testTime;
 
     % Should log run data here & plot!
-    runData(frameNum, 1) = elapsedTime;
-    runData(frameNum, 2) = pedDistance;
+    runData(frameNum, 1) = elapsedTime; %#ok<SAGROW>
+    runData(frameNum, 2) = pedDistance; %#ok<SAGROW>
 
     piWrite(roadRecipe);
     scene = piRender(roadRecipe);
