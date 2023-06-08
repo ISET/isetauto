@@ -5,7 +5,7 @@ function [scenario, egoVehicle] = paebSceneRHS_Road020()
 % Generated on: 08-Jun-2023 10:37:12
 
 % Construct a drivingScenario object.
-scenario = drivingScenario;
+scenario = ia_drivingScenario;
 
 % Add all road segments
 roadCenters = [-119.91220007542 0.28026685394776 0;
