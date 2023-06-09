@@ -4,12 +4,15 @@ classdef ia_drivingScenario < drivingScenario
     % D. Cardinal, Stanford University, June, 2023
 
     properties
+        roadData; % our ISETAuto road data struct
         waypoints; % in meters (might just be able to get from superclass
         speed; % meters/second (might just be able to get from superclass
     end
 
     methods
         function ds = ia_drivingScenario(varargin)
+
+            % Should we do the ieInit/dockerInit here??
 
             % Let the Matlab driving scenario set things up first
             % ds now contains a "blank slate" scenario
@@ -25,12 +28,17 @@ classdef ia_drivingScenario < drivingScenario
         % Here is the default call:
         % road(scenario, roadCenters, 'Heading', headings, 'Lanes', laneSpecification, 'Name', 'road_020');
 
-        function road(obj, ~, varargin)
+        function road(obj, scenario, varargin)
             p = inputParser;
-            p.addParameter('Name','road_020', @ischar);
+            p.addParameter('Name', 'road_020');
+            p.KeepUnmatched = true; % we don't parse all args here
+            p.parse(varargin{:});
 
-            % LOAD ROAD SCENE OR AT LEAST SET PARAMETER
-
+            roadName = p.Results.Name; 
+            % LOAD ROAD DATA/SCENE into ISETAuto
+            % We need to specify lighting
+            obj.roadData = obj.initRoadScene(roadName, 'nighttime');
+            road@drivingScenario(obj, scenario, varargin{:});
         end
 
         % The name is what we use to know what vehicle to add
