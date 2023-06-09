@@ -1,9 +1,13 @@
-%% Illustrates getting scenario data from Matlab DSD
+%% Illustrate and animate NHTSA night time PAEB Test
+% Stationary pedestrian on right side of road
 %
 % Dependencies
 %   ISET3d, ISETAuto, ISETonline, and ISETCam
 %
 % D. Cardinal, Stanford University, 2023
+
+% NOTE: Assumes only one recognizable object in scene (ped)
+%       at which point it starts braking. Need to parameterize
 
 %% Initialize ISET, Docker, and general parameters
 ieInit; if ~piDockerExists, piDockerConfig; end
@@ -11,7 +15,7 @@ ieInit; if ~piDockerExists, piDockerConfig; end
 % Adjust these depening on desired video output
 sceneQuality = 'quick'; % quick or HD or paper for video quality
 numFrames = 12; % for initial zero braking time to target
-carSpeed = 17; % default, but read from scenario
+carSpeed = 17;
 testDuration = 4; % NHTSA standard
 
 % Load the NHTSA test preset
@@ -19,6 +23,9 @@ testScenario = 'pedRoadsideRight';
 roadData = paebNHTSA(testScenario, 'lighting','nighttime', ...
     'carspeed', carSpeed, 'testdurationinitial', testDuration,...
     'mannequin', 'child');
+
+%% Place any additional "actors" and static assets
+% Optional
 
 %% Assemble the scene for our scenario
 % the roadData object comes with a base ISET3d recipe for rendering
