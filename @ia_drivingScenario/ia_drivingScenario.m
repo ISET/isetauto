@@ -46,7 +46,11 @@ classdef ia_drivingScenario < drivingScenario
         speed = [17;17;17;17];
         trajectory(egoVehicle, waypoints, speed);
         %}
-        function vehicle()
+        function vehicle(obj, scenario, varargin)
+            p = inputParser;
+            p.addParameter('Name','car_004', @ischar);
+
+            % ADD VEHICLE OR AT LEAST SET PARAMETER
         end
 
         % Non-vehicle actors (e.g. Pedestrians)
@@ -62,7 +66,11 @@ classdef ia_drivingScenario < drivingScenario
             'Mesh', driving.scenario.pedestrianMesh, ...
             'Name', 'pedestrian_001');
         %}
-        function actor()
+        function actor(obj, scenario, varargin)
+            p = inputParser;
+            p.addParameter('Name','pedestrian_001', @ischar);
+
+            % ADD NON_VEHICLE ASSET OR AT LEAST SET PARAMETER
         end
     end
 end
