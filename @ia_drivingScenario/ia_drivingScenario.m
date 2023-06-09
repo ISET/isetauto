@@ -57,7 +57,7 @@ classdef ia_drivingScenario < drivingScenario
         trajectory(egoVehicle, waypoints, speed);
         %}
 
-        % Scenario apparently _is_ our Object
+        % Scenario is our Object
         % Not clear how egoVehicle gets set
         % Maybe as simple as if a return value is requested
         % it is used as the ego vehicle
@@ -73,8 +73,18 @@ classdef ia_drivingScenario < drivingScenario
             % speed and trajectory are set in separate calls!
             
             % Add Vehicle asset to our @Recipe
-            % ...(scenario.roadRecipe, ...)
-            
+            ourCar = actor();
+            ourCar.position = p.Results.Position;
+            % what about pitch, roll, yaw?
+            %ourCar.rotation = [0 0 180]; % facing forward
+            ourCar.assetType = p.Results.Name;
+            ourCar.name = p.Results.Name;
+
+            ourCar.velocity = [0 0 0]; % set separately
+            ourCar.hasCamera = true; % if ego vehicle
+            ourCar.place(scenario.roadData.recipe);
+
+            % call with egoVehicle if we have the sensors?
             egoVehicle = vehicle@drivingScenario(scenario, varargin{:});
         end
 
