@@ -58,6 +58,9 @@ classdef ia_drivingScenario < drivingScenario
         %}
 
         % Scenario apparently _is_ our Object
+        % Not clear how egoVehicle gets set
+        % Maybe as simple as if a return value is requested
+        % it is used as the ego vehicle
         function egoVehicle = vehicle(scenario, varargin)
             p = inputParser;
             p.addParameter('ClassID',1); % don't know if we need this
