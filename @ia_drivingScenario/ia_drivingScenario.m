@@ -64,11 +64,14 @@ classdef ia_drivingScenario < drivingScenario
             p.addParameter('Name','car_004', @ischar);
             p.addParameter('Position', [0 0 0]);
             p.KeepUnmatched = true;
-            % Doesn't seem to get l,w,h ??
-            % speed and trajectory are set in separate calls!
-            % ADD VEHICLE OR AT LEAST SET PARAMETER
             p.parse(varargin{:});
 
+            % Doesn't seem to get l,w,h ??
+            % speed and trajectory are set in separate calls!
+            
+            % Add Vehicle asset to our @Recipe
+            % ...(scenario.roadRecipe, ...)
+            
             egoVehicle = vehicle@drivingScenario(scenario, varargin{:});
         end
 
