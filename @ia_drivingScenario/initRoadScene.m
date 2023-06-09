@@ -41,4 +41,6 @@ roadData.set('offroad tree names', {'tree_001','tree_002','tree_003'});
 roadData.set('offroad n trees', [50, 1, 1]); % [50, 100, 150]
 roadData.set('offroad tree lane', {'rightshoulder','leftshoulder'});
 
+%% Not clear when we Assemble since we are getting data fed
+% from the driving simulator now
 end

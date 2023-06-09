@@ -56,14 +56,20 @@ classdef ia_drivingScenario < drivingScenario
         speed = [17;17;17;17];
         trajectory(egoVehicle, waypoints, speed);
         %}
-        function vehicle(obj, scenario, varargin)
+
+        % Scenario apparently _is_ our Object
+        function egoVehicle = vehicle(scenario, varargin)
             p = inputParser;
             p.addParameter('ClassID',1); % don't know if we need this
             p.addParameter('Name','car_004', @ischar);
             p.addParameter('Position', [0 0 0]);
+            p.KeepUnmatched = true;
             % Doesn't seem to get l,w,h ??
             % speed and trajectory are set in separate calls!
             % ADD VEHICLE OR AT LEAST SET PARAMETER
+            p.parse(varargin{:});
+
+            egoVehicle = vehicle@drivingScenario(scenario, varargin{:});
         end
 
         % Non-vehicle actors (e.g. Pedestrians)
