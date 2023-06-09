@@ -115,6 +115,14 @@ classdef ia_drivingScenario < drivingScenario
 
         function trajectory(obj, egoVehicle, waypoints, speed);
         end
+
+        function running = advance(scenario)
+            fprintf('scenario');
+            % Determine braking & subtract from Velocity
+            % (We can't just subtract from speed, as it has been broken
+            % into velocity components already based on waypoints
+            running = advance@drivingScenario(scenario);
+        end
     end
 end
 
