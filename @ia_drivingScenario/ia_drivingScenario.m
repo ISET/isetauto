@@ -4,6 +4,8 @@ classdef ia_drivingScenario < drivingScenario
     % D. Cardinal, Stanford University, June, 2023
 
     properties
+        waypoints; % in meters (might just be able to get from superclass
+        speed; % meters/second (might just be able to get from superclass
     end
 
     methods
@@ -48,8 +50,11 @@ classdef ia_drivingScenario < drivingScenario
         %}
         function vehicle(obj, scenario, varargin)
             p = inputParser;
+            p.addParameter('ClassID',1); % don't know if we need this
             p.addParameter('Name','car_004', @ischar);
-
+            p.addParameter('Position', [0 0 0]);
+            % Doesn't seem to get l,w,h ??
+            % speed and trajectory are set in separate calls!
             % ADD VEHICLE OR AT LEAST SET PARAMETER
         end
 
@@ -68,9 +73,17 @@ classdef ia_drivingScenario < drivingScenario
         %}
         function actor(obj, scenario, varargin)
             p = inputParser;
+            p.addParameter('ClassID',4); % don't know if we need this
             p.addParameter('Name','pedestrian_001', @ischar);
+            p.addParameter('Position', [0 0 0]);
+            p.addParameter('Length', .24);
+            p.addParameter('Height', 1.7);
+            p.addParameter('Width', .45);
 
             % ADD NON_VEHICLE ASSET OR AT LEAST SET PARAMETER
+        end
+
+        function trajectory(obj, egoVehicle, waypoints, speed);
         end
     end
 end
