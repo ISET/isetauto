@@ -121,7 +121,7 @@ classdef ia_drivingScenario < drivingScenario
 
         function running = advance(scenario)
             fprintf('scenario');
-            piWRS(obj.roadData.recipe);
+            piWRS(scenario.roadData.recipe);
             % Determine braking & subtract from Velocity
             % (We can't just subtract from speed, as it has been broken
             % into velocity components already based on waypoints

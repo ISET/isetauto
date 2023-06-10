@@ -11,6 +11,11 @@ function [thisR] = iaPlaceAsset(recipe, assetName, position, rotation)
 assetBranchName = [assetName '_B'];
 assetFileName = [assetName '.pbrt'];
 
+if isempty(which(assetFileName))
+    % asking for an asset that doesn't exist
+    thisR = recipe;
+    return
+end
 assetRecipe = piRead(assetFileName);
 
 % We want to translate to a location relative to the camera
