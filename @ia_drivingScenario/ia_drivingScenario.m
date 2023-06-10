@@ -70,9 +70,6 @@ classdef ia_drivingScenario < drivingScenario
             p.addParameter('Position', [0 0 0]);
             p.KeepUnmatched = true;
             p.parse(varargin{:});
-
-            % Doesn't seem to get l,w,h ??
-            % speed and trajectory are set in separate calls!
             
             % Add Vehicle asset to our @Recipe
             ourCar = actor();
@@ -104,7 +101,7 @@ classdef ia_drivingScenario < drivingScenario
             'Name', 'pedestrian_001');
         %}
         % Need to check if we need obj + scenario, or if scenario is obj
-        function actor(obj, scenario, varargin)
+        function actor(scenario, varargin)
             p = inputParser;
             p.addParameter('ClassID',4); % don't know if we need this
             p.addParameter('Name','pedestrian_001', @ischar);
@@ -113,7 +110,20 @@ classdef ia_drivingScenario < drivingScenario
             p.addParameter('Height', 1.7);
             p.addParameter('Width', .45);
 
+            p.KeepUnmatched = true;
+            p.parse(varargin{:});
+
+            ourActor = actor();
+
             % ADD NON_VEHICLE ASSET OR AT LEAST SET PARAMETER
+            ourActor.position = p.Results.Position;
+            ourActor.assetType = p.Results.Name;
+            ourActor.name = p.Results.Name;
+
+            ourActor.velocity = [0 0 0]; % set separately
+            ourActor.place(scenario);
+            actor@drivingScenario(scenario, varargin{:});
+
         end
 
         % Not sure if we need this or not?
