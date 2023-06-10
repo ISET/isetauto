@@ -12,9 +12,11 @@ classdef ia_drivingScenario < drivingScenario
     methods
         function ds = ia_drivingScenario(varargin)
 
-            % Should we do the ieInit/dockerInit here??
+            % Should we do the ieInit/dockerInit here
+            % Better at beginning of script, but that's generated
+            % each time by Matlab
 
-            % Let the Matlab driving scenario set things up first
+            % Let the Matlab driving scenario (superclass) set things up first
             % ds now contains a "blank slate" scenario
             try
                 %parseInputs(ds, varargin{:});
@@ -23,9 +25,9 @@ classdef ia_drivingScenario < drivingScenario
             end
         end
 
-        % We only use the road to tell us which of our road scenes
-        % to load (based on the road namd
-        % Here is the default call:
+        %% We only use the road to tell us which of our road scenes
+        % to load (based on the road name)
+        % Here is the default call used by the ds superclass:
         % road(scenario, roadCenters, 'Heading', headings, 'Lanes', laneSpecification, 'Name', 'road_020');
 
         function road(obj, scenario, varargin)
@@ -36,8 +38,8 @@ classdef ia_drivingScenario < drivingScenario
 
             roadName = p.Results.Name; 
             % LOAD ROAD DATA/SCENE into ISETAuto
-            % We need to specify lighting
-            obj.roadData = obj.initRoadScene(roadName, 'nighttime');
+            % We need to specify our own lighting
+            obj.roadData = obj.initRoadScene(roadName, 'dusk');
             road@drivingScenario(obj, scenario, varargin{:});
         end
 
