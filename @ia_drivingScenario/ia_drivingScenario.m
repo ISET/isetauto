@@ -101,6 +101,7 @@ classdef ia_drivingScenario < drivingScenario
             'Mesh', driving.scenario.pedestrianMesh, ...
             'Name', 'pedestrian_001');
         %}
+        % Need to check if we need obj + scenario, or if scenario is obj
         function actor(obj, scenario, varargin)
             p = inputParser;
             p.addParameter('ClassID',4); % don't know if we need this
@@ -120,6 +121,7 @@ classdef ia_drivingScenario < drivingScenario
 
         function running = advance(scenario)
             fprintf('scenario');
+            piWRS(obj.roadData.recipe);
             % Determine braking & subtract from Velocity
             % (We can't just subtract from speed, as it has been broken
             % into velocity components already based on waypoints
