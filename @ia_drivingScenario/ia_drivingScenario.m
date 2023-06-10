@@ -113,7 +113,9 @@ classdef ia_drivingScenario < drivingScenario
             % ADD NON_VEHICLE ASSET OR AT LEAST SET PARAMETER
         end
 
-        function trajectory(obj, egoVehicle, waypoints, speed);
+        % Not sure if we need this or not?
+        function trajectory(scenario, egoVehicle, waypoints, speed)
+            trajectory@drivingScenario(scenario, egoVehicle, waypoints, speed);
         end
 
         function running = advance(scenario)
