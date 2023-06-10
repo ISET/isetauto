@@ -82,7 +82,7 @@ classdef ia_drivingScenario < drivingScenario
 
             ourCar.velocity = [0 0 0]; % set separately
             ourCar.hasCamera = true; % if ego vehicle
-            ourCar.place(scenario.roadData.recipe);
+            ourCar.place(scenario);
 
             % call with egoVehicle if we have the sensors?
             egoVehicle = vehicle@drivingScenario(scenario, varargin{:});

@@ -1,6 +1,9 @@
-classdef actor < matlab.mixin.Copyable
+classdef actor < handle & matlab.mixin.Copyable
     %ACTOR Dynamic Elements in our scenes
-    %   Place and animage assets for running scenarios
+    %   Place and animate assets for running scenarios
+    %
+    %   Initially written to support ISETAuto "native" scenarios
+    %   Now we need to deal with scenarios imported from Matlab SDS
     %
     % D. Cardinal, Stanford University, June, 2023
     %
@@ -26,11 +29,23 @@ classdef actor < matlab.mixin.Copyable
             
         end
         
-        function recipe = place(obj,recipe)
-            %place -- put actor as an asset into recipe
-            recipe = iaPlaceAsset(recipe, obj.assetType, ...
-                obj.position, obj.rotation);
-            obj.recipe = recipe;
+        %% For ISET scenarios we get a recipe
+        %  For SDS scenarios we get a scenario
+        %  that has scenario.roadData.recipe
+        function recipe = place(obj,context)
+            if isequal(class(context),'recipe')
+                %place -- put actor as an asset into recipe
+                recipe = context;
+                recipe = iaPlaceAsset(recipe, obj.assetType, ...
+                    obj.position, obj.rotation);
+                obj.recipe = recipe;
+            else
+                % Assume we have a scenario
+                recipe = context.roadData.recipe;
+                recipe = iaPlaceAsset(recipe, obj.assetType, ...
+                    obj.position, obj.rotation);
+                obj.recipe = recipe;
+            end
         end
 
         function turn(obj, seconds)
