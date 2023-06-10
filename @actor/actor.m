@@ -41,12 +41,12 @@ classdef actor < handle & matlab.mixin.Copyable
                 obj.recipe = recipe;
             else
                 % Assume we have a scenario
-                recipe = context.roadData.recipe;
+                scenario = context;
                 % Coordinate systems are different
                 obj.position = obj.position .* [-1 -1 1];
-                recipe = iaPlaceAsset(recipe, obj.assetType, ...
+                scenario.placeAsset(obj.assetType, ...
                     obj.position, obj.rotation);
-                obj.recipe = recipe;
+                obj.recipe = scenario.roadData.recipe;
             end
         end
 

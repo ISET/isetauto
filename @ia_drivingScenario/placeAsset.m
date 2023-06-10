@@ -34,6 +34,6 @@ if ~isempty(rotation)
     assetBranch = piAssetRotate(assetRecipe,assetBranchName,rotation);
 end
 
-scenario.roadRecipe = piRecipeMerge(scenario.roadRecipe, assetRecipe);
+piRecipeMerge(scenario.roadData.recipe, assetRecipe);
 
 end
