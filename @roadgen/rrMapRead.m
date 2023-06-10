@@ -32,6 +32,7 @@ p = inputParser;
 p.addRequired('rrDataPath',@(x)(exist(rrDataPath,'dir')));
 % unit is meter, for interpolating road coordinates
 p.addParameter('step',0.5,@isnumeric);
+p.addParameter('plot', false); % show the road to the user
 
 p.parse(rrDataPath, varargin{:});
 
@@ -84,7 +85,7 @@ end
 %% Read original (uneven) lane coordinates from geojson file 
 %  transform them into evenly spread points
 
-ieNewGraphWin;
+if p.Results.plot, ieNewGraphWin; end
 
 geoInformation = jsonread(geojsonfile);
 leftDrivingCoordinates   = cell(1,numel(leftdrivingID));
@@ -109,7 +110,7 @@ for ii = 1:numel(geoInformation.features)
             yi=interp1(x,y,xi);
 %             zi = interp1(x,z, xi);
             leftShoulderCoordinates{j}=[xi;yi]';
-            plot(xi,yi,'s');axis equal;hold on;
+            if p.Results.plot, plot(xi,yi,'s');axis equal;hold on; end
         end
     end    
 
@@ -125,7 +126,7 @@ for ii = 1:numel(geoInformation.features)
             yi=interp1(x,y,xi);
 %             zi = interp1(x,z, xi);
             rightShoulderCoordinates{j}=[xi;yi]';
-            plot(xi,yi,'o');
+            if p.Results.plot, plot(xi,yi,'o'); end
         end
     end
 
@@ -142,7 +143,7 @@ for ii = 1:numel(geoInformation.features)
             yi=interp1(x,y,xi);
 %             zi = interp1(x,z, xi);
             leftDrivingCoordinates{j}=[xi;yi]';
-            plot(xi,yi,'-');
+            if p.Results.plot, plot(xi,yi,'-'); end
         end
     end  
 
@@ -160,7 +161,7 @@ for ii = 1:numel(geoInformation.features)
             yi=interp1(x,y,xi);
 %             zi = interp1(x,z, xi);
             rightDrivingCoordinates{j}=[xi;yi]';
-            plot(xi,yi,'-');
+            if p.Results.plot, plot(xi,yi,'-'); end
         end
     end
 
@@ -177,8 +178,7 @@ for ii = 1:numel(geoInformation.features)
             yi=interp1(x,y,xi);
 %             zi = interp1(x,z, xi);
             leftSidewalkCoordinates{j}=[xi;yi]';
-            plot(xi,yi,'-');
-%             plot(xi,zi,'-');
+            if p.Results.plot, plot(xi,yi,'-'); end
 
         end
     end
@@ -195,15 +195,16 @@ for ii = 1:numel(geoInformation.features)
             yi=interp1(x,y,xi);
 %             zi = interp1(x,z, xi);
             rightSidewalkCoordinates{j}=[xi;yi]';
-            plot(xi,yi,'-');
-%             plot(xi,zi,'-');
+            if p.Results.plot, plot(xi,yi,'-'); end
         end
     end
 end
 
-xlabel('Position (m)'); ylabel('Position (m)');
-grid on;
-% hold on;% tmp
+if p.Results.plot
+    xlabel('Position (m)'); ylabel('Position (m)');
+    grid on;
+    % hold on;% tmp
+end
 obj.roaddirectory = rrDataPath;
 obj.road.leftshoulderID = leftshoulderID;
 obj.road.leftdrivingID  = leftdrivingID;
