@@ -30,7 +30,7 @@ classdef ia_drivingScenario < drivingScenario
         % Here is the default call used by the ds superclass:
         % road(scenario, roadCenters, 'Heading', headings, 'Lanes', laneSpecification, 'Name', 'road_020');
 
-        function road(obj, scenario, varargin)
+        function road(scenario, segments, varargin)
             p = inputParser;
             p.addParameter('Name', 'road_020');
             p.KeepUnmatched = true; % we don't parse all args here
@@ -39,8 +39,9 @@ classdef ia_drivingScenario < drivingScenario
             roadName = p.Results.Name; 
             % LOAD ROAD DATA/SCENE into ISETAuto
             % We need to specify our own lighting
-            obj.roadData = obj.initRoadScene(roadName, 'dusk');
-            road@drivingScenario(obj, scenario, varargin{:});
+            % Road data is our IA data we stash in the driving scenario
+            scenario.roadData = scenario.initRoadScene(roadName, 'dusk');
+            road@drivingScenario(scenario, segments, varargin{:});
         end
 
         % The name is what we use to know what vehicle to add
@@ -63,7 +64,7 @@ classdef ia_drivingScenario < drivingScenario
         % Not clear how egoVehicle gets set
         % Maybe as simple as if a return value is requested
         % it is used as the ego vehicle
-        function egoVehicle = vehicle(scenario, varargin)
+        function vehicleID = vehicle(scenario, varargin)
             p = inputParser;
             p.addParameter('ClassID',1); % don't know if we need this
             p.addParameter('Name','car_004', @ischar);
@@ -80,11 +81,12 @@ classdef ia_drivingScenario < drivingScenario
             ourCar.name = p.Results.Name;
 
             ourCar.velocity = [0 0 0]; % set separately
-            ourCar.hasCamera = true; % if ego vehicle
+            %ourCar.hasCamera = true; % if ego vehicle
+            % Now we need to place the vehicle in the ISET scene
             ourCar.place(scenario);
 
             % call with egoVehicle if we have the sensors?
-            egoVehicle = vehicle@drivingScenario(scenario, varargin{:});
+            vehicleID = vehicle@drivingScenario(scenario, varargin{:});
         end
 
         % Non-vehicle actors (e.g. Pedestrians)
@@ -101,7 +103,7 @@ classdef ia_drivingScenario < drivingScenario
             'Name', 'pedestrian_001');
         %}
         % Need to check if we need obj + scenario, or if scenario is obj
-        function actor(scenario, varargin)
+        function actorID = actor(scenario, varargin)
             p = inputParser;
             p.addParameter('ClassID',4); % don't know if we need this
             p.addParameter('Name','pedestrian_001', @ischar);
@@ -122,7 +124,7 @@ classdef ia_drivingScenario < drivingScenario
 
             ourActor.velocity = [0 0 0]; % set separately
             ourActor.place(scenario);
-            actor@drivingScenario(scenario, varargin{:});
+            actorID = actor@drivingScenario(scenario, varargin{:});
 
         end
 
@@ -132,8 +134,12 @@ classdef ia_drivingScenario < drivingScenario
         end
 
         function running = advance(scenario)
-            fprintf('scenario');
-            piWRS(scenario.roadData.recipe);
+            
+            piWrite(scenario.roadData.recipe);
+            scene = piRender(scenario.roadData.recipe);
+            sceneSet(scene, 'display mode', 'hdr');
+            sceneWindow(scene);
+
             % Determine braking & subtract from Velocity
             % (We can't just subtract from speed, as it has been broken
             % into velocity components already based on waypoints

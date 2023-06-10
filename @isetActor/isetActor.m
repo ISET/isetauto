@@ -44,8 +44,7 @@ classdef isetActor < handle & matlab.mixin.Copyable
                 scenario = context;
                 % Coordinate systems are different
                 obj.position = obj.position .* [-1 -1 1];
-                scenario.placeAsset(obj.assetType, ...
-                    obj.position, obj.rotation);
+                obj.placeAsset(scenario);
                 obj.recipe = scenario.roadData.recipe;
             end
         end
