@@ -28,7 +28,7 @@ if ~isempty(position)
 %    assetTranslation(1) = cameraLocation(1) - position(1);
 %    assetTranslation(2) = cameraLocation(2) + position(2);
 %    assetTranslation(3) = position(3); 
-    assetBranch = piAssetTranslate(assetRecipe,assetBranchName, assetTranslation);
+%    assetBranch = piAssetTranslate(assetRecipe,assetBranchName, assetTranslation);
 end
 if ~isempty(rotation)
     assetBranch = piAssetRotate(assetRecipe,assetBranchName,rotation);
