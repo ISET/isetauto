@@ -1,4 +1,4 @@
-classdef actor < handle & matlab.mixin.Copyable
+classdef isetActor < handle & matlab.mixin.Copyable
     %ACTOR Dynamic Elements in our scenes
     %   Place and animate assets for running scenarios
     %
@@ -23,7 +23,7 @@ classdef actor < handle & matlab.mixin.Copyable
     end
     
     methods
-        function obj = actor()
+        function obj = isetActor()
             %ACTOR Construct an instance of this class
             %   Start with explicit property setting
             

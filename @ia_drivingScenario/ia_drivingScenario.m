@@ -72,7 +72,7 @@ classdef ia_drivingScenario < drivingScenario
             p.parse(varargin{:});
             
             % Add Vehicle asset to our @Recipe
-            ourCar = actor();
+            ourCar = isetActor();
             ourCar.position = p.Results.Position;
             % what about pitch, roll, yaw?
             %ourCar.rotation = [0 0 180]; % facing forward
@@ -113,7 +113,7 @@ classdef ia_drivingScenario < drivingScenario
             p.KeepUnmatched = true;
             p.parse(varargin{:});
 
-            ourActor = actor();
+            ourActor = isetActor();
 
             % ADD NON_VEHICLE ASSET OR AT LEAST SET PARAMETER
             ourActor.position = p.Results.Position;
