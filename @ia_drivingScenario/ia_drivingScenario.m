@@ -9,6 +9,7 @@ classdef ia_drivingScenario < drivingScenario
         %waypoints; % in meters
         %speed; % meters/second
         numActors = 0; 
+        egoVehicle = 0;
     end
 
     methods
@@ -22,8 +23,6 @@ classdef ia_drivingScenario < drivingScenario
             if ~piDockerExists, piDockerConfig; end
 
             % Clear persistent local variables for new run:
-            clear vehicle;
-            clear actor;
             clear advance;
             clear addToVideo;
             clear addActor;
@@ -73,7 +72,6 @@ classdef ia_drivingScenario < drivingScenario
         % We'll assume first vehicle is egoVehicle
         function vehicleDS = vehicle(scenario, varargin)
 
-            persistent egoVehicle;
             p = inputParser;
             p.addParameter('ClassID',1); % don't know if we need this
             p.addParameter('Name','car_004', @ischar);
@@ -102,8 +100,8 @@ classdef ia_drivingScenario < drivingScenario
             ourVehicle.place(scenario);
 
             %% If we are the egoVehicle, need to move the camera
-            if isempty(egoVehicle)
-                egoVehicle = ourVehicle;
+            if isequal(scenario.egoVehicle, 0)
+                scenario.egoVehicle = ourVehicle;
                 ourVehicle.hasCamera = true;
                 % car position is below the rear axle. sigh.
                 cameraPosition = ourVehicle.position;
@@ -178,11 +176,6 @@ classdef ia_drivingScenario < drivingScenario
 
         function running = advance(scenario)
 
-            % Currently we are only moving the camera car
-            % We should loop through all actors!
-
-            persistent ourSimulationTime;
-
             % First we show where we are (were)
             piWrite(scenario.roadData.recipe);
             scene = piRender(scenario.roadData.recipe);
@@ -193,14 +186,6 @@ classdef ia_drivingScenario < drivingScenario
             % presumably one frame at a time
             addToVideo(scenario, scene);
 
-            if isempty(ourSimulationTime)
-                ourSimulationTime = scenario.SimulationTime;
-            %    ourTimeStep = ourSimulationTime;
-            %else
-            %    ourTimeStep = scenario.SimulationTime ...
-            %        - ourSimulationTime; % just a time step
-                ourSimulationTime = scenario.SimulationTime;
-            end
             % This might be more current
             ourTimeStep = scenario.SimulationTime;
 
