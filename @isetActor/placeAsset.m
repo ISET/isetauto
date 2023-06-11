@@ -19,18 +19,15 @@ aRotation = obj.rotation;
 
 %% For vehicles from Matlab's DSD we need to do this differently
 if ~isempty(aPosition)
+    % Unfortunately there is no such thing as a Set for coordinates
     piAssetSet(assetRecipe, assetBranchName, 'world coordinates', ...
         aPosition);
-    % old way
-    % position is where we want to be relative to car in x and y
-    % and relative to ground in z
-%    assetTranslation(1) = cameraLocation(1) - position(1);
-%    assetTranslation(2) = cameraLocation(2) + position(2);
-%    assetTranslation(3) = position(3); 
-%    assetBranch = piAssetTranslate(assetRecipe,assetBranchName, assetTranslation);
+    % HOWEVER, we might be able to cheat because asset recipes put
+    % the asset at 0 0 0, so we can try translation
+    assetBranch = piAssetTranslate(assetRecipe,assetBranchName,aPosition);    
 end
 if ~isempty(aRotation)
-    assetBranch = piAssetRotate(assetRecipe,assetBranchName,rotation);
+    assetBranch = piAssetRotate(assetRecipe,assetBranchName,aRotation);
 end
 
 scenario.roadData.recipe = piRecipeMerge(scenario.roadData.recipe, assetRecipe);
