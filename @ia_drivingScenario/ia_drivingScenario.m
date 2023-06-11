@@ -4,7 +4,7 @@ classdef ia_drivingScenario < drivingScenario
     % D. Cardinal, Stanford University, June, 2023
 
     properties
-        roadData; % our ISETAuto road data struct
+        roadData = []; % our ISETAuto road data struct
         % We get these from our superclass
         %waypoints; % in meters
         %speed; % meters/second
@@ -20,16 +20,16 @@ classdef ia_drivingScenario < drivingScenario
             ieInit;
             if ~piDockerExists, piDockerConfig; end
 
-            % Let the Matlab driving scenario (superclass) set things up first
-            % ds now contains a "blank slate" scenario
-            ds = ds@drivingScenario(varargin{:});
-
             % Clear persistent local variables for new run:
             clear vehicle;
             clear actor;
             clear advance;
             clear addToVideo;
-            clear addActors;
+            clear addActor;
+
+            % Let the Matlab driving scenario (superclass) set things up first
+            % ds now contains a "blank slate" scenario
+            ds = ds@drivingScenario(varargin{:});
 
         end
 
@@ -162,7 +162,7 @@ classdef ia_drivingScenario < drivingScenario
             trajectory@drivingScenario(scenario, egoVehicle, waypoints, speed);
         end
 
-        % We need to keep track of actors so we can animat them
+        % We need to keep track of actors so we can animate them
         function addActor(scenario, actorDS, actorIA)
             persistent numActors;
             if isempty(numActors)
@@ -195,18 +195,21 @@ classdef ia_drivingScenario < drivingScenario
 
             if isempty(ourSimulationTime)
                 ourSimulationTime = scenario.SimulationTime;
-                ourTimeStep = ourSimulationTime;
-            else
-                ourTimeStep = scenario.SimulationTime ...
-                    - ourSimulationTime; % just a time step
+            %    ourTimeStep = ourSimulationTime;
+            %else
+            %    ourTimeStep = scenario.SimulationTime ...
+            %        - ourSimulationTime; % just a time step
                 ourSimulationTime = scenario.SimulationTime;
             end
+            % This might be more current
+            ourTimeStep = scenario.SimulationTime;
 
             % Move Actors based on their velocity
             % e.g. both the egoVehicle & the lookAt from/to
             % Assume that egoVehicle is #1
             for ii = 1:numel(scenario.roadData.actorsIA)
-                if scenario.roadData.actorsIA{ii}.hasCamera
+                ourActor = scenario.roadData.actorsIA{ii};
+                if ourActor.hasCamera
                     egoVelocity = scenario.roadData.actorsDS{ii}.Velocity;
                     % Move camera
                     adjustedVelocity = egoVelocity .* [-1 -1 0];
@@ -218,7 +221,7 @@ classdef ia_drivingScenario < drivingScenario
                 fprintf("Velocity: %2.1f\n",scenario.roadData.actorsDS{ii}.Velocity(1));
 
                 % move asset per velocity inherited from DS
-                scenario.roadData.actorsIA{ii}.moveAsset(scenario, ...
+                ourActor.moveAsset(scenario, ...
                     scenario.roadData.actorsDS{ii});
             end
 

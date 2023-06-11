@@ -1,4 +1,4 @@
-function assetBranch moveAsset(obj, scenario)
+function assetBranch = moveAsset(obj, scenario, actorDS)
 % Place an asset in a driving simulation
 % 
 %   D.Cardinal, Stanford, May, 2023
@@ -14,13 +14,10 @@ ourRecipe = scenario.roadData.recipe;
 % But not in Matlab SDS Scenes!
 
 %% For vehicles from Matlab's DSD we need to do this differently
-if ~isempty(aMove)
-
     % Time constant and coordinate reversal
-    multiplier = scenario.stepTime .* [-1 -1 0];
-    aMove = actorDS.Velocity * mutiplier;
+    multiplier = [-1 -1 0] * scenario.SampleTime;
+    aMove = actorDS.Velocity .* multiplier;
     assetBranch = piAssetTranslate(ourRecipe,assetBranchName,aMove);    
-end
 
 %% NEED TO ADD SUPPORT FOR TURNING
 %if ~isempty(aYaw)

@@ -52,6 +52,10 @@ classdef roadgen < matlab.mixin.Copyable
             % also includes specific features for the driving application.
             %
 
+            % Remove persistent variables before starting a new scene
+            clear actorsIA;
+            clear actorsDS;
+
             varargin = ieParamFormat(varargin);
 
             p = inputParser;
