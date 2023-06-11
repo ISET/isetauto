@@ -25,6 +25,4 @@ ourRecipe = scenario.roadData.recipe;
 %        [0 0 aYaw]);   
 %end
 
-scenario.roadData.recipe = piRecipeMerge(scenario.roadData.recipe, assetRecipe);
-
 end

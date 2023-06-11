@@ -8,6 +8,7 @@ classdef ia_drivingScenario < drivingScenario
         % We get these from our superclass
         %waypoints; % in meters
         %speed; % meters/second
+        numActors = 0; 
     end
 
     methods
@@ -164,16 +165,15 @@ classdef ia_drivingScenario < drivingScenario
 
         % We need to keep track of actors so we can animate them
         function addActor(scenario, actorDS, actorIA)
-            persistent numActors;
-            if isempty(numActors)
+            if scenario.numActors == 0
                 scenario.roadData.actorsDS = {};
                 scenario.roadData.actorsIA = {};
-                numActors = 1;
+                scenario.numActors = 1;
             else
-                numActors = numActors + 1;
+                scenario.numActors = scenario.numActors + 1;
             end
-            scenario.roadData.actorsDS{numActors} = actorDS;
-            scenario.roadData.actorsIA{numActors} = actorIA;
+            scenario.roadData.actorsDS{scenario.numActors} = actorDS;
+            scenario.roadData.actorsIA{scenario.numActors} = actorIA;
         end
 
         function running = advance(scenario)
