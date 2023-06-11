@@ -4,7 +4,6 @@ persistent yDetect;
 persistent detectionThreshhold;
 persistent v;
 persistent ourVideo;
-persistent frameNum;
 
 if isempty(yDetect)
     yDetect = yolov4ObjectDetector("csp-darknet53-coco");
@@ -16,7 +15,6 @@ if isempty(yDetect)
     sceneQuality = 'quick';
     v = VideoWriter(strcat(testScenario, "-", sceneQuality),'MPEG-4');
     v.FrameRate = 1;
-    frameNum = 1;
     % video structure with frames for creating clips
     ourVideo = struct('cdata',[],'colormap',[]);
 end
@@ -51,7 +49,7 @@ rgb = insertObjectAnnotation(rgb,"rectangle",bboxes,scores, 'FontSize', 16);
 %end
 
 dRGB = double(rgb); % version for movie
-ourVideo(frameNum) = im2frame(dRGB);
+ourVideo(scenario.frameNum) = im2frame(dRGB);
 
 % plot time versus distance
 %ieNewGraphWin
@@ -65,6 +63,6 @@ open(v);
 writeVideo(v, ourVideo);
 close(v);
 
-frameNum = frameNum + 1;
+scenario.frameNum = scenario.frameNum + 1;
 
 end

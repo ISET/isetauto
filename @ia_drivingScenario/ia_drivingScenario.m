@@ -10,6 +10,7 @@ classdef ia_drivingScenario < drivingScenario
         %speed; % meters/second
         numActors = 0;
         egoVehicle = [];
+        frameNum = 1; % to start
     end
 
     methods
@@ -91,7 +92,11 @@ classdef ia_drivingScenario < drivingScenario
 
             ourVehicle.velocity = [0 0 0]; % set separately
 
-
+            % Set first vehicle as ego vehicle
+            if isempty(scenario.egoVehicle)
+                scenario.egoVehicle = ourVehicle;
+                ourVehicle.hasCamera = true;
+            end
             ourVehicle.place(scenario);
 
             %% If we are the egoVehicle, need to move the camera
