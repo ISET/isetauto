@@ -216,6 +216,10 @@ classdef ia_drivingScenario < drivingScenario
                 end
                 % Also move our Actors by time step * velocity
                 fprintf("Velocity: %2.1f\n",scenario.roadData.actorsDS{ii}.Velocity(1));
+
+                % move asset per velocity inherited from DS
+                scenario.roadData.actorsIA{ii}.moveAsset(scenario, ...
+                    scenario.roadData.actorsDS{ii});
             end
 
 
