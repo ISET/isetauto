@@ -5,8 +5,9 @@ classdef ia_drivingScenario < drivingScenario
 
     properties
         roadData; % our ISETAuto road data struct
-        waypoints; % in meters (might just be able to get from superclass
-        speed; % meters/second (might just be able to get from superclass
+        % We get these from our superclass
+        %waypoints; % in meters
+        %speed; % meters/second
     end
 
     methods
@@ -15,6 +16,9 @@ classdef ia_drivingScenario < drivingScenario
             % Should we do the ieInit/dockerInit here
             % Better at beginning of script, but that's generated
             % each time by Matlab
+            %% Initialize ISET and Docker
+            ieInit;
+            if ~piDockerExists, piDockerConfig; end
 
             % Let the Matlab driving scenario (superclass) set things up first
             % ds now contains a "blank slate" scenario
@@ -25,18 +29,12 @@ classdef ia_drivingScenario < drivingScenario
             clear advance;
             clear addToVideo;
 
-            try
-                %parseInputs(ds, varargin{:});
-            catch ME
-                throwAsCaller(ME);
-            end
         end
 
         %% We only use the road to tell us which of our road scenes
         % to load (based on the road name)
         % Here is the default call used by the ds superclass:
         % road(scenario, roadCenters, 'Heading', headings, 'Lanes', laneSpecification, 'Name', 'road_020');
-
         function road(scenario, segments, varargin)
             p = inputParser;
             p.addParameter('Name', 'road_020');
@@ -52,8 +50,9 @@ classdef ia_drivingScenario < drivingScenario
         end
 
         % The name is what we use to know what vehicle to add
-        % We can also use other object names (like building_xxx)
-        %{
+        % We can also use other assets by name
+        %{ 
+        % This is a sample call used by matlab
         egoVehicle = vehicle(scenario, ...
             'ClassID', 1, ...
             'Position', [-95.8 -4.9 0], ...
@@ -68,9 +67,7 @@ classdef ia_drivingScenario < drivingScenario
         %}
 
         % Scenario is our Object
-        % Not clear how egoVehicle gets set
-        % Maybe as simple as if a return value is requested
-        % it is used as the ego vehicle
+        % We'll assume first vehicle is egoVehicle
         function vehicleID = vehicle(scenario, varargin)
 
             persistent egoVehicle;
@@ -78,12 +75,19 @@ classdef ia_drivingScenario < drivingScenario
             p.addParameter('ClassID',1); % don't know if we need this
             p.addParameter('Name','car_004', @ischar);
             p.addParameter('Position', [0 0 0]);
+            p.addParameter('Yaw', 0); % rotation on road
             p.KeepUnmatched = true;
             p.parse(varargin{:});
             
             % Add Vehicle asset to our @Recipe
             ourCar = isetActor();
+
+            % This is the Matlab position (x & y reversed from ISETauto)
             ourCar.position = p.Results.Position;
+
+            % car rotation is also reversed, sadly
+            ourCar.yaw = 180 - p.Results.Yaw;
+
             % what about pitch, roll, yaw?
             %ourCar.rotation = [0 0 180]; % facing forward
             ourCar.assetType = p.Results.Name;
@@ -95,11 +99,9 @@ classdef ia_drivingScenario < drivingScenario
             ourCar.place(scenario);
 
             %% If we are the egoVehicle, need to move the camera
-            % to us on the ISETAuto side. Without more editing of
-            % the DSD function, that is a bit of a guess. Assume the first
-            % one?
             if isempty(egoVehicle)
                 egoVehicle = ourCar;
+                ourCar.hasCamera = true;
                 % car position is below the rear axle. sigh.
                 cameraPosition = ourCar.position;
                 % hack to get it out from under the car
@@ -181,6 +183,7 @@ classdef ia_drivingScenario < drivingScenario
             else
                 ourTimeStep = scenario.SimulationTime ...
                     - ourSimulationTime; % just a time step
+                ourSimulationTime = scenario.SimulationTime;
             end
             % move our car by time step * velocity
             % initially just move camera:), after adjusting coordinates

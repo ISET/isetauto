@@ -15,6 +15,7 @@ classdef isetActor < handle & matlab.mixin.Copyable
         position = [];
         rotation = [];
         velocity = [];
+        yaw = 0; % rotation on road
         brakePower = [-7 0 0]; % -.7g, typical braking power
 
         % Whether we need to move the camera along with us
@@ -46,6 +47,12 @@ classdef isetActor < handle & matlab.mixin.Copyable
                 obj.position = obj.position .* [-1 -1 1];
                 obj.placeAsset(scenario);
                 obj.recipe = scenario.roadData.recipe;
+
+                % If we have the camera, move it
+                if obj.hasCamera
+                    obj.recipe.lookAt.from = ...
+                        obj.recipe.lookAt.from + obj.position;
+                end
             end
         end
 

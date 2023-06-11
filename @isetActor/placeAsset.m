@@ -16,6 +16,7 @@ assetRecipe = piRead(assetFileName);
 aType = obj.assetType;
 aPosition = obj.position;
 aRotation = obj.rotation;
+aYaw = obj.yaw;
 
 %% For vehicles from Matlab's DSD we need to do this differently
 if ~isempty(aPosition)
@@ -28,6 +29,9 @@ if ~isempty(aPosition)
 end
 if ~isempty(aRotation)
     assetBranch = piAssetRotate(assetRecipe,assetBranchName,aRotation);
+elseif ~isempty(aYaw)
+    assetBranch = piAssetRotate(assetRecipe,assetBranchName,...
+        [0 0 aYaw]);   
 end
 
 scenario.roadData.recipe = piRecipeMerge(scenario.roadData.recipe, assetRecipe);
