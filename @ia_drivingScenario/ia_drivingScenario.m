@@ -8,8 +8,8 @@ classdef ia_drivingScenario < drivingScenario
         % We get these from our superclass
         %waypoints; % in meters
         %speed; % meters/second
-        numActors = 0; 
-        egoVehicle = 0;
+        numActors = 0;
+        egoVehicle = [];
     end
 
     methods
@@ -21,11 +21,6 @@ classdef ia_drivingScenario < drivingScenario
             %% Initialize ISET and Docker
             ieInit;
             if ~piDockerExists, piDockerConfig; end
-
-            % Clear persistent local variables for new run:
-            clear advance;
-            clear addToVideo;
-            clear addActor;
 
             % Let the Matlab driving scenario (superclass) set things up first
             % ds now contains a "blank slate" scenario
@@ -43,7 +38,7 @@ classdef ia_drivingScenario < drivingScenario
             p.KeepUnmatched = true; % we don't parse all args here
             p.parse(varargin{:});
 
-            roadName = p.Results.Name; 
+            roadName = p.Results.Name;
             % LOAD ROAD DATA/SCENE into ISETAuto
             % We need to specify our own lighting
             % Road data is our IA data we stash in the driving scenario
@@ -53,7 +48,7 @@ classdef ia_drivingScenario < drivingScenario
 
         % The name is what we use to know what vehicle to add
         % We can also use other assets by name
-        %{ 
+        %{
         % This is a sample call used by matlab
         egoVehicle = vehicle(scenario, ...
             'ClassID', 1, ...
@@ -79,7 +74,7 @@ classdef ia_drivingScenario < drivingScenario
             p.addParameter('Yaw', 0); % rotation on road
             p.KeepUnmatched = true;
             p.parse(varargin{:});
-            
+
             % Add Vehicle asset to our @Recipe
             ourVehicle = isetActor();
 
@@ -95,22 +90,27 @@ classdef ia_drivingScenario < drivingScenario
             ourVehicle.name = p.Results.Name;
 
             ourVehicle.velocity = [0 0 0]; % set separately
-            %ourCar.hasCamera = true; % if ego vehicle
-            % Now we need to place the vehicle in the ISET scene
+
+
             ourVehicle.place(scenario);
 
             %% If we are the egoVehicle, need to move the camera
-            if isequal(scenario.egoVehicle, 0)
-                scenario.egoVehicle = ourVehicle;
-                ourVehicle.hasCamera = true;
-                % car position is below the rear axle. sigh.
-                cameraPosition = ourVehicle.position;
-                % hack to get it out from under the car
-                cameraPosition = cameraPosition + [-3 0 2];
-                ourRecipe = scenario.roadData.recipe;
-                ourRecipe.lookAt.from = cameraPosition;
-                ourRecipe.lookAt.to = cameraPosition - [1000 0 0]; %distance
-            end
+            %{
+            if isempty(scenario.egoVehicle)
+
+            % maybe do this in .place instead
+            scenario.egoVehicle = ourVehicle;
+            ourVehicle.hasCamera = true;
+            % car position is below the rear axle. sigh.
+            cameraPosition = ourVehicle.position;
+            % hack to get it out from under the car
+            cameraPosition = cameraPosition + [-3 0 2];
+            ourRecipe = scenario.roadData.recipe;
+            %ourRecipe.lookAt.from = cameraPosition;
+            ourRecipe.lookAt.to = cameraPosition - [1000 0 0]; %distance
+            
+        end
+            %}
             % call with egoVehicle if we have the sensors?
             vehicleDS = vehicle@drivingScenario(scenario, varargin{:});
             addActor(scenario, vehicleDS, ourVehicle);

@@ -22,38 +22,33 @@ classdef isetActor < handle & matlab.mixin.Copyable
         hasCamera = false;
         braking = false;
     end
-    
+
     methods
         function obj = isetActor()
             %ACTOR Construct an instance of this class
             %   Start with explicit property setting
-            
-        end
-        
-        %% For ISET scenarios we get a recipe
-        %  For SDS scenarios we get a scenario
-        %  that has scenario.roadData.recipe
-        function recipe = place(obj,context)
-            if isequal(class(context),'recipe')
-                %place -- put actor as an asset into recipe
-                recipe = context;
-                recipe = iaPlaceAsset(recipe, obj.assetType, ...
-                    obj.position, obj.rotation);
-                obj.recipe = recipe;
-            else
-                % Assume we have a scenario
-                scenario = context;
-                % Coordinate systems are different
-                obj.position = obj.position .* [-1 -1 1];
-                obj.placeAsset(scenario);
-                obj.recipe = scenario.roadData.recipe;
 
-                % If we have the camera, move it
-                if obj.hasCamera
-                    obj.recipe.lookAt.from = ...
-                        obj.recipe.lookAt.from + obj.position;
-                end
+        end
+
+        %%  For DSD scenarios we get a scenario
+        %  that has scenario.roadData.recipe
+        function egoVehicle = place(obj,context)
+            % Assume we have a scenario
+            scenario = context;
+            % Coordinate systems are different
+            obj.position = obj.position .* [-1 -1 1];
+            obj.placeAsset(scenario);
+            obj.recipe = scenario.roadData.recipe;
+
+            % If we have the camera, move it
+            % Not sure we need this as we do it on creation
+            if obj.hasCamera
+                obj.recipe.lookAt.from = ...
+                    obj.recipe.lookAt.from + obj.position + ...
+                    [-3 -2 0]; % move to top of car (approx.)
+                egoVehicle = obj;
             end
+
         end
 
         function turn(obj, seconds)
