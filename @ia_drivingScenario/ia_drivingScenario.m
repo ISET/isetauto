@@ -16,12 +16,15 @@ classdef ia_drivingScenario < drivingScenario
             % Better at beginning of script, but that's generated
             % each time by Matlab
 
-            % However we definitely need to clear the egoVehicle:
-            clear vehicle;
-            clear advance;
-
             % Let the Matlab driving scenario (superclass) set things up first
             % ds now contains a "blank slate" scenario
+            ds = ds@drivingScenario(varargin{:});
+
+            % Clear persistent local variables for new run:
+            clear vehicle;
+            clear advance;
+            clear addToVideo;
+
             try
                 %parseInputs(ds, varargin{:});
             catch ME
@@ -155,20 +158,17 @@ classdef ia_drivingScenario < drivingScenario
         function running = advance(scenario)
             
             persistent ourSimulationTime;
-            persistent frameNum;
 
-            keep track of frames for our video & stats
-            if isempty(frameNum)
-                frameNum = 1;
-            else
-                frameNum = frameNum + 1;
-            end
 
             % First we show where we are (were)
             piWrite(scenario.roadData.recipe);
             scene = piRender(scenario.roadData.recipe);
             sceneSet(scene, 'display mode', 'hdr');
             sceneWindow(scene);
+
+            % Here we want to create a movie/video
+            % presumably one frame at a time
+            addToVideo(scenario, scene);
 
             % Move our vehicle forward based on its velocity
             % e.g. both the egoVehicle & the lookAt from/to
@@ -194,10 +194,6 @@ classdef ia_drivingScenario < drivingScenario
             % into velocity components already based on waypoints
             % In this case we also need to modify the SDS version of
             % Velocity
-
-            % Here we want to create a movie/video
-            % presumably one frame at a time
-            addToVideo(scenario, scene, frameNum);
 
             % run super-class method
             running = advance@drivingScenario(scenario);
