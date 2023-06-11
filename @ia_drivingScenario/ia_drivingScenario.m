@@ -18,6 +18,7 @@ classdef ia_drivingScenario < drivingScenario
 
             % However we definitely need to clear the egoVehicle:
             clear vehicle;
+            clear advance;
 
             % Let the Matlab driving scenario (superclass) set things up first
             % ds now contains a "blank slate" scenario
@@ -153,14 +154,42 @@ classdef ia_drivingScenario < drivingScenario
 
         function running = advance(scenario)
             
+            persistent ourSimulationTime;
+
+            % First we show where we are (were)
             piWrite(scenario.roadData.recipe);
             scene = piRender(scenario.roadData.recipe);
             sceneSet(scene, 'display mode', 'hdr');
             sceneWindow(scene);
 
-            % Determine braking & subtract from Velocity
+            % Move our vehicle forward based on its velocity
+            % e.g. both the egoVehicle & the lookAt from/to
+            % Assume that egoVehicle is #1
+            egoVelocity = scenario.Actors(1).Velocity;
+
+            if isempty(ourSimulationTime)
+                ourSimulationTime = scenario.SimulationTime;
+                ourTimeStep = ourSimulationTime;
+            else
+                ourTimeStep = scenario.SimulationTime ...
+                    - ourSimulationTime; % just a time step
+            end
+            % move our car by time step * velocity
+            % initially just move camera:), after adjusting coordinates
+            adjustedVelocity = egoVelocity .* [-1 -1 0];
+            scenario.roadData.recipe.lookAt.from = ...
+                scenario.roadData.recipe.lookAt.from + ...
+                (adjustedVelocity .* ourTimeStep);
+
+            % Then determine whether braking & subtract from Velocity
             % (We can't just subtract from speed, as it has been broken
             % into velocity components already based on waypoints
+            % In this case we also need to modify the SDS version of
+            % Velocity
+
+
+
+            % run super-class method
             running = advance@drivingScenario(scenario);
         end
     end
