@@ -1,9 +1,13 @@
 function createVideo(scenario, scene, frameNum)
 
 persistent yDetect;
-yDetect = yolov4ObjectDetector("csp-darknet53-coco");
-detectionThreshhold = .95; % How confident do we need to be
+persistent detectionThreshhold;
+if isempty(yDetect)
+    yDetect = yolov4ObjectDetector("csp-darknet53-coco");
+    detectionThreshhold = .95; % How confident do we need to be
+end
 
+useSensor = 'MT9V024SensorRGB'; % one of our automotive sensors
 ip = piRadiance2RGB(scene,'etime',shutterspeed,'sensor',useSensor);
 % this if from the old iset only version
 % caption = sprintf("%2.1f m/s at %2.1f m, %2.1f s",roadData.actors{roadData.targetVehicleNumber}.velocity(1), pedDistance, elapsedTime);
@@ -31,11 +35,10 @@ end
 
 dRGB = double(rgb); % version for movie
 ourVideo(frameNum) = im2frame(dRGB);
-frameNum = frameNum + 1;
 
 % plot time versus distance
-ieNewGraphWin
-plot(runData(:,1),runData(:,2))
+%ieNewGraphWin
+%plot(runData(:,1),runData(:,2))
 
 % for quick viewing use mmovie
 movie(ourVideo, 10, 1);

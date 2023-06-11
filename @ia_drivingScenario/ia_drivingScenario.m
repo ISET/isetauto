@@ -155,6 +155,14 @@ classdef ia_drivingScenario < drivingScenario
         function running = advance(scenario)
             
             persistent ourSimulationTime;
+            persistent frameNum;
+
+            keep track of frames for our video & stats
+            if isempty(frameNum)
+                frameNum = 1;
+            else
+                frameNum = frameNum + 1;
+            end
 
             % First we show where we are (were)
             piWrite(scenario.roadData.recipe);
@@ -187,7 +195,9 @@ classdef ia_drivingScenario < drivingScenario
             % In this case we also need to modify the SDS version of
             % Velocity
 
-
+            % Here we want to create a movie/video
+            % presumably one frame at a time
+            addToVideo(scenario, scene, frameNum);
 
             % run super-class method
             running = advance@drivingScenario(scenario);
