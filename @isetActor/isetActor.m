@@ -12,7 +12,10 @@ classdef isetActor < handle & matlab.mixin.Copyable
         recipe = [];
         assetType;
         branchID;
-        position = [];
+
+        % coordinate systems are different between DS & IA
+        positionDS = [];
+        positionIA = [];
         rotation = [];
         velocity = [];
         yaw = 0; % rotation on road
@@ -36,7 +39,7 @@ classdef isetActor < handle & matlab.mixin.Copyable
             % Assume we have a scenario
             scenario = context;
             % Coordinate systems are different
-            obj.position = obj.position .* [-1 -1 1];
+            obj.positionIA = obj.positionDS .* [-1 -1 1];
             obj.placeAsset(scenario);
             obj.recipe = scenario.roadData.recipe;
 
@@ -44,8 +47,12 @@ classdef isetActor < handle & matlab.mixin.Copyable
             % Not sure we need this as we do it on creation
             if obj.hasCamera
                 obj.recipe.lookAt.from = ...
-                    obj.recipe.lookAt.from + obj.position + ...
-                    [-3 -2 0]; % move to top of car (approx.)
+                    obj.positionIA + ...
+                    [-3 0 2]; % move to top of car (approx.)
+
+                % Set "to to be straight ahead in the distance
+                obj.recipe.lookAt.to = ...
+                    obj.recipe.lookAt.from + [-1000 0 0];
                 egoVehicle = obj;
             end
 

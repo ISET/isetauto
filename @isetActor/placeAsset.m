@@ -1,4 +1,4 @@
-function placeAsset(obj, scenario)
+function assetBranch = placeAsset(obj, scenario)
 % Place an asset in a driving simulation
 % 
 %   D.Cardinal, Stanford, May, 2023
@@ -12,9 +12,8 @@ assetFileName = [obj.name '.pbrt'];
 assetRecipe = piRead(assetFileName);
 
 % Adjust for x-axis being towards the car in Ford scenes
-% But not in Matlab SDS Scenes!
-aType = obj.assetType;
-aPosition = obj.position;
+% But not in Matlab DSD Scenes!
+aPosition = obj.positionIA;
 aRotation = obj.rotation;
 aYaw = obj.yaw;
 

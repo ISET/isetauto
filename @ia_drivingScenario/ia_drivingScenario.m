@@ -79,8 +79,8 @@ classdef ia_drivingScenario < drivingScenario
             % Add Vehicle asset to our @Recipe
             ourVehicle = isetActor();
 
-            % This is the Matlab position (x & y reversed from ISETauto)
-            ourVehicle.position = p.Results.Position;
+            % This is the Matlab (DS) position (x & y reversed from ISETauto)
+            ourVehicle.positionDS = p.Results.Position;
 
             % car rotation is also reversed, sadly
             ourVehicle.yaw = 180 - p.Results.Yaw;
@@ -150,7 +150,7 @@ classdef ia_drivingScenario < drivingScenario
             ourActor = isetActor();
 
             % ADD NON_VEHICLE ASSET OR AT LEAST SET PARAMETER
-            ourActor.position = p.Results.Position;
+            ourActor.positionDS = p.Results.Position;
             ourActor.assetType = p.Results.Name;
             ourActor.name = p.Results.Name;
 
@@ -192,7 +192,7 @@ classdef ia_drivingScenario < drivingScenario
             addToVideo(scenario, scene);
 
             % This might be more current
-            ourTimeStep = scenario.SimulationTime;
+            ourTimeStep = scenario.SampleTime;
 
             % Move Actors based on their velocity
             % e.g. both the egoVehicle & the lookAt from/to
