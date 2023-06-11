@@ -20,8 +20,8 @@ aRotation = obj.rotation;
 %% For vehicles from Matlab's DSD we need to do this differently
 if ~isempty(aPosition)
     % Unfortunately there is no such thing as a Set for coordinates
-    piAssetSet(assetRecipe, assetBranchName, 'world coordinates', ...
-        aPosition);
+    %piAssetSet(assetRecipe, assetBranchName, 'world coordinates', ...
+       % aPosition);
     % HOWEVER, we might be able to cheat because asset recipes put
     % the asset at 0 0 0, so we can try translation
     assetBranch = piAssetTranslate(assetRecipe,assetBranchName,aPosition);    

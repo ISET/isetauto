@@ -65,6 +65,8 @@ classdef ia_drivingScenario < drivingScenario
         % Maybe as simple as if a return value is requested
         % it is used as the ego vehicle
         function vehicleID = vehicle(scenario, varargin)
+
+            persistent egoVehicle;
             p = inputParser;
             p.addParameter('ClassID',1); % don't know if we need this
             p.addParameter('Name','car_004', @ischar);
@@ -85,6 +87,19 @@ classdef ia_drivingScenario < drivingScenario
             % Now we need to place the vehicle in the ISET scene
             ourCar.place(scenario);
 
+            %% If we are the egoVehicle, need to move the camera
+            % to us on the ISETAuto side. Without more editing of
+            % the DSD function, that is a bit of a guess. Assume the first
+            % one?
+            if isempty(egoVehicle)
+                egoVehicle = ourCar;
+                % car position is below the rear axle. sigh.
+                cameraPosition = ourCar.position;
+                % hack to get it out from under the car
+                cameraPosition = cameraPosition + [-3 0 2];
+                ourRecipe = scenario.roadData.recipe;
+                ourRecipe.lookAt.from = cameraPosition;
+            end
             % call with egoVehicle if we have the sensors?
             vehicleID = vehicle@drivingScenario(scenario, varargin{:});
         end

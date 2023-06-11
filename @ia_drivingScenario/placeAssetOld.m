@@ -20,15 +20,12 @@ assetRecipe = piRead(assetFileName);
 
 %% For vehicles from Matlab's DSD we need to do this differently
 if ~isempty(position)
-    piAssetSet(assetRecipe, assetBranchName, 'world coordinates', ...
-        position);
-    % old way
     % position is where we want to be relative to car in x and y
     % and relative to ground in z
-%    assetTranslation(1) = cameraLocation(1) - position(1);
-%    assetTranslation(2) = cameraLocation(2) + position(2);
-%    assetTranslation(3) = position(3); 
-%    assetBranch = piAssetTranslate(assetRecipe,assetBranchName, assetTranslation);
+    assetTranslation(1) = cameraLocation(1) - position(1);
+    assetTranslation(2) = cameraLocation(2) + position(2);
+    assetTranslation(3) = position(3); 
+    assetBranch = piAssetTranslate(assetRecipe,assetBranchName, assetTranslation);
 end
 if ~isempty(rotation)
     assetBranch = piAssetRotate(assetRecipe,assetBranchName,rotation);
