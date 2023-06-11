@@ -193,11 +193,6 @@ classdef ia_drivingScenario < drivingScenario
             % presumably one frame at a time
             addToVideo(scenario, scene);
 
-            % Move our vehicle forward based on its velocity
-            % e.g. both the egoVehicle & the lookAt from/to
-            % Assume that egoVehicle is #1
-            egoVelocity = scenario.Actors(1).Velocity;
-
             if isempty(ourSimulationTime)
                 ourSimulationTime = scenario.SimulationTime;
                 ourTimeStep = ourSimulationTime;
@@ -206,14 +201,23 @@ classdef ia_drivingScenario < drivingScenario
                     - ourSimulationTime; % just a time step
                 ourSimulationTime = scenario.SimulationTime;
             end
-            % Move camera after adjusting coordinates
-            adjustedVelocity = egoVelocity .* [-1 -1 0];
-            scenario.roadData.recipe.lookAt.from = ...
-                scenario.roadData.recipe.lookAt.from + ...
-                (adjustedVelocity .* ourTimeStep);
 
-            % Also move our car by time step * velocity
-            fprintf("Velocity: %2.1f\n",scenario.Actors(1).Velocity(1));
+            % Move Actors based on their velocity
+            % e.g. both the egoVehicle & the lookAt from/to
+            % Assume that egoVehicle is #1
+            for ii = 1:numel(scenario.roadData.actorsIA)
+                if scenario.roadData.actorsIA{ii}.hasCamera
+                    egoVelocity = scenario.roadData.actorsDS{ii}.Velocity;
+                    % Move camera
+                    adjustedVelocity = egoVelocity .* [-1 -1 0];
+                    scenario.roadData.recipe.lookAt.from = ...
+                        scenario.roadData.recipe.lookAt.from + ...
+                        (adjustedVelocity .* ourTimeStep);
+                end
+                % Also move our Actors by time step * velocity
+                fprintf("Velocity: %2.1f\n",scenario.roadData.actorsDS{ii}.Velocity(1));
+            end
+
 
             % Then determine whether braking & subtract from Velocity
             % (We can't just subtract from speed, as it has been broken
