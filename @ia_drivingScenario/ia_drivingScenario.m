@@ -26,8 +26,10 @@ classdef ia_drivingScenario < drivingScenario
 
             % Clear persistent local variables for new run:
             clear vehicle;
+            clear actor;
             clear advance;
             clear addToVideo;
+            clear addActors;
 
         end
 
@@ -68,7 +70,7 @@ classdef ia_drivingScenario < drivingScenario
 
         % Scenario is our Object
         % We'll assume first vehicle is egoVehicle
-        function vehicleID = vehicle(scenario, varargin)
+        function vehicleDS = vehicle(scenario, varargin)
 
             persistent egoVehicle;
             p = inputParser;
@@ -80,37 +82,39 @@ classdef ia_drivingScenario < drivingScenario
             p.parse(varargin{:});
             
             % Add Vehicle asset to our @Recipe
-            ourCar = isetActor();
+            ourVehicle = isetActor();
 
             % This is the Matlab position (x & y reversed from ISETauto)
-            ourCar.position = p.Results.Position;
+            ourVehicle.position = p.Results.Position;
 
             % car rotation is also reversed, sadly
-            ourCar.yaw = 180 - p.Results.Yaw;
+            ourVehicle.yaw = 180 - p.Results.Yaw;
 
             % what about pitch, roll, yaw?
             %ourCar.rotation = [0 0 180]; % facing forward
-            ourCar.assetType = p.Results.Name;
-            ourCar.name = p.Results.Name;
+            ourVehicle.assetType = p.Results.Name;
+            ourVehicle.name = p.Results.Name;
 
-            ourCar.velocity = [0 0 0]; % set separately
+            ourVehicle.velocity = [0 0 0]; % set separately
             %ourCar.hasCamera = true; % if ego vehicle
             % Now we need to place the vehicle in the ISET scene
-            ourCar.place(scenario);
+            ourVehicle.place(scenario);
 
             %% If we are the egoVehicle, need to move the camera
             if isempty(egoVehicle)
-                egoVehicle = ourCar;
-                ourCar.hasCamera = true;
+                egoVehicle = ourVehicle;
+                ourVehicle.hasCamera = true;
                 % car position is below the rear axle. sigh.
-                cameraPosition = ourCar.position;
+                cameraPosition = ourVehicle.position;
                 % hack to get it out from under the car
                 cameraPosition = cameraPosition + [-3 0 2];
                 ourRecipe = scenario.roadData.recipe;
                 ourRecipe.lookAt.from = cameraPosition;
+                ourRecipe.lookAt.to = cameraPosition - [1000 0 0]; %distance
             end
             % call with egoVehicle if we have the sensors?
-            vehicleID = vehicle@drivingScenario(scenario, varargin{:});
+            vehicleDS = vehicle@drivingScenario(scenario, varargin{:});
+            addActor(scenario, vehicleDS, ourVehicle);
         end
 
         % Non-vehicle actors (e.g. Pedestrians)
@@ -127,7 +131,7 @@ classdef ia_drivingScenario < drivingScenario
             'Name', 'pedestrian_001');
         %}
         % Need to check if we need obj + scenario, or if scenario is obj
-        function actorID = actor(scenario, varargin)
+        function actorDS = actor(scenario, varargin)
             p = inputParser;
             p.addParameter('ClassID',4); % don't know if we need this
             p.addParameter('Name','pedestrian_001', @ischar);
@@ -148,7 +152,8 @@ classdef ia_drivingScenario < drivingScenario
 
             ourActor.velocity = [0 0 0]; % set separately
             ourActor.place(scenario);
-            actorID = actor@drivingScenario(scenario, varargin{:});
+            actorDS = actor@drivingScenario(scenario, varargin{:});
+            addActor(scenario, actorDS, ourActor);
 
         end
 
@@ -157,10 +162,26 @@ classdef ia_drivingScenario < drivingScenario
             trajectory@drivingScenario(scenario, egoVehicle, waypoints, speed);
         end
 
-        function running = advance(scenario)
-            
-            persistent ourSimulationTime;
+        % We need to keep track of actors so we can animat them
+        function addActor(scenario, actorDS, actorIA)
+            persistent numActors;
+            if isempty(numActors)
+                scenario.roadData.actorsDS = {};
+                scenario.roadData.actorsIA = {};
+                numActors = 1;
+            else
+                numActors = numActors + 1;
+            end
+            scenario.roadData.actorsDS{numActors} = actorDS;
+            scenario.roadData.actorsIA{numActors} = actorIA;
+        end
 
+        function running = advance(scenario)
+
+            % Currently we are only moving the camera car
+            % We should loop through all actors!
+
+            persistent ourSimulationTime;
 
             % First we show where we are (were)
             piWrite(scenario.roadData.recipe);
@@ -185,12 +206,14 @@ classdef ia_drivingScenario < drivingScenario
                     - ourSimulationTime; % just a time step
                 ourSimulationTime = scenario.SimulationTime;
             end
-            % move our car by time step * velocity
-            % initially just move camera:), after adjusting coordinates
+            % Move camera after adjusting coordinates
             adjustedVelocity = egoVelocity .* [-1 -1 0];
             scenario.roadData.recipe.lookAt.from = ...
                 scenario.roadData.recipe.lookAt.from + ...
                 (adjustedVelocity .* ourTimeStep);
+
+            % Also move our car by time step * velocity
+            fprintf("Velocity: %2.1f\n",scenario.Actors(1).Velocity(1));
 
             % Then determine whether braking & subtract from Velocity
             % (We can't just subtract from speed, as it has been broken

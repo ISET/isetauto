@@ -30,7 +30,8 @@ classdef roadgen < matlab.mixin.Copyable
         assetdirectory = fullfile(iaFileDataRoot,'PBRT_assets');
 
         % Collection of actors (assets with behaviors over time
-        actors = {};
+        actorsDS = {};
+        actorsIA = {};
         targetVehicleNumber = 1; %default
 
     end
