@@ -16,6 +16,9 @@ classdef ia_drivingScenario < drivingScenario
             % Better at beginning of script, but that's generated
             % each time by Matlab
 
+            % However we definitely need to clear the egoVehicle:
+            clear vehicle;
+
             % Let the Matlab driving scenario (superclass) set things up first
             % ds now contains a "blank slate" scenario
             try
