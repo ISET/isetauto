@@ -40,11 +40,12 @@ classdef isetActor < handle & matlab.mixin.Copyable
             scenario = context;
             % Coordinate systems are different
             obj.positionIA = obj.positionDS .* [-1 -1 1];
+
+            % placeAsset doesn't return an obj
             obj.placeAsset(scenario);
             obj.recipe = scenario.roadData.recipe;
 
             % If we have the camera, move it
-            % Not sure we need this as we do it on creation
             if obj.hasCamera
                 obj.recipe.lookAt.from = ...
                     obj.positionIA + ...

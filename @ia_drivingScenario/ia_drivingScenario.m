@@ -99,23 +99,6 @@ classdef ia_drivingScenario < drivingScenario
             end
             ourVehicle.place(scenario);
 
-            %% If we are the egoVehicle, need to move the camera
-            %{
-            if isempty(scenario.egoVehicle)
-
-            % maybe do this in .place instead
-            scenario.egoVehicle = ourVehicle;
-            ourVehicle.hasCamera = true;
-            % car position is below the rear axle. sigh.
-            cameraPosition = ourVehicle.position;
-            % hack to get it out from under the car
-            cameraPosition = cameraPosition + [-3 0 2];
-            ourRecipe = scenario.roadData.recipe;
-            %ourRecipe.lookAt.from = cameraPosition;
-            ourRecipe.lookAt.to = cameraPosition - [1000 0 0]; %distance
-            
-        end
-            %}
             % call with egoVehicle if we have the sensors?
             vehicleDS = vehicle@drivingScenario(scenario, varargin{:});
             addActor(scenario, vehicleDS, ourVehicle);
