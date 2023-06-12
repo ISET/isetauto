@@ -10,6 +10,11 @@ classdef ia_drivingScenario < drivingScenario
         %speed; % meters/second
         numActors = 0;
         egoVehicle = [];
+
+        vehicleCount = 1;
+        needToPlaceVehicles = true;
+        toBePlaced = {};
+
         frameNum = 1; % to start
     end
 
@@ -46,7 +51,7 @@ classdef ia_drivingScenario < drivingScenario
             scenario.roadData = scenario.initRoadScene(roadName, 'nighttime');
 
             % Set output rendering quality
-            iaQualitySet(scenario.roadData.recipe, 'preset', 'quick');
+            iaQualitySet(scenario.roadData.recipe, 'preset', 'HD');
             road@drivingScenario(scenario, segments, varargin{:});
         end
 
@@ -95,26 +100,43 @@ classdef ia_drivingScenario < drivingScenario
 
             ourVehicle.velocity = [0 0 0]; % set separately
 
+            % call with egoVehicle if we have the sensors?
+            vehicleDS = vehicle@drivingScenario(scenario, varargin{:});
+
             % Set first vehicle as ego vehicle
             if isempty(scenario.egoVehicle)
-                scenario.egoVehicle = ourVehicle;
+                scenario.egoVehicle = vehicleDS;
                 ourVehicle.hasCamera = true;
             end
 
-            % call with egoVehicle if we have the sensors?
-            vehicleDS = vehicle@drivingScenario(scenario, varargin{:});
+            % We don't get poses right away from DSD, so we might
+            % need to stack these up and execute on advance
+
             addActor(scenario, vehicleDS, ourVehicle);
 
+            % Start a queue
+            scenario.toBePlaced{scenario.vehicleCount} = {ourVehicle, vehicleDS};
+            scenario.vehicleCount = scenario.vehicleCount + 1;
+
+            %{
+            % try to move to advance
+            % get poses needed for Yaw calcs
+            gotPoses = actorPoses(scenario);
+            relativePoses = targetPoses(scenario.egoVehicle);
+
             % find yaw ourselves
-            if isfield(vehicleDS,'yaw')
-                ourVehicle.yaw = vehicleDS.yaw;
+            allPoses = gotPoses;
+            ourPose = allPoses(vehicleDS.ActorID);
+
+            if isfield(ourPose,'Yaw')
+                ourVehicle.yaw = ourPose.Yaw;
             else
                 ourVehicle.yaw = 0;
             end
 
             % Now we can place the vehicle
             ourVehicle.place(scenario);
-
+            %}
         end
 
         % Non-vehicle actors (e.g. Pedestrians)
@@ -177,6 +199,11 @@ classdef ia_drivingScenario < drivingScenario
 
         function running = advance(scenario)
 
+            % Need to place vehicles now that we hopefully have yaw data
+            if scenario.needToPlaceVehicles == true
+                scenario.placeVehicles();
+                scenario.needToPlaceVehicles = false;
+            end
             % First we show where we are (were)
             piWrite(scenario.roadData.recipe);
             scene = piRender(scenario.roadData.recipe);
@@ -209,7 +236,7 @@ classdef ia_drivingScenario < drivingScenario
                     scenario.roadData.actorsDS{ii}.Velocity(1), ...
                     scenario.roadData.actorsDS{ii}.Velocity(2), ...
                     scenario.roadData.actorsDS{ii}.Velocity(3));
-    
+
                 % move asset per velocity inherited from DS
                 ourActor.moveAsset(scenario, ...
                     scenario.roadData.actorsDS{ii});
@@ -224,6 +251,31 @@ classdef ia_drivingScenario < drivingScenario
 
             % run super-class method
             running = advance@drivingScenario(scenario);
+        end
+
+        function placeVehicles(scenario)
+
+            % get poses needed for Yaw calcs
+            gotPoses = actorPoses(scenario);
+            %relativePoses = targetPoses(scenario.egoVehicle);
+
+            % find yaw ourselves
+            allPoses = gotPoses;
+
+            for ii = 1:numel(scenario.toBePlaced)
+                ourVehicle = scenario.toBePlaced{ii};
+                ourPose = allPoses(ourVehicle{2}.ActorID);
+
+                if isfield(ourPose,'Yaw')
+                    ourVehicle{1}.yaw = ourPose.Yaw;
+                else
+                    ourVehicle{1}.yaw = 0;
+                end
+
+                % Now we can place the vehicle
+                ourVehicle{1}.place(scenario);
+            end
+
         end
     end
 end
