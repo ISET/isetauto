@@ -16,10 +16,21 @@ classdef ia_drivingScenario < drivingScenario
         toBePlaced = {};
 
         frameNum = 1; % to start
+        scenarioName = 'LabTest'; % default
+        scenarioQuality = 'quick'; % default
+
+        v = [];
+        % video structure with frames for creating clips
+        ourVideo = struct('cdata',[],'colormap',[]);
+
     end
 
     methods
         function ds = ia_drivingScenario(varargin)
+
+            % Let the Matlab driving scenario (superclass) set things up first
+            % ds now contains a "blank slate" scenario
+            ds = ds@drivingScenario(varargin{:});
 
             % Should we do the ieInit/dockerInit here
             % Better at beginning of script, but that's generated
@@ -28,9 +39,6 @@ classdef ia_drivingScenario < drivingScenario
             ieInit;
             if ~piDockerExists, piDockerConfig; end
 
-            % Let the Matlab driving scenario (superclass) set things up first
-            % ds now contains a "blank slate" scenario
-            ds = ds@drivingScenario(varargin{:});
 
         end
 
@@ -50,8 +58,15 @@ classdef ia_drivingScenario < drivingScenario
             % Road data is our IA data we stash in the driving scenario
             scenario.roadData = scenario.initRoadScene(roadName, 'nighttime');
 
+            % Set up video here because it doesn't like the constructor
+            % VideoWriter variables
+            scenario.scenarioName = 'LabDemo';
+            scenario.scenarioQuality = 'quick';
+            scenario.v = VideoWriter(strcat(scenario.scenarioName, "-", scenario.scenarioQuality),'MPEG-4');
+            scenario.v.FrameRate = 1;
+
             % Set output rendering quality
-            iaQualitySet(scenario.roadData.recipe, 'preset', 'HD');
+            iaQualitySet(scenario.roadData.recipe, 'preset', scenario.scenarioQuality);
             road@drivingScenario(scenario, segments, varargin{:});
         end
 

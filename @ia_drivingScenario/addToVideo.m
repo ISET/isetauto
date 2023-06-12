@@ -2,21 +2,10 @@ function addToVideo(scenario, scene)
 
 persistent yDetect;
 persistent detectionThreshhold;
-persistent v;
-persistent ourVideo;
 
 if isempty(yDetect)
     yDetect = yolov4ObjectDetector("csp-darknet53-coco");
     detectionThreshhold = .95; % How confident do we need to be
-
-    % to save we use a Videowriter
-    % Need to parameterize these
-    testScenario = 'LabDemo';
-    sceneQuality = 'HD';
-    v = VideoWriter(strcat(testScenario, "-", sceneQuality),'MPEG-4');
-    v.FrameRate = 1;
-    % video structure with frames for creating clips
-    ourVideo = struct('cdata',[],'colormap',[]);
 end
 
 useSensor = 'MT9V024SensorRGB'; % one of our automotive sensors
@@ -50,7 +39,7 @@ rgb = insertObjectAnnotation(rgb,"rectangle",bboxes,labels, 'FontSize', 16);
 %end
 
 dRGB = double(rgb); % version for movie
-ourVideo(scenario.frameNum) = im2frame(dRGB);
+scenario.ourVideo(scenario.frameNum) = im2frame(dRGB);
 
 % plot time versus distance
 %ieNewGraphWin
@@ -60,9 +49,9 @@ ourVideo(scenario.frameNum) = im2frame(dRGB);
 %movie(ourVideo, 10, 1);
 
 % SEE if this still works, but certainly wasteful
-open(v);
-writeVideo(v, ourVideo);
-close(v);
+open(scenario.v);
+writeVideo(scenario.v, scenario.ourVideo);
+close(scenario.v);
 
 scenario.frameNum = scenario.frameNum + 1;
 
