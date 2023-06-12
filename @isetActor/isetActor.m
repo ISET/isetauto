@@ -42,10 +42,10 @@ classdef isetActor < handle & matlab.mixin.Copyable
             % Coordinate systems are different
             anActor.positionIA = anActor.positionDS .* [-1 -1 1];
 
-            % NOTE: Need to turn vehicles coming towards us 180
-            %       if they have a velocity (sigh)
+            % placeAsset redoes the recipeMerge, which is of course an
+            % error from the vehicle placement queue
             anActor.placeAsset(scenario);
-            AnActor.recipe = scenario.roadData.recipe;
+            anActor.recipe = scenario.roadData.recipe;
 
             % If we have the camera, move it
             if anActor.hasCamera

@@ -22,14 +22,13 @@ roadData.recipe.set('light','all','delete');
 switch lighting
     case 'nighttime'
         %% Set up the rendering skymap -- this is just one of many available
-        % Somehow we are getting UFO-like lights in the scene?!
-        skymapName = 'lightmap_v4.exr'; % Most skymaps are in the Matlab path already
+        skymapName = 'night.exr'; % Most skymaps are in the Matlab path already
         roadData.recipe.set('skymap',skymapName);
 
         % Really dark -- NHTSA says down to .2 lux needs to work
         % So we should calculate what that means for how we scale the skymap
         skymapNode = strrep(skymapName, '.exr','_L');
-        roadData.recipe.set('light',skymapNode, 'specscale', 0.001);
+        roadData.recipe.set('light',skymapNode, 'specscale', 0.01);
 
     case 'dusk'
         %% Set up the rendering skymap -- this is just one of many available
