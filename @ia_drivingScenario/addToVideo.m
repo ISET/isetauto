@@ -24,7 +24,8 @@ shutterspeed = 1/30;
 ip = piRadiance2RGB(scene,'etime',shutterspeed,'sensor',useSensor);
 % this if from the old iset only version
 % caption = sprintf("%2.1f m/s at %2.1f m, %2.1f s",roadData.actors{roadData.targetVehicleNumber}.velocity(1), pedDistance, elapsedTime);
-caption = "VIDEO";
+caption = sprintf("Car: %s, Time: %2.1f \n", scenario.egoVehicle.name, ...
+    scenario.SimulationTime);
 
 % Look for our pedestrian
 rgb = ipGet(ip, 'srgb');
@@ -36,7 +37,7 @@ if foundPed > 0
     % needs updating
     %roadData.actors{roadData.targetVehicleNumber}.braking = true;
 end
-rgb = insertObjectAnnotation(rgb,"rectangle",bboxes,scores, 'FontSize', 16);
+rgb = insertObjectAnnotation(rgb,"rectangle",bboxes,labels, 'FontSize', 16);
 
 % Need to track pedmeters
 %if pedMeters <= .1

@@ -17,6 +17,8 @@ aPosition = obj.positionIA;
 aRotation = obj.rotation;
 aYaw = obj.yaw;
 
+if isempty(aYaw), aYaw = 0; end % default
+
 %% For vehicles from Matlab's DSD we need to do this differently
 if ~isempty(aPosition)
     % Unfortunately there is no such thing as a Set for coordinates
@@ -28,10 +30,11 @@ if ~isempty(aPosition)
 end
 if ~isempty(aRotation)
     assetBranch = piAssetRotate(assetRecipe,assetBranchName,aRotation);
-elseif ~isempty(aYaw) 
-    assetBranch = piAssetRotate(assetRecipe,assetBranchName,...
-        [0 0 aYaw]);   
 end
+
+% Adjust for reversed directions 
+assetBranch = piAssetRotate(assetRecipe,assetBranchName,...
+        [0 0 (180 - aYaw)]);
 
 scenario.roadData.recipe = piRecipeMerge(scenario.roadData.recipe, assetRecipe);
 

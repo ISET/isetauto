@@ -43,7 +43,10 @@ classdef ia_drivingScenario < drivingScenario
             % LOAD ROAD DATA/SCENE into ISETAuto
             % We need to specify our own lighting
             % Road data is our IA data we stash in the driving scenario
-            scenario.roadData = scenario.initRoadScene(roadName, 'dusk');
+            scenario.roadData = scenario.initRoadScene(roadName, 'nighttime');
+
+            % Set output rendering quality
+            iaQualitySet(scenario.roadData.recipe, 'preset', 'quick');
             road@drivingScenario(scenario, segments, varargin{:});
         end
 
@@ -72,18 +75,18 @@ classdef ia_drivingScenario < drivingScenario
             p.addParameter('ClassID',1); % don't know if we need this
             p.addParameter('Name','car_004', @ischar);
             p.addParameter('Position', [0 0 0]);
-            p.addParameter('Yaw', 0); % rotation on road
+
+            % DS Doesn't pass yaw. Sigh.
+            %p.addParameter('Yaw', 0); % rotation on road
             p.KeepUnmatched = true;
             p.parse(varargin{:});
+
 
             % Add Vehicle asset to our @Recipe
             ourVehicle = isetActor();
 
             % This is the Matlab (DS) position (x & y reversed from ISETauto)
             ourVehicle.positionDS = p.Results.Position;
-
-            % car rotation is also reversed, sadly
-            ourVehicle.yaw = 180 - p.Results.Yaw;
 
             % what about pitch, roll, yaw?
             %ourCar.rotation = [0 0 180]; % facing forward
@@ -97,11 +100,21 @@ classdef ia_drivingScenario < drivingScenario
                 scenario.egoVehicle = ourVehicle;
                 ourVehicle.hasCamera = true;
             end
-            ourVehicle.place(scenario);
 
             % call with egoVehicle if we have the sensors?
             vehicleDS = vehicle@drivingScenario(scenario, varargin{:});
             addActor(scenario, vehicleDS, ourVehicle);
+
+            % find yaw ourselves
+            if isfield(vehicleDS,'yaw')
+                ourVehicle.yaw = vehicleDS.yaw;
+            else
+                ourVehicle.yaw = 0;
+            end
+
+            % Now we can place the vehicle
+            ourVehicle.place(scenario);
+
         end
 
         % Non-vehicle actors (e.g. Pedestrians)

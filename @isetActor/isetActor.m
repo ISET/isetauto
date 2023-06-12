@@ -24,7 +24,8 @@ classdef isetActor < handle & matlab.mixin.Copyable
         % Whether we need to move the camera along with us
         hasCamera = false;
         braking = false;
-        cameraOffset = [1 0 1.2]; % move to top of car (approx.)
+        %cameraOffset = [1 0 1.2]; % good for car_004 (Shelby)
+        cameraOffset = [.9 0 1.5]; % good for car_058 (F150)
 
     end
 
@@ -37,25 +38,24 @@ classdef isetActor < handle & matlab.mixin.Copyable
 
         %%  For DSD scenarios we get a scenario
         %  that has scenario.roadData.recipe
-        function egoVehicle = place(obj,context)
-            % Assume we have a scenario
-            scenario = context;
+        function egoVehicle = place(anActor,scenario)
             % Coordinate systems are different
-            obj.positionIA = obj.positionDS .* [-1 -1 1];
+            anActor.positionIA = anActor.positionDS .* [-1 -1 1];
 
-            % placeAsset doesn't return an obj
-            obj.placeAsset(scenario);
-            obj.recipe = scenario.roadData.recipe;
+            % NOTE: Need to turn vehicles coming towards us 180
+            %       if they have a velocity (sigh)
+            anActor.placeAsset(scenario);
+            AnActor.recipe = scenario.roadData.recipe;
 
             % If we have the camera, move it
-            if obj.hasCamera
-                obj.recipe.lookAt.from = ...
-                    obj.positionIA + obj.cameraOffset;
+            if anActor.hasCamera
+                anActor.recipe.lookAt.from = ...
+                    anActor.positionIA + anActor.cameraOffset;
 
                 % Set "to to be straight ahead in the distance
-                obj.recipe.lookAt.to = ...
-                    obj.recipe.lookAt.from + [-300 0 0];
-                egoVehicle = obj;
+                anActor.recipe.lookAt.to = ...
+                    anActor.recipe.lookAt.from + [-300 0 0];
+                egoVehicle = anActor;
             end
 
         end
