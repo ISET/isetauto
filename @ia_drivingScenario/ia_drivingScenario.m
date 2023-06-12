@@ -167,7 +167,7 @@ classdef ia_drivingScenario < drivingScenario
             % First we show where we are (were)
             piWrite(scenario.roadData.recipe);
             scene = piRender(scenario.roadData.recipe);
-            sceneSet(scene, 'display mode', 'hdr');
+            scene = sceneSet(scene, 'display mode', 'hdr');
             sceneWindow(scene);
 
             % Here we want to create a movie/video

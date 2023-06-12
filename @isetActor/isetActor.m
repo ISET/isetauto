@@ -24,6 +24,8 @@ classdef isetActor < handle & matlab.mixin.Copyable
         % Whether we need to move the camera along with us
         hasCamera = false;
         braking = false;
+        cameraOffset = [1 0 1.2]; % move to top of car (approx.)
+
     end
 
     methods
@@ -48,12 +50,11 @@ classdef isetActor < handle & matlab.mixin.Copyable
             % If we have the camera, move it
             if obj.hasCamera
                 obj.recipe.lookAt.from = ...
-                    obj.positionIA + ...
-                    [-3 0 2]; % move to top of car (approx.)
+                    obj.positionIA + obj.cameraOffset;
 
                 % Set "to to be straight ahead in the distance
                 obj.recipe.lookAt.to = ...
-                    obj.recipe.lookAt.from + [-1000 0 0];
+                    obj.recipe.lookAt.from + [-300 0 0];
                 egoVehicle = obj;
             end
 

@@ -28,7 +28,7 @@ if ~isempty(aPosition)
 end
 if ~isempty(aRotation)
     assetBranch = piAssetRotate(assetRecipe,assetBranchName,aRotation);
-elseif ~isempty(aYaw)
+elseif ~isempty(aYaw) 
     assetBranch = piAssetRotate(assetRecipe,assetBranchName,...
         [0 0 aYaw]);   
 end
