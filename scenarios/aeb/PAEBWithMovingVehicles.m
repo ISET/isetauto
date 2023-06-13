@@ -79,7 +79,7 @@ function [scenario, egoVehicle] = createDrivingScenario
 
 % Construct a drivingScenario object.
 scenario = ia_drivingScenario('StopTime', 6, ...
-    'SampleTime', 1/15); % 15 fps
+    'SampleTime', 1/30); % 15 fps
 
 % Add all road segments
 roadCenters = [-119.91220007542 0.28026685394776 0;

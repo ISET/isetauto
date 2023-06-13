@@ -63,9 +63,9 @@ classdef ia_drivingScenario < drivingScenario
             % Set up video here because it doesn't like the constructor
             % VideoWriter variables
             scenario.scenarioName = 'LabDemo';
-            scenario.scenarioQuality = 'quick';
+            scenario.scenarioQuality = 'HD';
             scenario.v = VideoWriter(strcat(scenario.scenarioName, "-", scenario.scenarioQuality),'MPEG-4');
-            scenario.v.FrameRate = 15; % high fidelity
+            scenario.v.FrameRate = 30; % high fidelity
 
             % Set output rendering quality
             iaQualitySet(scenario.roadData.recipe, 'preset', scenario.scenarioQuality);
@@ -219,7 +219,7 @@ classdef ia_drivingScenario < drivingScenario
             % if isequal(strtrim(txtHostname), 'Decimate')
             %    scene = piAIdenoise(scene, 'useNvidia', true);
             % else
-                scene = piAIdenoise(scene);
+                scene = piAIdenoise(scene, 'quiet', true);
             % end
 
             % add to our scene list

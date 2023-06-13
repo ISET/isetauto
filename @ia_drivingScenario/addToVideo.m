@@ -9,7 +9,9 @@ if isempty(yDetect)
 end
 
 % Save out our scene list each frame, so we have it for later
-save(saveName, sceneList);
+saveName = 'demo_scenes.mat';
+scenesToSave = scenario.sceneList;
+save(saveName, 'scenesToSave', "-v7.3");
 
 % Now generate results through a sensor
 useSensor = 'MT9V024SensorRGB'; % one of our automotive sensors
