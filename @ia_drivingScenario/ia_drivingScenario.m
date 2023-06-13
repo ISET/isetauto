@@ -129,33 +129,15 @@ classdef ia_drivingScenario < drivingScenario
 
             addActor(scenario, vehicleDS, ourVehicle);
 
-            % Start a queue
+            % Start a queue of vehicles to be placed once we know
+            % their Pose (mostly Yaw)
             scenario.toBePlaced{scenario.vehicleCount} = {ourVehicle, vehicleDS};
             scenario.vehicleCount = scenario.vehicleCount + 1;
 
-            %{
-            % try to move to advance
-            % get poses needed for Yaw calcs
-            gotPoses = actorPoses(scenario);
-            relativePoses = targetPoses(scenario.egoVehicle);
-
-            % find yaw ourselves
-            allPoses = gotPoses;
-            ourPose = allPoses(vehicleDS.ActorID);
-
-            if isfield(ourPose,'Yaw')
-                ourVehicle.yaw = ourPose.Yaw;
-            else
-                ourVehicle.yaw = 0;
-            end
-
-            % Now we can place the vehicle
-            ourVehicle.place(scenario);
-            %}
         end
 
-        % Non-vehicle actors (e.g. Pedestrians)
-        % and presumably we can add deer and other animate objects
+        %% Non-vehicle actors (e.g. Pedestrians, Animals, etc.)
+        % These an also be animated using Waypoints
         %{
         actor(scenario, ...
             'ClassID', 4, ...
@@ -167,7 +149,8 @@ classdef ia_drivingScenario < drivingScenario
             'Mesh', driving.scenario.pedestrianMesh, ...
             'Name', 'pedestrian_001');
         %}
-        % Need to check if we need obj + scenario, or if scenario is obj
+
+        %% Create an actor struct for DSD to use
         function actorDS = actor(scenario, varargin)
             p = inputParser;
             p.addParameter('ClassID',4); % don't know if we need this
@@ -194,12 +177,13 @@ classdef ia_drivingScenario < drivingScenario
 
         end
 
-        % Not sure if we need this or not?
+        % For potential future use, right now we just call superclass
         function trajectory(scenario, egoVehicle, waypoints, speed)
             trajectory@drivingScenario(scenario, egoVehicle, waypoints, speed);
         end
 
         % We need to keep track of actors so we can animate them
+        % NOTE: Haven't integrated Pose with non-vehicle actors yet
         function addActor(scenario, actorDS, actorIA)
             if scenario.numActors == 0
                 scenario.roadData.actorsDS = {};
@@ -212,6 +196,7 @@ classdef ia_drivingScenario < drivingScenario
             scenario.roadData.actorsIA{scenario.numActors} = actorIA;
         end
 
+        %% Simulation turn advance 
         function running = advance(scenario)
 
             % Need to place vehicles now that we hopefully have yaw data
@@ -219,6 +204,10 @@ classdef ia_drivingScenario < drivingScenario
                 scenario.placeVehicles();
                 scenario.needToPlaceVehicles = false;
             end
+
+            % NOTE: Next we can place other animate assets
+            %       once we move their code to a .placeActors() method;
+            
             % First we show where we are (were)
             piWrite(scenario.roadData.recipe);
             scene = piRender(scenario.roadData.recipe);
