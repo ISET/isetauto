@@ -16,9 +16,9 @@ if ~isempty(p.Results.preset)
             recipe.set('max depth',3);                  % Number of bounces
             recipe.set('sampler subtype','pmj02bn');
         case 'quick'
-            recipe.set('film resolution',[1920 1080]/1.5); % Divide by 4 for speed
+            recipe.set('film resolution',[1920 1080]/2); % Divide by 4 for speed
             recipe.set('pixel samples',128);            % 256 for speed
-            recipe.set('max depth',5);                  % Number of bounces
+            recipe.set('max depth',3);                  % Number of bounces
             recipe.set('sampler subtype','pmj02bn');
         case 'HD'
             recipe.set('film resolution',[1920 1080]);

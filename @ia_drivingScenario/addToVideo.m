@@ -8,6 +8,10 @@ if isempty(yDetect)
     detectionThreshhold = .95; % How confident do we need to be
 end
 
+% Save out our scene list each frame, so we have it for later
+save(saveName, sceneList);
+
+% Now generate results through a sensor
 useSensor = 'MT9V024SensorRGB'; % one of our automotive sensors
 shutterspeed = 1/30;
 ip = piRadiance2RGB(scene,'etime',shutterspeed,'sensor',useSensor);

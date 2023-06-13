@@ -23,6 +23,8 @@ classdef ia_drivingScenario < drivingScenario
         % video structure with frames for creating clips
         ourVideo = struct('cdata',[],'colormap',[]);
 
+        sceneList = {};
+
     end
 
     methods
@@ -63,7 +65,7 @@ classdef ia_drivingScenario < drivingScenario
             scenario.scenarioName = 'LabDemo';
             scenario.scenarioQuality = 'quick';
             scenario.v = VideoWriter(strcat(scenario.scenarioName, "-", scenario.scenarioQuality),'MPEG-4');
-            scenario.v.FrameRate = 1;
+            scenario.v.FrameRate = 15; % high fidelity
 
             % Set output rendering quality
             iaQualitySet(scenario.roadData.recipe, 'preset', scenario.scenarioQuality);
@@ -207,10 +209,21 @@ classdef ia_drivingScenario < drivingScenario
 
             % NOTE: Next we can place other animate assets
             %       once we move their code to a .placeActors() method;
-            
+
             % First we show where we are (were)
             piWrite(scenario.roadData.recipe);
             scene = piRender(scenario.roadData.recipe);
+            % Denoise with Nvidia if possible,
+            % Currently an issue with writing .exr file
+            %[~, txtHostname] = system('hostname'); 
+            % if isequal(strtrim(txtHostname), 'Decimate')
+            %    scene = piAIdenoise(scene, 'useNvidia', true);
+            % else
+                scene = piAIdenoise(scene);
+            % end
+
+            % add to our scene list
+            scenario.sceneList{end+1} = scene;
             scene = sceneSet(scene, 'display mode', 'hdr');
             sceneWindow(scene);
 
