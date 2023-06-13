@@ -9,7 +9,7 @@ if isempty(yDetect)
 end
 
 % Save out our scene list each frame, so we have it for later
-saveName = 'demo_scenes.mat';
+saveName = fullfile(iaDirGet('local'),'demo_scenes.mat');
 scenesToSave = scenario.sceneList;
 save(saveName, 'scenesToSave', "-v7.3");
 

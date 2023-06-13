@@ -11,9 +11,15 @@ classdef ia_drivingScenario < drivingScenario
         numActors = 0;
         egoVehicle = [];
 
+        % We don't get Pose information on Actors and Vehicles until
+        % after we start up the scenario. So we need to create a collection
+        % of them as they are initialized, for later placement.
         vehicleCount = 1;
+        actorCount = 1;
         needToPlaceVehicles = true;
-        toBePlaced = {};
+        needToPlaceActors = true;
+        vehiclesToBePlaced = {};
+        actorsToBePlaced = {};
 
         frameNum = 1; % to start
         scenarioName = 'LabTest'; % default
@@ -63,9 +69,9 @@ classdef ia_drivingScenario < drivingScenario
             % Set up video here because it doesn't like the constructor
             % VideoWriter variables
             scenario.scenarioName = 'LabDemo';
-            scenario.scenarioQuality = 'HD';
+            scenario.scenarioQuality = 'quick';
             scenario.v = VideoWriter(strcat(scenario.scenarioName, "-", scenario.scenarioQuality),'MPEG-4');
-            scenario.v.FrameRate = 30; % high fidelity
+            scenario.v.FrameRate = 3; % high fidelity
 
             % Set output rendering quality
             iaQualitySet(scenario.roadData.recipe, 'preset', scenario.scenarioQuality);
@@ -133,7 +139,7 @@ classdef ia_drivingScenario < drivingScenario
 
             % Start a queue of vehicles to be placed once we know
             % their Pose (mostly Yaw)
-            scenario.toBePlaced{scenario.vehicleCount} = {ourVehicle, vehicleDS};
+            scenario.vehiclesToBePlaced{scenario.vehicleCount} = {ourVehicle, vehicleDS};
             scenario.vehicleCount = scenario.vehicleCount + 1;
 
         end
@@ -173,9 +179,16 @@ classdef ia_drivingScenario < drivingScenario
             ourActor.name = p.Results.Name;
 
             ourActor.velocity = [0 0 0]; % set separately
-            ourActor.place(scenario);
+
+            % We place later, after we know the Pose
+            %ourActor.place(scenario);
             actorDS = actor@drivingScenario(scenario, varargin{:});
             addActor(scenario, actorDS, ourActor);
+
+            % Start a queue of actors to be placed once we know
+            % their Pose (mostly Yaw)
+            scenario.actorsToBePlaced{scenario.actorCount} = {ourActor, actorDS};
+            scenario.actorCount = scenario.actorCount + 1;
 
         end
 
@@ -201,10 +214,14 @@ classdef ia_drivingScenario < drivingScenario
         %% Simulation turn advance 
         function running = advance(scenario)
 
-            % Need to place vehicles now that we hopefully have yaw data
+            % Need to place vehicles and actors now that we hopefully have yaw data
             if scenario.needToPlaceVehicles == true
                 scenario.placeVehicles();
                 scenario.needToPlaceVehicles = false;
+            end
+            if scenario.needToPlaceActors == true
+                scenario.placeActors();
+                scenario.needToPlaceActors = false;
             end
 
             % NOTE: Next we can place other animate assets
@@ -219,7 +236,7 @@ classdef ia_drivingScenario < drivingScenario
             % if isequal(strtrim(txtHostname), 'Decimate')
             %    scene = piAIdenoise(scene, 'useNvidia', true);
             % else
-                scene = piAIdenoise(scene, 'quiet', true);
+                scene = piAIdenoise(scene, 'quiet', true, 'interleave', true);
             % end
 
             % add to our scene list
@@ -279,8 +296,8 @@ classdef ia_drivingScenario < drivingScenario
             % find yaw ourselves
             allPoses = gotPoses;
 
-            for ii = 1:numel(scenario.toBePlaced)
-                ourVehicle = scenario.toBePlaced{ii};
+            for ii = 1:numel(scenario.vehiclesToBePlaced)
+                ourVehicle = scenario.vehiclesToBePlaced{ii};
                 ourPose = allPoses(ourVehicle{2}.ActorID);
 
                 if isfield(ourPose,'Yaw')
@@ -292,7 +309,31 @@ classdef ia_drivingScenario < drivingScenario
                 % Now we can place the vehicle
                 ourVehicle{1}.place(scenario);
             end
+        end
 
+        % Maybe this can be combined with placeVehicles?
+        function placeActors(scenario)
+
+            % get poses needed for Yaw calcs
+            gotPoses = actorPoses(scenario);
+            %relativePoses = targetPoses(scenario.egoVehicle);
+
+            % find yaw ourselves
+            allPoses = gotPoses;
+
+            for ii = 1:numel(scenario.actorsToBePlaced)
+                ourActor = scenario.actorsToBePlaced{ii};
+                ourPose = allPoses(ourActor{2}.ActorID);
+
+                if isfield(ourPose,'Yaw')
+                    ourActor{1}.yaw = ourPose.Yaw;
+                else
+                    ourActor{1}.yaw = 0;
+                end
+
+                % Now we can place the vehicle
+                ourActor{1}.place(scenario);
+            end
         end
     end
 end
