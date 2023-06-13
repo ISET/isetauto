@@ -215,6 +215,7 @@ classdef ia_drivingScenario < drivingScenario
         function running = advance(scenario)
 
             % Need to place vehicles and actors now that we hopefully have yaw data
+            % Just do this once:
             if scenario.needToPlaceVehicles == true
                 scenario.placeVehicles();
                 scenario.needToPlaceVehicles = false;
@@ -224,20 +225,10 @@ classdef ia_drivingScenario < drivingScenario
                 scenario.needToPlaceActors = false;
             end
 
-            % NOTE: Next we can place other animate assets
-            %       once we move their code to a .placeActors() method;
-
             % First we show where we are (were)
             piWrite(scenario.roadData.recipe);
             scene = piRender(scenario.roadData.recipe);
-            % Denoise with Nvidia if possible,
-            % Currently an issue with writing .exr file
-            %[~, txtHostname] = system('hostname'); 
-            % if isequal(strtrim(txtHostname), 'Decimate')
-            %    scene = piAIdenoise(scene, 'useNvidia', true);
-            % else
-                scene = piAIdenoise(scene, 'quiet', true, 'interleave', true);
-            % end
+            scene = piAIdenoise(scene, 'quiet', true, 'interleave', true);
 
             % add to our scene list
             scenario.sceneList{end+1} = scene;
@@ -246,7 +237,8 @@ classdef ia_drivingScenario < drivingScenario
 
             % Here we want to create a movie/video
             % presumably one frame at a time
-            addToVideo(scenario, scene);
+            [image, detectionResults] = scenario.imageAndDetect(scene);
+            addToVideo(scenario, scene, image);
 
             % This might be more current
             ourTimeStep = scenario.SampleTime;
@@ -275,7 +267,6 @@ classdef ia_drivingScenario < drivingScenario
                 ourActor.moveAsset(scenario, ...
                     scenario.roadData.actorsDS{ii});
             end
-
 
             % Then determine whether braking & subtract from Velocity
             % (We can't just subtract from speed, as it has been broken
