@@ -19,7 +19,7 @@
             piWrite(scenario.roadData.recipe);
             scene = piRender(scenario.roadData.recipe);
             if scenario.deNoise == true
-                scene = piAIdenoise(scene, 'quiet', true); %, 'interleave', true);
+                scene = piAIdenoise(scene,'quiet', true);
             end
 
             % add to our scene list for logging
@@ -58,7 +58,7 @@
                         else
                             % negativeVelocity = false;
                             ourActor.velocity(1) = ...
-                            ourActor.velocity(1) + ourActor.brkePower(1);
+                            ourActor.velocity(1) + ourActor.brakePower(1);
                         end
 
                         ourActor.velocity(1) = ...
