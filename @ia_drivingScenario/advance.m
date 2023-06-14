@@ -45,6 +45,12 @@
                 ourActor = scenario.roadData.actorsIA{ii};
                 if ourActor.hasCamera
                     egoVelocity = scenario.roadData.actorsDS{ii}.Velocity;
+
+                    % if we have a pedestrian, begin braking
+                    if detectionResults.foundPed
+                        fprintf('found ped\n');
+                    end
+
                     % Move camera
                     adjustedVelocity = egoVelocity .* [-1 -1 0];
                     scenario.roadData.recipe.lookAt.from = ...

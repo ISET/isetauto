@@ -5,7 +5,7 @@ saveName = fullfile(iaDirGet('local'),'demo_scenes.mat');
 scenesToSave = scenario.sceneList;
 save(saveName, 'scenesToSave', "-v7.3");
 
-dRGB = double(rgb); % version for movie
+dRGB = double(image); % version for movie
 scenario.ourVideo(scenario.frameNum) = im2frame(dRGB);
 
 % plot time versus distance

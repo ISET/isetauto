@@ -15,7 +15,7 @@ end
 
 % Now generate results through a sensor
 useSensor = scenario.sensorModel;
-shutterspeed = 1/30;
+shutterspeed = 1/30; % typical of auto video cameras
 
 % We probably want to return the IP or something besides the
 % annotated image...
