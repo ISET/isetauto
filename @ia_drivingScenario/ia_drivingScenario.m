@@ -24,12 +24,17 @@ classdef ia_drivingScenario < drivingScenario
         frameNum = 1; % to start
         scenarioName = 'LabTest'; % default
         scenarioQuality = 'quick'; % default
+        deNoise = true; % run denoiser by default
 
+        sensorModel = 'MT9V024SensorRGB'; % one of our automotive sensors
+        predictionThreshold = .95; % default';
+        
         v = [];
         % video structure with frames for creating clips
         ourVideo = struct('cdata',[],'colormap',[]);
 
         sceneList = {};
+        previewScenes = true;
 
     end
 

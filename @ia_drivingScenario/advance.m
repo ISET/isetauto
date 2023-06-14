@@ -12,23 +12,31 @@
                 scenario.needToPlaceActors = false;
             end
 
+            % Set our interval for use in computing motion
+            ourTimeStep = scenario.SampleTime;
+
             % First we show where we are (were)
             piWrite(scenario.roadData.recipe);
             scene = piRender(scenario.roadData.recipe);
-            scene = piAIdenoise(scene, 'quiet', true, 'interleave', true);
+            if scenario.deNoise == true
+                scene = piAIdenoise(scene, 'quiet', true, 'interleave', true);
+            end
 
-            % add to our scene list
+            % add to our scene list for logging
             scenario.sceneList{end+1} = scene;
-            scene = sceneSet(scene, 'display mode', 'hdr');
-            sceneWindow(scene);
+
+            % show preview if desired
+            if scenario.previewScenes
+                scene = sceneSet(scene, 'display mode', 'hdr');
+                sceneWindow(scene);
+            end
+
+            % Create an image with a camera, and run a detector on it
+            [image, detectionResults] = scenario.imageAndDetect(scene);
 
             % Here we want to create a movie/video
             % presumably one frame at a time
-            [image, detectionResults] = scenario.imageAndDetect(scene);
             addToVideo(scenario, scene, image);
-
-            % This might be more current
-            ourTimeStep = scenario.SampleTime;
 
             % Move Actors based on their velocity
             % e.g. both the egoVehicle & the lookAt from/to
