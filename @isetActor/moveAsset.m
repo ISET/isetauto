@@ -15,7 +15,7 @@ ourRecipe = scenario.roadData.recipe;
 
 %% For vehicles from Matlab's DSD we need to do this differently
 % Time constant and coordinate reversal
-multiplier = [-1 -1 0] * scenario.SampleTime;
+multiplier = scenario.coordinateMapping * scenario.SampleTime;
 aMove = actorDS.Velocity .* multiplier;
 assetBranch = piAssetTranslate(ourRecipe,assetBranchName,aMove);
 

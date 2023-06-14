@@ -11,6 +11,11 @@ classdef ia_drivingScenario < drivingScenario
         numActors = 0;
         egoVehicle = [];
 
+        % SOME SCENES ARE REVERSED, some not
+        % Should see if we can figure out a way to decide automatically
+        coordinateMapping = [-1 -1 1];
+        %coordinateMapping = [-1 1 1];
+
         % We don't get Pose information on Actors and Vehicles until
         % after we start up the scenario. So we need to create a collection
         % of them as they are initialized, for later placement.
@@ -30,7 +35,7 @@ classdef ia_drivingScenario < drivingScenario
         sensorModel = 'MT9V024SensorRGB'; % one of our automotive sensors
         predictionThreshold = .8; % default is .95, lower for testing;
         detectionResults = []; %Updated as we drive
-        
+
         v = [];
         % video structure with frames for creating clips
         ourVideo = struct('cdata',[],'colormap',[]);
@@ -67,28 +72,27 @@ classdef ia_drivingScenario < drivingScenario
             p.KeepUnmatched = true; % we don't parse all args here
             p.parse(varargin{:});
 
-            roadName = p.Results.Name;
-            % LOAD ROAD DATA/SCENE into ISETAuto
-            % We need to specify our own lighting
-            % Road data is our IA data we stash in the driving scenario
-            % We only want to init once!
             if scenario.needRoads == true
+                roadName = p.Results.Name;
+                % LOAD ROAD DATA/SCENE into ISETAuto
+                % We need to specify our own lighting
+                % Road data is our IA data we stash in the driving scenario
+                % We only want to init once!
                 scenario.roadData = scenario.initRoadScene(roadName, 'nighttime');
                 scenario.needRoads = false;
+
+                % Set up video here because it doesn't like the constructor
+                % VideoWriter variables
+                scenario.scenarioName = 'LabDemo';
+                scenario.scenarioQuality = 'quick';
+                scenario.v = VideoWriter(strcat(scenario.scenarioName, "-", scenario.scenarioQuality),'MPEG-4');
+                scenario.v.FrameRate = 3; % 15-30 for high fidelity
+
+                % Set output rendering quality
+                iaQualitySet(scenario.roadData.recipe, 'preset', scenario.scenarioQuality);
+                road@drivingScenario(scenario, segments, varargin{:});
             end
-
-            % Set up video here because it doesn't like the constructor
-            % VideoWriter variables
-            scenario.scenarioName = 'LabDemo';
-            scenario.scenarioQuality = 'quick';
-            scenario.v = VideoWriter(strcat(scenario.scenarioName, "-", scenario.scenarioQuality),'MPEG-4');
-            scenario.v.FrameRate = 3; % high fidelity
-
-            % Set output rendering quality
-            iaQualitySet(scenario.roadData.recipe, 'preset', scenario.scenarioQuality);
-            road@drivingScenario(scenario, segments, varargin{:});
         end
-
         % The name is what we use to know what vehicle to add
         % We can also use other assets by name
         %{

@@ -32,9 +32,9 @@ if ~isempty(aRotation)
     assetBranch = piAssetRotate(assetRecipe,assetBranchName,aRotation);
 end
 
-% Adjust for reversed directions 
+% Adjust for reversed directions, maybe 
 assetBranch = piAssetRotate(assetRecipe,assetBranchName,...
-        [0 0 (180 - aYaw)]);
+        [0 0 (aYaw - 180)]);
 
 scenario.roadData.recipe = piRecipeMerge(scenario.roadData.recipe, assetRecipe);
 

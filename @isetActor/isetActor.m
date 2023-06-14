@@ -40,7 +40,7 @@ classdef isetActor < handle & matlab.mixin.Copyable
         %  that has scenario.roadData.recipe
         function egoVehicle = place(anActor,scenario)
             % Coordinate systems are different
-            anActor.positionIA = anActor.positionDS .* [-1 -1 1];
+            anActor.positionIA = anActor.positionDS .* scenario.coordinateMapping;
 
             % placeAsset redoes the recipeMerge, which is of course an
             % error from the vehicle placement queue
@@ -52,14 +52,20 @@ classdef isetActor < handle & matlab.mixin.Copyable
                 anActor.recipe.lookAt.from = ...
                     anActor.positionIA + anActor.cameraOffset;
 
-                % Set "to to be straight ahead in the distance
+                % We need to rotate our camera view to match anActor.yaw
+                rotationMatrix = makehgtform('zrotate',deg2rad(-1 * anActor.yaw));
+                % assume "in the distance" on x is the default, but then
                 anActor.recipe.lookAt.to = ...
-                    anActor.recipe.lookAt.from + [-300 0 0];
+                    anActor.recipe.lookAt.from + [-300 0 0] * rotationMatrix(1:3, 1:3);
+
+                % We almost always want "up" to be straight up 
+                anActor.recipe.lookAt.up = [0 0 1]; % set per recipe or per lookat
                 egoVehicle = anActor;
             end
 
         end
 
+        %% Mostly deprecated, as we are using the DSD/ML simulation engine
         function turn(obj, seconds)
             assetBranchName = [obj.assetType '_B'];
 

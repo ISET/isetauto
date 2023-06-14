@@ -54,7 +54,7 @@
                         if ourActor.velocity(1) < 0
                             % negativeVelocity = true;
                             ourActor.velocity(1) = ...
-                            ourActor.velocity(1) - ourActor.brkePower(1);
+                            ourActor.velocity(1) - ourActor.brakePower(1);
                         else
                             % negativeVelocity = false;
                             ourActor.velocity(1) = ...
@@ -67,7 +67,7 @@
                     end
 
                     % Move camera
-                    adjustedVelocity = egoVelocity .* [-1 -1 0];
+                    adjustedVelocity = egoVelocity .* scenario.coordinateMapping;
                     scenario.roadData.recipe.lookAt.from = ...
                         scenario.roadData.recipe.lookAt.from + ...
                         (adjustedVelocity .* ourTimeStep);
