@@ -27,7 +27,8 @@ classdef ia_drivingScenario < drivingScenario
         deNoise = true; % run denoiser by default
 
         sensorModel = 'MT9V024SensorRGB'; % one of our automotive sensors
-        predictionThreshold = .95; % default';
+        predictionThreshold = .8; % default is .95, lower for testing;
+        detectionResults = []; %Updated as we drive
         
         v = [];
         % video structure with frames for creating clips

@@ -19,7 +19,7 @@
             piWrite(scenario.roadData.recipe);
             scene = piRender(scenario.roadData.recipe);
             if scenario.deNoise == true
-                scene = piAIdenoise(scene, 'quiet', true, 'interleave', true);
+                scene = piAIdenoise(scene, 'quiet', true); %, 'interleave', true);
             end
 
             % add to our scene list for logging
@@ -32,7 +32,7 @@
             end
 
             % Create an image with a camera, and run a detector on it
-            [image, detectionResults] = scenario.imageAndDetect(scene);
+            [image, scenario.detectionResults] = scenario.imageAndDetect(scene);
 
             % Here we want to create a movie/video
             % presumably one frame at a time
@@ -47,8 +47,23 @@
                     egoVelocity = scenario.roadData.actorsDS{ii}.Velocity;
 
                     % if we have a pedestrian, begin braking
-                    if detectionResults.foundPed
+                    if scenario.detectionResults.foundPed
                         fprintf('found ped\n');
+                        % braking should move closer to abs()
+                        % for now just decelerate in forward/back
+                        if ourActor.velocity(1) < 0
+                            % negativeVelocity = true;
+                            ourActor.velocity(1) = ...
+                            ourActor.velocity(1) - ourActor.brkePower(1);
+                        else
+                            % negativeVelocity = false;
+                            ourActor.velocity(1) = ...
+                            ourActor.velocity(1) + ourActor.brkePower(1);
+                        end
+
+                        ourActor.velocity(1) = ...
+                            max(ourActor.velocity(1) - ...,
+                            0);
                     end
 
                     % Move camera
