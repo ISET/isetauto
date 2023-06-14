@@ -20,6 +20,7 @@ classdef ia_drivingScenario < drivingScenario
         needToPlaceActors = true;
         vehiclesToBePlaced = {};
         actorsToBePlaced = {};
+        needRoads = true;
 
         frameNum = 1; % to start
         scenarioName = 'LabTest'; % default
@@ -70,7 +71,11 @@ classdef ia_drivingScenario < drivingScenario
             % LOAD ROAD DATA/SCENE into ISETAuto
             % We need to specify our own lighting
             % Road data is our IA data we stash in the driving scenario
-            scenario.roadData = scenario.initRoadScene(roadName, 'nighttime');
+            % We only want to init once!
+            if scenario.needRoads == true
+                scenario.roadData = scenario.initRoadScene(roadName, 'nighttime');
+                scenario.needRoads = false;
+            end
 
             % Set up video here because it doesn't like the constructor
             % VideoWriter variables

@@ -74,11 +74,10 @@ classdef roadgen < matlab.mixin.Copyable
            
             % Road runner data information
             rrMapPath = p.Results.roaddirectory;
+            roadName = rrMapPath; % not sure this always works
+            
             if ~isfolder(rrMapPath)
                 
-                % Not sure where else roadName is set
-                roadName = rrMapPath;
-
                 % If fullpath to the road "meta-scene" is not given, 
                 % we will find it in our database or our path
                 roadInfo = obj.assetdirectory.docFind('assetsPBRT', ...
