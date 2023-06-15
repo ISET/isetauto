@@ -48,17 +48,16 @@ classdef ia_drivingScenario < drivingScenario
     methods
         function ds = ia_drivingScenario(varargin)
 
-            % Let the Matlab driving scenario (superclass) set things up first
-            % ds now contains a "blank slate" scenario
-            ds = ds@drivingScenario(varargin{:});
-
             % Should we do the ieInit/dockerInit here
             % Better at beginning of script, but that's generated
             % each time by Matlab
             %% Initialize ISET and Docker
-            ieInit;
-            if ~piDockerExists, piDockerConfig; end
-
+            %ieInit;
+            %if ~piDockerExists, piDockerConfig; end
+            
+            % Let the Matlab driving scenario (superclass) set things up first
+            % ds now contains a "blank slate" scenario
+            ds = ds@drivingScenario(varargin{:});
 
         end
 

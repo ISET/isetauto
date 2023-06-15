@@ -33,7 +33,7 @@ for ii = 1:numel(assetNames)
                 rotationMatrix = piRotationMatrix('xrot', rad2deg(rotations(mm,1)),...
                     'yrot', rad2deg(rotations(mm,2)),...
                     'zrot', rad2deg(rotations(mm,3)));
-            else
+            elseif ~isempty(rotations)
                 rotationMatrix = piRotationMatrix('zrot', rad2deg(rotations(mm,1)));
             end
             namelist = [];
