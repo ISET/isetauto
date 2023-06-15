@@ -13,8 +13,10 @@ classdef ia_drivingScenario < drivingScenario
 
         % SOME SCENES ARE REVERSED, some not
         % Should see if we can figure out a way to decide automatically
-        coordinateMapping = [1 1 1];
+        coordinateMapping = [-1 -1 1];
         %coordinateMapping = [-1 1 1];
+        yawAdjust = -1; % we need to do something here, not sure what
+        stepTime = .3; % in case we forget to set it in DSD
 
         % We don't get Pose information on Actors and Vehicles until
         % after we start up the scenario. So we need to create a collection
@@ -58,7 +60,7 @@ classdef ia_drivingScenario < drivingScenario
             % Let the Matlab driving scenario (superclass) set things up first
             % ds now contains a "blank slate" scenario
             ds = ds@drivingScenario(varargin{:});
-
+            ds.SampleTime = ds.stepTime; % use our time interval
         end
 
         %% We only use the road to tell us which of our road scenes
