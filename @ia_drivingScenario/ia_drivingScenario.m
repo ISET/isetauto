@@ -13,7 +13,7 @@ classdef ia_drivingScenario < drivingScenario
 
         % SOME SCENES ARE REVERSED, some not
         % Should see if we can figure out a way to decide automatically
-        coordinateMapping = [-1 -1 1];
+        coordinateMapping = [1 1 1];
         %coordinateMapping = [-1 1 1];
 
         % We don't get Pose information on Actors and Vehicles until

@@ -19,7 +19,7 @@
             piWrite(scenario.roadData.recipe);
             scene = piRender(scenario.roadData.recipe);
             if scenario.deNoise == true
-                scene = piAIdenoise(scene,'quiet', true);
+                scene = piAIdenoise(scene,'quiet', true, 'batch', true);
             end
 
             % add to our scene list for logging

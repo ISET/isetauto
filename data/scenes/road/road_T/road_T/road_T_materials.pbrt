@@ -1,0 +1,287 @@
+MakeNamedMaterial "Asphalt1"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/Asphalt1_Norm.png"
+	"texture reflectance" "Asphalt1.reflectance.Asphalt1_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9612701535224915]
+MakeNamedMaterial "Asphalt4"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/Asphalt4_Norm.png"
+	"texture reflectance" "Asphalt4.reflectance.Asphalt4_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9612701535224915]
+MakeNamedMaterial "Concrete1"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/Concrete1_Norm.png"
+	"texture reflectance" "Concrete1.reflectance.Concrete1_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9552786350250244]
+MakeNamedMaterial "Fence01"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/Fence01_Norm.png"
+	"texture reflectance" "Fence01.reflectance.Fence01_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9552786350250244]
+MakeNamedMaterial "Grass1"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/Grass1_Norm.png"
+	"texture reflectance" "Grass1.reflectance.Grass1_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9552786350250244]
+MakeNamedMaterial "LaneMarking1"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/LaneMarking1_Norm.png"
+	"texture reflectance" "LaneMarking1.reflectance.LaneMarking1_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9683772325515747]
+MakeNamedMaterial "LaneMarkingYellow1"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/LaneMarking1_Norm.png"
+	"texture reflectance" "LaneMarkingYellow1.reflectance.LaneMarking1_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9683772325515747]
+MakeNamedMaterial "Leaves"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/EucalyptusLeaves_Norm.png"
+	"texture reflectance" "Leaves.reflectance.EucalyptusLeaves_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9683772325515747]
+MakeNamedMaterial "LinearCracks01"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/LinearCracks01_Norm.png"
+	"texture reflectance" "LinearCracks01.reflectance.LinearCracks01_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9552786350250244]
+MakeNamedMaterial "LinearCracks01_1"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/LinearCracks01_Norm.png"
+	"texture reflectance" "LinearCracks01_1.reflectance.LinearCracks01_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9552786350250244]
+MakeNamedMaterial "LinearCracks01_2"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/LinearCracks01_Norm.png"
+	"texture reflectance" "LinearCracks01_2.reflectance.LinearCracks01_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9552786350250244]
+MakeNamedMaterial "LinearCracks01_3"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/LinearCracks01_Norm.png"
+	"texture reflectance" "LinearCracks01_3.reflectance.LinearCracks01_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9552786350250244]
+MakeNamedMaterial "LinearCracks01_4"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/LinearCracks01_Norm.png"
+	"texture reflectance" "LinearCracks01_4.reflectance.LinearCracks01_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9552786350250244]
+MakeNamedMaterial "Material"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.800000011920929 0.800000011920929 0.800000011920929]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.4000000059604645]
+MakeNamedMaterial "Metal"
+	"string type" "coateddiffuse"
+	"texture reflectance" "Metal.reflectance.Metal_Spotty01_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9839912056922913]
+MakeNamedMaterial "OilPath01"
+	"string type" "coateddiffuse"
+	"texture reflectance" "OilPath01.reflectance.OilPath01.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9552786350250244]
+MakeNamedMaterial "OilPath01_1"
+	"string type" "coateddiffuse"
+	"texture reflectance" "OilPath01_1.reflectance.OilPath01.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9552786350250244]
+MakeNamedMaterial "OilPath01_2"
+	"string type" "coateddiffuse"
+	"texture reflectance" "OilPath01_2.reflectance.OilPath01.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9552786350250244]
+MakeNamedMaterial "OilPath01_3"
+	"string type" "coateddiffuse"
+	"texture reflectance" "OilPath01_3.reflectance.OilPath01.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9552786350250244]
+MakeNamedMaterial "OilPath01_4"
+	"string type" "coateddiffuse"
+	"texture reflectance" "OilPath01_4.reflectance.OilPath01.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9552786350250244]
+MakeNamedMaterial "OilStains01"
+	"string type" "coateddiffuse"
+	"texture reflectance" "OilStains01.reflectance.OilStains01_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9552786350250244]
+MakeNamedMaterial "OilStains01_1"
+	"string type" "coateddiffuse"
+	"texture reflectance" "OilStains01_1.reflectance.OilStains01_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9552786350250244]
+MakeNamedMaterial "OilStains01_2"
+	"string type" "coateddiffuse"
+	"texture reflectance" "OilStains01_2.reflectance.OilStains01_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9552786350250244]
+MakeNamedMaterial "OilStains01_3"
+	"string type" "coateddiffuse"
+	"texture reflectance" "OilStains01_3.reflectance.OilStains01_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9552786350250244]
+MakeNamedMaterial "OilStains01_4"
+	"string type" "coateddiffuse"
+	"texture reflectance" "OilStains01_4.reflectance.OilStains01_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9552786350250244]
+MakeNamedMaterial "OilStains01_Diff.png"
+	"string type" "coateddiffuse"
+	"texture reflectance" "OilStains01_Diff.png.reflectance.OilStains01_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9552786350250244]
+MakeNamedMaterial "OilStains01_Diff.png_1"
+	"string type" "coateddiffuse"
+	"texture reflectance" "OilStains01_Diff.png_1.reflectance.OilStains01_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9552786350250244]
+MakeNamedMaterial "OilStains01_Diff.png_2"
+	"string type" "coateddiffuse"
+	"texture reflectance" "OilStains01_Diff.png_2.reflectance.OilStains01_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9552786350250244]
+MakeNamedMaterial "OilStains01_Diff.png_3"
+	"string type" "coateddiffuse"
+	"texture reflectance" "OilStains01_Diff.png_3.reflectance.OilStains01_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9552786350250244]
+MakeNamedMaterial "OilStains01_Diff.png_4"
+	"string type" "coateddiffuse"
+	"texture reflectance" "OilStains01_Diff.png_4.reflectance.OilStains01_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9552786350250244]
+MakeNamedMaterial "SharedTexture02"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/Signals_TextureSheet01_Norm.png"
+	"texture reflectance" "SharedTexture02.reflectance.Signals_TextureSheet01_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9776393175125122]
+MakeNamedMaterial "Sign_R1-1-Back.png"
+	"string type" "coateddiffuse"
+	"texture reflectance" "Sign_R1-1-Back.png.reflectance.Sign_R1-1-Back.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9552786350250244]
+MakeNamedMaterial "Sign_R1-1.svg"
+	"string type" "coateddiffuse"
+	"texture reflectance" "Sign_R1-1.svg.reflectance.Sign_R1-1.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9552786350250244]
+MakeNamedMaterial "Trunk"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/EucalyptusTrunk_Norm.png"
+	"texture reflectance" "Trunk.reflectance.EucalyptusTrunk_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9292893409729004]

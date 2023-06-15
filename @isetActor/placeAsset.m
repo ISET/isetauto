@@ -34,7 +34,7 @@ end
 
 % Adjust for reversed directions, maybe 
 assetBranch = piAssetRotate(assetRecipe,assetBranchName,...
-        [0 0 (aYaw - 180)]);
+        [0 0 (180 - aYaw)]); % what if yaw is right sometimes?
 
 scenario.roadData.recipe = piRecipeMerge(scenario.roadData.recipe, assetRecipe);
 
