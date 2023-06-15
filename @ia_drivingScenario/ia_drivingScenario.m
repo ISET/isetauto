@@ -51,6 +51,11 @@ classdef ia_drivingScenario < drivingScenario
 
     end
 
+    methods(Static)
+        % in its own file
+        iaCoordinates = dsToIA(dsCoordinates);
+    end
+
     methods
         function ds = ia_drivingScenario(varargin)
 

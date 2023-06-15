@@ -41,7 +41,8 @@ classdef isetActor < handle & matlab.mixin.Copyable
         %  that has scenario.roadData.recipe
         function egoVehicle = place(anActor,scenario)
             % Coordinate systems are different
-            anActor.positionIA = anActor.positionDS .* scenario.coordinateMapping;
+            anActor.positionIA = ia_drivingScenario.dsToIA( ...
+                anActor.positionDS);
 
             % placeAsset redoes the recipeMerge, which is of course an
             % error from the vehicle placement queue

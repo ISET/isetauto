@@ -17,8 +17,7 @@ ourRecipe = scenario.roadData.recipe;
 
 %% For vehicles from Matlab's DSD we need to do this differently
 % Time constant and coordinate reversal
-multiplier = scenario.coordinateMapping * scenario.SampleTime;
-aMove = actorDS.Velocity .* multiplier;
+aMove = ia_drivingScenario.dsToIA(actorDS.Velocity) .* scenario.SampleTime;
 assetBranch = piAssetTranslate(ourRecipe,assetBranchName,aMove);
 
 %% SUPPORT FOR rotating assets to a new direction

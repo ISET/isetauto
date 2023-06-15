@@ -67,7 +67,7 @@
                     end
 
                     % Move camera
-                    adjustedVelocity = egoVelocity .* scenario.coordinateMapping;
+                    adjustedVelocity = ia_drivingScenario.dsToIA(egoVelocity);
                     scenario.roadData.recipe.lookAt.from = ...
                         scenario.roadData.recipe.lookAt.from + ...
                         (adjustedVelocity .* ourTimeStep);
