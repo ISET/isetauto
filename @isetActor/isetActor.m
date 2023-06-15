@@ -19,20 +19,21 @@ classdef isetActor < handle & matlab.mixin.Copyable
         rotation = [];
         velocity = [];
         yaw = 0; % rotation on road
+        savedYaw = 0; % so we can rotate by the increment
+
+        % brakePower needs to be enhanced to support turns
         brakePower = [-7 0 0]; % -.7g, typical braking power
 
         % Whether we need to move the camera along with us
         hasCamera = false;
         braking = false;
         %cameraOffset = [1 0 1.2]; % good for car_004 (Shelby)
-        cameraOffset = [.9 0 1.5]; % good for car_058 (F150)
+        cameraOffset = [.9 0 1.7]; % good for car_058 (F150)
 
     end
 
     methods
         function obj = isetActor()
-            %ACTOR Construct an instance of this class
-            %   Start with explicit property setting
 
         end
 
@@ -55,8 +56,13 @@ classdef isetActor < handle & matlab.mixin.Copyable
                 % We need to rotate our camera view to match anActor.yaw
                 rotationMatrix = makehgtform('zrotate',deg2rad(-1 * anActor.yaw));
                 % assume "in the distance" on x is the default, but then
+                if scenario.debug
+                    fromTo = [-200 0 -25];
+                else
+                    fromTo = [-200 0 0];
+                end
                 anActor.recipe.lookAt.to = ...
-                    anActor.recipe.lookAt.from + [-300 0 0] * rotationMatrix(1:3, 1:3);
+                    anActor.recipe.lookAt.from + fromTo * rotationMatrix(1:3, 1:3);
 
                 % We almost always want "up" to be straight up 
                 anActor.recipe.lookAt.up = [0 0 1]; % set per recipe or per lookat

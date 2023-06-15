@@ -4,6 +4,10 @@ classdef ia_drivingScenario < drivingScenario
     % D. Cardinal, Stanford University, June, 2023
 
     properties
+
+        % For debugging raise the camera and look down
+        debug = true; % if true, then of course detection isn't realistic
+
         roadData = []; % our ISETAuto road data struct
         % We get these from our superclass
         %waypoints; % in meters
@@ -15,7 +19,7 @@ classdef ia_drivingScenario < drivingScenario
         % Should see if we can figure out a way to decide automatically
         coordinateMapping = [-1 -1 1];
         %coordinateMapping = [-1 1 1];
-        yawAdjust = -1; % we need to do something here, not sure what
+        yawAdjust = 1; % in case it needs to be reversed 
         stepTime = .3; % in case we forget to set it in DSD
 
         % We don't get Pose information on Actors and Vehicles until
@@ -128,6 +132,10 @@ classdef ia_drivingScenario < drivingScenario
 
             % Add Vehicle asset to our @Recipe
             ourVehicle = isetActor();
+            if scenario.debug % raise camera
+                ourVehicle.cameraOffset = [.9 0 8];
+            end
+
 
             % This is the Matlab (DS) position (x & y reversed from ISETauto)
             ourVehicle.positionDS = p.Results.Position;

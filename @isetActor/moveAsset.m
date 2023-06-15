@@ -6,6 +6,8 @@ function assetBranch = moveAsset(obj, scenario, actorDS)
 
 %% For Matlab scenes, we get a scenario along with our object
 
+obj.printPosition(obj, scenario);
+
 assetBranchName = [obj.name '_B'];
 
 ourRecipe = scenario.roadData.recipe;
@@ -19,17 +21,12 @@ multiplier = scenario.coordinateMapping * scenario.SampleTime;
 aMove = actorDS.Velocity .* multiplier;
 assetBranch = piAssetTranslate(ourRecipe,assetBranchName,aMove);
 
-% We may not need this anymore
-%if actorDS.Velocity(1) < 0 % Cheat for DS being backwards
-%    assetBranch = piAssetRotate(ourRecipe,assetBranchName,...
-%        [0 0 180]);
-%end
-
-
-%% NEED TO ADD SUPPORT FOR TURNING
-%if ~isempty(aYaw)
-%    assetBranch = piAssetRotate(assetRecipe,assetBranchName,...
-%        [0 0 aYaw]);
-%end
+%% SUPPORT FOR rotating assets to a new direction
+deltaYaw = (obj.yaw * scenario.yawAdjust) ...
+    - (obj.savedYaw * scenario.yawAdjust);
+if deltaYaw ~= 0
+    assetBranch = piAssetRotate(ourRecipe,assetBranchName,...
+        [0 0 (deltaYaw * scenario.yawAdjust)]);
+end
 
 end
