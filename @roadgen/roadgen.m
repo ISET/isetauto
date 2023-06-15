@@ -76,7 +76,7 @@ classdef roadgen < matlab.mixin.Copyable
             rrMapPath = p.Results.roaddirectory;
             roadName = rrMapPath; % not sure this always works
             
-            if ~isfolder(rrMapPath)
+            if ~exist(rrMapPath, 'dir')
                 
                 % If fullpath to the road "meta-scene" is not given, 
                 % we will find it in our database or our path
@@ -100,14 +100,19 @@ classdef roadgen < matlab.mixin.Copyable
             % create recipe
             % The code currently can optionally use the .pbrt file
             % or a .mat file that already has the asset's @recipe object
-            pbrtFile = fullfile(rrMapPath,roadName,[roadName,'.pbrt']);
-            recipeMat = fullfile(rrMapPath,roadName,[roadName,'.mat']);
-            if exist(recipeMat, "file")
-                roadRecipe = load(recipeMat);
-                obj.recipe = roadRecipe.recipe;
-            else
+            rrMapDir = fileparts(which(rrMapPath));
+            pbrtFile = fullfile(rrMapDir,roadName,[roadName,'.pbrt']);
+            recipeMat = fullfile(rrMapDir,[roadName,'.mat']);
+
+            % I don't think we want the .mat file, since it doesn't
+            % have all the pbrt goodies??
+
+            %if exist(recipeMat, "file")
+            %    roadRecipe = load(recipeMat);
+            %    obj.recipe = roadRecipe.recipe;
+            %else
                 obj.recipe = piRead(pbrtFile);
-            end
+            %end
         end
 
         %% Work in progress
