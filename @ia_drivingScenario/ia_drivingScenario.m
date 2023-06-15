@@ -17,9 +17,9 @@ classdef ia_drivingScenario < drivingScenario
 
         % SOME SCENES ARE REVERSED, some not
         % Should see if we can figure out a way to decide automatically
-        coordinateMapping = [-1 -1 1];
+        coordinateMapping = [1 1 1]; % [-1 -1 1];
         %coordinateMapping = [-1 1 1];
-        yawAdjust = 1; % in case it needs to be reversed 
+        yawAdjust = -1; % in case it needs to be reversed 
         stepTime = .3; % in case we forget to set it in DSD
 
         % We don't get Pose information on Actors and Vehicles until
