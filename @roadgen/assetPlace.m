@@ -1,5 +1,7 @@
 function obj = assetPlace(obj, assetNames, roadtype)
 assetlibList = assetlib();
+rotationMatrix = []; % otherwise overloads with Simulink
+
 for ii = 1:numel(assetNames)
 
     % not all asset classes may exist
