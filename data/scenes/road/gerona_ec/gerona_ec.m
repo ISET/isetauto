@@ -1,4 +1,4 @@
-function [allData, scenario, sensor] = gerona_ec_dsd()
+function [allData, scenario, sensor] = gerona_ec()
 %gerona_ec_dsd - Returns sensor detections
 %    allData = gerona_ec_dsd returns sensor detections in a structure
 %    with time for an internally defined scenario and sensor suite.
