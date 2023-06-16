@@ -12,7 +12,7 @@ sceneDB = isetdb();
 roadData = roadgen('road directory',road_name, 'asset directory', sceneDB);
 
 % fix output .pbrt file path & name
-sceneName = 'PAEB_Roadside';
+sceneName = road_name;
 roadData.recipe.set('outputfile',fullfile(piDirGet('local'),sceneName,[sceneName,'.pbrt']));
 
 %% Fix lighting
