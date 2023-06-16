@@ -1,3 +1,7 @@
+ObjectBegin "Light_m"
+#Instance MeshName: "Light"
+ObjectEnd
+
 ObjectBegin "Camera_m"
 #Instance MeshName: "Camera"
 ObjectEnd
