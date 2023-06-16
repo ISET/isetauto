@@ -15,6 +15,9 @@ LookAt	7.358891487121582 -6.925790786743164 4.958309173583984
 	-0.32401347160339355 0.305420845746994 0.8953956365585327
 
 Camera "perspective"
-"float fov" [22.895194130645738]
+"float fov" [90.71173865433889]
 WorldBegin
 
+Include "gerona_ec_materials.pbrt"
+Include "gerona_ec_texture.pbrt"
+Include "gerona_ec_geometry.pbrt"
