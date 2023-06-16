@@ -33,7 +33,7 @@ if ~isempty(aRotation)
 end
 
 % Adjust for reversed directions, maybe 
-useYaw = scenario.yawAdjust * (180 - aYaw);
+useYaw = ia_drivingScenario.dsToIAYaw(obj.yaw);
 assetBranch = piAssetRotate(assetRecipe,assetBranchName,...
         [0 0 useYaw]); % what if yaw is right sometimes?
 

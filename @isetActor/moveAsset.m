@@ -21,11 +21,13 @@ aMove = ia_drivingScenario.dsToIA(actorDS.Velocity) .* scenario.SampleTime;
 assetBranch = piAssetTranslate(ourRecipe,assetBranchName,aMove);
 
 %% SUPPORT FOR rotating assets to a new direction
-deltaYaw = (obj.yaw * scenario.yawAdjust) ...
-    - (obj.savedYaw * scenario.yawAdjust);
+deltaYaw = (-1 * obj.yaw) + obj.savedYaw;
 if deltaYaw ~= 0
     assetBranch = piAssetRotate(ourRecipe,assetBranchName,...
-        [0 0 (deltaYaw * scenario.yawAdjust)]);
+        [0 0 (deltaYaw)]);
 end
+obj.savedYaw = obj.yaw;
 
+if obj.hasCamera % also need to move camera
+    fprintf('found ego\n');
 end

@@ -55,7 +55,9 @@ classdef isetActor < handle & matlab.mixin.Copyable
                     anActor.positionIA + anActor.cameraOffset;
 
                 % We need to rotate our camera view to match anActor.yaw
-                rotationMatrix = makehgtform('zrotate',deg2rad(-1 * anActor.yaw));
+                % Just the first time. After this we do it in .advance
+                useYaw = ia_drivingScenario.dsToIAYaw(anActor.yaw);
+                rotationMatrix = makehgtform('zrotate',deg2rad(-1 * useYaw));
                 % assume "in the distance" on x is the default, but then
                 if scenario.debug
                     fromTo = [-200 0 -25];
