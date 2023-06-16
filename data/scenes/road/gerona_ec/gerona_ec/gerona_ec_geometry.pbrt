@@ -44,7 +44,7 @@ ObjectBegin "SceneNode_m"
 			AttributeBegin
 			#MeshName: "Terrain_GroundNode"
 				AttributeBegin
-				#MeshName: "Terrain_Ground_Layer0Node" #Dimension:[50.94097900390625 32.48760986328125 0.0]" 
+				#MeshName: "Terrain_Ground_Layer0Node" #Dimension:[50.94097900390625 32.48883056640625 0.0]" 
 					Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
 					AttributeBegin
 						NamedMaterial "Grass1_Ground"
