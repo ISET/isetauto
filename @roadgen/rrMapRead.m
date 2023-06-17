@@ -58,31 +58,33 @@ leftsidewalkID = ""; rightsidewalkID = "";
 % NOTE: We only had 1 lane section in original scenes, I think
 %       With more than 1-section we need to change the counter
 ourLanes = openDriveMap.road.lanes;
+leftLanes = ourLanes.laneSection.left;
 if isfield(ourLanes.laneSection,'left')
-    for ii=1:numel(ourLanes.laneSection.left.lane)
-        if strcmp(ourLanes.laneSection.left.lane(ii).typeAttribute,"shoulder")
-            leftshoulderID(i)=ourLanes.laneSection.left.lane(ii).userData.vectorLane.laneIdAttribute;
+    for ii=1:numel(leftLanes.lane)
+        if strcmp(leftLanes.lane(ii).typeAttribute,"shoulder")
+            leftshoulderID(i)=leftLanes.lane(ii).userData.vectorLane.laneIdAttribute;
             i=i+1;
-        elseif strcmp(ourLanes.laneSection.left.lane(ii).typeAttribute,"driving")
-            leftdrivingID(j)=ourLanes.laneSection.left.lane(ii).userData.vectorLane.laneIdAttribute;
+        elseif strcmp(leftLanes.lane(ii).typeAttribute,"driving")
+            leftdrivingID(j)=leftLanes.lane(ii).userData.vectorLane.laneIdAttribute;
             j=j+1;
-        elseif strcmp(ourLanes.laneSection.left.lane(ii).typeAttribute,"sidewalk")
-            leftsidewalkID(k)=ourLanes.laneSection.left.lane(ii).userData.vectorLane.laneIdAttribute;
+        elseif strcmp(leftLanes.lane(ii).typeAttribute,"sidewalk")
+            leftsidewalkID(k)=leftLanes.lane(ii).userData.vectorLane.laneIdAttribute;
             k=k+1;
         end
     end
 end
 i=1;j=1;k=1;
 if isfield(ourLanes.laneSection,'right')
-    for ii=1:numel(ourLanes.laneSection.right.lane)
-        if strcmp(ourLanes.laneSection.right.lane(ii).typeAttribute,"shoulder")
-            rightshoulderID(i)=ourLanes.laneSection.right.lane(ii).userData.vectorLane.laneIdAttribute;
+    rightLanes = ourLanes.laneSection.right;
+    for ii=1:numel(rightLanes.lane)
+        if strcmp(rightLanes.lane(ii).typeAttribute,"shoulder")
+            rightshoulderID(i)=rightLanes.lane(ii).userData.vectorLane.laneIdAttribute;
             i=i+1;
-        elseif strcmp(ourLanes.laneSection.right.lane(ii).typeAttribute,"driving")
-            rightdrivingID(j)=ourLanes.laneSection.right.lane(ii).userData.vectorLane.laneIdAttribute;
+        elseif strcmp(rightLanes.lane(ii).typeAttribute,"driving")
+            rightdrivingID(j)=rightLanes.lane(ii).userData.vectorLane.laneIdAttribute;
             j=j+1;
-        elseif strcmp(ourLanes.laneSection.right.lane(ii).typeAttribute,"sidewalk")
-            rightsidewalkID(k)=ourLanes.laneSection.right.lane(ii).userData.vectorLane.laneIdAttribute;
+        elseif strcmp(rightLanes.lane(ii).typeAttribute,"sidewalk")
+            rightsidewalkID(k)=rightLanes.lane(ii).userData.vectorLane.laneIdAttribute;
             k=k+1;
         end
     end

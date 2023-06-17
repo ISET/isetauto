@@ -1,0 +1,23 @@
+Film "gbuffer" "integer xresolution" [1920] "integer yresolution" [1080] "string filename" "output.exr"
+PixelFilter "box" "float xradius" [0.5] "float yradius" [0.5] 
+Accelerator "bvh" 
+"string splitmethod" "sah"
+"integer maxnodeprims" [4]
+Sampler "halton"
+"integer pixelsamples" [100]
+
+Integrator "path"
+"integer maxdepth" [10]
+
+Scale -1 1 1 #avoid the 'flipped image' bug..
+LookAt	50.0 -6.925790786743164 150.0
+	49.34844207763672 -6.311620235443115 149.5547332763672
+	-0.3240133821964264 0.30542078614234924 0.8953956961631775
+
+Camera "perspective"
+"float fov" [168.71889080474693]
+WorldBegin
+
+Include "road_SanAntonio_materials.pbrt"
+Include "road_SanAntonio_texture.pbrt"
+Include "road_SanAntonio_geometry.pbrt"
