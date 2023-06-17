@@ -1,193 +1,176 @@
 MakeNamedMaterial "Asphalt1_Ground"
 	"string type" "coateddiffuse"
-	"string normalmap" "textures/Asphalt1_Norm.png"
-	"texture reflectance" "Asphalt1_Ground.reflectance.Asphalt1_Diff.png"
+	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
 	"rgb albedo" [0.0 0.0 0.0]
 	"float thickness" [0.009999999776482582]
 	"float g" [0.0]
 	"float eta" [1.5]
-	"float roughness" [0.9612701535224915]
+	"float roughness" [0.0]
 MakeNamedMaterial "Asphalt1_Road"
 	"string type" "coateddiffuse"
-	"string normalmap" "textures/Asphalt1_Norm.png"
-	"texture reflectance" "Asphalt1_Road.reflectance.Asphalt1_Diff.png"
+	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
 	"rgb albedo" [0.0 0.0 0.0]
 	"float thickness" [0.009999999776482582]
 	"float g" [0.0]
 	"float eta" [1.5]
-	"float roughness" [0.9612701535224915]
+	"float roughness" [0.0]
 MakeNamedMaterial "Concrete1_Bridge"
 	"string type" "coateddiffuse"
-	"string normalmap" "textures/Concrete1_Norm.png"
-	"texture reflectance" "Concrete1_Bridge.reflectance.Concrete1_Diff.png"
+	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
 	"rgb albedo" [0.0 0.0 0.0]
 	"float thickness" [0.009999999776482582]
 	"float g" [0.0]
 	"float eta" [1.5]
-	"float roughness" [0.9552786350250244]
+	"float roughness" [0.0]
 MakeNamedMaterial "Concrete1_Curb"
 	"string type" "coateddiffuse"
-	"string normalmap" "textures/Concrete1_Norm.png"
-	"texture reflectance" "Concrete1_Curb.reflectance.Concrete1_Diff.png"
+	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
 	"rgb albedo" [0.0 0.0 0.0]
 	"float thickness" [0.009999999776482582]
 	"float g" [0.0]
 	"float eta" [1.5]
-	"float roughness" [0.9552786350250244]
+	"float roughness" [0.0]
 MakeNamedMaterial "Concrete1_Ground"
 	"string type" "coateddiffuse"
-	"string normalmap" "textures/Concrete1_Norm.png"
-	"texture reflectance" "Concrete1_Ground.reflectance.Concrete1_Diff.png"
+	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
 	"rgb albedo" [0.0 0.0 0.0]
 	"float thickness" [0.009999999776482582]
 	"float g" [0.0]
 	"float eta" [1.5]
-	"float roughness" [0.9552786350250244]
+	"float roughness" [0.0]
 MakeNamedMaterial "Concrete1_Gutter"
 	"string type" "coateddiffuse"
-	"string normalmap" "textures/Concrete1_Norm.png"
-	"texture reflectance" "Concrete1_Gutter.reflectance.Concrete1_Diff.png"
+	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
 	"rgb albedo" [0.0 0.0 0.0]
 	"float thickness" [0.009999999776482582]
 	"float g" [0.0]
 	"float eta" [1.5]
-	"float roughness" [0.9552786350250244]
+	"float roughness" [0.0]
 MakeNamedMaterial "Concrete1_Road"
 	"string type" "coateddiffuse"
-	"string normalmap" "textures/Concrete1_Norm.png"
-	"texture reflectance" "Concrete1_Road.reflectance.Concrete1_Diff.png"
+	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
 	"rgb albedo" [0.0 0.0 0.0]
 	"float thickness" [0.009999999776482582]
 	"float g" [0.0]
 	"float eta" [1.5]
-	"float roughness" [0.9552786350250244]
+	"float roughness" [0.0]
 MakeNamedMaterial "Concrete1_Sidewalk"
 	"string type" "coateddiffuse"
-	"string normalmap" "textures/Concrete1_Norm.png"
-	"texture reflectance" "Concrete1_Sidewalk.reflectance.Concrete1_Diff.png"
+	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
 	"rgb albedo" [0.0 0.0 0.0]
 	"float thickness" [0.009999999776482582]
 	"float g" [0.0]
 	"float eta" [1.5]
-	"float roughness" [0.9552786350250244]
+	"float roughness" [0.0]
 MakeNamedMaterial "Default_Ground"
 	"string type" "coateddiffuse"
-	"rgb reflectance" [1.0 1.0 1.0]
+	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
 	"rgb albedo" [0.0 0.0 0.0]
 	"float thickness" [0.009999999776482582]
 	"float g" [0.0]
 	"float eta" [1.5]
-	"float roughness" [0.9552786350250244]
+	"float roughness" [0.0]
 MakeNamedMaterial "Grass1_Ground"
 	"string type" "coateddiffuse"
-	"string normalmap" "textures/Grass1_Norm.png"
-	"texture reflectance" "Grass1_Ground.reflectance.Grass1_Diff.png"
+	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
 	"rgb albedo" [0.0 0.0 0.0]
 	"float thickness" [0.009999999776482582]
 	"float g" [0.0]
 	"float eta" [1.5]
-	"float roughness" [0.9552786350250244]
+	"float roughness" [0.0]
 MakeNamedMaterial "LaneMarking1_Marking"
 	"string type" "coateddiffuse"
-	"string normalmap" "textures/LaneMarking1_Norm.png"
-	"texture reflectance" "LaneMarking1_Marking.reflectance.LaneMarking1_Diff.png"
+	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
 	"rgb albedo" [0.0 0.0 0.0]
 	"float thickness" [0.009999999776482582]
 	"float g" [0.0]
 	"float eta" [1.5]
-	"float roughness" [0.9683772325515747]
+	"float roughness" [0.0]
 MakeNamedMaterial "LaneMarkingYellow1_Marking"
 	"string type" "coateddiffuse"
-	"string normalmap" "textures/LaneMarking1_Norm.png"
-	"texture reflectance" "LaneMarkingYellow1_Marking.reflectance.LaneMarking1_Diff.png"
+	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
 	"rgb albedo" [0.0 0.0 0.0]
 	"float thickness" [0.009999999776482582]
 	"float g" [0.0]
 	"float eta" [1.5]
-	"float roughness" [0.9683772325515747]
+	"float roughness" [0.0]
 MakeNamedMaterial "Leaves_Foliage"
 	"string type" "coateddiffuse"
-	"string normalmap" "textures/EucalyptusLeaves_Norm.png"
-	"texture reflectance" "Leaves_Foliage.reflectance.EucalyptusLeaves_Diff.png"
+	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
 	"rgb albedo" [0.0 0.0 0.0]
 	"float thickness" [0.009999999776482582]
 	"float g" [0.0]
 	"float eta" [1.5]
-	"float roughness" [0.9683772325515747]
+	"float roughness" [0.0]
 MakeNamedMaterial "Light_material_Signal"
 	"string type" "coateddiffuse"
-	"texture reflectance" "Light_material_Signal.reflectance.Signals_Lights01_Diff.png"
+	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
 	"rgb albedo" [0.0 0.0 0.0]
 	"float thickness" [0.009999999776482582]
 	"float g" [0.0]
 	"float eta" [1.5]
-	"float roughness" [0.9600781798362732]
+	"float roughness" [0.0]
 MakeNamedMaterial "Material"
 	"string type" "coateddiffuse"
-	"rgb reflectance" [0.800000011920929 0.800000011920929 0.800000011920929]
+	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
 	"rgb albedo" [0.0 0.0 0.0]
 	"float thickness" [0.009999999776482582]
 	"float g" [0.0]
 	"float eta" [1.5]
-	"float roughness" [0.5]
+	"float roughness" [0.0]
 MakeNamedMaterial "SharedTexture02_Prop"
 	"string type" "coateddiffuse"
-	"string normalmap" "textures/Signals_TextureSheet01_Norm.png"
-	"texture reflectance" "SharedTexture02_Prop.reflectance.Signals_TextureSheet01_Diff.png"
+	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
 	"rgb albedo" [0.0 0.0 0.0]
 	"float thickness" [0.009999999776482582]
 	"float g" [0.0]
 	"float eta" [1.5]
-	"float roughness" [0.9776393175125122]
+	"float roughness" [0.0]
 MakeNamedMaterial "SharedTexture02_Prop_1"
 	"string type" "coateddiffuse"
-	"string normalmap" "textures/Signals_TextureSheet01_Norm.png"
-	"texture reflectance" "SharedTexture02_Prop_1.reflectance.Signals_TextureSheet01_Diff.png"
+	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
 	"rgb albedo" [0.0 0.0 0.0]
 	"float thickness" [0.009999999776482582]
 	"float g" [0.0]
 	"float eta" [1.5]
-	"float roughness" [0.9776393175125122]
+	"float roughness" [0.0]
 MakeNamedMaterial "SharedTexture02_Prop_2"
 	"string type" "coateddiffuse"
-	"string normalmap" "textures/Signals_TextureSheet01_Norm.png"
-	"texture reflectance" "SharedTexture02_Prop_2.reflectance.Signals_TextureSheet01_Diff.png"
+	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
 	"rgb albedo" [0.0 0.0 0.0]
 	"float thickness" [0.009999999776482582]
 	"float g" [0.0]
 	"float eta" [1.5]
-	"float roughness" [0.9776393175125122]
+	"float roughness" [0.0]
 MakeNamedMaterial "SharedTexture02_Prop_3"
 	"string type" "coateddiffuse"
-	"string normalmap" "textures/Signals_TextureSheet01_Norm.png"
-	"texture reflectance" "SharedTexture02_Prop_3.reflectance.Signals_TextureSheet01_Diff.png"
+	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
 	"rgb albedo" [0.0 0.0 0.0]
 	"float thickness" [0.009999999776482582]
 	"float g" [0.0]
 	"float eta" [1.5]
-	"float roughness" [0.9776393175125122]
+	"float roughness" [0.0]
 MakeNamedMaterial "Signals_LightsOff01_Diff.png_Signal"
 	"string type" "coateddiffuse"
-	"texture reflectance" "Signals_LightsOff01_Diff.png_Signal.reflectance.Signals_LightsOff01_Diff.png"
+	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
 	"rgb albedo" [0.0 0.0 0.0]
 	"float thickness" [0.009999999776482582]
 	"float g" [0.0]
 	"float eta" [1.5]
-	"float roughness" [0.9552786350250244]
+	"float roughness" [0.0]
 MakeNamedMaterial "Signals_LightsOn01_Diff.png_Signal"
 	"string type" "coateddiffuse"
-	"texture reflectance" "Signals_LightsOn01_Diff.png_Signal.reflectance.Signals_LightsOn01_Diff.png"
+	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
 	"rgb albedo" [0.0 0.0 0.0]
 	"float thickness" [0.009999999776482582]
 	"float g" [0.0]
 	"float eta" [1.5]
-	"float roughness" [0.9552786350250244]
+	"float roughness" [0.0]
 MakeNamedMaterial "Trunk_Foliage"
 	"string type" "coateddiffuse"
-	"string normalmap" "textures/EucalyptusTrunk_Norm.png"
-	"texture reflectance" "Trunk_Foliage.reflectance.EucalyptusTrunk_Diff.png"
+	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
 	"rgb albedo" [0.0 0.0 0.0]
 	"float thickness" [0.009999999776482582]
 	"float g" [0.0]
 	"float eta" [1.5]
-	"float roughness" [0.9292893409729004]
+	"float roughness" [0.0]
