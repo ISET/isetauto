@@ -1,0 +1,4 @@
+Texture "Asphalt1_Road.reflectance.Asphalt1_Diff.png" "spectrum" "imagemap" "string filename" ["textures/Asphalt1_Diff.png"] "float uscale" [0.34999999165534995] "float vscale" [0.34999999165534995]
+Texture "Grass1_Ground.reflectance.Grass1_Diff.png" "spectrum" "imagemap" "string filename" ["textures/Grass1_Diff.png"] "float uscale" [0.5] "float vscale" [0.5]
+Texture "LaneMarking1_Marking.reflectance.LaneMarking1_Diff.png" "spectrum" "imagemap" "string filename" ["textures/LaneMarking1_Diff.png"] "float uscale" [0.25] "float vscale" [0.25]
+Texture "LaneMarkingYellow1_Marking.reflectance.LaneMarking1_Diff.png" "spectrum" "imagemap" "string filename" ["textures/LaneMarking1_Diff.png"] "float uscale" [0.25] "float vscale" [0.25]
