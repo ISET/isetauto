@@ -27,8 +27,9 @@ classdef isetActor < handle & matlab.mixin.Copyable
         % Whether we need to move the camera along with us
         hasCamera = false;
         braking = false;
-        %cameraOffset = [1 0 1.2]; % good for car_004 (Shelby)
-        cameraOffset = [.9 0 1.7]; % good for car_058 (F150)
+        %camera offsets are just weird
+        %cameraOffset = [1 0 1.2]; 
+        cameraOffset = [3 0 2]; % forward and up from rear axle 
 
     end
 

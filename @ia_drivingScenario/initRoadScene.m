@@ -30,15 +30,15 @@ switch lighting
         skymapNode = strrep(skymapName, '.exr','_L');
         roadData.recipe.set('light',skymapNode, 'specscale', 0.01);
 
+
     case 'dusk'
         %% Set up the rendering skymap -- this is just one of many available
         skymapName = 'night.exr'; % Most skymaps are in the Matlab path already
         roadData.recipe.set('skymap',skymapName);
 
-        % Really dark -- NHTSA says down to .2 lux needs to work
-        % So we should calculate what that means for how we scale the skymap
         skymapNode = strrep(skymapName, '.exr','_L');
         roadData.recipe.set('light',skymapNode, 'specscale', 1);
+
 
     case 'daytime'
 end
