@@ -1,0 +1,62 @@
+ObjectBegin "SceneNode_m"
+#Instance MeshName: "SceneNode"
+	AttributeBegin
+	#MeshName: "SceneNode"
+		AttributeBegin
+		#MeshName: "Tile_0_0Node"
+			AttributeBegin
+			#MeshName: "RoadsNode"
+				AttributeBegin
+				#MeshName: "Roads_Layer0Node" #Dimension:[2008.5771484375 2015.8399658203125 1.96875]" 
+					Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+					AttributeBegin
+						NamedMaterial "Asphalt1"
+						Shape "plymesh" "string filename" ["geometry/Roads_Layer0Node_mat0.ply"]
+					AttributeEnd
+					AttributeBegin
+						NamedMaterial "LaneMarkingYellow1"
+						Shape "plymesh" "string filename" ["geometry/Roads_Layer0Node_mat1.ply"]
+					AttributeEnd
+					AttributeBegin
+						NamedMaterial "Concrete1"
+						Shape "plymesh" "string filename" ["geometry/Roads_Layer0Node_mat2.ply"]
+					AttributeEnd
+					AttributeBegin
+						NamedMaterial "LaneMarking1"
+						Shape "plymesh" "string filename" ["geometry/Roads_Layer0Node_mat3.ply"]
+					AttributeEnd
+				AttributeEnd
+			AttributeEnd
+		AttributeEnd
+	AttributeEnd
+ObjectEnd
+
+ObjectBegin "Camera_m"
+#Instance MeshName: "Camera"
+ObjectEnd
+
+ObjectBegin "Light_m"
+#Instance MeshName: "Light"
+ObjectEnd
+
+AttributeBegin
+#CollectionName: "Scene Collection"
+	AttributeBegin
+	#CollectionName: "Collection"
+		AttributeBegin
+		#MeshName: "Light"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "Light_m"
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "Camera"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "Camera_m"
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "SceneNode"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "SceneNode_m"
+		AttributeEnd
+	AttributeEnd
+AttributeEnd
