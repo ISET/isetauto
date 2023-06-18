@@ -58,8 +58,8 @@ leftsidewalkID = ""; rightsidewalkID = "";
 % NOTE: We only had 1 lane section in original scenes, I think
 %       With more than 1-section we need to change the counter
 ourLanes = openDriveMap.road.lanes;
-leftLanes = ourLanes.laneSection.left;
 if isfield(ourLanes.laneSection,'left')
+    leftLanes = ourLanes.laneSection.left;
     for ii=1:numel(leftLanes.lane)
         if strcmp(leftLanes.lane(ii).typeAttribute,"shoulder")
             leftshoulderID(i)=leftLanes.lane(ii).userData.vectorLane.laneIdAttribute;
@@ -77,14 +77,21 @@ i=1;j=1;k=1;
 if isfield(ourLanes.laneSection,'right')
     rightLanes = ourLanes.laneSection.right;
     for ii=1:numel(rightLanes.lane)
+        if isfield(rightLanes.lane(ii),'userData')
+            laneID = rightLanes.lane(ii).userData.vectorLane.laneIdAttribute;
+        else
+            % Put this in instead of an error condition
+            % Not sure it is ideal, but better than halting
+            laneID = rightLanes.lane(ii).idAttribute;
+        end
         if strcmp(rightLanes.lane(ii).typeAttribute,"shoulder")
-            rightshoulderID(i)=rightLanes.lane(ii).userData.vectorLane.laneIdAttribute;
+            rightshoulderID(i)= laneID;
             i=i+1;
         elseif strcmp(rightLanes.lane(ii).typeAttribute,"driving")
-            rightdrivingID(j)=rightLanes.lane(ii).userData.vectorLane.laneIdAttribute;
+            rightdrivingID(j)=laneID;
             j=j+1;
         elseif strcmp(rightLanes.lane(ii).typeAttribute,"sidewalk")
-            rightsidewalkID(k)=rightLanes.lane(ii).userData.vectorLane.laneIdAttribute;
+            rightsidewalkID(k)=laneID;
             k=k+1;
         end
     end

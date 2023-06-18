@@ -1,32 +1,40 @@
 MakeNamedMaterial "Asphalt1"
 	"string type" "coateddiffuse"
-	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
+	"rgb reflectance" [0.012952607125043869 0.8611178994178772 1.0]
 	"rgb albedo" [0.0 0.0 0.0]
 	"float thickness" [0.009999999776482582]
 	"float g" [0.0]
 	"float eta" [1.5]
-	"float roughness" [0.0]
+	"float roughness" [0.9612701535224915]
 MakeNamedMaterial "Concrete1"
 	"string type" "coateddiffuse"
-	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
+	"rgb reflectance" [1.0 1.0 1.0]
 	"rgb albedo" [0.0 0.0 0.0]
 	"float thickness" [0.009999999776482582]
 	"float g" [0.0]
 	"float eta" [1.5]
-	"float roughness" [0.0]
+	"float roughness" [0.9552786350250244]
 MakeNamedMaterial "LaneMarking1"
 	"string type" "coateddiffuse"
-	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
+	"rgb reflectance" [1.0 1.0 1.0]
 	"rgb albedo" [0.0 0.0 0.0]
 	"float thickness" [0.009999999776482582]
 	"float g" [0.0]
 	"float eta" [1.5]
-	"float roughness" [0.0]
+	"float roughness" [0.9683772325515747]
 MakeNamedMaterial "LaneMarkingYellow1"
 	"string type" "coateddiffuse"
-	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
+	"rgb reflectance" [1.0 0.8352941274642944 0.0]
 	"rgb albedo" [0.0 0.0 0.0]
 	"float thickness" [0.009999999776482582]
 	"float g" [0.0]
 	"float eta" [1.5]
-	"float roughness" [0.0]
+	"float roughness" [0.9683772325515747]
+MakeNamedMaterial "Material"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.800000011920929 0.800000011920929 0.800000011920929]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
