@@ -33,10 +33,12 @@ if ~isempty(aRotation)
 end
 
 % Adjust for reversed directions, maybe 
-useYaw = ia_drivingScenario.dsToIAYaw(obj.yaw);
+useYaw = obj.yaw;
+if obj.yaw ~= 0
 piAssetRotate(assetRecipe,assetBranchName,...
         [0 0 useYaw]); % what if yaw is right sometimes?
-
+    obj.savedYaw = obj.yaw;
+end
 scenario.roadData.recipe = piRecipeMerge(scenario.roadData.recipe, assetRecipe);
 
 end

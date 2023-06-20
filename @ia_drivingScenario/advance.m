@@ -81,17 +81,26 @@ for ii = 1:numel(scenario.roadData.actorsIA)
             scenario.roadData.recipe.lookAt.from + ...
             (adjustedVelocity .* ourTimeStep);
     end
-    % Also move our Actors by time step * velocity
+    % Debug statements with current info
+    currentActor = scenario.roadData.actorsDS{ii};
+    assetBranchName = strcat(currentActor.Name, '_B');
+    [~, currentAsset] = piAssetFind(scenario.roadData.recipe, 'name', assetBranchName);
+    % I think we get a cell array from Find in case there is more than one?
+    %{ 
+    % Unfortunately this doesn't seem to work except for lights!
+    currentRotation = piAssetGet(currentAsset{1}, 'worldrotation');
+    %}
     cprintf('*Blue', "DSVelocity %s : %2.1f, %2.1f, %2.1f ", ...
-        scenario.roadData.actorsDS{ii}.Name, ...
-        scenario.roadData.actorsDS{ii}.Velocity(1), ...
-        scenario.roadData.actorsDS{ii}.Velocity(2), ...
-        scenario.roadData.actorsDS{ii}.Velocity(3));
-    cprintf('*Blue', "DSyaw: %2.1f\n", ...
-        scenario.roadData.actorsDS{ii}.Yaw);
+        currentActor.Name, ...
+        currentActor.Velocity(1), ...
+        currentActor.Velocity(2), ...
+        currentActor.Velocity(3));
+    cprintf('*Blue', "DSyaw: %2.1f\n", currentActor.Yaw);
+    % Also move our Actors by time step * velocity
     % move asset per velocity inherited from DS
+    ourActor.yaw = currentActor.Yaw;
     ourActor.moveAsset(scenario, ...
-        scenario.roadData.actorsDS{ii});
+        currentActor);
     % Then determine whether braking & subtract from Velocity
     % (We can't just subtract from speed, as it has been broken
     % into velocity components already based on waypoints

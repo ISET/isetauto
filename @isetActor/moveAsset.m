@@ -22,10 +22,10 @@ aMove = aVelocity .* scenario.SampleTime;
 assetBranch = piAssetTranslate(ourRecipe,assetBranchName,aMove);
 
 %% SUPPORT FOR rotating assets to a new direction
-deltaYaw = (-1 * obj.yaw) + obj.savedYaw;
+deltaYaw = obj.yaw - obj.savedYaw;
 if deltaYaw ~= 0
     assetBranch = piAssetRotate(ourRecipe,assetBranchName,...
-        [0 0 (deltaYaw)]);
+        [0 0 deltaYaw]);
+    obj.savedYaw = obj.yaw;
 end
-obj.savedYaw = obj.yaw;
 
