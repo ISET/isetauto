@@ -5,7 +5,7 @@ classdef ia_drivingScenario < drivingScenario
     properties
 
         % For debugging raise the camera and look down
-        debug = true; % if true, then of course detection isn't realistic
+        debug = false; % if true, then of course detection isn't realistic
 
         roadData = []; % our ISETAuto road data struct
         % We get these from our superclass

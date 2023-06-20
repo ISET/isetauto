@@ -8,6 +8,9 @@
         <Junction>
             <ID>{7bed2740-4e47-4a5f-87b7-beb4366785c1}</ID>
         </Junction>
+        <Junction>
+            <ID>{a92a3058-edce-402d-92e8-4aef831fbbc2}</ID>
+        </Junction>
     </Signalization>
     <MaterialList>
         <Material>
@@ -25,6 +28,27 @@
             <EmissionColor>1.000000,1.000000,1.000000</EmissionColor>
             <TextureScaleU>0.35</TextureScaleU>
             <TextureScaleV>0.35</TextureScaleV>
+            <TwoSided>false</TwoSided>
+            <DrawQueue>0</DrawQueue>
+            <ShadowCaster>true</ShadowCaster>
+            <IsDecal>false</IsDecal>
+            <SegmentationType>Road</SegmentationType>
+        </Material>
+        <Material>
+            <Name>Brick1_rrx_Road</Name>
+            <DiffuseMap>Brick1_Diff.png</DiffuseMap>
+            <NormalMap>Brick1_Norm.png</NormalMap>
+            <SpecularMap>Brick1_Spec.png</SpecularMap>
+            <AmbientColor>0.200000,0.200000,0.200000</AmbientColor>
+            <DiffuseColor>1.000000,1.000000,1.000000</DiffuseColor>
+            <SpecularColor>0.039216,0.039216,0.039216</SpecularColor>
+            <Roughness>0.175000</Roughness>
+            <SpecularFactor>1.000000</SpecularFactor>
+            <TransparencyFactor>0.000000</TransparencyFactor>
+            <Emission>0.000000</Emission>
+            <EmissionColor>1.000000,1.000000,1.000000</EmissionColor>
+            <TextureScaleU>0.5</TextureScaleU>
+            <TextureScaleV>0.5</TextureScaleV>
             <TwoSided>false</TwoSided>
             <DrawQueue>0</DrawQueue>
             <ShadowCaster>true</ShadowCaster>
@@ -386,6 +410,46 @@
             <SegmentationType>StopSign</SegmentationType>
         </Material>
         <Material>
+            <Name>Sign_R2-1(40)-Back.png_SpeedLimitSign</Name>
+            <DiffuseMap>Sign_R2-1(40)-Back.png</DiffuseMap>
+            <TransparentColor>Sign_R2-1(40)-Back.png</TransparentColor>
+            <AmbientColor>0.200000,0.200000,0.200000</AmbientColor>
+            <DiffuseColor>1.000000,1.000000,1.000000</DiffuseColor>
+            <SpecularColor>0.039216,0.039216,0.039216</SpecularColor>
+            <Roughness>0.200000</Roughness>
+            <SpecularFactor>0.010000</SpecularFactor>
+            <TransparencyFactor>0.000000</TransparencyFactor>
+            <Emission>0.000000</Emission>
+            <EmissionColor>1.000000,1.000000,1.000000</EmissionColor>
+            <TextureScaleU>1</TextureScaleU>
+            <TextureScaleV>1</TextureScaleV>
+            <TwoSided>false</TwoSided>
+            <DrawQueue>0</DrawQueue>
+            <ShadowCaster>true</ShadowCaster>
+            <IsDecal>false</IsDecal>
+            <SegmentationType>SpeedLimitSign</SegmentationType>
+        </Material>
+        <Material>
+            <Name>Sign_R2-1(40).svg_rrx_SpeedLimitSign</Name>
+            <DiffuseMap>Sign_R2-1(40).png</DiffuseMap>
+            <TransparentColor>Sign_R2-1(40).png</TransparentColor>
+            <AmbientColor>0.200000,0.200000,0.200000</AmbientColor>
+            <DiffuseColor>1.000000,1.000000,1.000000</DiffuseColor>
+            <SpecularColor>0.039216,0.039216,0.039216</SpecularColor>
+            <Roughness>0.200000</Roughness>
+            <SpecularFactor>0.010000</SpecularFactor>
+            <TransparencyFactor>0.000000</TransparencyFactor>
+            <Emission>0.000000</Emission>
+            <EmissionColor>1.000000,1.000000,1.000000</EmissionColor>
+            <TextureScaleU>1</TextureScaleU>
+            <TextureScaleV>1</TextureScaleV>
+            <TwoSided>false</TwoSided>
+            <DrawQueue>0</DrawQueue>
+            <ShadowCaster>true</ShadowCaster>
+            <IsDecal>false</IsDecal>
+            <SegmentationType>SpeedLimitSign</SegmentationType>
+        </Material>
+        <Material>
             <Name>Stone_Trim8_Building</Name>
             <DiffuseMap>Stone_Trim_Diff.png</DiffuseMap>
             <NormalMap>Stone_Trim_Norm.png</NormalMap>
@@ -405,26 +469,6 @@
             <ShadowCaster>true</ShadowCaster>
             <IsDecal>false</IsDecal>
             <SegmentationType>Building</SegmentationType>
-        </Material>
-        <Material>
-            <Name>SurveyMarks01_rrx_Road</Name>
-            <DiffuseMap>SurveyMarks01_Diff.png</DiffuseMap>
-            <TransparentColor>SurveyMarks01_Diff.png</TransparentColor>
-            <AmbientColor>0.200000,0.200000,0.200000</AmbientColor>
-            <DiffuseColor>1.000000,1.000000,1.000000</DiffuseColor>
-            <SpecularColor>0.039216,0.039216,0.039216</SpecularColor>
-            <Roughness>0.200000</Roughness>
-            <SpecularFactor>0.010000</SpecularFactor>
-            <TransparencyFactor>0.000000</TransparencyFactor>
-            <Emission>0.000000</Emission>
-            <EmissionColor>1.000000,1.000000,1.000000</EmissionColor>
-            <TextureScaleU>1</TextureScaleU>
-            <TextureScaleV>1</TextureScaleV>
-            <TwoSided>false</TwoSided>
-            <DrawQueue>0</DrawQueue>
-            <ShadowCaster>true</ShadowCaster>
-            <IsDecal>false</IsDecal>
-            <SegmentationType>Road</SegmentationType>
         </Material>
     </MaterialList>
 </RoadRunnerMetadata>

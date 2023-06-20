@@ -26,15 +26,15 @@ if ~isempty(aPosition)
        % aPosition);
     % HOWEVER, we might be able to cheat because asset recipes put
     % the asset at 0 0 0, so we can try translation
-    assetBranch = piAssetTranslate(assetRecipe,assetBranchName,aPosition);    
+    piAssetTranslate(assetRecipe,assetBranchName,aPosition);    
 end
 if ~isempty(aRotation)
-    assetBranch = piAssetRotate(assetRecipe,assetBranchName,aRotation);
+    piAssetRotate(assetRecipe,assetBranchName,aRotation);
 end
 
 % Adjust for reversed directions, maybe 
 useYaw = ia_drivingScenario.dsToIAYaw(obj.yaw);
-assetBranch = piAssetRotate(assetRecipe,assetBranchName,...
+piAssetRotate(assetRecipe,assetBranchName,...
         [0 0 useYaw]); % what if yaw is right sometimes?
 
 scenario.roadData.recipe = piRecipeMerge(scenario.roadData.recipe, assetRecipe);
