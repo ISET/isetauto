@@ -29,6 +29,7 @@ classdef ia_drivingScenario < drivingScenario
         vehiclesToBePlaced = {};
         actorsToBePlaced = {};
         needRoads = true;
+        justStarting = true; % allows us to skip first frame
 
         frameNum = 1; % to start
         scenarioName = 'LabTest'; % default

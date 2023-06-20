@@ -34,6 +34,7 @@ rgb = ipGet(ip, 'srgb');
 peds = ismember(labels,'person'); % Any person?
 foundPed = scores(peds) > detectionThreshhold; % Are we confident?
 if foundPed > 0
+    cprintf('*Orange', 'Identified Pedestrian...\n');
     % needs updating
     %roadData.actors{roadData.targetVehicleNumber}.braking = true;
 end

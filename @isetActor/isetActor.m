@@ -29,7 +29,7 @@ classdef isetActor < handle & matlab.mixin.Copyable
         braking = false;
         %camera offsets are just weird
         %cameraOffset = [1 0 1.2]; 
-        cameraOffset = [3 0 2]; % forward and up from rear axle 
+        cameraOffset = [-6 0 2]; % forward and up from rear axle 
 
     end
 
