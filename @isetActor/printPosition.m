@@ -15,7 +15,7 @@ ourLocation = ourRecipe.get('asset',assetBranchName,'world position');
 
 %% For vehicles from Matlab's DSD we need to do this differently
 % Time constant and coordinate reversal
-fprintf("Actor: %s at %2.1f, %2.1f, %2.1f\n", obj.name, ...
+cprintf('-Black', "Actor: %s at %2.1f, %2.1f, %2.1f\n", obj.name, ...
     ourLocation(1), ourLocation(2), ourLocation(3));
 
 end

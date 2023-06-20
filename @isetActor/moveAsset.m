@@ -13,11 +13,12 @@ assetBranchName = [obj.name '_B'];
 ourRecipe = scenario.roadData.recipe;
 
 % Adjust for x-axis being towards the car in Ford scenes
-% But not in Matlab SDS Scenes!
+% But not in Matlab SDS Scenes
 
 %% For vehicles from Matlab's DSD we need to do this differently
 % Time constant and coordinate reversal
-aMove = ia_drivingScenario.dsToIA(actorDS.Velocity) .* scenario.SampleTime;
+aVelocity = actorDS.Velocity * -1; % even though coordinates aren't all reversed, velocity is?
+aMove = aVelocity .* scenario.SampleTime;
 assetBranch = piAssetTranslate(ourRecipe,assetBranchName,aMove);
 
 %% SUPPORT FOR rotating assets to a new direction
@@ -28,6 +29,3 @@ if deltaYaw ~= 0
 end
 obj.savedYaw = obj.yaw;
 
-if obj.hasCamera % also need to move camera
-    fprintf('found ego\n');
-end
