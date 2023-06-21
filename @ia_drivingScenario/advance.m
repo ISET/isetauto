@@ -30,7 +30,6 @@ if scenario.justStarting ~= true
 
     % show preview if desired
     previousScene = [];
-    if isempty(previousScene), previousScene = sceneCreate(); end
     if scenario.previewScenes
         scene = sceneSet(scene, 'display mode', 'hdr');
         % try sceneshowimage
@@ -40,8 +39,9 @@ if scenario.justStarting ~= true
         sceneWindow(scene);
 
         %{ 
-            % THIS IS JUST FOR DEBUGGING CHANGES IN RECIPES
+        % THIS IS JUST FOR DEBUGGING CHANGES IN RECIPES
         ourRecipe = scenario.roadData.recipe;
+        if isempty(previousScene), previousScene = sceneCreate(); end
         sceneShowImage(previousScene, -3);
         previousScene = scene;
         previousRecipe = ourRecipe;
@@ -50,6 +50,7 @@ if scenario.justStarting ~= true
 
     % Create an image with a camera, and run a detector on it
     [image, scenario.detectionResults] = scenario.imageAndDetect(scene);
+    scenario.logFrameData(scene); % update our logging data structure
 
     % Here we want to create a movie/video
     % presumably one frame at a time
