@@ -27,10 +27,6 @@ classdef isetActor < handle & matlab.mixin.Copyable
         % Whether we need to move the camera along with us
         hasCamera = false;
         braking = false;
-        %camera offsets are just weird
-        %cameraOffset = [1 0 1.2]; 
-        cameraOffset = [-6 0 2]; % forward and up from rear axle 
-
     end
 
     methods
@@ -53,7 +49,7 @@ classdef isetActor < handle & matlab.mixin.Copyable
             % If we have the camera, move it
             if anActor.hasCamera
                 anActor.recipe.lookAt.from = ...
-                    anActor.positionIA + anActor.cameraOffset;
+                    anActor.positionIA + scenario.cameraOffset;
 
                 % We need to rotate our camera view to match anActor.yaw
                 % Just the first time. After this we do it in .advance

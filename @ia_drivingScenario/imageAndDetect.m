@@ -32,7 +32,7 @@ rgb = ipGet(ip, 'srgb');
 % See if we have found a person (e.g. pedestrian)
 % NOTE: We don't (yet) distinguish between multiple pedestrians
 peds = ismember(labels,'person'); % Any person?
-foundPed = scores(peds) > detectionThreshhold; % Are we confident?
+foundPed = max(scores(peds)) > detectionThreshhold; % Are we confident?
 if foundPed > 0
     cprintf('*Yellow', 'Identified Pedestrian...\n');
     % needs updating

@@ -29,9 +29,19 @@ if scenario.justStarting ~= true
     scenario.sceneList{end+1} = scene;
 
     % show preview if desired
+    previousScene = [];
+    if isempty(previousScene), previousScene = sceneCreate(); end
     if scenario.previewScenes
         scene = sceneSet(scene, 'display mode', 'hdr');
-        sceneWindow(scene);
+        % try sceneshowimage
+        sceneShowImage(scene, 3);
+        %sceneWindow(scene);
+
+        % THIS IS JUST FOR DEBUGGING CHANGES IN RECIPES
+        ourRecipe = scenario.roadData.recipe;
+        sceneShowImage(previousScene, -3);
+        previousScene = scene;
+        previousRecipe = ourRecipe;
     end
 
     % Create an image with a camera, and run a detector on it

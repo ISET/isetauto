@@ -37,6 +37,7 @@ classdef ia_drivingScenario < drivingScenario
         deNoise = true; % run denoiser by default
 
         sensorModel = 'MT9V024SensorRGB'; % one of our automotive sensors
+        cameraOffset = [0 0 2]; % needs to be changed later
         predictionThreshold = .8; % default is .95, lower for testing;
         detectionResults = []; %Updated as we drive
 
@@ -137,7 +138,11 @@ classdef ia_drivingScenario < drivingScenario
             % Add Vehicle asset to our @Recipe
             ourVehicle = isetActor();
             if scenario.debug % raise camera
-                ourVehicle.cameraOffset = [.9 0 8];
+                scenario.cameraOffset = [.9 0 8];
+            else
+                % this should be per actor, but here for now for ease of
+                % editing
+                scenario.cameraOffset = [0 0 2];
             end
 
 
