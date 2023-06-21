@@ -35,9 +35,10 @@ peds = ismember(labels,'person'); % Any person?
 foundPed = max(scores(peds)) > detectionThreshhold; % Are we confident?
 if foundPed > 0
     cprintf('*Yellow', 'Identified Pedestrian...\n');
-    % needs updating
-    %roadData.actors{roadData.targetVehicleNumber}.braking = true;
+    scenario.roadData.actorsIA{scenario.roadData.targetVehicleNumber}.braking = true;
 end
+
+% Should have both label & score here:
 rgb = insertObjectAnnotation(rgb,"rectangle",bboxes,labels, 'FontSize', 16);
 
 % Return detection results, along with other data
@@ -50,11 +51,11 @@ detectionResults.foundPed = foundPed;
 %if pedMeters <= .1
 %    caption = strcat(caption, " ***CRASH*** ");
 %end
-%if roadData.actors{roadData.targetVehicleNumber}.braking % cheat & assume we are actor 1
-%    rgb = insertText(rgb,[0 0],strcat(caption, " -- BRAKING"),'FontSize',48, 'TextColor','red');
-%else
+if scenario.roadData.actorsIA{scenario.roadData.targetVehicleNumber}.braking % cheat & assume we are actor 1
+    image = insertText(rgb,[0 0],strcat(caption, " -- BRAKING"),'FontSize',48, 'TextColor','red');
+else
     image = insertText(rgb,[0 0],caption,'FontSize',36);
-%end
+end
 
 
 % plot time versus distance
