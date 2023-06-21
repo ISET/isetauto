@@ -34,14 +34,18 @@ if scenario.justStarting ~= true
     if scenario.previewScenes
         scene = sceneSet(scene, 'display mode', 'hdr');
         % try sceneshowimage
-        sceneShowImage(scene, 3);
-        %sceneWindow(scene);
+        % Note: Faster but leads to un-labeled Window sprawl until we
+        %       add some more pieces
+        %sceneShowImage(scene, 3);
+        sceneWindow(scene);
 
-        % THIS IS JUST FOR DEBUGGING CHANGES IN RECIPES
+        %{ 
+            % THIS IS JUST FOR DEBUGGING CHANGES IN RECIPES
         ourRecipe = scenario.roadData.recipe;
         sceneShowImage(previousScene, -3);
         previousScene = scene;
         previousRecipe = ourRecipe;
+        %}
     end
 
     % Create an image with a camera, and run a detector on it
