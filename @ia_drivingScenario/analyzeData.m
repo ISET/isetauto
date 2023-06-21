@@ -7,13 +7,16 @@ function analyzeData(scenario)
 ourData = scenario.logData;
 
 % Calculate distance (per frame?)
-%pedLocation = ourData(ii).targetPosition;
-%carLocation = ourData(ii).vehiclePosition;
-
+for ii = 1:numel(ourData)
+    pedLocation = ourData(ii).targetLocation;
+    carLocation = ourData(ii).vehicleLocation;
+    pedDistanceVector = abs(pedLocation - carLocation);
+    ourData(ii).pedDistance = pedDistanceVector; % FIND DISTANCE
+end
 %pedDistance = <vector distance>;
 
 figure;
-plot(1:numel(ourData), ourData(:).egoVehicle.Velocity, ourData(:).targetObject.Velocity);
+plot(1:numel(ourData), ourData(:).egoVehicle.Velocity, ourData(:).pedDistance);
 
 end
 

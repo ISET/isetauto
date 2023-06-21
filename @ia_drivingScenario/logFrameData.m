@@ -9,16 +9,18 @@ logFrame.targetObject = scenario.targetObject;
 
 % maybe find positions here?
 ourRecipe = scenario.roadData.recipe;
-assetBranchName = [scenario.egoVehicle.name '_B'];
+
+% egoVehicle seems to be a DS Vehicle, targetObject is an IA actor
+assetBranchName = [convertStringsToChars(scenario.egoVehicle.Name) '_B'];
 vehicleLocation = ourRecipe.get('asset',assetBranchName,'world position');
 
-assetBranchName = [scenario.targetObject.name '_B'];
+assetBranchName = [convertStringsToChars(scenario.targetObject.name) '_B'];
 targetLocation = ourRecipe.get('asset',assetBranchName,'world position');
 
 logFrame.targetLocation = targetLocation;
-logFrame.vehicleLodation = vehicleLocation;
+logFrame.vehicleLocation = vehicleLocation;
 
-scenario.logData(end+1) = logFrame;
+scenario.logData = [scenario.logData logFrame];
 
 
 end

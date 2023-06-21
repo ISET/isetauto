@@ -48,7 +48,7 @@ if scenario.justStarting ~= true
     end
 
     % Create an image with a camera, and run a detector on it
-    [image, scenario.detectionResults] = scenario.imageAndDetect(scene);
+    image = scenario.imageAndDetect(scene);
     scenario.logFrameData(scene, scenario.detectionResults); % update our logging data structure
 
     % Here we want to create a movie/video

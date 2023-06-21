@@ -47,6 +47,10 @@ scenario.detectionResults.scores = scores;
 scenario.detectionResults.labels = labels;
 
 % Don't "unfind" ped once we find them!
+% probably can rewrite this more elegantly
+if ~isfield(scenario.detectionResults,'foundPed')
+    scenario.detectionResults.foundPed = false
+end
 if scenario.detectionResults.foundPed == false
     scenario.detectionResults.foundPed = foundPed;
 end
