@@ -4,6 +4,19 @@ classdef ia_drivingScenario < drivingScenario
     % D. Cardinal, Stanford University, June, 2023
     properties
 
+        %% General settings
+        scenarioName = 'LabTest'; % default
+        lighting = 'nighttime';
+
+        %% Main parameters to determine quality versus speed:
+        stepTime = .2; % time per frame
+        frameRate = 3; % playback speed in frames per second
+        scenarioQuality = 'quick'; % default
+
+        %% Additional useful options
+        sensorModel = 'MT9V024SensorRGB'; % one of our automotive sensors
+        deNoise = true; % run denoiser by default
+
         % For debugging raise the camera and look down
         debug = false; % if true, then of course detection isn't realistic
 
@@ -17,7 +30,6 @@ classdef ia_drivingScenario < drivingScenario
         % SOME SCENES ARE REVERSED, some not
         % Should see if we can figure out a way to decide automatically
         coordinateMapping = [1 1 1]; % [-1 -1 1];
-        stepTime = .2; % in case we forget to set it in DSD
 
         % We don't get Pose information on Actors and Vehicles until
         % after we start up the scenario. So we need to create a collection
@@ -32,11 +44,7 @@ classdef ia_drivingScenario < drivingScenario
         justStarting = true; % allows us to skip first frame
 
         frameNum = 1; % to start
-        scenarioName = 'LabTest'; % default
-        scenarioQuality = 'quick'; % default
-        deNoise = true; % run denoiser by default
-
-        sensorModel = 'MT9V024SensorRGB'; % one of our automotive sensors
+        
         cameraOffset = [0 0 2]; % needs to be changed later
         predictionThreshold = .8; % default is .95, lower for testing;
         detectionResults = []; %Updated as we drive
@@ -59,12 +67,9 @@ classdef ia_drivingScenario < drivingScenario
     methods
         function ds = ia_drivingScenario(varargin)
 
-            % Should we do the ieInit/dockerInit here
-            % Better at beginning of script, but that's generated
-            % each time by Matlab
-            %% Initialize ISET and Docker
+            %% Initialize ISET before running
+            % We can't do it here or we lose what we've already started
             %ieInit;
-            %if ~piDockerExists, piDockerConfig; end
             
             % Let the Matlab driving scenario (superclass) set things up first
             % ds now contains a "blank slate" scenario
@@ -78,7 +83,7 @@ classdef ia_drivingScenario < drivingScenario
         % road(scenario, roadCenters, 'Heading', headings, 'Lanes', laneSpecification, 'Name', 'road_020');
         function road(scenario, segments, varargin)
             p = inputParser;
-            p.addParameter('Name', 'road_020');
+            p.addParameter('Name', 'road_020'); % over-ridden 
             p.KeepUnmatched = true; % we don't parse all args here
             p.parse(varargin{:});
 
@@ -93,10 +98,10 @@ classdef ia_drivingScenario < drivingScenario
 
                 % Set up video here because it doesn't like the constructor
                 % VideoWriter variables
-                scenario.scenarioName = 'LabDemo';
-                scenario.scenarioQuality = 'quick';
+                %scenario.scenarioName = 'LabDemo';
+                %scenario.scenarioQuality = 'quick';
                 scenario.v = VideoWriter(strcat(scenario.scenarioName, "-", scenario.scenarioQuality),'MPEG-4');
-                scenario.v.FrameRate = 3; % 15-30 for high fidelity
+                scenario.v.FrameRate = scenario.frameRate; % 15-30 for high fidelity
 
                 % Set output rendering quality
                 iaQualitySet(scenario.roadData.recipe, 'preset', scenario.scenarioQuality);
