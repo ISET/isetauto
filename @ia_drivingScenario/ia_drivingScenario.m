@@ -42,6 +42,7 @@ classdef ia_drivingScenario < drivingScenario
         actorsToBePlaced = {};
         needRoads = true;
         justStarting = true; % allows us to skip first frame
+        egoVelocity = 0; % set once we have a car
 
         frameNum = 1; % to start
         

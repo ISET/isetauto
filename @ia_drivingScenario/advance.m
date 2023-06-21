@@ -65,8 +65,11 @@ for ii = 1:numel(scenario.roadData.actorsIA)
     ourActor = scenario.roadData.actorsIA{ii};
     if ourActor.hasCamera
         ourActorDS = scenario.roadData.actorsDS{ii};
-        egoVelocity = ourActorDS.Velocity;
 
+        % initialize our copy of our vehicle velocity
+        if scenario.egoVelocity == 0
+            scenario.egoVelocity = ourActorDS.Velocity;
+        end
         % if we have a pedestrian, begin braking
         if  ~isempty(scenario.detectionResults) && ...
                 ~isempty(scenario.detectionResults.foundPed) && ...
@@ -75,7 +78,9 @@ for ii = 1:numel(scenario.roadData.actorsIA)
             cprintf('*Red','found ped\n');
             % braking should move closer to abs()
             % for now just decelerate in forward/back
-            ourActorDS.Velocity = ourActorDS.Velocity + ourActor.brakePower;
+            ourActorDS.Velocity = scenario.egoVelocity + ourActor.brakePower;
+            scenario.egoVelocity = ourActorDS.Velocity;
+
             % We don't want braking to reverse course
             % but this max() only works if we are + direction
             ourActorDS.Velocity(1) = max(ourActorDS.Velocity(1), 0);
@@ -83,7 +88,7 @@ for ii = 1:numel(scenario.roadData.actorsIA)
         end
 
         % Move camera
-        adjustedVelocity = ia_drivingScenario.dsToIA(egoVelocity);
+        adjustedVelocity = scenario.egoVelocity;
         scenario.roadData.recipe.lookAt.from = ...
             scenario.roadData.recipe.lookAt.from + ...
             (adjustedVelocity .* ourTimeStep);
