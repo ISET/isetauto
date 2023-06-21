@@ -64,7 +64,8 @@ end
 for ii = 1:numel(scenario.roadData.actorsIA)
     ourActor = scenario.roadData.actorsIA{ii};
     if ourActor.hasCamera
-        egoVelocity = scenario.roadData.actorsDS{ii}.Velocity;
+        ourActorDS = scenario.roadData.actorsDS{ii};
+        egoVelocity = ourActorDS.Velocity;
 
         % if we have a pedestrian, begin braking
         if  ~isempty(scenario.detectionResults) && ...
@@ -74,19 +75,11 @@ for ii = 1:numel(scenario.roadData.actorsIA)
             cprintf('*Red','found ped\n');
             % braking should move closer to abs()
             % for now just decelerate in forward/back
-            if ourActor.velocity(1) < 0
-                % negativeVelocity = true;
-                ourActor.velocity(1) = ...
-                    ourActor.velocity(1) - ourActor.brakePower(1);
-            else
-                % negativeVelocity = false;
-                ourActor.velocity(1) = ...
-                    ourActor.velocity(1) + ourActor.brakePower(1);
-            end
+            ourActorDS.Velocity = ourActorDS.Velocity + ourActor.brakePower;
+            % We don't want braking to reverse course
+            % but this max() only works if we are + direction
+            ourActorDS.Velocity(1) = max(ourActorDS.Velocity(1), 0);
 
-            ourActor.velocity(1) = ...
-                max(ourActor.velocity(1) - ...,
-                0);
         end
 
         % Move camera
@@ -94,6 +87,12 @@ for ii = 1:numel(scenario.roadData.actorsIA)
         scenario.roadData.recipe.lookAt.from = ...
             scenario.roadData.recipe.lookAt.from + ...
             (adjustedVelocity .* ourTimeStep);
+        % NEED to make this follow Yaw!
+        scenario.roadData.recipe.lookAt.to = ...
+            scenario.roadData.recipe.lookAt.from + [200 0 0];
+        cprintf('*Green', 'Camera from: %2.1f to: %2.1f\n', ...
+            scenario.roadData.recipe.lookAt.from(1), ...
+            scenario.roadData.recipe.lookAt.to(1));
     end
     % Debug statements with current info
     currentActor = scenario.roadData.actorsDS{ii};
