@@ -1,16 +1,24 @@
-function  logFrameData(scenario, scene)
+function  logFrameData(scenario, scene, detectionResults)
 
-peds = ismember(labels,'person'); % Any person?
-foundPed = max(scores(peds)) > detectionThreshhold; % Are we confident?
+%peds = ismember(labels,'person'); % Any person?
+%foundPed = max(scores(peds)) > detectionThreshhold; % Are we confident?
 
+logFrame = [];
+logFrame.egoVehicle = scenario.egoVehicle;
+logFrame.targetObject = scenario.targetObject;
 
+% maybe find positions here?
+ourRecipe = scenario.roadData.recipe;
+assetBranchName = [scenario.egoVehicle.name '_B'];
+vehicleLocation = ourRecipe.get('asset',assetBranchName,'world position');
 
-% plot time versus distance
-%ieNewGraphWin
-%plot(runData(:,1),runData(:,2))
+assetBranchName = [scenario.targetObject.name '_B'];
+targetLocation = ourRecipe.get('asset',assetBranchName,'world position');
 
-% for quick viewing use mmovie
-%movie(ourVideo, 10, 1);
+logFrame.targetLocation = targetLocation;
+logFrame.vehicleLodation = vehicleLocation;
+
+scenario.logData(end+1) = logFrame;
 
 
 end

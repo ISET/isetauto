@@ -25,7 +25,6 @@ classdef ia_drivingScenario < drivingScenario
         %waypoints; % in meters
         %speed; % meters/second
         numActors = 0;
-        egoVehicle = [];
 
         % SOME SCENES ARE REVERSED, some not
         % Should see if we can figure out a way to decide automatically
@@ -43,8 +42,11 @@ classdef ia_drivingScenario < drivingScenario
         needRoads = true;
         justStarting = true; % allows us to skip first frame
         egoVelocity = 0; % set once we have a car
+        egoVehicle = [];
+        targetObject = [];
 
         frameNum = 1; % to start
+        logData = [];
         
         cameraOffset = [0 0 2]; % needs to be changed later
         predictionThreshold = .8; % default is .95, lower for testing;

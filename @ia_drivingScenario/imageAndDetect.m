@@ -1,4 +1,4 @@
-function [image, detectionResults] = imageAndDetect(scenario, scene)
+function [image] = imageAndDetect(scenario, scene)
 % image our scene through a camera of our choosing,
 % and then run an object detector on it
 % (YOLOv4 by default, but could be any compatible detector)
@@ -42,10 +42,14 @@ end
 rgb = insertObjectAnnotation(rgb,"rectangle",bboxes,labels, 'FontSize', 16);
 
 % Return detection results, along with other data
-detectionResults.bboxes = bboxes;
-detectionResults.scores = scores;
-detectionResults.labels = labels;
-detectionResults.foundPed = foundPed;
+scenario.detectionResults.bboxes = bboxes;
+scenario.detectionResults.scores = scores;
+scenario.detectionResults.labels = labels;
+
+% Don't "unfind" ped once we find them!
+if scenario.detectionResults.foundPed == false
+    scenario.detectionResults.foundPed = foundPed;
+end
 
 % Need to track pedmeters
 %if pedMeters <= .1

@@ -29,7 +29,6 @@ if scenario.justStarting ~= true
     scenario.sceneList{end+1} = scene;
 
     % show preview if desired
-    previousScene = [];
     if scenario.previewScenes
         scene = sceneSet(scene, 'display mode', 'hdr');
         % try sceneshowimage
@@ -50,7 +49,7 @@ if scenario.justStarting ~= true
 
     % Create an image with a camera, and run a detector on it
     [image, scenario.detectionResults] = scenario.imageAndDetect(scene);
-    scenario.logFrameData(scene); % update our logging data structure
+    scenario.logFrameData(scene, scenario.detectionResults); % update our logging data structure
 
     % Here we want to create a movie/video
     % presumably one frame at a time
@@ -64,11 +63,18 @@ end
 % Assume that egoVehicle is #1
 for ii = 1:numel(scenario.roadData.actorsIA)
     ourActor = scenario.roadData.actorsIA{ii};
+
+    % assume we are looking for ped 001
+    if isempty(scenario.targetObject) && isequal(ourActor.name, 'pedestrian_001')
+        scenario.targetObject = ourActor;
+    end
+    
     if ourActor.hasCamera
         ourActorDS = scenario.roadData.actorsDS{ii};
-
+        
         % initialize our copy of our vehicle velocity
         if scenario.egoVelocity == 0
+            scenario.egoVehicle = ourActorDS;
             scenario.egoVelocity = ourActorDS.Velocity;
         end
         % if we have a pedestrian, begin braking
@@ -76,7 +82,7 @@ for ii = 1:numel(scenario.roadData.actorsIA)
                 ~isempty(scenario.detectionResults.foundPed) && ...
                 (scenario.detectionResults.foundPed == true)
 
-            cprintf('*Red','found ped\n');
+            cprintf('*Red','Recognized pedestrian\n');
             % braking should move closer to abs()
             % for now just decelerate in forward/back
             ourActorDS.Velocity = scenario.egoVelocity + ourActor.brakePower;
@@ -129,6 +135,11 @@ for ii = 1:numel(scenario.roadData.actorsIA)
     % run super-class method
 end
 running = advance@drivingScenario(scenario);
+
+% Scenario has ended, analyze results
+if ~running
+    scenario.analyzeData();
+end
 end
 
 
