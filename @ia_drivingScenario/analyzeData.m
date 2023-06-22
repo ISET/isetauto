@@ -16,7 +16,10 @@ end
 %pedDistance = <vector distance>;
 
 figure;
-plot(1:numel(ourData), ourData(:).egoVehicle.Velocity, ourData(:).pedDistance);
+allVehicles = ourData(1,:);
+vehicles = allVehicles(1,:).egoVehicle;
+allPeds = ourData(:);
+plot(1:numel(ourData), allPeds(:).pedDistance(1));
 
 end
 
