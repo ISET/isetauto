@@ -3,23 +3,25 @@ function analyzeData(scenario)
 %
 % So far we have velocities, but we don't have distance
 %
+%{
+% Here is what we get:
+logFrame.targetLocation = targetLocation;
+logFrame.vehicleLocation = vehicleLocation;
+logFrame.vehicleVelocity = vehicleVelocity;
+logFrame.targetVelocity = targetVelocity;
+logFrame.simulationTime = scenario.SimulationTime;
+%}
 
 ourData = scenario.logData;
 
 % Calculate distance (per frame?)
 for ii = 1:numel(ourData)
-    pedLocation = ourData(ii).targetLocation;
-    carLocation = ourData(ii).vehicleLocation;
-    pedDistanceVector = abs(pedLocation - carLocation);
-    ourData(ii).pedDistance = pedDistanceVector; % FIND DISTANCE
+    %pedDistanceVector = abs(pedLocation - carLocation);
+    %ourData(ii).pedDistance = pedDistanceVector; % FIND DISTANCE
 end
-%pedDistance = <vector distance>;
 
 figure;
-allVehicles = ourData(1,:);
-vehicles = allVehicles(1,:).egoVehicle;
-allPeds = ourData(:);
-plot(1:numel(ourData), allPeds(:).pedDistance(1));
+plot(ourData(:).simulationTime, ourData(:).vehicleVelocity);
 
 end
 
