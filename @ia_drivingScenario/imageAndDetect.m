@@ -32,7 +32,13 @@ rgb = ipGet(ip, 'srgb');
 % See if we have found a person (e.g. pedestrian)
 % NOTE: We don't (yet) distinguish between multiple pedestrians
 peds = ismember(labels,'person'); % Any person?
-foundPed = max(scores(peds)) > detectionThreshhold; % Are we confident?
+
+if ~exist('foundPed', 'var') || max(scores(peds)) > detectionThreshhold 
+    foundPed = max(scores(peds)) > detectionThreshhold; % Are we confident?
+else
+    foundPed = 0;
+end
+
 if foundPed > 0
     cprintf('*Yellow', 'Identified Pedestrian...\n');
     scenario.roadData.actorsIA{scenario.roadData.targetVehicleNumber}.braking = true;
@@ -46,14 +52,7 @@ scenario.detectionResults.bboxes = bboxes;
 scenario.detectionResults.scores = scores;
 scenario.detectionResults.labels = labels;
 
-% Don't "unfind" ped once we find them!
-% probably can rewrite this more elegantly
-if ~isfield(scenario.detectionResults,'foundPed')
-    scenario.detectionResults.foundPed = false
-end
-if scenario.detectionResults.foundPed == false
-    scenario.detectionResults.foundPed = foundPed;
-end
+scenario.detectionResults.foundPed = foundPed;
 
 % Need to track pedmeters
 %if pedMeters <= .1
