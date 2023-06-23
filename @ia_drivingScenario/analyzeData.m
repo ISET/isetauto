@@ -31,12 +31,14 @@ yyaxis left;
 ylabel('Speed');
 plot(simulationTime, vehicleForwardVelocity);
 yyaxis right;
+xlabel('time (s)');
 ylabel('Distance');
 plot(simulationTime, pedestrianDistance);
-
-title('Vehicle Speed & Distance to Pedestrian over Time');
-xlabel('time (s)');
 legend('Vehicle Speed','Distance to Pedestrian');
+
+title(['Vehicle Speed & Distance to Pedestrian over Time'], ...
+    ['Start Speed:',num2str(vehicleForwardVelocity(1)),', Start Distance: ',num2str(pedestrianDistance(1))], ...
+    'FontSize',12);
 
 end
 
