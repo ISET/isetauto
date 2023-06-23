@@ -73,7 +73,8 @@ for ii = 1:numel(scenario.roadData.actorsIA)
         ourActorDS = scenario.roadData.actorsDS{ii};
         
         % initialize our copy of our vehicle velocity
-        if scenario.egoVelocity == 0
+        % Only update if still > 0
+        if scenario.egoVelocity >= 0
             scenario.egoVehicle = ourActorDS;
             scenario.egoVelocity = ourActorDS.Velocity;
         end

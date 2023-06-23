@@ -33,7 +33,9 @@ rgb = ipGet(ip, 'srgb');
 % NOTE: We don't (yet) distinguish between multiple pedestrians
 peds = ismember(labels,'person'); % Any person?
 
-if ~exist('foundPed', 'var') || max(scores(peds)) > detectionThreshhold 
+if exist('foundPed', 'var') && foundPed > 0
+    % Do nothing, we've already found the pedestrian
+elseif ~exist('foundPed', 'var') || max(scores(peds)) > detectionThreshhold 
     foundPed = max(scores(peds)) > detectionThreshhold; % Are we confident?
 else
     foundPed = 0;
