@@ -74,9 +74,12 @@ for ii = 1:numel(scenario.roadData.actorsIA)
         
         % initialize our copy of our vehicle velocity
         % Only update if still > 0
-        if scenario.egoVelocity >= 0
+        if scenario.egoVelocity(1) >= 0
             scenario.egoVehicle = ourActorDS;
             scenario.egoVelocity = ourActorDS.Velocity;
+        else
+            % if we're starting to go backwards, stop!
+            scenario.egoVelocity(1) = 0;
         end
         % if we have a pedestrian, begin braking
         if  ~isempty(scenario.detectionResults) && ...
