@@ -33,16 +33,13 @@ rgb = ipGet(ip, 'srgb');
 % NOTE: We don't (yet) distinguish between multiple pedestrians
 peds = ismember(labels,'person'); % Any person?
 
-if exist('foundPed', 'var') && foundPed > 0
-    % Do nothing, we've already found the pedestrian
-elseif ~exist('foundPed', 'var') || max(scores(peds)) > detectionThreshhold 
-    foundPed = max(scores(peds)) > detectionThreshhold; % Are we confident?
-else
-    foundPed = 0;
+% If we have found a pedestrian set the flag, but don't unset it
+if ~isempty(peds) && (isempty(scenario.foundPed) || scenario.foundPed == false)
+    scenario.foundPed = max(scores(peds)) > detectionThreshhold; 
 end
 
-if foundPed > 0
-    cprintf('*Yellow', 'Identified Pedestrian...\n');
+if scenario.foundPed
+    cprintf('*Red', 'Identified Pedestrian...\n');
     scenario.roadData.actorsIA{scenario.roadData.targetVehicleNumber}.braking = true;
 end
 
@@ -54,25 +51,15 @@ scenario.detectionResults.bboxes = bboxes;
 scenario.detectionResults.scores = scores;
 scenario.detectionResults.labels = labels;
 
-scenario.detectionResults.foundPed = foundPed;
-
 % Need to track pedmeters
 %if pedMeters <= .1
 %    caption = strcat(caption, " ***CRASH*** ");
 %end
-if scenario.roadData.actorsIA{scenario.roadData.targetVehicleNumber}.braking % cheat & assume we are actor 1
+if scenario.foundPed % cheat & assume we are actor 1
     image = insertText(rgb,[0 0],strcat(caption, " -- BRAKING"),'FontSize',48, 'TextColor','red');
 else
     image = insertText(rgb,[0 0],caption,'FontSize',36);
 end
-
-
-% plot time versus distance
-%ieNewGraphWin
-%plot(runData(:,1),runData(:,2))
-
-% for quick viewing use mmovie
-%movie(ourVideo, 10, 1);
 
 
 end

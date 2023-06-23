@@ -21,6 +21,9 @@ if scenario.justStarting ~= true
     % First we show where we are (were)
     piWrite(scenario.roadData.recipe);
     scene = piRender(scenario.roadData.recipe);
+    if isempty(scene)
+        error("Failed to render. dockerwrapper.reset might help\n");
+    end
     if scenario.deNoise == true
         scene = piAIdenoise(scene,'quiet', true, 'batch', true);
     end
@@ -71,30 +74,21 @@ for ii = 1:numel(scenario.roadData.actorsIA)
     
     if ourActor.hasCamera
         ourActorDS = scenario.roadData.actorsDS{ii};
-        
-        % initialize our copy of our vehicle velocity
-        % Only update if still > 0
-        if scenario.egoVelocity(1) >= 0
-            scenario.egoVehicle = ourActorDS;
+        if scenario.needEgoVelocity
             scenario.egoVelocity = ourActorDS.Velocity;
-        else
-            % if we're starting to go backwards, stop!
-            scenario.egoVelocity(1) = 0;
+            scenario.needEgoVelocity = false;
         end
+        
         % if we have a pedestrian, begin braking
-        if  ~isempty(scenario.detectionResults) && ...
-                ~isempty(scenario.detectionResults.foundPed) && ...
-                (scenario.detectionResults.foundPed == true)
+        if  scenario.foundPed == true
 
             cprintf('*Red','Recognized pedestrian\n');
             % braking should move closer to abs()
             % for now just decelerate in forward/back
-            ourActorDS.Velocity = scenario.egoVelocity + ourActor.brakePower;
-            scenario.egoVelocity = ourActorDS.Velocity;
-
-            % We don't want braking to reverse course
-            % but this max() only works if we are + direction
-            ourActorDS.Velocity(1) = max(ourActorDS.Velocity(1), 0);
+            ourActorDS.Velocity = scenario.egoVelocity + ...
+                (ourActor.brakePower * scenario.stepTime);
+            scenario.egoVelocity(1) = max(ourActorDS.Velocity(1), 0);
+            ourActorDS.Velocity(1) = scenario.egoVelocity(1);
 
         end
 
@@ -119,28 +113,22 @@ for ii = 1:numel(scenario.roadData.actorsIA)
     % Unfortunately this doesn't seem to work except for lights!
     currentRotation = piAssetGet(currentAsset{1}, 'worldrotation');
     %}
-    cprintf('*Blue', "DSVelocity %s : %2.1f, %2.1f, %2.1f ", ...
+    cprintf('*Blue', "DSVelocity %s : %2.2f, %2.2f, %2.1f", ...
         currentActor.Name, ...
         currentActor.Velocity(1), ...
         currentActor.Velocity(2), ...
         currentActor.Velocity(3));
-    cprintf('*Blue', "DSyaw: %2.1f\n", currentActor.Yaw);
+    cprintf('*Blue', ", DSyaw: %2.1f\n", currentActor.Yaw);
     % Also move our Actors by time step * velocity
     % move asset per velocity inherited from DS
     ourActor.yaw = currentActor.Yaw;
     ourActor.moveAsset(scenario, ...
         currentActor);
-    % Then determine whether braking & subtract from Velocity
-    % (We can't just subtract from speed, as it has been broken
-    % into velocity components already based on waypoints
-    % In this case we also need to modify the SDS version of
-    % Velocity
-
-    % run super-class method
 end
+% run super-class method
 running = advance@drivingScenario(scenario);
 
-% Scenario has ended, analyze results
+% If scenario has ended, analyze results
 if ~running
     scenario.analyzeData();
 end
