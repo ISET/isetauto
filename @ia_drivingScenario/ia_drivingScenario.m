@@ -49,7 +49,7 @@ classdef ia_drivingScenario < drivingScenario
 
         frameNum = 1; % to start
         logData = [];
-        
+
         cameraOffset = [0 0 2]; % needs to be changed later
         predictionThreshold = .8; % default is .95, lower for testing;
         detectionResults = []; %Updated as we drive
@@ -67,6 +67,16 @@ classdef ia_drivingScenario < drivingScenario
         % in its own file
         iaCoordinates = dsToIA(dsCoordinates);
         iaYaw = dsToIAYaw(dsYaw);
+
+        % Basically just definining a class-level variable
+        function iSpeed = initialSpeed(inputSpeed)
+            persistent pSpeed;
+            if isempty(pSpeed), pSpeed = 0; end % ignore if 0
+            if nargin
+                pSpeed = inputSpeed;
+            end
+            iSpeed = pSpeed;
+        end
     end
 
     methods
@@ -75,7 +85,7 @@ classdef ia_drivingScenario < drivingScenario
             %% Initialize ISET before running
             % We can't do it here or we lose what we've already started
             %ieInit;
-            
+
             % Let the Matlab driving scenario (superclass) set things up first
             % ds now contains a "blank slate" scenario
             ds = ds@drivingScenario(varargin{:});
@@ -88,7 +98,7 @@ classdef ia_drivingScenario < drivingScenario
         % road(scenario, roadCenters, 'Heading', headings, 'Lanes', laneSpecification, 'Name', 'road_020');
         function road(scenario, segments, varargin)
             p = inputParser;
-            p.addParameter('Name', 'road_020'); % over-ridden 
+            p.addParameter('Name', 'road_020'); % over-ridden
             p.KeepUnmatched = true; % we don't parse all args here
             p.parse(varargin{:});
 

@@ -75,7 +75,13 @@ for ii = 1:numel(scenario.roadData.actorsIA)
     if ourActor.hasCamera
         ourActorDS = scenario.roadData.actorsDS{ii};
         if scenario.needEgoVelocity
-            scenario.egoVelocity = ourActorDS.Velocity;
+
+            % Try to use experiment params here:
+            if ia_drivingScenario.initialSpeed() > 0
+                scenario.egoVelocity(1) = ia_drivingScenario.initialSpeed();
+            else
+                scenario.egoVelocity = ourActorDS.Velocity;
+            end
             scenario.needEgoVelocity = false;
         end
         
