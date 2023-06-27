@@ -26,7 +26,7 @@ for ii = 1:numel(ourData)
     simulationTime(ii) = ourData(ii).simulationTime;
 end
 
-figure; 
+figure('Name',['Speed: ', num2str(vehicleForwardVelocity)]); 
 yyaxis left;
 ylabel('Speed');
 plot(simulationTime, vehicleForwardVelocity);
