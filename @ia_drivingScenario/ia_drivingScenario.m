@@ -59,7 +59,7 @@ classdef ia_drivingScenario < drivingScenario
         ourVideo = struct('cdata',[],'colormap',[]);
 
         sceneList = {};
-        previewScenes = true;
+        previewScenes = true; % over-ridden in experiments
 
     end
 
@@ -76,6 +76,15 @@ classdef ia_drivingScenario < drivingScenario
                 pSpeed = inputSpeed;
             end
             iSpeed = pSpeed;
+        end
+        % Basically just definining a class-level variable
+        function result = inExperiment(truefalse)
+            persistent isTrue;
+            if isempty(isTrue), isTrue = false; end % ignore if 0
+            if nargin
+                isTrue = truefalse;
+            end
+            result = isTrue;
         end
     end
 

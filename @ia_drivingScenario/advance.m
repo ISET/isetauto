@@ -18,9 +18,17 @@ ourTimeStep = scenario.SampleTime;
 % We may want to skip initial frame since it doesn't have yaw
 % correct
 if scenario.justStarting ~= true
-    % First we show where we are (were)
-    piWrite(scenario.roadData.recipe);
-    scene = piRender(scenario.roadData.recipe);
+    % First we show where we are (were) before moving
+    % If we want to run in parallel recipe needs to have a different
+    % outfile for each thread, but we don't need a new one
+    % for each iteration, to the extent it matters
+    
+    ourRand = randi([1 1000], 1); % hopefully enough for now:)
+    ourRecipe = scenario.roadData.recipe;
+    [pp, nn, ee] = fileparts(ourRecipe.outputFile);
+    ourRecipe.outputFile = fullfile(pp, [nn '-' ourRand ee]);
+    piWrite(ourRecipe);
+    scene = piRender(ourRecipe);
     if isempty(scene)
         error("Failed to render. dockerwrapper.reset might help\n");
     end
@@ -28,26 +36,19 @@ if scenario.justStarting ~= true
         scene = piAIdenoise(scene,'quiet', true, 'batch', true);
     end
 
+    % WE SHOULD REALLY REMOVE EXCESS RECIPES FROM LOCAL!
+
     % add to our scene list for logging
     scenario.sceneList{end+1} = scene;
 
     % show preview if desired
-    if scenario.previewScenes
+    if ~ia_drivingScenario.inExperiment && scenario.previewScenes
         scene = sceneSet(scene, 'display mode', 'hdr');
         % try sceneshowimage
         % Note: Faster but leads to un-labeled Window sprawl until we
         %       add some more pieces
         %sceneShowImage(scene, 3);
         sceneWindow(scene);
-
-        %{ 
-        % THIS IS JUST FOR DEBUGGING CHANGES IN RECIPES
-        ourRecipe = scenario.roadData.recipe;
-        if isempty(previousScene), previousScene = sceneCreate(); end
-        sceneShowImage(previousScene, -3);
-        previousScene = scene;
-        previousRecipe = ourRecipe;
-        %}
     end
 
     % Create an image with a camera, and run a detector on it
@@ -76,11 +77,11 @@ for ii = 1:numel(scenario.roadData.actorsIA)
         ourActorDS = scenario.roadData.actorsDS{ii};
         if scenario.needEgoVelocity
 
-            % Try to use experiment params here:
+            scenario.egoVelocity = ourActorDS.Velocity;
+            % Use experiment params here:
             if ia_drivingScenario.initialSpeed() > 0
                 scenario.egoVelocity(1) = ia_drivingScenario.initialSpeed();
-            else
-                scenario.egoVelocity = ourActorDS.Velocity;
+                ourActorDS.Velocity(1) = ia_drivingScenario.initialSpeed();
             end
             scenario.needEgoVelocity = false;
         end
