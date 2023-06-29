@@ -1,6 +1,8 @@
 %% Simulation turn advance
 function running = advance(scenario)
 
+persistent originalOutputFile;
+
 % Need to place vehicles and actors now that we hopefully have yaw data
 % Just do this once:
 if scenario.needToPlaceVehicles == true

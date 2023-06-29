@@ -51,7 +51,7 @@ classdef ia_drivingScenario < drivingScenario
         logData = [];
 
         cameraOffset = [0 0 2]; % needs to be changed later
-        predictionThreshold = .8; % default is .95, lower for testing;
+        predictionThreshold = .95; % default is .95, lower for testing;
         detectionResults = []; %Updated as we drive
 
         v = [];
