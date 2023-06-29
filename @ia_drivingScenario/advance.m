@@ -25,8 +25,8 @@ if scenario.justStarting ~= true
     
     ourRand = randi([1 1000], 1); % hopefully enough for now:)
     ourRecipe = scenario.roadData.recipe;
-    [pp, nn, ee] = fileparts(ourRecipe.outputFile);
-    ourRecipe.outputFile = fullfile(pp, [nn '-' ourRand ee]);
+    [pp, nn, ee] = fileparts(originalOutputFile);
+    ourRecipe.outputFile = fullfile(pp, [nn '-' num2str(ourRand) ee]);
     piWrite(ourRecipe);
     scene = piRender(ourRecipe);
     if isempty(scene)
@@ -59,6 +59,7 @@ if scenario.justStarting ~= true
     % presumably one frame at a time
     addToVideo(scenario, scene, image);
 else
+    originalOutputFile = scenario.roadData.recipe.outputFile;
     scenario.justStarting = false;
 end
 
