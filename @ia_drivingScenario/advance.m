@@ -25,10 +25,9 @@ if scenario.justStarting ~= true
     % outfile for each thread, but we don't need a new one
     % for each iteration, to the extent it matters
     
-    ourRand = randi([1 1000], 1); % hopefully enough for now:)
     ourRecipe = scenario.roadData.recipe;
     [pp, nn, ee] = fileparts(originalOutputFile);
-    ourRecipe.outputFile = fullfile(pp, [nn '-' num2str(ourRand) ee]);
+    ourRecipe.outputFile = fullfile(pp, [nn '-' sprintf('%03d', scenario.frameNum) ee]);
     piWrite(ourRecipe);
     scene = piRender(ourRecipe);
     if isempty(scene)
