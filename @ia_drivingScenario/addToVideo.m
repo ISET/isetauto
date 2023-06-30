@@ -4,8 +4,8 @@ function addToVideo(scenario, scene, image)
 saveName = fullfile(iaDirGet('local'),'demo_scenes.mat');
 scenesToSave = scenario.sceneList;
 
-% NOTE: We are only saving the name here, not the Scenes!!
-save(saveName, 'scenesToSave', "-v7.3");
+%% NOTE: This is really expensive. Should probably change to do at end
+%save(saveName, 'scenesToSave', "-v7.3");
 
 dRGB = double(image); % version for movie
 scenario.ourVideo(scenario.frameNum) = im2frame(dRGB);

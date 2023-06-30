@@ -16,28 +16,33 @@ ourData = scenario.logData;
 simulationTime = [];
 pedestrianDistance = [];
 
-% Calculate distance (per frame?)
+% Calculate distance
 for ii = 1:numel(ourData)
-    %pedDistanceVector = abs(pedLocation - carLocation);
-    %ourData(ii).pedDistance = pedDistanceVector; % FIND DISTANCE
-    vehicleForwardVelocity(ii) = ourData(ii).vehicleVelocity(1);
-    % Go for x only now, stop at 0
-    pedestrianDistance(ii) = max(0, ourData(ii).targetLocation(1) - ourData(ii).vehicleLocation(1));
+    vehicleVelocity(ii) = ourData(ii).vehicleVelocity;
+
+    targetRawDistance(ii) = max(0, ourData(ii).targetLocation - ourData(ii).vehicleLocation(1));
+    tartetDistance(ii) = sum(targetRawDistance(ii) .^2) ^.5;
+
     simulationTime(ii) = ourData(ii).simulationTime;
+
+    % Calculate vehicle closing speed
+    vehicleClosingVelocity(ii) = vehicleVelocity(ii) - targetVelocity(ii); %#ok<*AGROW>
+    vehicleClosingSpeed(ii) = sum(vehicleClosingVelocity(ii) .^ 2) ^.5; %#ok<AGROW>
 end
 
-figure('Name',['Speed: ', num2str(vehicleForwardVelocity)]); 
+
+figure('Name',['Initial Speed: ', num2str(scenario.initialSpeed)]); 
 yyaxis left;
 ylabel('Speed');
-plot(simulationTime, vehicleForwardVelocity);
+plot(simulationTime, vehicleClosingSpeed);
 yyaxis right;
 xlabel('time (s)');
 ylabel('Distance');
-plot(simulationTime, pedestrianDistance);
+plot(simulationTime, targetDistance);
 legend('Vehicle Speed','Distance to Pedestrian');
 
-title(['Vehicle Speed & Distance to Pedestrian over Time'], ...
-    ['Start Speed:',num2str(vehicleForwardVelocity(1)),', Start Distance: ',num2str(pedestrianDistance(1))], ...
+title('Vehicle Speed & Distance to Pedestrian over Time', ...
+    ['Start Speed:',num2str(scenario.initialSpeed),', Start Distance: ',num2str(tartetDistance(1))], ...
     'FontSize',12);
 
 end
