@@ -14,20 +14,21 @@ logFrame.simulationTime = scenario.SimulationTime;
 
 ourData = scenario.logData;
 simulationTime = [];
-pedestrianDistance = [];
+targetDistance = [];
+vehicleVelocity = {};
 
 % Calculate distance
 for ii = 1:numel(ourData)
-    vehicleVelocity(ii) = ourData(ii).vehicleVelocity;
+    vehicleVelocity{ii} = ourData(ii).vehicleVelocity;
 
-    targetRawDistance(ii) = max(0, ourData(ii).targetLocation - ourData(ii).vehicleLocation(1));
-    tartetDistance(ii) = sum(targetRawDistance(ii) .^2) ^.5;
+    targetRawDistance{ii} = max(0, ourData(ii).targetLocation - ourData(ii).vehicleLocation(1));
+    targetDistance(ii) = sum(targetRawDistance{ii} .^2) ^.5;
 
     simulationTime(ii) = ourData(ii).simulationTime;
 
     % Calculate vehicle closing speed
-    vehicleClosingVelocity(ii) = vehicleVelocity(ii) - targetVelocity(ii); %#ok<*AGROW>
-    vehicleClosingSpeed(ii) = sum(vehicleClosingVelocity(ii) .^ 2) ^.5; %#ok<AGROW>
+    vehicleClosingVelocity{ii} = vehicleVelocity{ii} - ourData(ii).targetVelocity; %#ok<*AGROW>
+    vehicleClosingSpeed(ii) = sum(vehicleClosingVelocity{ii} .^ 2) ^.5; %#ok<AGROW>
 end
 
 
