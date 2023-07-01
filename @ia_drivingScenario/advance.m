@@ -40,13 +40,18 @@ if scenario.justStarting ~= true
 
     piWrite(ourRecipe);
 
-    scene = piRender(ourRecipe);
-    if isempty(scene)
-        error("Failed to render. dockerwrapper.reset might help\n");
-    end
     if scenario.deNoise == true
-        scene = piAIdenoise(scene,'quiet', true, 'batch', true);
+        scene = piRender(ourRecipe, 'exrdenoise', true);
+    else
+        scene = piRender(ourRecipe);
     end
+
+    if isempty(scene)
+        error("Failed to render scene. dockerWrapper.reset() might help\n");
+    end
+%    if scenario.deNoise == true
+%        scene = piAIdenoise(scene,'quiet', true, 'batch', true);
+%    end
 
     % WE SHOULD REALLY REMOVE EXCESS RECIPES FROM LOCAL!
 
