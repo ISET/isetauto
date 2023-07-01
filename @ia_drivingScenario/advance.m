@@ -28,7 +28,18 @@ if scenario.justStarting ~= true
     ourRecipe = scenario.roadData.recipe;
     [pp, nn, ee] = fileparts(originalOutputFile);
     ourRecipe.outputFile = fullfile(pp, [nn '-' sprintf('%03d', scenario.frameNum) ee]);
+
+    % Auto scenes only have radiance in their metadata!
+    ourRecipe.metadata.rendertype = {'radiance','depth','normal','albedo'};
+    ourRecipe.film.saveDepth.type = 'bool';
+    ourRecipe.film.saveAlbedo.type = 'bool';
+    ourRecipe.film.saveNormal.type = 'bool';
+    ourRecipe.film.saveDepth.value = true;
+    ourRecipe.film.saveAlbedo.value = true;
+    ourRecipe.film.saveNormal.value = true;
+
     piWrite(ourRecipe);
+
     scene = piRender(ourRecipe);
     if isempty(scene)
         error("Failed to render. dockerwrapper.reset might help\n");
