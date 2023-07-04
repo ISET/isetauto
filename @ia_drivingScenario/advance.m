@@ -32,30 +32,27 @@ if scenario.justStarting ~= true
     % Auto scenes only have radiance in their metadata!
     % We should start adding the others by default, so this section will be
     % moot...
-    ourRecipe.metadata.rendertype = {'radiance','depth','normal','albedo'};
+    ourRecipe.metadata.rendertype = {'radiance','depth','albedo'}; % normal
     ourRecipe.film.saveDepth.type = 'bool';
+%% Benchmark without normal
     ourRecipe.film.saveAlbedo.type = 'bool';
-    ourRecipe.film.saveNormal.type = 'bool';
+%    ourRecipe.film.saveNormal.type = 'bool';
     ourRecipe.film.saveDepth.value = true;
     ourRecipe.film.saveAlbedo.value = true;
-    ourRecipe.film.saveNormal.value = true;
+%    ourRecipe.film.saveNormal.value = true;
 
     piWrite(ourRecipe);
 
-    if scenario.deNoise == true
+    if isequal(scenario.deNoise, 'exr')
         scene = piRender(ourRecipe, 'exrdenoise', true);
-    else
+    elseif isequal(scenario.deNoise, 'scene')
         scene = piRender(ourRecipe);
+        scene = piAIdenoise(scene,'quiet', true, 'batch', true);
     end
 
     if isempty(scene)
         error("Failed to render scene. dockerWrapper.reset() might help\n");
     end
-%    if scenario.deNoise == true
-%        scene = piAIdenoise(scene,'quiet', true, 'batch', true);
-%    end
-
-    % WE SHOULD REALLY REMOVE EXCESS RECIPES FROM LOCAL!
 
     % add to our scene list for logging
     scenario.sceneList{end+1} = scene;

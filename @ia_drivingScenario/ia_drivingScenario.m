@@ -15,7 +15,7 @@ classdef ia_drivingScenario < drivingScenario
 
         %% Additional useful options
         sensorModel = 'MT9V024SensorRGB'; % one of our automotive sensors
-        deNoise = true; % run denoiser by default
+        deNoise = 'exr'; % can use 'exr', 'scene', or ''
 
         % For debugging raise the camera and look down
         debug = false; % if true, then of course detection isn't realistic
