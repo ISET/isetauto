@@ -30,6 +30,8 @@ if scenario.justStarting ~= true
     ourRecipe.outputFile = fullfile(pp, [nn '-' sprintf('%03d', scenario.frameNum) ee]);
 
     % Auto scenes only have radiance in their metadata!
+    % We should start adding the others by default, so this section will be
+    % moot...
     ourRecipe.metadata.rendertype = {'radiance','depth','normal','albedo'};
     ourRecipe.film.saveDepth.type = 'bool';
     ourRecipe.film.saveAlbedo.type = 'bool';
