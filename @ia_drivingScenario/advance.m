@@ -32,14 +32,10 @@ if scenario.justStarting ~= true
     % Auto scenes only have radiance in their metadata!
     % We should start adding the others by default, so this section will be
     % moot...
-    ourRecipe.metadata.rendertype = {'radiance','depth','albedo', 'normal'};
-    ourRecipe.film.saveDepth.type = 'bool';
-%% Benchmark without normal
-    ourRecipe.film.saveAlbedo.type = 'bool';
-    ourRecipe.film.saveNormal.type = 'bool';
-    ourRecipe.film.saveDepth.value = true;
-    ourRecipe.film.saveAlbedo.value = true;
-    ourRecipe.film.saveNormal.value = true;
+    ourRecipe.metadata.rendertype = {'radiance','depth','albedo'}; % normal
+
+    % This should be redundant?
+    ourRecipe.set('rendertype', {'depth', 'radiance', 'albedo'});
 
     piWrite(ourRecipe);
 
