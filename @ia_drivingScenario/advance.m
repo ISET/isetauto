@@ -39,8 +39,10 @@ if scenario.justStarting ~= true
 
     piWrite(ourRecipe);
 
-    if isequal(scenario.deNoise, 'exr')
-        scene = piRender(ourRecipe, 'exrdenoise', true);
+    if isequal(scenario.deNoise, 'exr_radiance')
+        scene = piRender(ourRecipe, 'do_denoise', 'exr_radiance');
+    elseif isequal(scenario.deNoise, 'exr_albedo')
+        scene = piRender(ourRecipe, 'do_denoise', 'exr_albedo');
     elseif isequal(scenario.deNoise, 'scene')
         scene = piRender(ourRecipe);
         scene = piAIdenoise(scene,'quiet', true, 'batch', true);
