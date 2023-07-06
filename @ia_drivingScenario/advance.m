@@ -58,7 +58,7 @@ if scenario.justStarting ~= true
     % add to our scene list for logging
     scenario.sceneList{end+1} = scene;
 
-    % show preview if desired
+    % show preview if desired unless we are in an official experiment
     if ~ia_drivingScenario.inExperiment && scenario.previewScenes
         scene = sceneSet(scene, 'display mode', 'hdr');
         % try sceneshowimage
