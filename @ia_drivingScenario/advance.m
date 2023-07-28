@@ -49,6 +49,8 @@ if scenario.justStarting ~= true
     elseif isequal(scenario.deNoise, 'scene')
         scene = piRender(ourRecipe);
         scene = piAIdenoise(scene,'quiet', true, 'batch', true);
+    else % no denoise or denoise later after rgb
+        scene = piRender(ourRecipe);
     end
 
     if isempty(scene)
