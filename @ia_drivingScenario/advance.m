@@ -98,12 +98,14 @@ for ii = 1:numel(scenario.roadData.actorsIA)
         if scenario.needEgoVelocity
 
             scenario.egoVelocity = ourActorDS.Velocity;
-            % Use experiment params here:
             if ia_drivingScenario.initialSpeed() > 0
                 scenario.egoVelocity(1) = ia_drivingScenario.initialSpeed();
                 ourActorDS.Velocity(1) = ia_drivingScenario.initialSpeed();
-            end
+            else
+                scenario.initialSpeed(abs(ourActorDS.Velocity(1)));
+            % Use experiment params here:
             scenario.needEgoVelocity = false;
+            end
         end
         
         % if we have a pedestrian, begin braking
