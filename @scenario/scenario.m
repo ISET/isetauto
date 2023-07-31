@@ -1,6 +1,5 @@
-classdef scenario
-    %SCENARIO Summary of this class goes here
-    %   Detailed explanation goes here
+classdef scenario < handle
+    %SCENARIO Pre-defined scenario with which we conduct tests/experiments
     
     properties
         Property1

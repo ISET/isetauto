@@ -1,6 +1,7 @@
-classdef experiment
-    %EXPERIMENT Summary of this class goes here
-    %   Detailed explanation goes here
+classdef experiment < handle
+    %EXPERIMENT Specific test parameters run against a scenario
+    %   These include lens, sensor, headlights, vehicle, flare, and
+    %   camera position among others
     
     properties
         Property1
