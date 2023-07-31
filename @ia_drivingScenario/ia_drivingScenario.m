@@ -69,6 +69,7 @@ classdef ia_drivingScenario < drivingScenario
         iaYaw = dsToIAYaw(dsYaw);
 
         % Basically just definining a class-level variable
+        % We should set it from the ego vehicle's first speed #
         function iSpeed = initialSpeed(inputSpeed)
             persistent pSpeed;
             if isempty(pSpeed), pSpeed = 0; end % ignore if 0

@@ -17,7 +17,7 @@ simulationTime = [];
 targetDistance = [];
 vehicleVelocity = {};
 
-% Calculate distance
+%% Calculate distance to target
 for ii = 1:numel(ourData)
     vehicleVelocity{ii} = ourData(ii).vehicleVelocity;
 
@@ -31,7 +31,12 @@ for ii = 1:numel(ourData)
     vehicleClosingSpeed(ii) = sum(vehicleClosingVelocity{ii} .^ 2) ^.5; %#ok<AGROW>
 end
 
+%% Write out a video of our run
+open(scenario.v);
+writeVideo(scenario.v, scenario.ourVideo);
+close(scenario.v);
 
+%% Show basic statistics and plot of speed vs. distance
 figure('Name',['Initial Speed: ', num2str(scenario.initialSpeed)]); 
 yyaxis left;
 ylabel('Speed');
@@ -43,9 +48,9 @@ plot(simulationTime, targetDistance);
 legend('Vehicle Speed','Distance to Pedestrian');
 
 title('Vehicle Speed & Distance to Pedestrian over Time', ...
-    ['Start Speed:',num2str(scenario.initialSpeed),', Start Distance: ',num2str(targetDistance(1)), ...
-     ', Threshold: ', scenario.predictionThreshold, ', Sensor: ',scenario.sensorModel], ... 
-     'FontSize',12);
+    ['Start Speed:',num2str(scenario.initialSpeed()),', Start Distance: ',num2str(targetDistance(1)), ...
+     ', Threshold: ', num2str(scenario.predictionThreshold), ', Sensor: ',scenario.sensorModel], ... 
+     'FontSize',10);
 
 end
 

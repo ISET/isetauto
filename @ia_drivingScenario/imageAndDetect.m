@@ -22,6 +22,11 @@ shutterspeed = 1/30; % typical of auto video cameras
 % I think we need to do this slightly differently...
 ip = piRadiance2RGB(scene,'etime',shutterspeed,'sensor',useSensor);
 
+% Experiment with denoising after image capture
+if isequal(scenario.deNoise, 'rgb')
+    ip = piRGBDenoise(ip);
+end
+
 caption = sprintf("Car: %s, Time: %2.1f \n", scenario.egoVehicle.Name, ...
     scenario.SimulationTime);
 

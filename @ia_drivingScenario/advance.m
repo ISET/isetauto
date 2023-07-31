@@ -49,6 +49,8 @@ if scenario.justStarting ~= true
     elseif isequal(scenario.deNoise, 'scene')
         scene = piRender(ourRecipe);
         scene = piAIdenoise(scene,'quiet', true, 'batch', true);
+    else % no denoise or denoise later after rgb
+        scene = piRender(ourRecipe);
     end
 
     if isempty(scene)
@@ -96,10 +98,11 @@ for ii = 1:numel(scenario.roadData.actorsIA)
         if scenario.needEgoVelocity
 
             scenario.egoVelocity = ourActorDS.Velocity;
-            % Use experiment params here:
             if ia_drivingScenario.initialSpeed() > 0
                 scenario.egoVelocity(1) = ia_drivingScenario.initialSpeed();
                 ourActorDS.Velocity(1) = ia_drivingScenario.initialSpeed();
+            else
+                scenario.initialSpeed(abs(ourActorDS.Velocity(1)));
             end
             scenario.needEgoVelocity = false;
         end
