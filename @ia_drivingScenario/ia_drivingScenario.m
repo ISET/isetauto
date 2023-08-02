@@ -9,7 +9,12 @@ classdef ia_drivingScenario < drivingScenario
 
         %% "Scene/Scenario" settings
         %  These determine the base case (fixed variables)
-        %  Currently they are mostly implicit in the scene we are passed
+        %  Currently they are mostly specified in the .mat file
+        %  created by the drivingScenarioDesigner, that was used
+        %  to create our parent function
+
+        % Here we set those that Matlab doesn't include, or over-ride
+        % others as needed
         lighting = 'nighttime';
 
         %% General settings that don't affect the results
