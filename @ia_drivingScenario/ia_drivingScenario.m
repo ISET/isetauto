@@ -53,6 +53,10 @@ classdef ia_drivingScenario < drivingScenario
         % of them as they are initialized, for later placement.
         vehicleCount = 1;
         actorCount = 1;
+
+        % The first time through .advance we need to place
+        % our version of vehicles and actors based on their position
+        % in the DSD baseline.
         needToPlaceVehicles = true;
         needToPlaceActors = true;
         vehiclesToBePlaced = {};
