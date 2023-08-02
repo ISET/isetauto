@@ -12,7 +12,7 @@ classdef ia_drivingScenario < drivingScenario
         stepTime = .2; % time per frame
         frameRate = 3; % playback speed in frames per second
         scenarioQuality = 'quick'; % default
-        deNoise = 'exr_albedo'; % can use 'exr_radiance', 'exr_albedo', 'scene', or ''
+        deNoise = 'scene'; % can use 'exr_radiance', 'exr_albedo', 'scene', or ''
 
         %% Additional useful options
         sensorModel = 'MT9V024SensorRGB'; % one of our automotive sensors
