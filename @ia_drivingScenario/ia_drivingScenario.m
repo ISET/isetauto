@@ -145,12 +145,23 @@ classdef ia_drivingScenario < drivingScenario
             
                     NOTE: kmh/3.6 = m/s
             %}
-            
+
+            % Semi-constants (at least for now)
             % set a reaction time for the car (need to research actuals)
             reactionTime = .1; % seconds
+            friction = .7; % dry road
+            grade = 0; % level road
 
             startingSpeed = obj.initialSpeed;
-            brakingEffect = -7; % m/s Should be per vehicle??
+
+            % industry formula is "generic" and doesn't include brake power
+            % so this is moot for now
+            %brakingEffect = -7; % m/s Should be per vehicle??
+
+            % calculate stopping distance
+            startVelocity = startingSpeed * 3.6;
+            meters = (0.278 * reactionTime * startVelocity) + startVelocity ^ 2 / (254 * (friction + grade));
+
         end
 
         %% We only use the road to tell us which of our road scenes
