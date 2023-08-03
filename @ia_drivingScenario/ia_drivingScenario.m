@@ -1,25 +1,43 @@
 classdef ia_drivingScenario < drivingScenario
-    %IA_DRIVINGSCENARIO our custom version of a driving scenario
+    %IA_DRIVINGSCENARIO our custom version of a Matalb driving scenario
+    % It's a sub-class of drivingScenario from the Matlab Driving toolbox
+    % It extends the class by integrating it with ISETAuto, ISET3d, and
+    % ISETCam
 
     % D. Cardinal, Stanford University, June, 2023
     properties
 
-        %% General settings
-        scenarioName = 'LabTest'; % default
+        %% "Scene/Scenario" settings
+        %  These determine the base case (fixed variables)
+        %  Currently they are mostly specified in the .mat file
+        %  created by the drivingScenarioDesigner, that was used
+        %  to create our parent function
+
+        % Here we set those that Matlab doesn't include, or over-ride
+        % others as needed
         lighting = 'nighttime';
 
-        %% Main parameters to determine quality versus speed:
-        stepTime = .2; % time per frame
+        %% General settings that don't affect the results
+        scenarioName = 'LabTest'; % default
         frameRate = 3; % playback speed in frames per second
+        
+        %% Simulation specific parameters
+        % Main parameters to determine quality versus speed
+        % In the true "metric" case these probably need to be different
+        % (e.g. real frame rates, sceneResolution > cameraResolution
+        %       lots of rays, and no de-noising)
+
+        stepTime = .2; % time per image frame/step
         scenarioQuality = 'quick'; % default
         deNoise = 'exr_albedo'; % can use 'exr_radiance', 'exr_albedo', 'scene', or ''
-
-        %% Additional useful options
-        sensorModel = 'MT9V024SensorRGB'; % one of our automotive sensors
 
         % For debugging raise the camera and look down
         debug = false; % if true, then of course detection isn't realistic
 
+        %% TestRig specific parameters
+        sensorModel = 'MT9V024SensorRGB'; % one of our automotive sensors
+
+        %% Housekeeping parameters
         roadData = []; % our ISETAuto road data struct
         % We get these from our superclass
         %waypoints; % in meters
@@ -35,6 +53,10 @@ classdef ia_drivingScenario < drivingScenario
         % of them as they are initialized, for later placement.
         vehicleCount = 1;
         actorCount = 1;
+
+        % The first time through .advance we need to place
+        % our version of vehicles and actors based on their position
+        % in the DSD baseline.
         needToPlaceVehicles = true;
         needToPlaceActors = true;
         vehiclesToBePlaced = {};
