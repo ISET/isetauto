@@ -102,6 +102,17 @@ classdef ia_drivingScenario < drivingScenario
             ds.SampleTime = ds.stepTime; % use our time interval
         end
 
+        %% How far away do we need to stop braking
+        % this is a function of initial velocity, braking power, and target
+        % distance, possibly including the car's reaction time
+        function meters = minimumBrakingDistance(obj)
+            % set a reaction time for the car (need to research actuals)
+            reactionTime = .1; % seconds
+
+            startingSpeed = obj.initialSpeed;
+            brakingEffect = -7; % m/s Should be per vehicle??
+        end
+
         %% We only use the road to tell us which of our road scenes
         % to load (based on the road name)
         % Here is the default call used by the ds superclass:
