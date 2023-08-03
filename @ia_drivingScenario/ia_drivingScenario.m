@@ -128,6 +128,24 @@ classdef ia_drivingScenario < drivingScenario
         % this is a function of initial velocity, braking power, and target
         % distance, possibly including the car's reaction time
         function meters = minimumBrakingDistance(obj)
+
+            %{ 
+            %Here is a canonical industry formula for stopping distance:
+            The AASHTO stopping distance formula is as follows:
+
+                s = (0.278 × t × v) + v² / (254 × (f + G))
+
+                where:
+
+                    s – Stopping distance in meters;
+                    t – Perception-reaction time in seconds;
+                    v – Speed of the car in km/h;
+                    G – Grade (slope) of the road, expressed as a decimal. Positive for an uphill grade and negative for a downhill road; and
+                    f – Coefficient of friction between the tires and the road. It is assumed to be 0.7 on a dry road and between 0.3 and 0.4 on a wet road.
+            
+                    NOTE: kmh/3.6 = m/s
+            %}
+            
             % set a reaction time for the car (need to research actuals)
             reactionTime = .1; % seconds
 
