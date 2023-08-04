@@ -1,25 +1,43 @@
 classdef ia_drivingScenario < drivingScenario
-    %IA_DRIVINGSCENARIO our custom version of a driving scenario
+    %IA_DRIVINGSCENARIO our custom version of a Matalb driving scenario
+    % It's a sub-class of drivingScenario from the Matlab Driving toolbox
+    % It extends the class by integrating it with ISETAuto, ISET3d, and
+    % ISETCam
 
     % D. Cardinal, Stanford University, June, 2023
     properties
 
-        %% General settings
-        scenarioName = 'LabTest'; % default
+        %% "Scene/Scenario" settings
+        %  These determine the base case (fixed variables)
+        %  Currently they are mostly specified in the .mat file
+        %  created by the drivingScenarioDesigner, that was used
+        %  to create our parent function
+
+        % Here we set those that Matlab doesn't include, or over-ride
+        % others as needed
         lighting = 'nighttime';
 
-        %% Main parameters to determine quality versus speed:
-        stepTime = .2; % time per frame
+        %% General settings that don't affect the results
+        scenarioName = 'LabTest'; % default
         frameRate = 3; % playback speed in frames per second
+        
+        %% Simulation specific parameters
+        % Main parameters to determine quality versus speed
+        % In the true "metric" case these probably need to be different
+        % (e.g. real frame rates, sceneResolution > cameraResolution
+        %       lots of rays, and no de-noising)
+
+        stepTime = .2; % time per image frame/step
         scenarioQuality = 'quick'; % default
         deNoise = 'scene'; % can use 'exr_radiance', 'exr_albedo', 'scene', or ''
-
-        %% Additional useful options
-        sensorModel = 'MT9V024SensorRGB'; % one of our automotive sensors
 
         % For debugging raise the camera and look down
         debug = false; % if true, then of course detection isn't realistic
 
+        %% TestRig specific parameters
+        sensorModel = 'MT9V024SensorRGB'; % one of our automotive sensors
+
+        %% Housekeeping parameters
         roadData = []; % our ISETAuto road data struct
         % We get these from our superclass
         %waypoints; % in meters
@@ -35,6 +53,10 @@ classdef ia_drivingScenario < drivingScenario
         % of them as they are initialized, for later placement.
         vehicleCount = 1;
         actorCount = 1;
+
+        % The first time through .advance we need to place
+        % our version of vehicles and actors based on their position
+        % in the DSD baseline.
         needToPlaceVehicles = true;
         needToPlaceActors = true;
         vehiclesToBePlaced = {};
@@ -100,6 +122,46 @@ classdef ia_drivingScenario < drivingScenario
             % ds now contains a "blank slate" scenario
             ds = ds@drivingScenario(varargin{:});
             ds.SampleTime = ds.stepTime; % use our time interval
+        end
+
+        %% How far away do we need to stop braking
+        % this is a function of initial velocity, braking power, and target
+        % distance, possibly including the car's reaction time
+        function meters = minimumBrakingDistance(obj)
+
+            %{ 
+            %Here is a canonical industry formula for stopping distance:
+            The AASHTO stopping distance formula is as follows:
+
+                s = (0.278 × t × v) + v² / (254 × (f + G))
+
+                where:
+
+                    s – Stopping distance in meters;
+                    t – Perception-reaction time in seconds;
+                    v – Speed of the car in km/h;
+                    G – Grade (slope) of the road, expressed as a decimal. Positive for an uphill grade and negative for a downhill road; and
+                    f – Coefficient of friction between the tires and the road. It is assumed to be 0.7 on a dry road and between 0.3 and 0.4 on a wet road.
+            
+                    NOTE: kmh/3.6 = m/s
+            %}
+
+            % Semi-constants (at least for now)
+            % set a reaction time for the car (need to research actuals)
+            reactionTime = .1; % seconds
+            friction = .7; % dry road
+            grade = 0; % level road
+
+            startingSpeed = obj.initialSpeed;
+
+            % industry formula is "generic" and doesn't include brake power
+            % so this is moot for now
+            %brakingEffect = -7; % m/s Should be per vehicle??
+
+            % calculate stopping distance
+            startVelocity = startingSpeed * 3.6;
+            meters = (0.278 * reactionTime * startVelocity) + startVelocity ^ 2 / (254 * (friction + grade));
+
         end
 
         %% We only use the road to tell us which of our road scenes
