@@ -124,7 +124,7 @@ classdef ia_drivingScenario < drivingScenario
             ds.SampleTime = ds.stepTime; % use our time interval
         end
 
-        %% How far away do we need to stop braking
+        %% How far away & early do we need to stop braking
         % this is a function of initial velocity, braking power, and target
         % distance, possibly including the car's reaction time
         function meters = minimumBrakingDistance(obj)
@@ -163,6 +163,13 @@ classdef ia_drivingScenario < drivingScenario
             meters = (0.278 * reactionTime * startVelocity) + startVelocity ^ 2 / (254 * (friction + grade));
 
         end
+
+        % Calculate how long to run the scenario before capturing
+        % the "money" shot (metric scene image)
+        function seconds = minimumBrakingTime(obj)
+            defaultTime = obj.<PEDDISTANCE> / obj.initialSpeed;
+
+       end
 
         %% We only use the road to tell us which of our road scenes
         % to load (based on the road name)
