@@ -103,6 +103,9 @@ elseif scenario.dataOnly && ~scenario.justStarting
     scene = [];
     scenario.logFrameData(scene, scenario.detectionResults); % update our logging data structure
 
+    fprintf('***************************\n');
+    fprintf("MAX REACTION TIME: %2.1f\n",scenario.maxIDTime);
+    fprintf('***************************\n');
 else
 
     originalOutputFile = scenario.roadData.recipe.outputFile;

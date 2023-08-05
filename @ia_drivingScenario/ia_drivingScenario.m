@@ -163,7 +163,9 @@ classdef ia_drivingScenario < drivingScenario
             % Semi-constants (at least for now)
             % set a reaction time for the car (need to research actuals)
             reactionTime = .1; % seconds
-            friction = .7; % dry road
+
+            % brake power not included in this formula!
+            friction = .4; % dry road is .7, wet is .3 to .4
             grade = 0; % level road
 
             startingSpeed = obj.initialSpeed;
@@ -185,8 +187,10 @@ classdef ia_drivingScenario < drivingScenario
             % at the start. Also, this assumes that our vehicle
             % has a constant speed until it brakes. Maybe we want
             % something more fancy?
-            %seconds = obj.<PEDDISTANCE> - obj.stoppingDistance ...
-            %    / obj.initialSpeed;
+
+            % Assume for now we start at 4x the initial speed
+            seconds = ((obj.initialSpeed * 4) - obj.stoppingDistance) ...
+                / obj.initialSpeed;
         end
 
         %% We only use the road to tell us which of our road scenes
