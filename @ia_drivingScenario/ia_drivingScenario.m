@@ -36,7 +36,7 @@ classdef ia_drivingScenario < drivingScenario
         debug = false; % if true, then of course detection isn't realistic
 
         % For determining time to stoppingDistance
-        dataOnly = true; % if true, only collect trajectory data
+        dataOnly = false; % if true, only collect trajectory data
 
         %% TestRig specific parameters
         sensorModel = 'MT9V024SensorRGB'; % one of our automotive sensors
