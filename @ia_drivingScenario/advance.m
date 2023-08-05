@@ -19,12 +19,12 @@ ourTimeStep = scenario.SampleTime;
 
 % We may want to skip initial frame since it doesn't have yaw
 % correct
-if scenario.justStarting ~= true
+if scenario.justStarting ~= true && scenario.dataOnly == false
 
     % NOTE: If we only want a metric scene, we need to run through
     % advancing, but don't need to render the scene or capture images
     % HOWEVER: Still working on how to implement
-    
+
     % First we show where we are (were) before moving
     % If we want to run in parallel recipe needs to have a different
     % outfile for each thread, but we don't need a new one
@@ -77,12 +77,34 @@ if scenario.justStarting ~= true
 
     % Create an image with a camera, and run a detector on it
     image = scenario.imageAndDetect(scene);
-    scenario.logFrameData(scene, scenario.detectionResults); % update our logging data structure
 
     % Here we want to create a movie/video
     % presumably one frame at a time
     addToVideo(scenario, scene, image);
+    
+    scenario.logFrameData(scene, scenario.detectionResults); % update our logging data structure
+    
+% only collect trajectory data
+elseif scenario.dataOnly && ~scenario.justStarting
+    ourRecipe = scenario.roadData.recipe;
+    [pp, nn, ee] = fileparts(originalOutputFile);
+    ourRecipe.outputFile = fullfile(pp, [nn '-' sprintf('%03d', scenario.frameNum) ee]);
+
+    % Auto scenes only have radiance in their metadata!
+    % We should start adding the others by default, so this section will be
+    % moot...
+    ourRecipe.metadata.rendertype = {'radiance','depth','albedo'}; % normal
+
+    % This should be redundant?
+    ourRecipe.set('rendertype', {'depth', 'radiance', 'albedo'});
+
+    piWrite(ourRecipe);
+
+    scene = [];
+    scenario.logFrameData(scene, scenario.detectionResults); % update our logging data structure
+
 else
+
     originalOutputFile = scenario.roadData.recipe.outputFile;
     scenario.justStarting = false;
 end

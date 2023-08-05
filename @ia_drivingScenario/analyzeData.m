@@ -30,10 +30,12 @@ for ii = 1:numel(ourData)
     vehicleClosingSpeed(ii) = sum(vehicleClosingVelocity{ii} .^ 2) ^.5; %#ok<AGROW>
 end
 
-%% Write out a video of our run
-open(scenario.v);
-writeVideo(scenario.v, scenario.ourVideo);
-close(scenario.v);
+%% Write out a video of our run if we recorded one
+if numel(scenario.ourVideo.cdata) > 0
+    open(scenario.v);
+    writeVideo(scenario.v, scenario.ourVideo);
+    close(scenario.v);
+end
 
 %% Show basic statistics and plot of speed vs. distance
 figure('Name',['Initial Speed: ', num2str(scenario.initialSpeed)]); 
