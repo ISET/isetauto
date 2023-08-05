@@ -21,7 +21,7 @@ vehicleVelocity = {};
 for ii = 1:numel(ourData)
     vehicleVelocity{ii} = ourData(ii).vehicleVelocity;
 
-    targetRawDistance{ii} = max(0, ourData(ii).targetLocation - ourData(ii).vehicleLocation(1));
+    targetRawDistance{ii} = abs(ourData(ii).targetLocation - ourData(ii).vehicleLocation);
     targetDistance(ii) = sum(targetRawDistance{ii} .^2) ^.5;
 
     simulationTime(ii) = ourData(ii).simulationTime;

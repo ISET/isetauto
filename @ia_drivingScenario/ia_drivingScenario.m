@@ -168,6 +168,10 @@ classdef ia_drivingScenario < drivingScenario
         % Calculate how long to run the scenario before capturing
         % the "money" shot (metric scene image)
         function seconds = maxIDTime(obj)
+            % Need to decide how to calculate target distance
+            % at the start. Also, this assumes that our vehicle
+            % has a constant speed until it brakes. Maybe we want
+            % something more fancy?
             %seconds = obj.<PEDDISTANCE> - obj.stoppingDistance ...
             %    / obj.initialSpeed;
         end
