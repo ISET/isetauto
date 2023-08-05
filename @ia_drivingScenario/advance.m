@@ -88,8 +88,8 @@ end
 for ii = 1:numel(scenario.roadData.actorsIA)
     ourActor = scenario.roadData.actorsIA{ii};
 
-    % assume we are looking for ped 001
-    if isempty(scenario.targetObject) && isequal(ourActor.name, 'pedestrian_001')
+    % look for our "target" object
+    if isempty(scenario.targetObject) && isequal(ourActor.name, scenario.targetName)
         scenario.targetObject = ourActor;
     end
     

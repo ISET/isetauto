@@ -16,6 +16,7 @@ classdef ia_drivingScenario < drivingScenario
         % Here we set those that Matlab doesn't include, or over-ride
         % others as needed
         lighting = 'nighttime';
+        targetName = 'pedestrian_001'; % Default adult male
 
         %% General settings that don't affect the results
         scenarioName = 'LabTest'; % default
@@ -127,7 +128,7 @@ classdef ia_drivingScenario < drivingScenario
         %% How far away & early do we need to stop braking
         % this is a function of initial velocity, braking power, and target
         % distance, possibly including the car's reaction time
-        function meters = minimumBrakingDistance(obj)
+        function meters = stoppingDistance(obj)
 
             %{ 
             %Here is a canonical industry formula for stopping distance:
@@ -166,10 +167,10 @@ classdef ia_drivingScenario < drivingScenario
 
         % Calculate how long to run the scenario before capturing
         % the "money" shot (metric scene image)
-        function seconds = minimumBrakingTime(obj)
-            defaultTime = obj.<PEDDISTANCE> / obj.initialSpeed;
-
-       end
+        function seconds = maxIDTime(obj)
+            %seconds = obj.<PEDDISTANCE> - obj.stoppingDistance ...
+            %    / obj.initialSpeed;
+        end
 
         %% We only use the road to tell us which of our road scenes
         % to load (based on the road name)
