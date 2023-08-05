@@ -23,6 +23,9 @@ logFrame.vehicleVelocity = vehicleVelocity;
 logFrame.targetVelocity = targetVelocity;
 logFrame.simulationTime = scenario.SimulationTime;
 
+targetRawDistance = abs(targetLocation - vehicleLocation);
+logFrame.targetDistance = sum(targetRawDistance .^2) ^.5;
+
 scenario.logData = [scenario.logData logFrame];
 
 end

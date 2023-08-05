@@ -20,6 +20,11 @@ ourTimeStep = scenario.SampleTime;
 % We may want to skip initial frame since it doesn't have yaw
 % correct
 if scenario.justStarting ~= true
+
+    % NOTE: If we only want a metric scene, we need to run through
+    % advancing, but don't need to render the scene or capture images
+    % HOWEVER: Still working on how to implement
+    
     % First we show where we are (were) before moving
     % If we want to run in parallel recipe needs to have a different
     % outfile for each thread, but we don't need a new one

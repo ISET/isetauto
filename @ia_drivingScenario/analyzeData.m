@@ -10,6 +10,7 @@ logFrame.vehicleLocation = vehicleLocation;
 logFrame.vehicleVelocity = vehicleVelocity;
 logFrame.targetVelocity = targetVelocity;
 logFrame.simulationTime = scenario.SimulationTime;
+logFrame.targetDistance;
 %}
 
 ourData = scenario.logData;
@@ -21,9 +22,7 @@ vehicleVelocity = {};
 for ii = 1:numel(ourData)
     vehicleVelocity{ii} = ourData(ii).vehicleVelocity;
 
-    targetRawDistance{ii} = abs(ourData(ii).targetLocation - ourData(ii).vehicleLocation);
-    targetDistance(ii) = sum(targetRawDistance{ii} .^2) ^.5;
-
+    targetDistance(ii) = ourData(ii).targetDistance;
     simulationTime(ii) = ourData(ii).simulationTime;
 
     % Calculate vehicle closing speed

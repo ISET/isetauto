@@ -70,6 +70,7 @@ classdef ia_drivingScenario < drivingScenario
         targetObject = [];
         foundPed = false;
 
+        % Initialize data logging structure and frame count
         frameNum = 1; % to start
         logData = [];
 
@@ -77,17 +78,17 @@ classdef ia_drivingScenario < drivingScenario
         predictionThreshold = .95; % default is .95, lower for testing;
         detectionResults = []; %Updated as we drive
 
+        % video structures with frames for creating clips
         v = [];
-        % video structure with frames for creating clips
         ourVideo = struct('cdata',[],'colormap',[]);
 
-        sceneList = {};
-        previewScenes = true; % over-ridden in experiments
+        sceneList = {}; % list of scenes saved for later use
+        previewScenes = true; % show scenes as we go
 
     end
 
     methods(Static)
-        % in its own file
+        % These are in their own files
         iaCoordinates = dsToIA(dsCoordinates);
         iaYaw = dsToIAYaw(dsYaw);
 
@@ -101,7 +102,9 @@ classdef ia_drivingScenario < drivingScenario
             end
             iSpeed = pSpeed;
         end
+
         % Basically just definining a class-level variable
+        % NOT USED CURRENTLY, Matlab experiments seem to limited
         function result = inExperiment(truefalse)
             persistent isTrue;
             if isempty(isTrue), isTrue = false; end % ignore if 0
@@ -115,7 +118,7 @@ classdef ia_drivingScenario < drivingScenario
     methods
         function ds = ia_drivingScenario(varargin)
 
-            %% Initialize ISET before running
+            %% NOTE: Initialize ISET before creating an instance of our class
             % We can't do it here or we lose what we've already started
             %ieInit;
 
