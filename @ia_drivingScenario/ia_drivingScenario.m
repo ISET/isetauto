@@ -128,7 +128,14 @@ classdef ia_drivingScenario < drivingScenario
             % Let the Matlab driving scenario (superclass) set things up first
             % ds now contains a "blank slate" scenario
             ds = ds@drivingScenario(varargin{:});
-            ds.SampleTime = ds.stepTime; % use our time interval
+
+            if ~ds.dataOnly 
+                ds.SampleTime = ds.stepTime; % use our time interval
+            else
+                % set to high speed for better accuracy
+                ds.SampleTime = .1;
+                ds.stepTime = .1;
+            end
         end
 
         %% How far away & early do we need to stop braking
