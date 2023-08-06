@@ -52,7 +52,8 @@ analoggain   = p.Results.analoggain;
 
 if strcmp(radiance.type,'scene')
     oi = oiCreate();
-    oi = oiCompute(radiance, oi);
+    % preferred  order is now oi, scene
+    oi = oiCompute(oi, radiance);
 
     scene_size = sceneGet(radiance,'size');
     oi_size = oiGet(oi,'size');

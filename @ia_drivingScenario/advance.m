@@ -134,10 +134,6 @@ for ii = 1:numel(scenario.roadData.actorsIA)
     assetBranchName = strcat(currentActor.Name, '_B');
     [~, currentAsset] = piAssetFind(scenario.roadData.recipe, 'name', assetBranchName);
     % I think we get a cell array from Find in case there is more than one?
-    %{ 
-    % Unfortunately this doesn't seem to work except for lights!
-    currentRotation = piAssetGet(currentAsset{1}, 'worldrotation');
-    %}
     cprintf('*Blue', "DSVelocity %s : %2.2f, %2.2f, %2.1f", ...
         currentActor.Name, ...
         currentActor.Velocity(1), ...
