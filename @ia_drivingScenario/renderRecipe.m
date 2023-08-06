@@ -1,3 +1,6 @@
+% method that does the actual PBRT rendering of the recipe for an auto
+% simulation. It is usually called from .advance as the simulation
+% progresses
 function scene = renderRecipe(scenario, originalOutputFile)
 
     ourRecipe = scenario.roadData.recipe;
@@ -14,7 +17,11 @@ function scene = renderRecipe(scenario, originalOutputFile)
 
     piWrite(ourRecipe);
 
-    % organize this more rationally...
+    %% We now have lots of denoising options
+    % 'scene' is the "current" way, with piAIDenoise()
+    % The others use the version of the denoiser that operates
+    % directly on the .exr file and can use additional channels
+    % of information.
     if isequal(scenario.deNoise, 'exr_all')
         scene = piRender(ourRecipe, 'do_denoise', 'exr_all');
     elseif isequal(scenario.deNoise, 'exr_albedo')

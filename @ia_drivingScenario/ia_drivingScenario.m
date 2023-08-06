@@ -30,13 +30,14 @@ classdef ia_drivingScenario < drivingScenario
 
         stepTime = .2; % time per image frame/step
         scenarioQuality = 'quick'; % default
-        deNoise = 'scene'; % can use 'exr_radiance', 'exr_albedo', 'scene', or ''
 
+        deNoise = 'scene'; % can use 'exr_radiance', 'exr_albedo', 'scene', or ''
+        
         % For debugging raise the camera and look down
         debug = false; % if true, then of course detection isn't realistic
 
         % For determining time to stoppingDistance
-        dataOnly = false; % if true, only collect trajectory data
+        dataOnly = true; % if true, only collect trajectory data
 
         %% TestRig specific parameters
         sensorModel = 'MT9V024SensorRGB'; % one of our automotive sensors
@@ -136,6 +137,13 @@ classdef ia_drivingScenario < drivingScenario
                 ds.SampleTime = .1;
                 ds.stepTime = .1;
             end
+
+            if ~ismac
+                % better deNoiser, but Brian couldn't get it working
+                % on his Mac
+                ds.deNoise = 'exr_albedo'; % better quality when it works
+            end
+
         end
 
         %% How far away & early do we need to stop braking
