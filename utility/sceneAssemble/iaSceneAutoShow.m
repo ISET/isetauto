@@ -1,5 +1,5 @@
 function iaSceneAutoShow(sceneR)
-%% this is a plot function to show bird view of placed objects
+%% this is a plot function to show bird's-eye view of placed objects
 
 %% define color map
 colormap.car         = [0.2 0.2 0.9 0.9];    
@@ -17,7 +17,10 @@ colormap.bench       = [0.6 0.6 0.6 0.75];
 colormap.trashcan    = [0.45 0.45 0.45 0.75]; 
 colormap.station     = [0.4 0.4 0.4 0.75];    
 colormap.bikerack    = [0.45 0.45 0.45 0.75]; 
-colormap.streetlight = [0.7 0.7 0.7 0.75];    
+colormap.streetlight = [0.7 0.7 0.7 0.75]; 
+
+% new for rural scenes
+colormap.road        = [.3 .3 .3 .75];
 
 
 %%
@@ -26,20 +29,25 @@ figure(1);
 Ids = sceneR.assets.getchildren(1);
 
 nn = 1;
-legendlist = [];
-legendColor = [];
+legendlist = {};
+
 for ii = 1: length(Ids)
     thisNode = sceneR.assets.get(Ids(ii));
+            
+    % our rural scenes don't have classes for the assets, so guess
+    thisNode = iaAssetAssignClass(thisNode);
+
     if strcmp(thisNode.type,'branch') ...
             && isfield(thisNode,'class') ...
              
         L = thisNode.size.l;
         W = thisNode.size.w;
-        rotation = thisNode.rotation(:,2);
+        rotation = thisNode.rotation{1}(:,2);
         % building's pivot is different from other assets, so it's shown in
-        % pibuilidngplace
+        % pibuilidingplace
+
         if ~strcmp(thisNode.class, 'building')
-            rectangle2([thisNode.translation(1), thisNode.translation(3), L, W], ...
+            rectangle2([thisNode.translation{1}(1), thisNode.translation{1}(2), L, W], ...
                 'Rotation', -rotation(1), ...
                 'FaceColor', colormap.(thisNode.class),...
                 'EdgeColor', colormap.(thisNode.class));hold on
@@ -82,10 +90,38 @@ y   = y0 + objectDistance*sin(t);
 
 fill([x0,x,x0],[y0,y,y0],'r','EdgeColor','none','FaceAlpha',0.5);
 % Legend
-legendlist{ii+1} = 'camera';
-legend(hl,legendlist,'location','northeastoutside');
+legendlist{end+1} = 'camera';
+
+% Legacy version
+%legend(hl,legendlist,'location','northeastoutside');
+
+legend(legendlist);
+
 axis equal; grid on
-title(' SCENEAUTO : Bird view of assembled scene');
+title(" Auto Scene : Bird's-eyd view of assembled scene");
 
 savefig('SceneAuto-birdview.fig');
+end
+
+function node = iaAssetAssignClass(node)
+    if isfield(node,'class')
+        return
+    end
+
+    if strfind(node.name, 'car')
+        node.class = 'car';
+        node.size.l = 15;
+        node.size.w = 5;
+    elseif strfind(node.name, 'road')
+        node.class = 'road';
+        % make up a size!!
+        node.size.l = 200;
+        node.size.w = 20;
+    elseif ~isempty(strfind(node.name, 'pedestrian')) ...
+            || ~isempty(strfind(node.name, 'person'))
+        node.class = 'pedestrian';
+        node.size.l = 10;
+        node.size.w = 10;
+    end
+    % need to add others here if this works
 end

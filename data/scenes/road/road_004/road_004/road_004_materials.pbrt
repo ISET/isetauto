@@ -1,0 +1,67 @@
+MakeNamedMaterial "Asphalt1"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/Asphalt1_Norm.png"
+	"texture reflectance" "Asphalt1.reflectance.Asphalt1_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9612701535224915]
+MakeNamedMaterial "LaneMarking1.001"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/LaneMarking1_Norm.png"
+	"texture reflectance" "LaneMarking1.001.reflectance.LaneMarking1_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9683772325515747]
+MakeNamedMaterial "LaneMarkingYellow1"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/LaneMarking1_Norm.png"
+	"texture reflectance" "LaneMarkingYellow1.reflectance.LaneMarking1_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9683772325515747]
+MakeNamedMaterial "road_004_Grass1_Ground"
+	"string type" "coateddiffuse"
+	"texture displacement" "road_004_Grass1_Ground.displacement.vlzlbjon_4K_Displacement.exr"
+	"string normalmap" "textures/vlzlbjon_4K_Normal.jpg"
+	"texture reflectance" "road_004_Grass1_Ground.reflectance.vlzlbjon_4K_Albedo.jpg"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"texture roughness" "road_004_Grass1_Ground.roughness.vlzlbjon_4K_Roughness.jpg"
+MakeNamedMaterial "road_004_Grass1_Ground.001"
+	"string type" "coateddiffuse"
+	"texture displacement" "road_004_Grass1_Ground.001.displacement.vlzlbjon_4K_Displacement.exr"
+	"string normalmap" "textures/vlzlbjon_4K_Normal.jpg"
+	"texture reflectance" "road_004_Grass1_Ground.001.reflectance.vlzlbjon_4K_Albedo.jpg"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"texture roughness" "road_004_Grass1_Ground.001.roughness.vlzlbjon_4K_Roughness.jpg"
+MakeNamedMaterial "road_004_Grass1_Ground.002"
+	"string type" "coateddiffuse"
+	"texture displacement" "road_004_Grass1_Ground.002.displacement.vlzlbjon_4K_Displacement.exr"
+	"string normalmap" "textures/vlzlbjon_4K_Normal.jpg"
+	"texture reflectance" "road_004_Grass1_Ground.002.reflectance.vlzlbjon_4K_Albedo.jpg"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"texture roughness" "road_004_Grass1_Ground.002.roughness.vlzlbjon_4K_Roughness.jpg"
+MakeNamedMaterial "road_004_Material.002"
+	"string type" "coateddiffuse"
+	"texture displacement" "road_004_Material.002.displacement.vl0fdhdo_4K_Displacement.exr"
+	"string normalmap" "textures/vl0fdhdo_4K_Normal.jpg"
+	"texture reflectance" "road_004_Material.002.reflectance.vl0fdhdo_4K_Albedo.jpg"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"texture roughness" "road_004_Material.002.roughness.vl0fdhdo_4K_Roughness.jpg"

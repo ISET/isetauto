@@ -1,0 +1,90 @@
+ObjectBegin "Camera_m"
+#Instance MeshName: "Camera"
+ObjectEnd
+
+ObjectBegin "SceneNode_m"
+#Instance MeshName: "SceneNode"
+	AttributeBegin
+	#MeshName: "SceneNode"
+		AttributeBegin
+		#MeshName: "Tile_0_0Node"
+			AttributeBegin
+			#MeshName: "RoadsNode"
+				AttributeBegin
+				#MeshName: "Roads_Layer0Node" #Dimension:[2008.5771484375 2015.8399658203125 3.5973706245422363]" 
+					Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+					AttributeBegin
+						NamedMaterial "Asphalt1"
+						Shape "plymesh" "string filename" ["geometry/Roads_Layer0Node_mat0.ply"]
+					AttributeEnd
+					AttributeBegin
+						NamedMaterial "LaneMarkingYellow1"
+						Shape "plymesh" "string filename" ["geometry/Roads_Layer0Node_mat1.ply"]
+					AttributeEnd
+					AttributeBegin
+						NamedMaterial "Concrete1"
+						Shape "plymesh" "string filename" ["geometry/Roads_Layer0Node_mat2.ply"]
+					AttributeEnd
+					AttributeBegin
+						NamedMaterial "LaneMarking1"
+						Shape "plymesh" "string filename" ["geometry/Roads_Layer0Node_mat3.ply"]
+					AttributeEnd
+				AttributeEnd
+			AttributeEnd
+		AttributeEnd
+	AttributeEnd
+ObjectEnd
+
+ObjectBegin "Light_m"
+#Instance MeshName: "Light"
+ObjectEnd
+
+ObjectBegin "Camera.001_m"
+#Instance MeshName: "Camera.001"
+ObjectEnd
+
+ObjectBegin "Light.001_m"
+#Instance MeshName: "Light.001"
+ObjectEnd
+
+AttributeBegin
+#CollectionName: "Scene Collection"
+	AttributeBegin
+	#CollectionName: "Collection"
+		AttributeBegin
+		#MeshName: "Light"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "Light_m"
+			AttributeBegin
+				#lightName: "Light"
+				LightSource "point" "point3 from" [4.076245307922363 1.0054539442062378 5.903861999511719]
+				"rgb I" [1.0 1.0 1.0] "float scale" [1000.0]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "Camera"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "Camera_m"
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "Light.001"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "Light.001_m"
+			AttributeBegin
+				#lightName: "Light.001"
+				LightSource "point" "point3 from" [4.076245307922363 1.0054539442062378 5.903861999511719]
+				"rgb I" [1.0 1.0 1.0] "float scale" [1000.0]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "Camera.001"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "Camera.001_m"
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "SceneNode"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "SceneNode_m"
+		AttributeEnd
+	AttributeEnd
+AttributeEnd

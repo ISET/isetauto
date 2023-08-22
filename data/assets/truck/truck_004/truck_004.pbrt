@@ -1,0 +1,23 @@
+Film "gbuffer" "integer xresolution" [1920] "integer yresolution" [1080] "string filename" "output.exr"
+PixelFilter "box" "float xradius" [0.5] "float yradius" [0.5] 
+Accelerator "bvh" 
+"string splitmethod" "sah"
+"integer maxnodeprims" [4]
+Sampler "halton"
+"integer pixelsamples" [100]
+
+Integrator "path"
+"integer maxdepth" [10]
+
+Scale -1 1 1 #avoid the 'flipped image' bug..
+LookAt	-27.30312728881836 -17.602293014526367 11.675016403198242
+	-26.5024471282959 -17.0721378326416 11.396007537841797
+	0.24074774980545044 0.1417287141084671 0.9601840972900391
+
+Camera "perspective"
+"float fov" [22.89519204617112]
+WorldBegin
+
+Include "truck_004_materials.pbrt"
+Include "truck_004_texture.pbrt"
+Include "truck_004_geometry.pbrt"

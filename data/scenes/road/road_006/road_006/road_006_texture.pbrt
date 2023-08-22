@@ -1,0 +1,98 @@
+Texture "tex_road_006_Grass1.displacement.brown_mud_leaves_01_disp_4k.png" "float" "imagemap" "string filename" ["textures/brown_mud_leaves_01_disp_4k.png"] "float uscale" [0.2] "float vscale" [0.2]
+Texture "road_006_Grass1.displacement.brown_mud_leaves_01_disp_4k.png" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_Grass1.displacement.brown_mud_leaves_01_disp_4k.png"
+Texture "road_006_Grass1.reflectance.brown_mud_leaves_01_diff_4k.jpg" "spectrum" "imagemap" "string filename" ["textures/brown_mud_leaves_01_diff_4k.jpg"] "float uscale" [0.2] "float vscale" [0.2]
+Texture "tex_road_006_Grass1.roughness.brown_mud_leaves_01_rough_4k.jpg" "float" "imagemap" "string filename" ["textures/brown_mud_leaves_01_rough_4k.jpg"] "float uscale" [0.2] "float vscale" [0.2]
+Texture "road_006_Grass1.roughness.brown_mud_leaves_01_rough_4k.jpg" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_Grass1.roughness.brown_mud_leaves_01_rough_4k.jpg"
+Texture "tex_road_006_Grass1.003.displacement.brown_mud_leaves_01_disp_4k.png" "float" "imagemap" "string filename" ["textures/brown_mud_leaves_01_disp_4k.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_Grass1.003.displacement.brown_mud_leaves_01_disp_4k.png" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_Grass1.003.displacement.brown_mud_leaves_01_disp_4k.png"
+Texture "road_006_Grass1.003.reflectance.brown_mud_leaves_01_diff_4k.jpg" "spectrum" "imagemap" "string filename" ["textures/brown_mud_leaves_01_diff_4k.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "tex_road_006_Grass1.003.roughness.brown_mud_leaves_01_rough_4k.jpg" "float" "imagemap" "string filename" ["textures/brown_mud_leaves_01_rough_4k.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_Grass1.003.roughness.brown_mud_leaves_01_rough_4k.jpg" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_Grass1.003.roughness.brown_mud_leaves_01_rough_4k.jpg"
+Texture "tex_road_006_Grass1.004.displacement.brown_mud_leaves_01_disp_4k.png" "float" "imagemap" "string filename" ["textures/brown_mud_leaves_01_disp_4k.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_Grass1.004.displacement.brown_mud_leaves_01_disp_4k.png" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_Grass1.004.displacement.brown_mud_leaves_01_disp_4k.png"
+Texture "road_006_Grass1.004.reflectance.brown_mud_leaves_01_diff_4k.jpg" "spectrum" "imagemap" "string filename" ["textures/brown_mud_leaves_01_diff_4k.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "tex_road_006_Grass1.004.roughness.brown_mud_leaves_01_rough_4k.jpg" "float" "imagemap" "string filename" ["textures/brown_mud_leaves_01_rough_4k.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_Grass1.004.roughness.brown_mud_leaves_01_rough_4k.jpg" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_Grass1.004.roughness.brown_mud_leaves_01_rough_4k.jpg"
+Texture "road_006_LaneMarking1.reflectance.LaneMarking1_Diff.png" "spectrum" "imagemap" "string filename" ["textures/LaneMarking1_Diff.png"] "float uscale" [0.25] "float vscale" [0.25]
+Texture "road_006_LaneMarkingYellow1.reflectance.LaneMarking1_Diff.png" "spectrum" "imagemap" "string filename" ["textures/LaneMarking1_Diff.png"] "float uscale" [0.25] "float vscale" [0.25]
+Texture "road_006_LinearCracks01.reflectance.LinearCracks01_Diff.png" "spectrum" "imagemap" "string filename" ["textures/LinearCracks01_Diff.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_LinearCracks01_1.reflectance.LinearCracks01_Diff.png" "spectrum" "imagemap" "string filename" ["textures/LinearCracks01_Diff.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_PartingLines01_rrx.reflectance.PartingLines01_Diff.png" "spectrum" "imagemap" "string filename" ["textures/PartingLines01_Diff.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "tex_road_006_Road001.displacement.vh2nfff_4K_Displacement.exr" "float" "imagemap" "string filename" ["textures/vh2nfff_4K_Displacement.exr"] "float uscale" [0.5] "float vscale" [0.5]
+Texture "road_006_Road001.displacement.vh2nfff_4K_Displacement.exr" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_Road001.displacement.vh2nfff_4K_Displacement.exr"
+Texture "road_006_Road001.reflectance.vh2nfff_4K_Albedo.jpg" "spectrum" "imagemap" "string filename" ["textures/vh2nfff_4K_Albedo.jpg"] "float uscale" [0.5] "float vscale" [0.5]
+Texture "tex_road_006_Road001.roughness.vh2nfff_4K_Roughness.jpg" "float" "imagemap" "string filename" ["textures/vh2nfff_4K_Roughness.jpg"] "float uscale" [0.5] "float vscale" [0.5]
+Texture "road_006_Road001.roughness.vh2nfff_4K_Roughness.jpg" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_Road001.roughness.vh2nfff_4K_Roughness.jpg"
+Texture "tex_road_006_rock_mountain.displacement.vl0gbbco_4K_Displacement.exr" "float" "imagemap" "string filename" ["textures/vl0gbbco_4K_Displacement.exr"] "float uscale" [4.0] "float vscale" [4.0]
+Texture "road_006_rock_mountain.displacement.vl0gbbco_4K_Displacement.exr" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_rock_mountain.displacement.vl0gbbco_4K_Displacement.exr"
+Texture "road_006_rock_mountain.reflectance.vl0gbbco_4K_Albedo.jpg" "spectrum" "imagemap" "string filename" ["textures/vl0gbbco_4K_Albedo.jpg"] "float uscale" [4.0] "float vscale" [4.0]
+Texture "tex_road_006_rock_mountain.roughness.vl0gbbco_4K_Roughness.jpg" "float" "imagemap" "string filename" ["textures/vl0gbbco_4K_Roughness.jpg"] "float uscale" [4.0] "float vscale" [4.0]
+Texture "road_006_rock_mountain.roughness.vl0gbbco_4K_Roughness.jpg" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_rock_mountain.roughness.vl0gbbco_4K_Roughness.jpg"
+Texture "tex_road_006_rock_mountain.001.displacement.vl0gbbco_4K_Displacement.exr" "float" "imagemap" "string filename" ["textures/vl0gbbco_4K_Displacement.exr"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_rock_mountain.001.displacement.vl0gbbco_4K_Displacement.exr" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_rock_mountain.001.displacement.vl0gbbco_4K_Displacement.exr"
+Texture "road_006_rock_mountain.001.reflectance.vl0gbbco_4K_Albedo.jpg" "spectrum" "imagemap" "string filename" ["textures/vl0gbbco_4K_Albedo.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "tex_road_006_rock_mountain.001.roughness.vl0gbbco_4K_Roughness.jpg" "float" "imagemap" "string filename" ["textures/vl0gbbco_4K_Roughness.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_rock_mountain.001.roughness.vl0gbbco_4K_Roughness.jpg" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_rock_mountain.001.roughness.vl0gbbco_4K_Roughness.jpg"
+Texture "tex_road_006_rock_mountain.002.displacement.vl0gbbco_4K_Displacement.exr" "float" "imagemap" "string filename" ["textures/vl0gbbco_4K_Displacement.exr"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_rock_mountain.002.displacement.vl0gbbco_4K_Displacement.exr" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_rock_mountain.002.displacement.vl0gbbco_4K_Displacement.exr"
+Texture "road_006_rock_mountain.002.reflectance.vl0gbbco_4K_Albedo.jpg" "spectrum" "imagemap" "string filename" ["textures/vl0gbbco_4K_Albedo.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "tex_road_006_rock_mountain.002.roughness.vl0gbbco_4K_Roughness.jpg" "float" "imagemap" "string filename" ["textures/vl0gbbco_4K_Roughness.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_rock_mountain.002.roughness.vl0gbbco_4K_Roughness.jpg" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_rock_mountain.002.roughness.vl0gbbco_4K_Roughness.jpg"
+Texture "tex_road_006_sfpndwi_4K_Albedo.displacement.sfpndwi_4K_Displacement.exr" "float" "imagemap" "string filename" ["textures/sfpndwi_4K_Displacement.exr"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_sfpndwi_4K_Albedo.displacement.sfpndwi_4K_Displacement.exr" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_sfpndwi_4K_Albedo.displacement.sfpndwi_4K_Displacement.exr"
+Texture "road_006_sfpndwi_4K_Albedo.reflectance.sfpndwi_4K_Albedo.jpg" "spectrum" "imagemap" "string filename" ["textures/sfpndwi_4K_Albedo.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "tex_road_006_sfpndwi_4K_Albedo.roughness.sfpndwi_4K_Roughness.jpg" "float" "imagemap" "string filename" ["textures/sfpndwi_4K_Roughness.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_sfpndwi_4K_Albedo.roughness.sfpndwi_4K_Roughness.jpg" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_sfpndwi_4K_Albedo.roughness.sfpndwi_4K_Roughness.jpg"
+Texture "tex_road_006_sfpndwi_4K_Albedo.001.displacement.sfpndwi_4K_Displacement.exr" "float" "imagemap" "string filename" ["textures/sfpndwi_4K_Displacement.exr"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_sfpndwi_4K_Albedo.001.displacement.sfpndwi_4K_Displacement.exr" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_sfpndwi_4K_Albedo.001.displacement.sfpndwi_4K_Displacement.exr"
+Texture "road_006_sfpndwi_4K_Albedo.001.reflectance.sfpndwi_4K_Albedo.jpg" "spectrum" "imagemap" "string filename" ["textures/sfpndwi_4K_Albedo.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "tex_road_006_sfpndwi_4K_Albedo.001.roughness.sfpndwi_4K_Roughness.jpg" "float" "imagemap" "string filename" ["textures/sfpndwi_4K_Roughness.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_sfpndwi_4K_Albedo.001.roughness.sfpndwi_4K_Roughness.jpg" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_sfpndwi_4K_Albedo.001.roughness.sfpndwi_4K_Roughness.jpg"
+Texture "tex_road_006_sfpndwi_4K_Albedo.002.displacement.sfpndwi_4K_Displacement.exr" "float" "imagemap" "string filename" ["textures/sfpndwi_4K_Displacement.exr"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_sfpndwi_4K_Albedo.002.displacement.sfpndwi_4K_Displacement.exr" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_sfpndwi_4K_Albedo.002.displacement.sfpndwi_4K_Displacement.exr"
+Texture "road_006_sfpndwi_4K_Albedo.002.reflectance.sfpndwi_4K_Albedo.jpg" "spectrum" "imagemap" "string filename" ["textures/sfpndwi_4K_Albedo.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "tex_road_006_sfpndwi_4K_Albedo.002.roughness.sfpndwi_4K_Roughness.jpg" "float" "imagemap" "string filename" ["textures/sfpndwi_4K_Roughness.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_sfpndwi_4K_Albedo.002.roughness.sfpndwi_4K_Roughness.jpg" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_sfpndwi_4K_Albedo.002.roughness.sfpndwi_4K_Roughness.jpg"
+Texture "road_006_SharedTexture02.reflectance.Signals_TextureSheet01_Diff.png" "spectrum" "imagemap" "string filename" ["textures/Signals_TextureSheet01_Diff.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_SharedTexture02_1.reflectance.Signals_TextureSheet01_Diff.png" "spectrum" "imagemap" "string filename" ["textures/Signals_TextureSheet01_Diff.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_Sign_R9-14-Back.png.reflectance.Sign_R9-14-Back.png" "spectrum" "imagemap" "string filename" ["textures/Sign_R9-14-Back.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_Sign_R9-14.svg_rrx.reflectance.Sign_R9-14.png" "spectrum" "imagemap" "string filename" ["textures/Sign_R9-14.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_Sign_retro.reflectance.Sign_M1-1(80).png" "spectrum" "imagemap" "string filename" ["textures/Sign_M1-1(80).png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_TarStreaks01_rrx.reflectance.TarStreaks01_Diff.png" "spectrum" "imagemap" "string filename" ["textures/TarStreaks01_Diff.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "tex_road_006_ugcmfivcw_4K_Albedo.displacement.ugcmfivcw_4K_Displacement.exr" "float" "imagemap" "string filename" ["textures/ugcmfivcw_4K_Displacement.exr"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_ugcmfivcw_4K_Albedo.displacement.ugcmfivcw_4K_Displacement.exr" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_ugcmfivcw_4K_Albedo.displacement.ugcmfivcw_4K_Displacement.exr"
+Texture "road_006_ugcmfivcw_4K_Albedo.reflectance.ugcmfivcw_4K_Albedo.jpg" "spectrum" "imagemap" "string filename" ["textures/ugcmfivcw_4K_Albedo.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "tex_road_006_ugcmfivcw_4K_Albedo.roughness.ugcmfivcw_4K_Roughness.jpg" "float" "imagemap" "string filename" ["textures/ugcmfivcw_4K_Roughness.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_ugcmfivcw_4K_Albedo.roughness.ugcmfivcw_4K_Roughness.jpg" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_ugcmfivcw_4K_Albedo.roughness.ugcmfivcw_4K_Roughness.jpg"
+Texture "tex_road_006_sfpndwi_4K_Albedo.alphamap.sfpndwi_4K_Opacity.jpg" "float" "imagemap" "string filename" ["textures/sfpndwi_4K_Opacity.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_sfpndwi_4K_Albedo.alphamap.sfpndwi_4K_Opacity.jpg" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_sfpndwi_4K_Albedo.alphamap.sfpndwi_4K_Opacity.jpg"
+Texture "tex_road_006_sfpndwi_4K_Albedo.001.alphamap.sfpndwi_4K_Opacity.jpg" "float" "imagemap" "string filename" ["textures/sfpndwi_4K_Opacity.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_sfpndwi_4K_Albedo.001.alphamap.sfpndwi_4K_Opacity.jpg" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_sfpndwi_4K_Albedo.001.alphamap.sfpndwi_4K_Opacity.jpg"
+Texture "tex_road_006_sfpndwi_4K_Albedo.002.alphamap.sfpndwi_4K_Opacity.jpg" "float" "imagemap" "string filename" ["textures/sfpndwi_4K_Opacity.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_sfpndwi_4K_Albedo.002.alphamap.sfpndwi_4K_Opacity.jpg" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_sfpndwi_4K_Albedo.002.alphamap.sfpndwi_4K_Opacity.jpg"
+Texture "tex_road_006_Sign_retro.alphamap.Sign_M1-1(80).png" "float" "imagemap" "string filename" ["textures/Sign_M1-1(80).png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_Sign_retro.alphamap.Sign_M1-1(80).png" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_Sign_retro.alphamap.Sign_M1-1(80).png"
+Texture "tex_road_006_Sign_M1-1(80).svg_rrx.001.alphamap.Sign_M1-1(80)-Back.png" "float" "imagemap" "string filename" ["textures/Sign_M1-1(80)-Back.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_Sign_M1-1(80).svg_rrx.001.alphamap.Sign_M1-1(80)-Back.png" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_Sign_M1-1(80).svg_rrx.001.alphamap.Sign_M1-1(80)-Back.png"
+Texture "tex_road_006_Sign_R9-14-Back.png.alphamap.Sign_R9-14-Back.png" "float" "imagemap" "string filename" ["textures/Sign_R9-14-Back.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_Sign_R9-14-Back.png.alphamap.Sign_R9-14-Back.png" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_Sign_R9-14-Back.png.alphamap.Sign_R9-14-Back.png"
+Texture "tex_road_006_Sign_R9-14.svg_rrx.alphamap.Sign_R9-14.png" "float" "imagemap" "string filename" ["textures/Sign_R9-14.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_Sign_R9-14.svg_rrx.alphamap.Sign_R9-14.png" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_Sign_R9-14.svg_rrx.alphamap.Sign_R9-14.png"
+Texture "tex_road_006_LinearCracks01_1.alphamap.LinearCracks01_Diff.png" "float" "imagemap" "string filename" ["textures/LinearCracks01_Diff.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_LinearCracks01_1.alphamap.LinearCracks01_Diff.png" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_LinearCracks01_1.alphamap.LinearCracks01_Diff.png"
+Texture "tex_road_006_Grass1.003.alphamap.DirtPath01_Diff_alphamap_lower.png" "float" "imagemap" "string filename" ["textures/DirtPath01_Diff_alphamap_lower.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_Grass1.003.alphamap.DirtPath01_Diff_alphamap_lower.png" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_Grass1.003.alphamap.DirtPath01_Diff_alphamap_lower.png"
+Texture "tex_road_006_LinearCracks01.alphamap.LinearCracks01_Diff.png" "float" "imagemap" "string filename" ["textures/LinearCracks01_Diff.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_LinearCracks01.alphamap.LinearCracks01_Diff.png" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_LinearCracks01.alphamap.LinearCracks01_Diff.png"
+Texture "tex_road_006_TarStreaks01_rrx.alphamap.TarStreaks01_Diff.png" "float" "imagemap" "string filename" ["textures/TarStreaks01_Diff.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_TarStreaks01_rrx.alphamap.TarStreaks01_Diff.png" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_TarStreaks01_rrx.alphamap.TarStreaks01_Diff.png"
+Texture "tex_road_006_PartingLines01_rrx.alphamap.PartingLines01_Diff.png" "float" "imagemap" "string filename" ["textures/PartingLines01_Diff.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_PartingLines01_rrx.alphamap.PartingLines01_Diff.png" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_PartingLines01_rrx.alphamap.PartingLines01_Diff.png"
+Texture "tex_road_006_Grass1.004.alphamap.DirtPath01_Diff_alphamap_upper.png" "float" "imagemap" "string filename" ["textures/DirtPath01_Diff_alphamap_upper.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_Grass1.004.alphamap.DirtPath01_Diff_alphamap_upper.png" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_Grass1.004.alphamap.DirtPath01_Diff_alphamap_upper.png"
+Texture "tex_road_006_ugcmfivcw_4K_Albedo.alphamap.ugcmfivcw_4K_Opacity.jpg" "float" "imagemap" "string filename" ["textures/ugcmfivcw_4K_Opacity.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_ugcmfivcw_4K_Albedo.alphamap.ugcmfivcw_4K_Opacity.jpg" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_ugcmfivcw_4K_Albedo.alphamap.ugcmfivcw_4K_Opacity.jpg"
+Texture "tex_road_006_ugcmfivcw_4K_Albedo.alphamap.ugcmfivcw_4K_Opacity.jpg" "float" "imagemap" "string filename" ["textures/ugcmfivcw_4K_Opacity.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_ugcmfivcw_4K_Albedo.alphamap.ugcmfivcw_4K_Opacity.jpg" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_ugcmfivcw_4K_Albedo.alphamap.ugcmfivcw_4K_Opacity.jpg"
+Texture "tex_road_006_ugcmfivcw_4K_Albedo.alphamap.ugcmfivcw_4K_Opacity.jpg" "float" "imagemap" "string filename" ["textures/ugcmfivcw_4K_Opacity.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_006_ugcmfivcw_4K_Albedo.alphamap.ugcmfivcw_4K_Opacity.jpg" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_006_ugcmfivcw_4K_Albedo.alphamap.ugcmfivcw_4K_Opacity.jpg"

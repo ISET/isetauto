@@ -1,0 +1,252 @@
+MakeNamedMaterial "motorbike_015_black"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.03921568766236305 0.03921568766236305 0.03921568766236305]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.12096946686506271]
+MakeNamedMaterial "motorbike_015_blackpaper"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "motorbike_015_blackwglass_lv1_mat1"
+	"string type" "dielectric"
+	"rgb eta" [1.5 1.5 1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "motorbike_015_blackwglass_lv1_mat2"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.07106789946556091 0.07106789946556091 0.07106789946556091]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.1772727370262146]
+MakeNamedMaterial "motorbike_015_blackwglass"
+	"string type" "mix"
+	"float amount" [0.5]
+	"string materials" ["motorbike_015_blackwglass_lv1_mat1" "motorbike_015_blackwglass_lv1_mat2"]
+MakeNamedMaterial "motorbike_015_caliper"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.09766960144042969 0.09766960144042969 0.09766960144042969]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.09300000220537186]
+MakeNamedMaterial "motorbike_015_carpaint"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.830592691898346 0.12864792346954346]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "motorbike_015_carpaint_second"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.6253281831741333 0.6253281831741333 0.6253281831741333]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.1564885526895523]
+MakeNamedMaterial "motorbike_015_chrome"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.6666666865348816 0.6666666865348816 0.6666666865348816]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.08869466185569763]
+MakeNamedMaterial "motorbike_015_clearglass"
+	"string type" "dielectric"
+	"rgb eta" [1.5 1.5 1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "motorbike_015_disk"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.5 0.5 0.5]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.2939313054084778]
+MakeNamedMaterial "motorbike_015_green_paper"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.021515654399991035 0.8000000715255737 0.40078291296958923]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "motorbike_015_ground"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.05496846139431 0.05496846139431 0.05496846139431]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "motorbike_015_helmet"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.715766191482544 0.2800176739692688]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.03700000047683716]
+MakeNamedMaterial "motorbike_015_Human_tex"
+	"string type" "coateddiffuse"
+	"texture reflectance" "motorbike_015_Human_tex.reflectance.Human_07Bikes_05_Diffuse05.jpg"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "motorbike_015_license_3D"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [1.0 1.0 1.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "motorbike_015_license_holder"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.7136363983154297]
+MakeNamedMaterial "motorbike_015_license_plate"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.800000011920929 0.800000011920929 0.800000011920929]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.4909090995788574]
+MakeNamedMaterial "motorbike_015_license_surface"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.004391307942569256 0.009721137583255768 0.20507869124412537]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "motorbike_015_mirror"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.16470588743686676 0.16470588743686676 0.19607844948768616]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "motorbike_015_orangeglass_lv1_mat1"
+	"string type" "dielectric"
+	"rgb eta" [1.5 1.5 1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "motorbike_015_orangeglass_lv1_mat2"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [1.0 0.2823529541492462 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "motorbike_015_orangeglass"
+	"string type" "mix"
+	"float amount" [0.5]
+	"string materials" ["motorbike_015_orangeglass_lv1_mat1" "motorbike_015_orangeglass_lv1_mat2"]
+MakeNamedMaterial "motorbike_015_paint_white"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.8431373834609985 0.8431373834609985 0.8431373834609985]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.858578622341156]
+MakeNamedMaterial "motorbike_015_redglass_lv1_mat1"
+	"string type" "dielectric"
+	"rgb eta" [1.5 1.5 1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "motorbike_015_redglass_lv1_mat2"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.7372549176216125 0.03529411926865578 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "motorbike_015_redglass"
+	"string type" "mix"
+	"float amount" [0.5]
+	"string materials" ["motorbike_015_redglass_lv1_mat1" "motorbike_015_redglass_lv1_mat2"]
+MakeNamedMaterial "motorbike_015_rim"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.6666666865348816 0.6666666865348816 0.6666666865348816]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.24899999797344208]
+MakeNamedMaterial "motorbike_015_rubber"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.1764705926179886 0.1764705926179886 0.1764705926179886]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.858578622341156]
+MakeNamedMaterial "motorbike_015_screw"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.5372551083564758 0.5372551083564758 0.5372551083564758]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.15909090638160706]
+MakeNamedMaterial "motorbike_015_seats"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.06826359033584595 0.06826359033584595 0.06826359033584595]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5341511368751526]
+MakeNamedMaterial "motorbike_015_tire"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.02060517854988575 0.02060517854988575 0.02060517854988575]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.8420000076293945]
+MakeNamedMaterial "motorbike_015_white_paper"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.8321893811225891 0.8321893811225891 0.8321893811225891]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "motorbike_015_whitemetal"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.8549020290374756 0.8549020290374756 0.8549020290374756]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.21132059395313263]
+MakeNamedMaterial "motorbike_015_Year"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]

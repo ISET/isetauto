@@ -1,0 +1,63 @@
+ObjectBegin "grass_007_m"
+#Instance MeshName: "grass_007"
+	AttributeBegin
+	#MeshName: "grass_007"
+		AttributeBegin
+		#MeshName: "Grass_007_1_LOD0" #Dimension:[0.2304389923810959 0.2640314996242523 0.2424372285604477]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "grass_007"
+				Shape "plymesh" "string filename" ["geometry/Grass_007_1_LOD0_mat0.ply"]
+				"texture alpha" ["grass_007.alphamap.tlusfbvia_4K_Opacity.jpg"]				
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "Grass_007_2_LOD0" #Dimension:[0.1795862913131714 0.21853607892990112 0.24288639426231384]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "grass_007"
+				Shape "plymesh" "string filename" ["geometry/Grass_007_2_LOD0_mat0.ply"]
+				"texture alpha" ["grass_007.alphamap.tlusfbvia_4K_Opacity.jpg"]				
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "Grass_007_3_LOD0" #Dimension:[0.15099161863327026 0.15386007726192474 0.1820678412914276]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "grass_007"
+				Shape "plymesh" "string filename" ["geometry/Grass_007_3_LOD0_mat0.ply"]
+				"texture alpha" ["grass_007.alphamap.tlusfbvia_4K_Opacity.jpg"]				
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "Grass_007_8_LOD0" #Dimension:[0.07166239619255066 0.06107742711901665 0.08423740416765213]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "grass_007"
+				Shape "plymesh" "string filename" ["geometry/Grass_007_8_LOD0_mat0.ply"]
+				"texture alpha" ["grass_007.alphamap.tlusfbvia_4K_Opacity.jpg"]				
+			AttributeEnd
+		AttributeEnd
+	AttributeEnd
+ObjectEnd
+
+ObjectBegin "Camera_m"
+#Instance MeshName: "Camera"
+ObjectEnd
+
+AttributeBegin
+#CollectionName: "Scene Collection"
+	AttributeBegin
+	#CollectionName: "Collection"
+		AttributeBegin
+		#MeshName: "Camera"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "Camera_m"
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "grass_007"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "grass_007_m"
+		AttributeEnd
+	AttributeEnd
+AttributeEnd

@@ -1,0 +1,11 @@
+MakeNamedMaterial "steel"
+	"string type" "conductor"
+	"float roughness" [0.5]
+MakeNamedMaterial "stopSigns_retro"
+	"string type" "coateddiffuse"
+	"texture reflectance" "stopSigns_retro.reflectance.Signs_EU_Diffuse_tqt_4096.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]

@@ -1,21 +1,23 @@
 function [ip,sensor] = piRadiance2RGB(radiance,varargin)
-% Convert an OI to the IP state, carrying along the metadata
+% Convert scene or OI to an IP, carrying along the metadata
 %
 % Syntax
-%    [ip,sensor] = piOI2IP(oi,varargin)
+%    [ip,sensor] = piRadiance2RGB(radiance,varargin)
+%
 %
 % Description
-%   After we simulate the OI we have both the radiance and the pixel level
-%   metadata.  This function converts the OI and metadata all the way to
-%   the IP level.
+%   After we simulate the scene we have both the radiance and the pixel level
+%   metadata.  This function converts the radiance and metadata all the way to
+%   the IP level. Accepts either scene or OI.
 %
 % Input
-%   oi - This OI should generally have metadata attached to it.
+%   scene radiance - This scene should generally have metadata attached to it.
 %
 % Optional key/value pairs
 %   sensor        - File name containing the sensor (default sensorCreate)
 %   pixel size    - Size in microns (e.g. 2)
 %   film diagonal - In millimeters, default is 5 mm
+%   etime         - exposure time
 %
 % Output
 %   ip
@@ -34,7 +36,7 @@ p.addRequired('radiance',@isstruct);
 p.addParameter('sensor','',@ischar);   % A file name
 % p.addParameter('pixelsize',2,@isscalar);
 p.addParameter('filmdiagonal',5,@isscalar); % [mm]
-p.addParameter('etime',1/100,@isscalar); % [mm]\
+p.addParameter('etime',1/100,@isscalar); % 
 p.addParameter('noisefree',0,@islogical);
 p.addParameter('analoggain',1);
 
@@ -51,6 +53,13 @@ analoggain   = p.Results.analoggain;
 if strcmp(radiance.type,'scene')
     oi = oiCreate();
     oi = oiCompute(radiance, oi);
+
+    scene_size = sceneGet(radiance,'size');
+    oi_size = oiGet(oi,'size');
+
+    % crop oi to remove extra edge
+    oi = oiCrop(oi, [(oi_size(2)-scene_size(2))/2,(oi_size(1)-scene_size(1))/2, ...
+        scene_size(2)-1, scene_size(1)-1]);
 elseif ~strcmp(radiance.type,'opticalimage')
     error('Input should be a scene or optical image');
 else
@@ -93,7 +102,7 @@ end
 
 % [~,rect] = ieROISelect(oi);
 % [colmin,rowmin,width,height]
-oiSize = oiGet(oi,'size');
+
 % fraction = 0.2;
 % rect = [oiSize(2)*(1 - fraction)/2, oiSize(1)*(1 - fraction)/2, ...
 %     oiSize(2)*fraction oiSize(1)*fraction];
@@ -107,6 +116,7 @@ oiSize = oiGet(oi,'size');
 % match the sampling of the oi samples? But this seems to be in meters.
 % optimalPixel = sqrt(filmDiagonal^2/(oiSize(1)^2+oiSize(2)^2))*1e-3; % Meters
 % sensor = sensorSet(sensor, 'size', oiGet(oi,'size') * (optimalPixel/(pixelSize*1e-6)));
+oiSize = oiGet(oi,'size');
 sensor = sensorSet(sensor, 'size', oiSize);
 % Not sure why we don't do this, except perhaps the fov is unreliable?
 % sensor   = sensorSetSizeToFOV(sensor,oiGet(oi,'fov'));

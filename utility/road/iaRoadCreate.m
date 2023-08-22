@@ -75,11 +75,9 @@ switch sceneType
         %         roadname = sceneType;
 end
 
-%% Check the road type and downald road assets
-
+%% Check the road type and download road assets
 
 Road_acq = roadSession.acquisitions.findOne(sprintf('label=%s',roadtype));
-
 
 % This is the rendering recipe for the road session
 % fileType_json ='source code'; % json
@@ -107,7 +105,6 @@ end
 
 % get recipe
 assetRecipe = piFWAssetCreate(Road_acq, 'resources', false);
-
 
 % Set the temporal sampling interval for the SUMO simulation.  
 switch trafficflowDensity

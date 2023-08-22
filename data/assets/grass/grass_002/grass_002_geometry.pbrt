@@ -1,0 +1,32 @@
+ObjectBegin "Camera_m"
+#Instance MeshName: "Camera"
+ObjectEnd
+
+ObjectBegin "grass_002_m"
+#Instance MeshName: "grass_002"
+	AttributeBegin
+	#MeshName: "grass_002" #Dimension:[0.834234893321991 0.5284404158592224 0.7910004258155823]" 
+		Transform [0.010000 0.000000 0.000000 0.000000 0.000000 -0.000000 0.010000 0.000000 0.000000 -0.010000 -0.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+		AttributeBegin
+			NamedMaterial "grass_002"
+			Shape "plymesh" "string filename" ["geometry/grass_002_mat0.ply"]
+		AttributeEnd
+	AttributeEnd
+ObjectEnd
+
+AttributeBegin
+#CollectionName: "Scene Collection"
+	AttributeBegin
+	#CollectionName: "Collection"
+		AttributeBegin
+		#MeshName: "Camera"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "Camera_m"
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "grass_002"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "grass_002_m"
+		AttributeEnd
+	AttributeEnd
+AttributeEnd

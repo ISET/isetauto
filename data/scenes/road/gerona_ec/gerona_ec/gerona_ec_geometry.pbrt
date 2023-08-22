@@ -1,0 +1,84 @@
+ObjectBegin "Light_m"
+#Instance MeshName: "Light"
+ObjectEnd
+
+ObjectBegin "Camera_m"
+#Instance MeshName: "Camera"
+ObjectEnd
+
+ObjectBegin "SceneNode_m"
+#Instance MeshName: "SceneNode"
+	AttributeBegin
+	#MeshName: "SceneNode"
+		AttributeBegin
+		#MeshName: "Tile_0_0Node"
+			AttributeBegin
+			#MeshName: "RoadsNode"
+				AttributeBegin
+				#MeshName: "Roads_MarkingNode"
+					AttributeBegin
+					#MeshName: "Roads_Marking_Layer0Node" #Dimension:[973.4659423828125 831.949462890625 0.0]" 
+						Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+						AttributeBegin
+							NamedMaterial "LaneMarking1_Marking"
+							Shape "plymesh" "string filename" ["geometry/Roads_Marking_Layer0Node_mat0.ply"]
+						AttributeEnd
+						AttributeBegin
+							NamedMaterial "LaneMarkingYellow1_Marking"
+							Shape "plymesh" "string filename" ["geometry/Roads_Marking_Layer0Node_mat1.ply"]
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "Roads_RoadNode"
+					AttributeBegin
+					#MeshName: "Roads_Road_Layer0Node" #Dimension:[973.4027099609375 831.8870239257812 0.0]" 
+						Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+						AttributeBegin
+							NamedMaterial "Asphalt1_Road"
+							Shape "plymesh" "string filename" ["geometry/Roads_Road_Layer0Node_mat0.ply"]
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+			AttributeEnd
+			AttributeBegin
+			#MeshName: "Terrain_GroundNode"
+				AttributeBegin
+				#MeshName: "Terrain_Ground_Layer0Node" #Dimension:[50.94097900390625 32.48883056640625 0.0]" 
+					Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+					AttributeBegin
+						NamedMaterial "Grass1_Ground"
+						Shape "plymesh" "string filename" ["geometry/Terrain_Ground_Layer0Node_mat0.ply"]
+					AttributeEnd
+				AttributeEnd
+			AttributeEnd
+		AttributeEnd
+	AttributeEnd
+ObjectEnd
+
+AttributeBegin
+#CollectionName: "Scene Collection"
+	AttributeBegin
+	#CollectionName: "Collection"
+		AttributeBegin
+		#MeshName: "Light"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "Light_m"
+			AttributeBegin
+				#lightName: "Light"
+				LightSource "point" "point3 from" [4.076245307922363 1.0054539442062378 5.903861999511719]
+				"rgb I" [1.0 1.0 1.0] "float scale" [1000.0]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "Camera"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "Camera_m"
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "SceneNode"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "SceneNode_m"
+		AttributeEnd
+	AttributeEnd
+AttributeEnd

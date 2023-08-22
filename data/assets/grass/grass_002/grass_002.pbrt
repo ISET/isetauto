@@ -1,0 +1,23 @@
+Film "gbuffer" "integer xresolution" [1920] "integer yresolution" [1080] "string filename" "output.exr"
+PixelFilter "box" "float xradius" [0.5] "float yradius" [0.5] 
+Accelerator "bvh" 
+"string splitmethod" "sah"
+"integer maxnodeprims" [4]
+Sampler "halton"
+"integer pixelsamples" [100]
+
+Integrator "path"
+"integer maxdepth" [10]
+
+Scale -1 1 1 #avoid the 'flipped image' bug..
+LookAt	1.1878650188446045 -1.699014663696289 0.583932638168335
+	0.6113130450248718 -0.9023038744926453 0.4027153253555298
+	-0.10624063014984131 0.1468081772327423 0.9834430813789368
+
+Camera "perspective"
+"float fov" [22.89519204617112]
+WorldBegin
+
+Include "grass_002_materials.pbrt"
+Include "grass_002_texture.pbrt"
+Include "grass_002_geometry.pbrt"

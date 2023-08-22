@@ -1,0 +1,29 @@
+MakeNamedMaterial "Material.001"
+	"string type" "coateddiffuse"
+	"texture reflectance" "Material.001.reflectance.Humano_02Casual_Groceries01.jpg"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "Material.002"
+	"string type" "dielectric"
+	"rgb eta" [1.3968313932418823 1.0680537223815918 1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "Material.004"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.025538543239235878 0.013469075784087181 0.13758257031440735]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5]
+MakeNamedMaterial "pedestrian_004_mat"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/Humano_02Casual_17_Normal.jpg"
+	"texture reflectance" "pedestrian_004_mat.reflectance.Humano_02Casual_17_Diffuse01.jpg"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.858578622341156]

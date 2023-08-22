@@ -1,0 +1,9 @@
+MakeNamedMaterial "pedestrian_031"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/10254_w_Valeska_Body_N_8k.jpg"
+	"texture reflectance" "pedestrian_031.reflectance.10254_w_Valeska_Body_D_8k.jpg"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]

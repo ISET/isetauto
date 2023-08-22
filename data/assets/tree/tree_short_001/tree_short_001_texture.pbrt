@@ -1,0 +1,4 @@
+Texture "Bark_Taxus-baccata_bqm.reflectance.Bark_Acer-pseudoplatanus_Diffuse.jpg" "spectrum" "imagemap" "string filename" ["textures/Bark_Acer-pseudoplatanus_Diffuse.jpg"] "float uscale" [1] "float vscale" [1]
+Texture "Leaf_Taxus-baccata_bqm.reflectance.Leaf_Taxus-baccata_Diffuse.png" "spectrum" "imagemap" "string filename" ["textures/Leaf_Taxus-baccata_Diffuse.png"] "float uscale" [1] "float vscale" [1]
+Texture "tex_Leaf_Taxus-baccata_bqm.alphamap.Leaf_Taxus-baccata_Diffuse.png" "float" "imagemap" "string filename" ["textures/Leaf_Taxus-baccata_Diffuse.png"] "float uscale" [1] "float vscale" [1]
+Texture "Leaf_Taxus-baccata_bqm.alphamap.Leaf_Taxus-baccata_Diffuse.png" "float" "scale" "float scale" [1.0] "texture tex" "tex_Leaf_Taxus-baccata_bqm.alphamap.Leaf_Taxus-baccata_Diffuse.png"

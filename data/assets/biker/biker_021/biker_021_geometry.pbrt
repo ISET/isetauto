@@ -1,0 +1,317 @@
+ObjectBegin "biker_021_person_m"
+#Instance MeshName: "biker_021_person"
+	AttributeBegin
+	#MeshName: "biker_021_person"
+		AttributeBegin
+		#MeshName: "motorbike_021_body" #Dimension:[0.05026137828826904 0.2810963988304138 0.04526972770690918]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "motorblike_021_gary"
+				Shape "plymesh" "string filename" ["geometry/motorbike_021_body_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "motorbike_021_body.001" #Dimension:[0.026758551597595215 0.28303197026252747 0.018511176109313965]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "motorbike_021_chrome"
+				Shape "plymesh" "string filename" ["geometry/motorbike_021_body.001_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "motorbike_021_body.002" #Dimension:[0.32459092140197754 0.28851446509361267 0.36681175231933594]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "motorblike_021_helmet"
+				Shape "plymesh" "string filename" ["geometry/motorbike_021_body.002_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "motorbike_021_body.003" #Dimension:[0.15416628122329712 0.27753904461860657 0.1644684076309204]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "motorbike_021_clearglass"
+				Shape "plymesh" "string filename" ["geometry/motorbike_021_body.003_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "person_021" #Dimension:[0.7859926223754883 0.771223783493042 1.3609874248504639]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "motorbike_021_human_tex"
+				Shape "plymesh" "string filename" ["geometry/person_021_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+	AttributeEnd
+ObjectEnd
+
+ObjectBegin "biker_021_motorbike_m"
+#Instance MeshName: "biker_021_motorbike"
+	AttributeBegin
+	#MeshName: "biker_021_motorbike"
+		AttributeBegin
+		#MeshName: "motorbike_021_body.005" #Dimension:[1.6607553958892822 0.8556452989578247 0.7596900463104248]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "motorbike_021_mirror"
+				Shape "plymesh" "string filename" ["geometry/motorbike_021_body.005_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "motorbike_021_body.007" #Dimension:[1.7987574338912964 0.8779416680335999 1.0515236854553223]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "motorbike_021_black"
+				Shape "plymesh" "string filename" ["geometry/motorbike_021_body.007_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "motorbike_021_body.008" #Dimension:[0.7949303984642029 0.3506469428539276 0.07909762859344482]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "motorbike_021_blue"
+				Shape "plymesh" "string filename" ["geometry/motorbike_021_body.008_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "motorbike_021_body.009" #Dimension:[1.1419850587844849 0.4081725478172302 0.4865131676197052]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "motorbike_021_carpaint"
+				Shape "plymesh" "string filename" ["geometry/motorbike_021_body.009_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "motorbike_021_body.010" #Dimension:[0.03877270221710205 0.10734367370605469 0.07257872819900513]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "motorbike_021_redglass"
+				Shape "plymesh" "string filename" ["geometry/motorbike_021_body.010_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "motorbike_021_body.012" #Dimension:[1.921892762184143 0.2253570258617401 0.48002323508262634]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "motorbike_021_rim"
+				Shape "plymesh" "string filename" ["geometry/motorbike_021_body.012_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "motorbike_021_body.013" #Dimension:[1.7592101097106934 0.13786303997039795 0.3173385560512543]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "motorbike_021_disk"
+				Shape "plymesh" "string filename" ["geometry/motorbike_021_body.013_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "motorbike_021_body.014" #Dimension:[2.0716071128845215 0.17652755975723267 0.6231994032859802]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "motorbike_021_tire"
+				Shape "plymesh" "string filename" ["geometry/motorbike_021_body.014_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "motorbike_021_body.015" #Dimension:[0.021192610263824463 0.058640435338020325 0.02881753444671631]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "motorbike_021_red"
+				Shape "plymesh" "string filename" ["geometry/motorbike_021_body.015_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "motorbike_021_body.016" #Dimension:[1.508154273033142 0.5554512739181519 0.32550081610679626]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "motorbike_021_orangeglass"
+				Shape "plymesh" "string filename" ["geometry/motorbike_021_body.016_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "motorbike_021_body.017" #Dimension:[1.8803144693374634 0.6492125391960144 0.8686822056770325]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "motorbike_021_chrome"
+				Shape "plymesh" "string filename" ["geometry/motorbike_021_body.017_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "motorbike_021_body.018" #Dimension:[0.04377099871635437 0.07830487191677094 0.06491893529891968]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "motorbike_021_clearglass"
+				Shape "plymesh" "string filename" ["geometry/motorbike_021_body.018_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "motorbike_021_license_3D_rear" #Dimension:[0.06825542449951172 0.17980000376701355 0.09832382202148438]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "motorbike_021_license_surface"
+				Shape "plymesh" "string filename" ["geometry/motorbike_021_license_3D_rear_mat0.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "motorbike_021_screw"
+				Shape "plymesh" "string filename" ["geometry/motorbike_021_license_3D_rear_mat1.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "motorbike_021_Humano_07Bikes_05"
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "motorbike_021_license_plate"
+				Shape "plymesh" "string filename" ["geometry/motorbike_021_license_3D_rear_mat3.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "motorbike_021_green_paper"
+				Shape "trianglemesh"
+				"point3 P" [
+				-1.7236394882202148 -0.017038043588399887 0.6985383629798889 -1.7363723516464233 -0.017038041725754738 0.6770238280296326 -1.7363723516464233 0.022961962968111038 0.6770238876342773 -1.7236394882202148 -0.017038043588399887 0.6985383629798889 -1.7363723516464233 0.022961962968111038 0.6770238876342773 -1.7236394882202148 0.022961962968111038 0.6985383629798889				
+				]
+				"normal N" [
+				0.8605796098709106 3.7252996207826072e-06 -0.5093159079551697 0.8605796098709106 3.7252996207826072e-06 -0.5093159079551697 0.8605796098709106 3.7252996207826072e-06 -0.5093159079551697 0.8605796098709106 3.7252996207826072e-06 -0.5093159079551697 0.8605796098709106 3.7252996207826072e-06 -0.5093159079551697 0.8605796098709106 3.7252996207826072e-06 -0.5093159079551697				
+				]
+				"point2 uv" [
+				0.0 0.0 
+				1.0 0.0 
+				1.0 1.0 
+				0.0 0.0 
+				1.0 1.0 
+				0.0 1.0 
+				]
+				"integer indices" [
+				0 1 2 3 4 5 
+				]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "motorbike_021_black_paper"
+				Shape "trianglemesh"
+				"point3 P" [
+				-1.723426103591919 -0.01745438389480114 0.6987025737762451 -1.7364137172698975 -0.01745438203215599 0.6767577528953552 -1.7364137172698975 0.02334560826420784 0.6767578125 -1.723426103591919 -0.01745438389480114 0.6987025737762451 -1.7364137172698975 0.02334560826420784 0.6767578125 -1.723426103591919 0.02334560826420784 0.6987025737762451 -1.7232915163040161 0.03078499063849449 0.6989301443099976 -1.736279010772705 0.03078499063849449 0.6769853234291077 -1.736279010772705 0.07158499956130981 0.6769853234291077 -1.7232915163040161 0.03078499063849449 0.6989301443099976 -1.736279010772705 0.07158499956130981 0.6769853234291077 -1.7232915163040161 0.07158499956130981 0.6989301443099976				
+				]
+				"normal N" [
+				0.8605778813362122 0.0 -0.5093188881874084 0.8605778813362122 0.0 -0.5093188881874084 0.8605778813362122 0.0 -0.5093188881874084 0.8605778813362122 0.0 -0.5093188881874084 0.8605778813362122 0.0 -0.5093188881874084 0.8605778813362122 0.0 -0.5093188881874084 0.8605812191963196 0.0 -0.5093132257461548 0.8605812191963196 0.0 -0.5093132257461548 0.8605812191963196 0.0 -0.5093132257461548 0.8605812191963196 0.0 -0.5093132257461548 0.8605812191963196 0.0 -0.5093132257461548 0.8605812191963196 0.0 -0.5093132257461548				
+				]
+				"point2 uv" [
+				0.0 0.0 
+				1.0 0.0 
+				1.0 1.0 
+				0.0 0.0 
+				1.0 1.0 
+				0.0 1.0 
+				0.0 0.0 
+				1.0 0.0 
+				1.0 1.0 
+				0.0 0.0 
+				1.0 1.0 
+				0.0 1.0 
+				]
+				"integer indices" [
+				0 1 2 3 4 5 6 7 8 9 10 11 
+				]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "motorbike_021_white_paper"
+				Shape "trianglemesh"
+				"point3 P" [
+				-1.723504900932312 0.031201336532831192 0.6987659335136414 -1.7362377643585205 0.031201336532831192 0.677251398563385 -1.7362377643585205 0.07120133936405182 0.677251398563385 -1.723504900932312 0.031201336532831192 0.6987659335136414 -1.7362377643585205 0.07120133936405182 0.677251398563385 -1.723504900932312 0.07120133936405182 0.6987659335136414				
+				]
+				"normal N" [
+				0.8605806231498718 0.0 -0.5093142986297607 0.8605806231498718 0.0 -0.5093142986297607 0.8605806231498718 0.0 -0.5093142986297607 0.8605806231498718 0.0 -0.5093142986297607 0.8605806231498718 0.0 -0.5093142986297607 0.8605806231498718 0.0 -0.5093142986297607				
+				]
+				"point2 uv" [
+				0.0 0.0 
+				1.0 0.0 
+				1.0 1.0 
+				0.0 0.0 
+				1.0 1.0 
+				0.0 1.0 
+				]
+				"integer indices" [
+				0 1 2 3 4 5 
+				]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "motorbike_021_Year"
+				Shape "plymesh" "string filename" ["geometry/motorbike_021_license_3D_rear_mat7.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "motorbike_021_license_3D"
+				Shape "plymesh" "string filename" ["geometry/motorbike_021_license_3D_rear_mat8.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "motorbike_021_license_holder"
+				Shape "plymesh" "string filename" ["geometry/motorbike_021_license_3D_rear_mat9.ply"]
+			AttributeEnd
+		AttributeEnd
+	AttributeEnd
+ObjectEnd
+
+ObjectBegin "Camera_m"
+#Instance MeshName: "Camera"
+ObjectEnd
+
+AttributeBegin
+#CollectionName: "Scene Collection"
+	AttributeBegin
+	#MeshName: "biker_021_person"
+		Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+		ObjectInstance "biker_021_person_m"
+	AttributeEnd
+	AttributeBegin
+	#MeshName: "biker_021_motorbike"
+		Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+		ObjectInstance "biker_021_motorbike_m"
+		AttributeBegin
+		#MeshName: "motorbike_021_body.004" #Dimension:[0.27720385789871216 0.3084968328475952 0.24336117506027222]" 
+			AttributeBegin
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AreaLightSource "diffuse"				
+				"rgb L" [ 1.0 1.0 1.0]				
+				"float scale" [ 2.5 ]				
+				"float spread" [ 90.0 ]				
+				Shape "plymesh" "string filename" ["geometry/motorbike_021_body.004_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "motorbike_021_body.006" #Dimension:[0.025073528289794922 0.0798087865114212 0.0527917742729187]" 
+			AttributeBegin
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AreaLightSource "diffuse"				
+				"rgb L" [ 1.0 0.0 0.0]				
+				"float scale" [ 5.0 ]				
+				"float spread" [ 90.0 ]				
+				Shape "plymesh" "string filename" ["geometry/motorbike_021_body.006_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "motorbike_021_body.011" #Dimension:[1.2590265274047852 0.46619683504104614 0.16498225927352905]" 
+			AttributeBegin
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AreaLightSource "diffuse"				
+				"rgb L" [ 1.0 0.26999998092651367 0.0]				
+				"float scale" [ 5.0 ]				
+				"float spread" [ 90.0 ]				
+				Shape "plymesh" "string filename" ["geometry/motorbike_021_body.011_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+			#MeshName: "motorbike_021_front_cam" 
+			Transform [-0.000000 -1.000000 -0.000000 0.000000 -0.000000 -0.000000 1.000000 0.000000 -1.000000 0.000000 -0.000000 0.000000 -0.377000 0.000000 1.409000 1.000000 ]
+		AttributeEnd
+		AttributeBegin
+			#MeshName: "motorbike_021_left_mirror_cam" 
+			Transform [0.323409 0.946259 -0.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.946259 -0.323409 -0.000000 0.000000 -0.473000 0.386000 1.191000 1.000000 ]
+		AttributeEnd
+		AttributeBegin
+			#MeshName: "motorbike_021_right_mirror_cam" 
+			Transform [-0.291230 0.956653 -0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.956653 0.291230 -0.000000 0.000000 -0.467000 -0.385000 1.192000 1.000000 ]
+		AttributeEnd
+	AttributeEnd
+	AttributeBegin
+	#MeshName: "Camera"
+		Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+		ObjectInstance "Camera_m"
+	AttributeEnd
+AttributeEnd

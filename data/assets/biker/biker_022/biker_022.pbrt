@@ -1,0 +1,23 @@
+Film "gbuffer" "integer xresolution" [1920] "integer yresolution" [1080] "string filename" "output.exr"
+PixelFilter "box" "float xradius" [0.5] "float yradius" [0.5] 
+Accelerator "bvh" 
+"string splitmethod" "sah"
+"integer maxnodeprims" [4]
+Sampler "halton"
+"integer pixelsamples" [100]
+
+Integrator "path"
+"integer maxdepth" [10]
+
+Scale -1 1 1 #avoid the 'flipped image' bug..
+LookAt	-7.090000152587891 -1.4149999618530273 0.9010000228881836
+	-6.116086483001709 -1.190983772277832 0.8648250699043274
+	0.03855067864060402 -0.006239182781428099 0.9992371797561646
+
+Camera "perspective"
+"float fov" [22.89519204617112]
+WorldBegin
+
+Include "biker_022_materials.pbrt"
+Include "biker_022_texture.pbrt"
+Include "biker_022_geometry.pbrt"

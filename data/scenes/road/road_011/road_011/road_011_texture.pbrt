@@ -1,0 +1,57 @@
+Texture "road_011_Cracks01_rrx.001.reflectance.Cracks01_Diff.png" "spectrum" "imagemap" "string filename" ["textures/Cracks01_Diff.png"] "float uscale" [0.5] "float vscale" [0.5]
+Texture "road_011_grass_wild.reflectance.sgmkajak_4K_Albedo.jpg" "spectrum" "imagemap" "string filename" ["textures/sgmkajak_4K_Albedo.jpg"] "float uscale" [0.25] "float vscale" [0.25]
+Texture "tex_road_011_grass_wild.roughness.sgmkajak_4K_Roughness.jpg" "float" "imagemap" "string filename" ["textures/sgmkajak_4K_Roughness.jpg"] "float uscale" [0.25] "float vscale" [0.25]
+Texture "road_011_grass_wild.roughness.sgmkajak_4K_Roughness.jpg" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_011_grass_wild.roughness.sgmkajak_4K_Roughness.jpg"
+Texture "road_011_grass_wild.001.reflectance.sgmkajak_4K_Albedo.jpg" "spectrum" "imagemap" "string filename" ["textures/sgmkajak_4K_Albedo.jpg"] "float uscale" [0.5] "float vscale" [0.5]
+Texture "tex_road_011_grass_wild.001.roughness.sgmkajak_4K_Roughness.jpg" "float" "imagemap" "string filename" ["textures/sgmkajak_4K_Roughness.jpg"] "float uscale" [0.5] "float vscale" [0.5]
+Texture "road_011_grass_wild.001.roughness.sgmkajak_4K_Roughness.jpg" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_011_grass_wild.001.roughness.sgmkajak_4K_Roughness.jpg"
+Texture "road_011_grass_wild.002.reflectance.sgmkajak_4K_Albedo.jpg" "spectrum" "imagemap" "string filename" ["textures/sgmkajak_4K_Albedo.jpg"] "float uscale" [0.5] "float vscale" [0.5]
+Texture "tex_road_011_grass_wild.002.roughness.sgmkajak_4K_Roughness.jpg" "float" "imagemap" "string filename" ["textures/sgmkajak_4K_Roughness.jpg"] "float uscale" [0.5] "float vscale" [0.5]
+Texture "road_011_grass_wild.002.roughness.sgmkajak_4K_Roughness.jpg" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_011_grass_wild.002.roughness.sgmkajak_4K_Roughness.jpg"
+Texture "road_011_LaneMarking1.001.reflectance.LaneMarking1_Diff.png" "spectrum" "imagemap" "string filename" ["textures/LaneMarking1_Diff.png"] "float uscale" [0.25] "float vscale" [0.25]
+Texture "road_011_LaneMarkingYellow1.001.reflectance.LaneMarking1_Diff.png" "spectrum" "imagemap" "string filename" ["textures/LaneMarking1_Diff.png"] "float uscale" [0.25] "float vscale" [0.25]
+Texture "road_011_LinearCracks01.001.reflectance.LinearCracks01_Diff.png" "spectrum" "imagemap" "string filename" ["textures/LinearCracks01_Diff.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_011_Material.reflectance.vi4idez_4K_Albedo.jpg" "spectrum" "imagemap" "string filename" ["textures/vi4idez_4K_Albedo.jpg"] "float uscale" [0.08333333333333333] "float vscale" [0.16666666666666666]
+Texture "tex_road_011_Material.roughness.vi4idez_4K_Roughness.jpg" "float" "imagemap" "string filename" ["textures/vi4idez_4K_Roughness.jpg"] "float uscale" [0.08333333333333333] "float vscale" [0.16666666666666666]
+Texture "road_011_Material.roughness.vi4idez_4K_Roughness.jpg" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_011_Material.roughness.vi4idez_4K_Roughness.jpg"
+Texture "road_011_PartingLines01_rrx.001.reflectance.PartingLines01_Diff.png" "spectrum" "imagemap" "string filename" ["textures/PartingLines01_Diff.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_011_Road001.reflectance.vlkidh2_4K_Albedo.jpg" "spectrum" "imagemap" "string filename" ["textures/vlkidh2_4K_Albedo.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "tex_road_011_Road001.roughness.vlkidh2_4K_Roughness.jpg" "float" "imagemap" "string filename" ["textures/vlkidh2_4K_Roughness.jpg"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_011_Road001.roughness.vlkidh2_4K_Roughness.jpg" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_011_Road001.roughness.vlkidh2_4K_Roughness.jpg"
+Texture "road_011_rock_mountain.reflectance.vl0fdhdo_4K_Albedo.jpg" "spectrum" "imagemap" "string filename" ["textures/vl0fdhdo_4K_Albedo.jpg"] "float uscale" [0.25] "float vscale" [0.5]
+Texture "tex_road_011_rock_mountain.roughness.vl0fdhdo_4K_Roughness.jpg" "float" "imagemap" "string filename" ["textures/vl0fdhdo_4K_Roughness.jpg"] "float uscale" [0.25] "float vscale" [0.5]
+Texture "road_011_rock_mountain.roughness.vl0fdhdo_4K_Roughness.jpg" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_011_rock_mountain.roughness.vl0fdhdo_4K_Roughness.jpg"
+Texture "road_011_SharedTexture02.001.reflectance.Signals_TextureSheet01_Diff.png" "spectrum" "imagemap" "string filename" ["textures/Signals_TextureSheet01_Diff.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_011_SharedTexture02_1.001.reflectance.Signals_TextureSheet01_Diff.png" "spectrum" "imagemap" "string filename" ["textures/Signals_TextureSheet01_Diff.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_011_SharedTexture02_2.001.reflectance.Signals_TextureSheet01_Diff.png" "spectrum" "imagemap" "string filename" ["textures/Signals_TextureSheet01_Diff.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_011_Sign_FlaggerAhead-Back.png.001.reflectance.Sign_FlaggerAhead-Back.png" "spectrum" "imagemap" "string filename" ["textures/Sign_FlaggerAhead-Back.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_011_Sign_FlaggerAhead.svg_rrx.001.reflectance.Sign_FlaggerAhead.png" "spectrum" "imagemap" "string filename" ["textures/Sign_FlaggerAhead.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_011_Sign_R1-3P-Back.png.001.reflectance.Sign_R1-3P-Back.png" "spectrum" "imagemap" "string filename" ["textures/Sign_R1-3P-Back.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_011_Sign_R1-3P.svg_rrx.001.reflectance.Sign_R1-3P.png" "spectrum" "imagemap" "string filename" ["textures/Sign_R1-3P.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_011_Sign_R2-1(55)-Back.png.001.reflectance.Sign_R2-1(55)-Back.png" "spectrum" "imagemap" "string filename" ["textures/Sign_R2-1(55)-Back.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_011_Sign_R2-1(55).svg_rrx.001.reflectance.Sign_R2-1(55).png" "spectrum" "imagemap" "string filename" ["textures/Sign_R2-1(55).png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_011_TarStreaks01_rrx.001.reflectance.TarStreaks01_Diff.png" "spectrum" "imagemap" "string filename" ["textures/TarStreaks01_Diff.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "tex_road_011_Sign_R1-3P-Back.png.001.alphamap.Sign_R1-3P-Back.png" "float" "imagemap" "string filename" ["textures/Sign_R1-3P-Back.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_011_Sign_R1-3P-Back.png.001.alphamap.Sign_R1-3P-Back.png" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_011_Sign_R1-3P-Back.png.001.alphamap.Sign_R1-3P-Back.png"
+Texture "tex_road_011_Sign_R1-3P.svg_rrx.001.alphamap.Sign_R1-3P.png" "float" "imagemap" "string filename" ["textures/Sign_R1-3P.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_011_Sign_R1-3P.svg_rrx.001.alphamap.Sign_R1-3P.png" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_011_Sign_R1-3P.svg_rrx.001.alphamap.Sign_R1-3P.png"
+Texture "tex_road_011_Sign_R2-1(55)-Back.png.001.alphamap.Sign_R2-1(55)-Back.png" "float" "imagemap" "string filename" ["textures/Sign_R2-1(55)-Back.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_011_Sign_R2-1(55)-Back.png.001.alphamap.Sign_R2-1(55)-Back.png" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_011_Sign_R2-1(55)-Back.png.001.alphamap.Sign_R2-1(55)-Back.png"
+Texture "tex_road_011_Sign_R2-1(55).svg_rrx.001.alphamap.Sign_R2-1(55).png" "float" "imagemap" "string filename" ["textures/Sign_R2-1(55).png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_011_Sign_R2-1(55).svg_rrx.001.alphamap.Sign_R2-1(55).png" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_011_Sign_R2-1(55).svg_rrx.001.alphamap.Sign_R2-1(55).png"
+Texture "tex_road_011_Sign_FlaggerAhead-Back.png.001.alphamap.Sign_FlaggerAhead-Back.png" "float" "imagemap" "string filename" ["textures/Sign_FlaggerAhead-Back.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_011_Sign_FlaggerAhead-Back.png.001.alphamap.Sign_FlaggerAhead-Back.png" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_011_Sign_FlaggerAhead-Back.png.001.alphamap.Sign_FlaggerAhead-Back.png"
+Texture "tex_road_011_Sign_FlaggerAhead.svg_rrx.001.alphamap.Sign_FlaggerAhead.png" "float" "imagemap" "string filename" ["textures/Sign_FlaggerAhead.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_011_Sign_FlaggerAhead.svg_rrx.001.alphamap.Sign_FlaggerAhead.png" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_011_Sign_FlaggerAhead.svg_rrx.001.alphamap.Sign_FlaggerAhead.png"
+Texture "tex_road_011_grass_wild.001.alphamap.DirtPath01_Diff_alphamap_lower.png" "float" "imagemap" "string filename" ["textures/DirtPath01_Diff_alphamap_lower.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_011_grass_wild.001.alphamap.DirtPath01_Diff_alphamap_lower.png" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_011_grass_wild.001.alphamap.DirtPath01_Diff_alphamap_lower.png"
+Texture "tex_road_011_Cracks01_rrx.001.alphamap.Cracks01_Diff.png" "float" "imagemap" "string filename" ["textures/Cracks01_Diff.png"] "float uscale" [0.5] "float vscale" [0.5]
+Texture "road_011_Cracks01_rrx.001.alphamap.Cracks01_Diff.png" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_011_Cracks01_rrx.001.alphamap.Cracks01_Diff.png"
+Texture "tex_road_011_TarStreaks01_rrx.001.alphamap.TarStreaks01_Diff.png" "float" "imagemap" "string filename" ["textures/TarStreaks01_Diff.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_011_TarStreaks01_rrx.001.alphamap.TarStreaks01_Diff.png" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_011_TarStreaks01_rrx.001.alphamap.TarStreaks01_Diff.png"
+Texture "tex_road_011_PartingLines01_rrx.001.alphamap.PartingLines01_Diff.png" "float" "imagemap" "string filename" ["textures/PartingLines01_Diff.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_011_PartingLines01_rrx.001.alphamap.PartingLines01_Diff.png" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_011_PartingLines01_rrx.001.alphamap.PartingLines01_Diff.png"
+Texture "tex_road_011_LinearCracks01.001.alphamap.LinearCracks01_Diff.png" "float" "imagemap" "string filename" ["textures/LinearCracks01_Diff.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_011_LinearCracks01.001.alphamap.LinearCracks01_Diff.png" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_011_LinearCracks01.001.alphamap.LinearCracks01_Diff.png"
+Texture "tex_road_011_grass_wild.002.alphamap.DirtPath01_Diff_alphamap_upper.png" "float" "imagemap" "string filename" ["textures/DirtPath01_Diff_alphamap_upper.png"] "float uscale" [1.0] "float vscale" [1.0]
+Texture "road_011_grass_wild.002.alphamap.DirtPath01_Diff_alphamap_upper.png" "float" "scale" "float scale" [1.0] "texture tex" "tex_road_011_grass_wild.002.alphamap.DirtPath01_Diff_alphamap_upper.png"

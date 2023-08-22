@@ -1,0 +1,426 @@
+MakeNamedMaterial "cyclist_00316 Slot #10.004"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_00316 Slot #3.004"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_00316 Slot #4.004"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_00316 Slot #5.004"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_00316 Slot #6.004"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_00316 Slot #7.004"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_00316 Slot #8.004"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_00316 Slot #9.004"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_00317 Slot #10.008"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_00317 Slot #10.009"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_00317 Slot #3.008"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_00317 Slot #3.009"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_00317 Slot #4.008"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_00317 Slot #4.009"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_00317 Slot #5.008"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_00317 Slot #5.009"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_00317 Slot #6.008"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_00317 Slot #6.009"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_00317 Slot #7.008"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_00317 Slot #7.009"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_00317 Slot #8.008"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_00317 Slot #8.009"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_00317 Slot #9.008"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_00317 Slot #9.009"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_00320.002"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.03921568766236305 0.03921568766236305 0.03921568766236305]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_0032132741969 Slot #10.004"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_0032132741969 Slot #3.004"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_0032132741969 Slot #4.004"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_0032132741969 Slot #5.004"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_0032132741969 Slot #6.004"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_0032132741969 Slot #7.004"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_0032132741969 Slot #8.004"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_0032132741969 Slot #9.004"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0 0.0 0.0]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_0033.006"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.03921568766236305 0.03921568766236305 0.03921568766236305]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_0033.007"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.03921568766236305 0.03921568766236305 0.03921568766236305]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_0035.005"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.03921568766236305 0.03921568766236305 0.03921568766236305]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5527864098548889]
+MakeNamedMaterial "cyclist_003_07Bikes_02"
+	"string type" "coateddiffuse"
+	"texture reflectance" "cyclist_003_07Bikes_02.reflectance.Humano_07Bikes_02_Diffuse01.jpg"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [1.0]
+MakeNamedMaterial "cyclist_003_BikeBag"
+	"string type" "coateddiffuse"
+	"texture reflectance" "cyclist_003_BikeBag.reflectance.Humano_07Bikes_Bike_Bag01.jpg"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.38590914011001587]
+MakeNamedMaterial "cyclist_003_BikeBagZipper"
+	"string type" "coateddiffuse"
+	"texture reflectance" "cyclist_003_BikeBagZipper.reflectance.Humano_07Bikes_Bike_BagZipper.jpg"
+"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.38590914011001587]
+MakeNamedMaterial "cyclist_003_BikeChrome.000"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.01857810840010643 0.01857810840010643 0.01857810840010643]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "cyclist_003_BikeFrame.000"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.06691456586122513 0.15908294916152954 0.3761903643608093]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.2905983030796051]
+MakeNamedMaterial "cyclist_003_BikeHelmet_Foam"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.2627449929714203 0.2627449929714203 0.2627449929714203]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.8945907354354858]
+MakeNamedMaterial "cyclist_003_BikeHelmet_Plastic01"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.03905312344431877 0.03905312344431877 0.03905312344431877]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.6467275023460388]
+MakeNamedMaterial "cyclist_003_BikeHelmet_Plastic02"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.013634679839015007 0.013634679839015007 0.013634679839015007]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.4843343198299408]
+MakeNamedMaterial "cyclist_003_BikeHelmetStrips"
+	"string type" "coateddiffuse"
+	"texture reflectance" "cyclist_003_BikeHelmetStrips.reflectance.Humano_07Bikes_Bike_HelmetStrips.jpg"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.8304731845855713]
+MakeNamedMaterial "cyclist_003_BikeLeather.000"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/Humano_07Bikes_Bike_Leather_Normal_by_cc0textures-com.jpg"
+	"texture reflectance" "cyclist_003_BikeLeather.000.reflectance.Humano_07Bikes_Bike_Leather_by_cc0textures-com.jpg"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "cyclist_003_BikeLight.000"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.5019609332084656 0.15003949403762817 0.13298487663269043]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.25641027092933655]
+MakeNamedMaterial "cyclist_003_BikeLight_2.000"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.501960813999176 0.501960813999176 0.501960813999176]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.10256410390138626]
+MakeNamedMaterial "cyclist_003_BikePlastic"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0049578603357076645 0.0049578603357076645 0.0049578603357076645]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5470085740089417]
+MakeNamedMaterial "cyclist_003_BikePlastic.000"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.0049578603357076645 0.0049578603357076645 0.0049578603357076645]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.5470085740089417]
+MakeNamedMaterial "cyclist_003_BikeSteel"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.2980392277240753 0.2980392277240753 0.2980392277240753]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.29914531111717224]
+MakeNamedMaterial "cyclist_003_BikeSteel.000"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.2980392277240753 0.2980392277240753 0.2980392277240753]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.29914531111717224]
+MakeNamedMaterial "cyclist_003_BikeTyre.000"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.007039650809019804 0.007039650809019804 0.007039650809019804]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.7539809346199036]

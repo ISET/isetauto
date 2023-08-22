@@ -144,7 +144,7 @@ function S = overlapCheckOne(assetInfo, S, offsetScaleX, offsetScaleY)
 
 for ii  = 1:numel(S.lane)
  
-    if S.number(ii) == 0
+    if ~isfield(S,'number') || S.number(ii) == 0
         continue;
     end
     posList = S.placedList.positions{ii};

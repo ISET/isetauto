@@ -1,0 +1,23 @@
+Film "gbuffer" "integer xresolution" [1920] "integer yresolution" [1080] "string filename" "output.exr"
+PixelFilter "box" "float xradius" [0.5] "float yradius" [0.5] 
+Accelerator "bvh" 
+"string splitmethod" "sah"
+"integer maxnodeprims" [4]
+Sampler "halton"
+"integer pixelsamples" [100]
+
+Integrator "path"
+"integer maxdepth" [10]
+
+Scale -1 1 1 #avoid the 'flipped image' bug..
+LookAt	-6.0879998207092285 -1.3240000009536743 1.13100004196167
+	-5.115633964538574 -1.0943493843078613 1.0889859199523926
+	0.044268857687711716 -0.004672713112086058 0.9990087151527405
+
+Camera "perspective"
+"float fov" [22.89519204617112]
+WorldBegin
+
+Include "cyclist_006_materials.pbrt"
+Include "cyclist_006_texture.pbrt"
+Include "cyclist_006_geometry.pbrt"

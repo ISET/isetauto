@@ -1,0 +1,816 @@
+ObjectBegin "road_015_Camera_m"
+#Instance MeshName: "road_015_Camera"
+ObjectEnd
+
+ObjectBegin "road_015_SceneNode_m"
+#Instance MeshName: "road_015_SceneNode"
+	AttributeBegin
+	#MeshName: "road_015_SceneNode"
+		AttributeBegin
+		#MeshName: "road_015_Landscape.001" #Dimension:[146.33071899414062 731.653564453125 8.391340255737305]" 
+			Transform [0.553977 73.163208 0.088086 0.000000 -73.163254 0.554014 -0.030182 0.000000 -0.014152 -0.040304 33.565334 0.000000 20.351936 -106.764801 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "road_015_rocky_ground"
+				Shape "plymesh" "string filename" ["geometry/road_015_Landscape.001_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "road_015_Landscape.002" #Dimension:[146.33071899414062 731.653564453125 5.0]" 
+			Transform [0.553977 73.163208 0.088086 0.000000 -73.163254 0.554014 -0.030182 0.000000 -0.008432 -0.024015 19.999983 0.000000 20.351936 131.447418 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "road_015_rocky_ground"
+				Shape "plymesh" "string filename" ["geometry/road_015_Landscape.002_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "road_015_Landscape.003" #Dimension:[53.13414001464844 265.67071533203125 3.0469791889190674]" 
+			Transform [26.487404 -2.055626 0.031985 0.000000 2.055640 26.487421 -0.010959 0.000000 -0.014240 0.006148 12.187906 0.000000 -230.742599 1.964035 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "road_015_rocky_ground"
+				Shape "plymesh" "string filename" ["geometry/road_015_Landscape.003_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "road_015_Landscape.004" #Dimension:[53.13414001464844 265.67071533203125 3.0469791889190674]" 
+			Transform [26.487404 -2.055626 0.031985 0.000000 2.055640 26.487421 -0.010959 0.000000 -0.014240 0.006148 12.187906 0.000000 225.322617 1.964035 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "road_015_rocky_ground"
+				Shape "plymesh" "string filename" ["geometry/road_015_Landscape.004_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "road_015_Tile_0_0Node"
+			AttributeBegin
+			#MeshName: "road_015_PropsNode"
+				AttributeBegin
+				#MeshName: "road_015_Prop_1Node" #Dimension:[3.0 3.000000476837158 5.0]" 
+					Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+					AttributeBegin
+						NamedMaterial "road_015_Concrete1"
+						Shape "plymesh" "string filename" ["geometry/road_015_Prop_1Node_mat0.ply"]
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_Prop_2Node" #Dimension:[21.89137077331543 67.26468658447266 1.2472000122070312]" 
+					Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+					AttributeBegin
+						NamedMaterial "road_015_Concrete1"
+						Shape "plymesh" "string filename" ["geometry/road_015_Prop_2Node_mat0.ply"]
+					AttributeEnd
+					AttributeBegin
+						NamedMaterial "road_015_Metal1"
+						Shape "plymesh" "string filename" ["geometry/road_015_Prop_2Node_mat1.ply"]
+						"texture alpha" ["road_015_Metal1.alphamap.Metal1_Diff.png"]						
+					AttributeEnd
+					AttributeBegin
+						NamedMaterial "road_015_Default"
+						Shape "trianglemesh"
+						"point3 P" [
+						1.7337716817855835 -19.180011749267578 6.84722900390625 1.8957762718200684 -19.231477737426758 6.80718994140625 1.8957762718200684 -19.231477737426758 6.84722900390625 1.7337716817855835 -19.180011749267578 6.84722900390625 1.7337716817855835 -19.180011749267578 6.80718994140625 1.8957762718200684 -19.231477737426758 6.80718994140625 23.043771743774414 47.899986267089844 6.84722900390625 23.20577621459961 47.84851837158203 6.84722900390625 23.20577621459961 47.84851837158203 6.80718994140625 23.043771743774414 47.899986267089844 6.84722900390625 23.20577621459961 47.84851837158203 6.80718994140625 23.043771743774414 47.899986267089844 6.80718994140625 1.8385947942733765 -19.21331214904785 7.2471923828125 1.8957762718200684 -19.231477737426758 7.20721435546875 1.8957762718200684 -19.231477737426758 7.2471923828125 1.8385947942733765 -19.21331214904785 7.2471923828125 1.8385947942733765 -19.21331214904785 7.20721435546875 1.8957762718200684 -19.231477737426758 7.20721435546875 23.148595809936523 47.86668395996094 7.2471923828125 23.20577621459961 47.84851837158203 7.2471923828125 23.20577621459961 47.84851837158203 7.20721435546875 23.148595809936523 47.86668395996094 7.2471923828125 23.20577621459961 47.84851837158203 7.20721435546875 23.148595809936523 47.86668395996094 7.20721435546875						
+						]
+						"normal N" [
+						-0.30277130007743835 -0.9530631899833679 0.0 -0.30277174711227417 -0.9530630707740784 0.0 -0.30277183651924133 -0.9530630707740784 0.0 -0.30277130007743835 -0.9530631899833679 0.0 -0.3027712106704712 -0.9530632495880127 0.0 -0.30277174711227417 -0.9530630707740784 0.0 0.30277493596076965 0.9530620574951172 0.0 0.3027835786342621 0.9530593156814575 0.0 0.3027821183204651 0.9530597925186157 0.0 0.30277493596076965 0.9530620574951172 0.0 0.3027821183204651 0.9530597925186157 0.0 0.30277347564697266 0.9530625939369202 0.0 -0.30277112126350403 -0.9530632495880127 0.0 -0.30277198553085327 -0.9530630707740784 0.0 -0.3027733266353607 -0.9530625343322754 0.0 -0.30277112126350403 -0.9530632495880127 0.0 -0.3027697503566742 -0.9530636668205261 0.0 -0.30277198553085327 -0.9530630707740784 0.0 0.30277693271636963 0.9530614018440247 0.0 0.30277693271636963 0.9530614614486694 0.0 0.30277693271636963 0.9530614018440247 0.0 0.30277693271636963 0.9530614018440247 0.0 0.30277693271636963 0.9530614018440247 0.0 0.30277693271636963 0.9530614614486694 0.0						
+						]
+						"point2 uv" [
+						-0.56500244140625 0.84722900390625 
+						-0.39501953125 0.80718994140625 
+						-0.39501953125 0.84722900390625 
+						-0.56500244140625 0.84722900390625 
+						-0.56500244140625 0.80718994140625 
+						-0.39501953125 0.80718994140625 
+						-0.56500244140625 0.84722900390625 
+						-0.39501953125 0.84722900390625 
+						-0.39501953125 0.80718994140625 
+						-0.56500244140625 0.84722900390625 
+						-0.39501953125 0.80718994140625 
+						-0.56500244140625 0.80718994140625 
+						-0.45501708984375 1.2471923828125 
+						-0.39501953125 1.20721435546875 
+						-0.39501953125 1.2471923828125 
+						-0.45501708984375 1.2471923828125 
+						-0.45501708984375 1.20721435546875 
+						-0.39501953125 1.20721435546875 
+						-0.45501708984375 1.2471923828125 
+						-0.39501953125 1.2471923828125 
+						-0.39501953125 1.20721435546875 
+						-0.45501708984375 1.2471923828125 
+						-0.39501953125 1.20721435546875 
+						-0.45501708984375 1.20721435546875 
+						]
+						"integer indices" [
+						0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 
+						]
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_Prop_3Node" #Dimension:[21.891368865966797 67.26468658447266 1.2472000122070312]" 
+					Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+					AttributeBegin
+						NamedMaterial "road_015_Concrete1"
+						Shape "plymesh" "string filename" ["geometry/road_015_Prop_3Node_mat0.ply"]
+					AttributeEnd
+					AttributeBegin
+						NamedMaterial "road_015_Metal1"
+						Shape "plymesh" "string filename" ["geometry/road_015_Prop_3Node_mat1.ply"]
+						"texture alpha" ["road_015_Metal1.alphamap.Metal1_Diff.png"]						
+					AttributeEnd
+					AttributeBegin
+						NamedMaterial "road_015_Default"
+						Shape "trianglemesh"
+						"point3 P" [
+						16.49622917175293 49.980010986328125 6.84722900390625 16.334224700927734 50.03147888183594 6.80718994140625 16.334224700927734 50.03147888183594 6.84722900390625 16.49622917175293 49.980010986328125 6.84722900390625 16.49622917175293 49.980010986328125 6.80718994140625 16.334224700927734 50.03147888183594 6.80718994140625 -4.813771724700928 -17.099987030029297 6.84722900390625 -4.975776195526123 -17.048521041870117 6.84722900390625 -4.975776195526123 -17.048521041870117 6.80718994140625 -4.813771724700928 -17.099987030029297 6.84722900390625 -4.975776195526123 -17.048521041870117 6.80718994140625 -4.813771724700928 -17.099987030029297 6.80718994140625 16.39140510559082 50.01331329345703 7.2471923828125 16.334224700927734 50.03147888183594 7.20721435546875 16.334224700927734 50.03147888183594 7.2471923828125 16.39140510559082 50.01331329345703 7.2471923828125 16.39140510559082 50.01331329345703 7.20721435546875 16.334224700927734 50.03147888183594 7.20721435546875 -4.918594837188721 -17.066686630249023 7.2471923828125 -4.975776195526123 -17.048521041870117 7.2471923828125 -4.975776195526123 -17.048521041870117 7.20721435546875 -4.918594837188721 -17.066686630249023 7.2471923828125 -4.975776195526123 -17.048521041870117 7.20721435546875 -4.918594837188721 -17.066686630249023 7.20721435546875						
+						]
+						"normal N" [
+						0.3027785122394562 0.9530609250068665 0.0 0.3027785122394562 0.9530609250068665 0.0 0.3027785122394562 0.9530609250068665 0.0 0.3027785122394562 0.9530609250068665 0.0 0.3027785122394562 0.9530609250068665 0.0 0.3027785122394562 0.9530609250068665 0.0 -0.30277180671691895 -0.9530630111694336 0.0 -0.30277183651924133 -0.9530630707740784 0.0 -0.30277180671691895 -0.9530630111694336 0.0 -0.30277180671691895 -0.9530630111694336 0.0 -0.30277180671691895 -0.9530630111694336 0.0 -0.30277183651924133 -0.9530630707740784 0.0 0.3027805685997009 0.9530603885650635 0.0 0.30277329683303833 0.9530626535415649 0.0 0.30276256799697876 0.9530659914016724 0.0 0.3027805685997009 0.9530603885650635 0.0 0.3027912676334381 0.9530568718910217 0.0 0.30277329683303833 0.9530626535415649 0.0 -0.3027733564376831 -0.9530626535415649 0.0 -0.3027733266353607 -0.9530625343322754 0.0 -0.3027733564376831 -0.9530626535415649 0.0 -0.3027733564376831 -0.9530626535415649 0.0 -0.3027733564376831 -0.9530626535415649 0.0 -0.3027733266353607 -0.9530625343322754 0.0						
+						]
+						"point2 uv" [
+						-0.56500244140625 0.84722900390625 
+						-0.39501953125 0.80718994140625 
+						-0.39501953125 0.84722900390625 
+						-0.56500244140625 0.84722900390625 
+						-0.56500244140625 0.80718994140625 
+						-0.39501953125 0.80718994140625 
+						-0.56500244140625 0.84722900390625 
+						-0.39501953125 0.84722900390625 
+						-0.39501953125 0.80718994140625 
+						-0.56500244140625 0.84722900390625 
+						-0.39501953125 0.80718994140625 
+						-0.56500244140625 0.80718994140625 
+						-0.45501708984375 1.2471923828125 
+						-0.39501953125 1.20721435546875 
+						-0.39501953125 1.2471923828125 
+						-0.45501708984375 1.2471923828125 
+						-0.45501708984375 1.20721435546875 
+						-0.39501953125 1.20721435546875 
+						-0.45501708984375 1.2471923828125 
+						-0.39501953125 1.2471923828125 
+						-0.39501953125 1.20721435546875 
+						-0.45501708984375 1.2471923828125 
+						-0.39501953125 1.20721435546875 
+						-0.45501708984375 1.20721435546875 
+						]
+						"integer indices" [
+						0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 
+						]
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_PropNode" #Dimension:[3.0 3.0 5.0]" 
+					Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+					AttributeBegin
+						NamedMaterial "road_015_Concrete1"
+						Shape "plymesh" "string filename" ["geometry/road_015_PropNode_mat0.ply"]
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_{3aa43fa4-f1f6-4fb6-800e-a2831bdb4922}RailBracket01_10"
+					AttributeBegin
+					#MeshName: "road_015_RootNode_1Node.010"
+						AttributeBegin
+						#MeshName: "road_015_RailBracket01Node.010" #Dimension:[0.3475153148174286 0.2675293982028961 0.8105282187461853]" 
+							Transform [-0.009531 0.003028 0.000000 0.000000 -0.003028 -0.009531 0.000000 0.000000 0.000000 0.000000 0.010000 0.000000 17.202999 28.655552 6.457200 1.000000 ]
+							AttributeBegin
+								NamedMaterial "road_015_Metal1_1"
+								Shape "plymesh" "string filename" ["geometry/road_015_RailBracket01Node.010_mat0.ply"]
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_{3aa43fa4-f1f6-4fb6-800e-a2831bdb4922}RailBracket01_11"
+					AttributeBegin
+					#MeshName: "road_015_RootNode_1Node.011"
+						AttributeBegin
+						#MeshName: "road_015_RailBracket01Node.011" #Dimension:[0.3475153148174286 0.2675293982028961 0.8105282187461853]" 
+							Transform [-0.009531 0.003028 0.000000 0.000000 -0.003028 -0.009531 0.000000 0.000000 0.000000 0.000000 0.010000 0.000000 18.725142 33.446980 6.457200 1.000000 ]
+							AttributeBegin
+								NamedMaterial "road_015_Metal1_1"
+								Shape "plymesh" "string filename" ["geometry/road_015_RailBracket01Node.011_mat0.ply"]
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_{3aa43fa4-f1f6-4fb6-800e-a2831bdb4922}RailBracket01_12"
+					AttributeBegin
+					#MeshName: "road_015_RootNode_1Node.012"
+						AttributeBegin
+						#MeshName: "road_015_RailBracket01Node.012" #Dimension:[0.3475153148174286 0.2675293982028961 0.8105282187461853]" 
+							Transform [-0.009531 0.003028 0.000000 0.000000 -0.003028 -0.009531 0.000000 0.000000 0.000000 0.000000 0.010000 0.000000 20.247286 38.238407 6.457200 1.000000 ]
+							AttributeBegin
+								NamedMaterial "road_015_Metal1_1"
+								Shape "plymesh" "string filename" ["geometry/road_015_RailBracket01Node.012_mat0.ply"]
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_{3aa43fa4-f1f6-4fb6-800e-a2831bdb4922}RailBracket01_13"
+					AttributeBegin
+					#MeshName: "road_015_RootNode_1Node.013"
+						AttributeBegin
+						#MeshName: "road_015_RailBracket01Node.013" #Dimension:[0.3475153148174286 0.2675293982028961 0.8105282187461853]" 
+							Transform [-0.009531 0.003028 0.000000 0.000000 -0.003028 -0.009531 0.000000 0.000000 0.000000 0.000000 0.010000 0.000000 21.769428 43.029835 6.457200 1.000000 ]
+							AttributeBegin
+								NamedMaterial "road_015_Metal1_1"
+								Shape "plymesh" "string filename" ["geometry/road_015_RailBracket01Node.013_mat0.ply"]
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_{3aa43fa4-f1f6-4fb6-800e-a2831bdb4922}RailBracket01_14"
+					AttributeBegin
+					#MeshName: "road_015_RootNode_1Node.014"
+						AttributeBegin
+						#MeshName: "road_015_RailBracket01Node.014" #Dimension:[0.3475153148174286 0.2675293982028961 0.8105282187461853]" 
+							Transform [-0.009531 0.003028 0.000000 0.000000 -0.003028 -0.009531 0.000000 0.000000 0.000000 0.000000 0.010000 0.000000 23.291571 47.821266 6.457200 1.000000 ]
+							AttributeBegin
+								NamedMaterial "road_015_Metal1_1"
+								Shape "plymesh" "string filename" ["geometry/road_015_RailBracket01Node.014_mat0.ply"]
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_{3aa43fa4-f1f6-4fb6-800e-a2831bdb4922}RailBracket01_1N"
+					AttributeBegin
+					#MeshName: "road_015_RootNode_1Node.001"
+						AttributeBegin
+						#MeshName: "road_015_RailBracket01Node.001" #Dimension:[0.3475153148174286 0.2675293982028961 0.8105282187461853]" 
+							Transform [-0.009531 0.003028 0.000000 0.000000 -0.003028 -0.009531 0.000000 0.000000 0.000000 0.000000 0.010000 0.000000 3.503714 -14.467305 6.457200 1.000000 ]
+							AttributeBegin
+								NamedMaterial "road_015_Metal1_1"
+								Shape "plymesh" "string filename" ["geometry/road_015_RailBracket01Node.001_mat0.ply"]
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_{3aa43fa4-f1f6-4fb6-800e-a2831bdb4922}RailBracket01_2N"
+					AttributeBegin
+					#MeshName: "road_015_RootNode_1Node.002"
+						AttributeBegin
+						#MeshName: "road_015_RailBracket01Node.002" #Dimension:[0.3475153148174286 0.2675293982028961 0.8105282187461853]" 
+							Transform [-0.009531 0.003028 0.000000 0.000000 -0.003028 -0.009531 0.000000 0.000000 0.000000 0.000000 0.010000 0.000000 5.025856 -9.675877 6.457200 1.000000 ]
+							AttributeBegin
+								NamedMaterial "road_015_Metal1_1"
+								Shape "plymesh" "string filename" ["geometry/road_015_RailBracket01Node.002_mat0.ply"]
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_{3aa43fa4-f1f6-4fb6-800e-a2831bdb4922}RailBracket01_3N"
+					AttributeBegin
+					#MeshName: "road_015_RootNode_1Node.003"
+						AttributeBegin
+						#MeshName: "road_015_RailBracket01Node.003" #Dimension:[0.3475153148174286 0.2675293982028961 0.8105282187461853]" 
+							Transform [-0.009531 0.003028 0.000000 0.000000 -0.003028 -0.009531 0.000000 0.000000 0.000000 0.000000 0.010000 0.000000 6.547999 -4.884448 6.457200 1.000000 ]
+							AttributeBegin
+								NamedMaterial "road_015_Metal1_1"
+								Shape "plymesh" "string filename" ["geometry/road_015_RailBracket01Node.003_mat0.ply"]
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_{3aa43fa4-f1f6-4fb6-800e-a2831bdb4922}RailBracket01_4N"
+					AttributeBegin
+					#MeshName: "road_015_RootNode_1Node.004"
+						AttributeBegin
+						#MeshName: "road_015_RailBracket01Node.004" #Dimension:[0.3475153148174286 0.2675293982028961 0.8105282187461853]" 
+							Transform [-0.009531 0.003028 0.000000 0.000000 -0.003028 -0.009531 0.000000 0.000000 0.000000 0.000000 0.010000 0.000000 8.070142 -0.093020 6.457200 1.000000 ]
+							AttributeBegin
+								NamedMaterial "road_015_Metal1_1"
+								Shape "plymesh" "string filename" ["geometry/road_015_RailBracket01Node.004_mat0.ply"]
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_{3aa43fa4-f1f6-4fb6-800e-a2831bdb4922}RailBracket01_5N"
+					AttributeBegin
+					#MeshName: "road_015_RootNode_1Node.005"
+						AttributeBegin
+						#MeshName: "road_015_RailBracket01Node.005" #Dimension:[0.3475153148174286 0.2675293982028961 0.8105282187461853]" 
+							Transform [-0.009531 0.003028 0.000000 0.000000 -0.003028 -0.009531 0.000000 0.000000 0.000000 0.000000 0.010000 0.000000 9.592285 4.698409 6.457200 1.000000 ]
+							AttributeBegin
+								NamedMaterial "road_015_Metal1_1"
+								Shape "plymesh" "string filename" ["geometry/road_015_RailBracket01Node.005_mat0.ply"]
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_{3aa43fa4-f1f6-4fb6-800e-a2831bdb4922}RailBracket01_6N"
+					AttributeBegin
+					#MeshName: "road_015_RootNode_1Node.006"
+						AttributeBegin
+						#MeshName: "road_015_RailBracket01Node.006" #Dimension:[0.3475153148174286 0.2675293982028961 0.8105282187461853]" 
+							Transform [-0.009531 0.003028 0.000000 0.000000 -0.003028 -0.009531 0.000000 0.000000 0.000000 0.000000 0.010000 0.000000 11.114428 9.489838 6.457200 1.000000 ]
+							AttributeBegin
+								NamedMaterial "road_015_Metal1_1"
+								Shape "plymesh" "string filename" ["geometry/road_015_RailBracket01Node.006_mat0.ply"]
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_{3aa43fa4-f1f6-4fb6-800e-a2831bdb4922}RailBracket01_7N"
+					AttributeBegin
+					#MeshName: "road_015_RootNode_1Node.007"
+						AttributeBegin
+						#MeshName: "road_015_RailBracket01Node.007" #Dimension:[0.3475153148174286 0.2675293982028961 0.8105282187461853]" 
+							Transform [-0.009531 0.003028 0.000000 0.000000 -0.003028 -0.009531 0.000000 0.000000 0.000000 0.000000 0.010000 0.000000 12.636571 14.281265 6.457200 1.000000 ]
+							AttributeBegin
+								NamedMaterial "road_015_Metal1_1"
+								Shape "plymesh" "string filename" ["geometry/road_015_RailBracket01Node.007_mat0.ply"]
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_{3aa43fa4-f1f6-4fb6-800e-a2831bdb4922}RailBracket01_8N"
+					AttributeBegin
+					#MeshName: "road_015_RootNode_1Node.008"
+						AttributeBegin
+						#MeshName: "road_015_RailBracket01Node.008" #Dimension:[0.3475153148174286 0.2675293982028961 0.8105282187461853]" 
+							Transform [-0.009531 0.003028 0.000000 0.000000 -0.003028 -0.009531 0.000000 0.000000 0.000000 0.000000 0.010000 0.000000 14.158713 19.072695 6.457200 1.000000 ]
+							AttributeBegin
+								NamedMaterial "road_015_Metal1_1"
+								Shape "plymesh" "string filename" ["geometry/road_015_RailBracket01Node.008_mat0.ply"]
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_{3aa43fa4-f1f6-4fb6-800e-a2831bdb4922}RailBracket01_9N"
+					AttributeBegin
+					#MeshName: "road_015_RootNode_1Node.009"
+						AttributeBegin
+						#MeshName: "road_015_RailBracket01Node.009" #Dimension:[0.3475153148174286 0.2675293982028961 0.8105282187461853]" 
+							Transform [-0.009531 0.003028 0.000000 0.000000 -0.003028 -0.009531 0.000000 0.000000 0.000000 0.000000 0.010000 0.000000 15.680857 23.864122 6.457200 1.000000 ]
+							AttributeBegin
+								NamedMaterial "road_015_Metal1_1"
+								Shape "plymesh" "string filename" ["geometry/road_015_RailBracket01Node.009_mat0.ply"]
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_{3aa43fa4-f1f6-4fb6-800e-a2831bdb4922}RailBracket01Nod"
+					AttributeBegin
+					#MeshName: "road_015_RootNode_1Node"
+						AttributeBegin
+						#MeshName: "road_015_RailBracket01Node" #Dimension:[0.3475153148174286 0.2675293982028961 0.8105282187461853]" 
+							Transform [-0.009531 0.003028 0.000000 0.000000 -0.003028 -0.009531 0.000000 0.000000 0.000000 0.000000 0.010000 0.000000 1.981571 -19.258734 6.457200 1.000000 ]
+							AttributeBegin
+								NamedMaterial "road_015_Metal1_1"
+								Shape "plymesh" "string filename" ["geometry/road_015_RailBracket01Node_mat0.ply"]
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_{607080d9-a58e-4aff-9995-c0b494ba4e68}RailBracket01_10"
+					AttributeBegin
+					#MeshName: "road_015_RootNode_1Node.025"
+						AttributeBegin
+						#MeshName: "road_015_RailBracket01Node.025" #Dimension:[0.3475153148174286 0.2675293982028961 0.8105282187461853]" 
+							Transform [0.009531 -0.003028 0.000000 0.000000 0.003028 0.009531 0.000000 0.000000 0.000000 0.000000 0.010000 0.000000 1.027001 2.144448 6.457200 1.000000 ]
+							AttributeBegin
+								NamedMaterial "road_015_Metal1_1"
+								Shape "plymesh" "string filename" ["geometry/road_015_RailBracket01Node.025_mat0.ply"]
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_{607080d9-a58e-4aff-9995-c0b494ba4e68}RailBracket01_11"
+					AttributeBegin
+					#MeshName: "road_015_RootNode_1Node.026"
+						AttributeBegin
+						#MeshName: "road_015_RailBracket01Node.026" #Dimension:[0.3475153148174286 0.2675293982028961 0.8105282187461853]" 
+							Transform [0.009531 -0.003028 0.000000 0.000000 0.003028 0.009531 0.000000 0.000000 0.000000 0.000000 0.010000 0.000000 -0.495142 -2.646980 6.457200 1.000000 ]
+							AttributeBegin
+								NamedMaterial "road_015_Metal1_1"
+								Shape "plymesh" "string filename" ["geometry/road_015_RailBracket01Node.026_mat0.ply"]
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_{607080d9-a58e-4aff-9995-c0b494ba4e68}RailBracket01_12"
+					AttributeBegin
+					#MeshName: "road_015_RootNode_1Node.027"
+						AttributeBegin
+						#MeshName: "road_015_RailBracket01Node.027" #Dimension:[0.3475153148174286 0.2675293982028961 0.8105282187461853]" 
+							Transform [0.009531 -0.003028 0.000000 0.000000 0.003028 0.009531 0.000000 0.000000 0.000000 0.000000 0.010000 0.000000 -2.017285 -7.438408 6.457200 1.000000 ]
+							AttributeBegin
+								NamedMaterial "road_015_Metal1_1"
+								Shape "plymesh" "string filename" ["geometry/road_015_RailBracket01Node.027_mat0.ply"]
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_{607080d9-a58e-4aff-9995-c0b494ba4e68}RailBracket01_13"
+					AttributeBegin
+					#MeshName: "road_015_RootNode_1Node.028"
+						AttributeBegin
+						#MeshName: "road_015_RailBracket01Node.028" #Dimension:[0.3475153148174286 0.2675293982028961 0.8105282187461853]" 
+							Transform [0.009531 -0.003028 0.000000 0.000000 0.003028 0.009531 0.000000 0.000000 0.000000 0.000000 0.010000 0.000000 -3.539428 -12.229837 6.457200 1.000000 ]
+							AttributeBegin
+								NamedMaterial "road_015_Metal1_1"
+								Shape "plymesh" "string filename" ["geometry/road_015_RailBracket01Node.028_mat0.ply"]
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_{607080d9-a58e-4aff-9995-c0b494ba4e68}RailBracket01_14"
+					AttributeBegin
+					#MeshName: "road_015_RootNode_1Node.029"
+						AttributeBegin
+						#MeshName: "road_015_RailBracket01Node.029" #Dimension:[0.3475153148174286 0.2675293982028961 0.8105282187461853]" 
+							Transform [0.009531 -0.003028 0.000000 0.000000 0.003028 0.009531 0.000000 0.000000 0.000000 0.000000 0.010000 0.000000 -5.061571 -17.021265 6.457200 1.000000 ]
+							AttributeBegin
+								NamedMaterial "road_015_Metal1_1"
+								Shape "plymesh" "string filename" ["geometry/road_015_RailBracket01Node.029_mat0.ply"]
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_{607080d9-a58e-4aff-9995-c0b494ba4e68}RailBracket01_1N"
+					AttributeBegin
+					#MeshName: "road_015_RootNode_1Node.016"
+						AttributeBegin
+						#MeshName: "road_015_RailBracket01Node.016" #Dimension:[0.3475153148174286 0.2675293982028961 0.8105282187461853]" 
+							Transform [0.009531 -0.003028 0.000000 0.000000 0.003028 0.009531 0.000000 0.000000 0.000000 0.000000 0.010000 0.000000 14.726287 45.267303 6.457200 1.000000 ]
+							AttributeBegin
+								NamedMaterial "road_015_Metal1_1"
+								Shape "plymesh" "string filename" ["geometry/road_015_RailBracket01Node.016_mat0.ply"]
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_{607080d9-a58e-4aff-9995-c0b494ba4e68}RailBracket01_2N"
+					AttributeBegin
+					#MeshName: "road_015_RootNode_1Node.017"
+						AttributeBegin
+						#MeshName: "road_015_RailBracket01Node.017" #Dimension:[0.3475153148174286 0.2675293982028961 0.8105282187461853]" 
+							Transform [0.009531 -0.003028 0.000000 0.000000 0.003028 0.009531 0.000000 0.000000 0.000000 0.000000 0.010000 0.000000 13.204144 40.475876 6.457200 1.000000 ]
+							AttributeBegin
+								NamedMaterial "road_015_Metal1_1"
+								Shape "plymesh" "string filename" ["geometry/road_015_RailBracket01Node.017_mat0.ply"]
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_{607080d9-a58e-4aff-9995-c0b494ba4e68}RailBracket01_3N"
+					AttributeBegin
+					#MeshName: "road_015_RootNode_1Node.018"
+						AttributeBegin
+						#MeshName: "road_015_RailBracket01Node.018" #Dimension:[0.3475153148174286 0.2675293982028961 0.8105282187461853]" 
+							Transform [0.009531 -0.003028 0.000000 0.000000 0.003028 0.009531 0.000000 0.000000 0.000000 0.000000 0.010000 0.000000 11.682001 35.684448 6.457200 1.000000 ]
+							AttributeBegin
+								NamedMaterial "road_015_Metal1_1"
+								Shape "plymesh" "string filename" ["geometry/road_015_RailBracket01Node.018_mat0.ply"]
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_{607080d9-a58e-4aff-9995-c0b494ba4e68}RailBracket01_4N"
+					AttributeBegin
+					#MeshName: "road_015_RootNode_1Node.019"
+						AttributeBegin
+						#MeshName: "road_015_RailBracket01Node.019" #Dimension:[0.3475153148174286 0.2675293982028961 0.8105282187461853]" 
+							Transform [0.009531 -0.003028 0.000000 0.000000 0.003028 0.009531 0.000000 0.000000 0.000000 0.000000 0.010000 0.000000 10.159859 30.893019 6.457200 1.000000 ]
+							AttributeBegin
+								NamedMaterial "road_015_Metal1_1"
+								Shape "plymesh" "string filename" ["geometry/road_015_RailBracket01Node.019_mat0.ply"]
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_{607080d9-a58e-4aff-9995-c0b494ba4e68}RailBracket01_5N"
+					AttributeBegin
+					#MeshName: "road_015_RootNode_1Node.020"
+						AttributeBegin
+						#MeshName: "road_015_RailBracket01Node.020" #Dimension:[0.3475153148174286 0.2675293982028961 0.8105282187461853]" 
+							Transform [0.009531 -0.003028 0.000000 0.000000 0.003028 0.009531 0.000000 0.000000 0.000000 0.000000 0.010000 0.000000 8.637715 26.101591 6.457200 1.000000 ]
+							AttributeBegin
+								NamedMaterial "road_015_Metal1_1"
+								Shape "plymesh" "string filename" ["geometry/road_015_RailBracket01Node.020_mat0.ply"]
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_{607080d9-a58e-4aff-9995-c0b494ba4e68}RailBracket01_6N"
+					AttributeBegin
+					#MeshName: "road_015_RootNode_1Node.021"
+						AttributeBegin
+						#MeshName: "road_015_RailBracket01Node.021" #Dimension:[0.3475153148174286 0.2675293982028961 0.8105282187461853]" 
+							Transform [0.009531 -0.003028 0.000000 0.000000 0.003028 0.009531 0.000000 0.000000 0.000000 0.000000 0.010000 0.000000 7.115572 21.310162 6.457200 1.000000 ]
+							AttributeBegin
+								NamedMaterial "road_015_Metal1_1"
+								Shape "plymesh" "string filename" ["geometry/road_015_RailBracket01Node.021_mat0.ply"]
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_{607080d9-a58e-4aff-9995-c0b494ba4e68}RailBracket01_7N"
+					AttributeBegin
+					#MeshName: "road_015_RootNode_1Node.022"
+						AttributeBegin
+						#MeshName: "road_015_RailBracket01Node.022" #Dimension:[0.3475153148174286 0.2675293982028961 0.8105282187461853]" 
+							Transform [0.009531 -0.003028 0.000000 0.000000 0.003028 0.009531 0.000000 0.000000 0.000000 0.000000 0.010000 0.000000 5.593430 16.518734 6.457200 1.000000 ]
+							AttributeBegin
+								NamedMaterial "road_015_Metal1_1"
+								Shape "plymesh" "string filename" ["geometry/road_015_RailBracket01Node.022_mat0.ply"]
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_{607080d9-a58e-4aff-9995-c0b494ba4e68}RailBracket01_8N"
+					AttributeBegin
+					#MeshName: "road_015_RootNode_1Node.023"
+						AttributeBegin
+						#MeshName: "road_015_RailBracket01Node.023" #Dimension:[0.3475153148174286 0.2675293982028961 0.8105282187461853]" 
+							Transform [0.009531 -0.003028 0.000000 0.000000 0.003028 0.009531 0.000000 0.000000 0.000000 0.000000 0.010000 0.000000 4.071287 11.727305 6.457200 1.000000 ]
+							AttributeBegin
+								NamedMaterial "road_015_Metal1_1"
+								Shape "plymesh" "string filename" ["geometry/road_015_RailBracket01Node.023_mat0.ply"]
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_{607080d9-a58e-4aff-9995-c0b494ba4e68}RailBracket01_9N"
+					AttributeBegin
+					#MeshName: "road_015_RootNode_1Node.024"
+						AttributeBegin
+						#MeshName: "road_015_RailBracket01Node.024" #Dimension:[0.3475153148174286 0.2675293982028961 0.8105282187461853]" 
+							Transform [0.009531 -0.003028 0.000000 0.000000 0.003028 0.009531 0.000000 0.000000 0.000000 0.000000 0.010000 0.000000 2.549144 6.935877 6.457200 1.000000 ]
+							AttributeBegin
+								NamedMaterial "road_015_Metal1_1"
+								Shape "plymesh" "string filename" ["geometry/road_015_RailBracket01Node.024_mat0.ply"]
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_{607080d9-a58e-4aff-9995-c0b494ba4e68}RailBracket01Nod"
+					AttributeBegin
+					#MeshName: "road_015_RootNode_1Node.015"
+						AttributeBegin
+						#MeshName: "road_015_RailBracket01Node.015" #Dimension:[0.3475153148174286 0.2675293982028961 0.8105282187461853]" 
+							Transform [0.009531 -0.003028 0.000000 0.000000 0.003028 0.009531 0.000000 0.000000 0.000000 0.000000 0.010000 0.000000 16.248430 50.058731 6.457200 1.000000 ]
+							AttributeBegin
+								NamedMaterial "road_015_Metal1_1"
+								Shape "plymesh" "string filename" ["geometry/road_015_RailBracket01Node.015_mat0.ply"]
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_{89a8b7ba-32f3-412b-a8cb-c837704d8f82}Center_Truss_Sm0"
+					AttributeBegin
+					#MeshName: "road_015_RootNodeNode"
+						AttributeBegin
+						#MeshName: "road_015_Center_Truss_Sm01Node"
+							AttributeBegin
+							#MeshName: "road_015_attachmentNode"
+							AttributeEnd
+							AttributeBegin
+							#MeshName: "road_015_Freeway_CenterTruss_Sm01Node" #Dimension:[2.3131511211395264 0.5955773591995239 1.2250703573226929]" 
+								Transform [-0.001710 -0.004698 0.000000 0.000000 0.004698 -0.001710 0.000000 0.000000 0.000000 0.000000 0.005000 0.000000 12.306318 12.234327 5.500000 1.000000 ]
+								AttributeBegin
+									NamedMaterial "road_015_Metal"
+									Shape "plymesh" "string filename" ["geometry/road_015_Freeway_CenterTruss_Sm01Node_mat0.ply"]
+								AttributeEnd
+							AttributeEnd
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+				AttributeBegin
+				#MeshName: "road_015_{995832c0-d7e1-4df7-8152-1fa871939724}{995832c0-d7e1-4"
+					AttributeBegin
+					#MeshName: "road_015_NodeNode.001" #Dimension:[4.0 1.2246468525851679e-16 2.0]" 
+						Transform [0.171010 0.469846 0.000000 0.000000 -0.469846 0.171010 0.000000 0.000000 0.000000 0.000000 0.500000 0.000000 12.876827 12.031200 5.900000 1.000000 ]
+						AttributeBegin
+							NamedMaterial "road_015_sign-{995832c0-d7e1-4df7-8152-1fa871939724}front.png"
+							Shape "trianglemesh"
+							"point3 P" [
+							-4.0 -1.2246468525851679e-16 -2.0 4.0 -1.2246468525851679e-16 -2.0 4.0 1.2246468525851679e-16 2.0 -4.0 -1.2246468525851679e-16 -2.0 4.0 1.2246468525851679e-16 2.0 -4.0 1.2246468525851679e-16 2.0							
+							]
+							"normal N" [
+							0.0 -1.0 6.123234262925839e-17 0.0 -1.0 6.123234262925839e-17 0.0 -1.0 6.123234262925839e-17 0.0 -1.0 6.123234262925839e-17 0.0 -1.0 6.123234262925839e-17 0.0 -1.0 6.123234262925839e-17							
+							]
+							"point2 uv" [
+							0.0 0.0 
+							1.0 0.0 
+							1.0 1.0 
+							0.0 0.0 
+							1.0 1.0 
+							0.0 1.0 
+							]
+							"integer indices" [
+							0 1 2 3 4 5 
+							]
+							"texture alpha" ["road_015_sign-{995832c0-d7e1-4df7-8152-1fa871939724}front.png.alphamap.sign-{995832c0-d7e1-4df7-8152-1fa871939724}front.png"]							
+						AttributeEnd
+					AttributeEnd
+				AttributeEnd
+			AttributeEnd
+			AttributeBegin
+			#MeshName: "road_015_RoadsNode" #Dimension:[21.939517974853516 47.48313903808594 2.0000572204589844]" 
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AttributeBegin
+					NamedMaterial "road_015_Concrete1"
+					Shape "plymesh" "string filename" ["geometry/road_015_RoadsNode_mat0.ply"]
+				AttributeEnd
+			AttributeEnd
+			AttributeBegin
+			#MeshName: "road_015_RoadsNode.001" #Dimension:[397.333984375 79.850341796875 6.0]" 
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AttributeBegin
+					NamedMaterial "road_015_LaneMarking1"
+					Shape "plymesh" "string filename" ["geometry/road_015_RoadsNode.001_mat0.ply"]
+				AttributeEnd
+			AttributeEnd
+			AttributeBegin
+			#MeshName: "road_015_RoadsNode.002" #Dimension:[397.771484375 81.239501953125 6.0]" 
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 -0.001000 1.000000 ]
+				AttributeBegin
+					NamedMaterial "road_015_Road001"
+					Shape "plymesh" "string filename" ["geometry/road_015_RoadsNode.002_mat0.ply"]
+				AttributeEnd
+			AttributeEnd
+			AttributeBegin
+			#MeshName: "road_015_RoadsNode.003" #Dimension:[397.771484375 45.8604736328125 0.0]" 
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AttributeBegin
+					NamedMaterial "road_015_Grass1.002"
+					Shape "plymesh" "string filename" ["geometry/road_015_RoadsNode.003_mat0.ply"]
+					"texture alpha" ["road_015_Grass1.002.alphamap.DirtPath01_Diff_alphamap_lower.png"]					
+				AttributeEnd
+			AttributeEnd
+			AttributeBegin
+			#MeshName: "road_015_RoadsNode.004" #Dimension:[396.05120849609375 75.530029296875 6.0]" 
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AttributeBegin
+					NamedMaterial "road_015_LaneMarkingYellow1"
+					Shape "plymesh" "string filename" ["geometry/road_015_RoadsNode.004_mat0.ply"]
+				AttributeEnd
+			AttributeEnd
+			AttributeBegin
+			#MeshName: "road_015_RoadsNode.005" #Dimension:[394.70733642578125 45.95782470703125 0.0]" 
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AttributeBegin
+					NamedMaterial "road_015_Grass1.001"
+					Shape "plymesh" "string filename" ["geometry/road_015_RoadsNode.005_mat0.ply"]
+					"texture alpha" ["road_015_Grass1.001.alphamap.DirtPath01_Diff_alphamap_upper.png"]					
+				AttributeEnd
+			AttributeEnd
+			AttributeBegin
+			#MeshName: "road_015_TerrainNode" #Dimension:[415.98406982421875 112.40081787109375 6.0]" 
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AttributeBegin
+					NamedMaterial "road_015_Grass1"
+					Shape "plymesh" "string filename" ["geometry/road_015_TerrainNode_mat0.ply"]
+				AttributeEnd
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "road_015_tj4lac1dy_4K_Albedo" #Dimension:[2.6128029823303223 2.6128029823303223 0.0]" 
+			Transform [2.612803 0.000000 0.000000 0.000000 0.000000 2.612803 0.000000 0.000000 0.000000 0.000000 2.612803 0.000000 0.000000 12.397806 -0.001000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "road_015_tj4lac1dy_4K_Albedo"
+				Shape "trianglemesh"
+				"point3 P" [
+				-0.5 -0.5 0.0 0.5 -0.5 0.0 0.5 0.5 0.0 -0.5 -0.5 0.0 0.5 0.5 0.0 -0.5 0.5 0.0				
+				]
+				"normal N" [
+				0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0				
+				]
+				"point2 uv" [
+				0.0 0.0 
+				1.0 0.0 
+				1.0 1.0 
+				0.0 0.0 
+				1.0 1.0 
+				0.0 1.0 
+				]
+				"integer indices" [
+				0 1 2 3 4 5 
+				]
+				"texture alpha" ["road_015_tj4lac1dy_4K_Albedo.alphamap.tj4lac1dy_4K_Opacity.jpg"]				
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "road_015_tj4lac1dy_4K_Albedo.001" #Dimension:[2.6128029823303223 2.6128029823303223 0.0]" 
+			Transform [2.612803 0.000000 0.000000 0.000000 0.000000 2.612803 0.000000 0.000000 0.000000 0.000000 2.612803 0.000000 -29.135502 19.311472 -0.001000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "road_015_tj4lac1dy_4K_Albedo.001"
+				Shape "trianglemesh"
+				"point3 P" [
+				-0.5 -0.5 0.0 0.5 -0.5 0.0 0.5 0.5 0.0 -0.5 -0.5 0.0 0.5 0.5 0.0 -0.5 0.5 0.0				
+				]
+				"normal N" [
+				0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0				
+				]
+				"point2 uv" [
+				0.0 0.0 
+				1.0 0.0 
+				1.0 1.0 
+				0.0 0.0 
+				1.0 1.0 
+				0.0 1.0 
+				]
+				"integer indices" [
+				0 1 2 3 4 5 
+				]
+				"texture alpha" ["road_015_tj4lac1dy_4K_Albedo.001.alphamap.tj4lac1dy_4K_Opacity.jpg"]				
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "road_015_tj4lac1dy_4K_Albedo.002" #Dimension:[2.6128029823303223 2.6128029823303223 0.0]" 
+			Transform [2.612803 0.000000 0.000000 0.000000 0.000000 2.612803 0.000000 0.000000 0.000000 0.000000 2.612803 0.000000 -69.760262 16.537560 -0.001000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "road_015_tj4lac1dy_4K_Albedo.002"
+				Shape "trianglemesh"
+				"point3 P" [
+				-0.5 -0.5 0.0 0.5 -0.5 0.0 0.5 0.5 0.0 -0.5 -0.5 0.0 0.5 0.5 0.0 -0.5 0.5 0.0				
+				]
+				"normal N" [
+				0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0				
+				]
+				"point2 uv" [
+				0.0 0.0 
+				1.0 0.0 
+				1.0 1.0 
+				0.0 0.0 
+				1.0 1.0 
+				0.0 1.0 
+				]
+				"integer indices" [
+				0 1 2 3 4 5 
+				]
+				"texture alpha" ["road_015_tj4lac1dy_4K_Albedo.002.alphamap.tj4lac1dy_4K_Opacity.jpg"]				
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "road_015_tj4lac1dy_4K_Albedo.003" #Dimension:[2.6128029823303223 2.6128029823303223 0.0]" 
+			Transform [2.461158 0.877179 0.000000 0.000000 -0.877179 2.461158 0.000000 0.000000 0.000000 0.000000 2.612803 0.000000 -133.647263 11.712334 -0.001000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "road_015_tj4lac1dy_4K_Albedo.003"
+				Shape "trianglemesh"
+				"point3 P" [
+				-0.5 -0.5 0.0 0.5 -0.5 0.0 0.5 0.5 0.0 -0.5 -0.5 0.0 0.5 0.5 0.0 -0.5 0.5 0.0				
+				]
+				"normal N" [
+				0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0				
+				]
+				"point2 uv" [
+				0.0 0.0 
+				1.0 0.0 
+				1.0 1.0 
+				0.0 0.0 
+				1.0 1.0 
+				0.0 1.0 
+				]
+				"integer indices" [
+				0 1 2 3 4 5 
+				]
+				"texture alpha" ["road_015_tj4lac1dy_4K_Albedo.003.alphamap.tj4lac1dy_4K_Opacity.jpg"]				
+			AttributeEnd
+		AttributeEnd
+	AttributeEnd
+ObjectEnd
+
+AttributeBegin
+#CollectionName: "Scene Collection"
+	AttributeBegin
+	#CollectionName: "Collection"
+		AttributeBegin
+		#MeshName: "road_015_Camera"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "road_015_Camera_m"
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "road_015_SceneNode"
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			ObjectInstance "road_015_SceneNode_m"
+		AttributeEnd
+	AttributeEnd
+AttributeEnd

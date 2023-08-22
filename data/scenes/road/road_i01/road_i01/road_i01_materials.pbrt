@@ -1,0 +1,161 @@
+MakeNamedMaterial "Asphalt1"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/Asphalt1_Norm.png"
+	"texture reflectance" "Asphalt1.reflectance.Asphalt1_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9612701535224915]
+MakeNamedMaterial "Concrete1"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/Concrete1_Norm.png"
+	"texture reflectance" "Concrete1.reflectance.Concrete1_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9552786350250244]
+MakeNamedMaterial "LaneMarkingYellow1"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/LaneMarking1_Norm.png"
+	"texture reflectance" "LaneMarkingYellow1.reflectance.LaneMarking1_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9683772325515747]
+MakeNamedMaterial "road_020_aerial_rocks"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/aerial_rocks_02_nor_gl_4k.exr"
+	"texture reflectance" "road_020_aerial_rocks.reflectance.aerial_rocks_02_diff_4k.jpg"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [1.0]
+MakeNamedMaterial "road_020_Asphalt4_Marking"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/Asphalt4_Norm.png"
+	"texture reflectance" "road_020_Asphalt4_Marking.reflectance.Asphalt4_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9612701535224915]
+MakeNamedMaterial "road_020_Cracks01_rrx_Marking"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/Cracks01_Norm.png"
+	"texture reflectance" "road_020_Cracks01_rrx_Marking.reflectance.Cracks01_Diff_fixed.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9776393175125122]
+MakeNamedMaterial "road_020_Cracks01_rrx_Marking_1"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/Cracks01_Norm.png"
+	"texture reflectance" "road_020_Cracks01_rrx_Marking_1.reflectance.Cracks01_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9776393175125122]
+MakeNamedMaterial "road_020_DirtPath01_rrx_Marking_1"
+	"string type" "coateddiffuse"
+	"string normalmap" "textures/DirtPath01_Norm.png"
+	"texture reflectance" "road_020_DirtPath01_rrx_Marking_1.reflectance.DirtPath01_Diff.png"
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.9552786350250244]
+MakeNamedMaterial "road_020_DirtPath01_rrx_Marking_left"
+	"string type" "coateddiffuse"
+	"texture displacement" "road_020_DirtPath01_rrx_Marking_left.displacement.vcpoajjs_4K_Displacement.exr"
+4496765 0.6079999804496765]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "road_020_LaneMarking1_Marking"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "road_020_LaneMarking1_Marking.001"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "road_020_LaneMarkingYellow1_Marking"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "road_020_Material.001"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "road_020_Material.002"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "road_020_OilPath01_Marking_1"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "road_020_speedlimit_pole"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "road_020_speedlimit_pole.001"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "road_020_speedlimit_retro"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.0]
+MakeNamedMaterial "road_020_speedlimit_retro.001"
+	"string type" "coateddiffuse"
+	"rgb reflectance" [0.6079999804496765 0.6079999804496765 0.6079999804496765]
+	"rgb albedo" [0.0 0.0 0.0]
+	"float thickness" [0.009999999776482582]
+	"float g" [0.0]
+	"float eta" [1.5]
+	"float roughness" [0.0]

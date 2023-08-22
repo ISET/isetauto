@@ -1,0 +1,423 @@
+ObjectBegin "Camera_m"
+#Instance MeshName: "Camera"
+ObjectEnd
+
+ObjectBegin "truck_001_m"
+#Instance MeshName: "truck_001"
+	AttributeBegin
+	#MeshName: "truck_001"
+		AttributeBegin
+		#MeshName: "truck_001_body.002" #Dimension:[7.511312961578369 2.7536401748657227 2.4065780639648438]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "truck_001_mirror"
+				Shape "plymesh" "string filename" ["geometry/truck_001_body.002_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "truck_001_body.003" #Dimension:[7.253489017486572 2.102019786834717 0.302687406539917]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "truck_001_clearglass"
+				Shape "plymesh" "string filename" ["geometry/truck_001_body.003_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "truck_001_body.004" #Dimension:[5.508295059204102 2.4667446613311768 0.5943799018859863]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "truck_001_rim"
+				Shape "plymesh" "string filename" ["geometry/truck_001_body.004_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "truck_001_body.005" #Dimension:[5.914318084716797 2.431878089904785 0.995843231678009]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "truck_001_tire"
+				Shape "plymesh" "string filename" ["geometry/truck_001_body.005_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "truck_001_body.006" #Dimension:[1.7975473403930664 2.1453399658203125 0.7800900936126709]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "truck_001_windowglass"
+				Shape "plymesh" "string filename" ["geometry/truck_001_body.006_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "truck_001_body.007" #Dimension:[1.649977445602417 2.2133398056030273 1.5275896787643433]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "truck_001_interior"
+				Shape "plymesh" "string filename" ["geometry/truck_001_body.007_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "truck_001_body.008" #Dimension:[7.840996742248535 2.8413596153259277 3.25700044631958]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "truck_001_black"
+				Shape "plymesh" "string filename" ["geometry/truck_001_body.008_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "truck_001_body.009" #Dimension:[0.18796980381011963 2.086059808731079 0.2746703624725342]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "truck_001_darkglass"
+				Shape "plymesh" "string filename" ["geometry/truck_001_body.009_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "truck_001_body.010" #Dimension:[7.670980453491211 2.848259925842285 2.796576976776123]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "truck_001_chrome"
+				Shape "plymesh" "string filename" ["geometry/truck_001_body.010_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "truck_001_body.011" #Dimension:[7.767572402954102 2.6960196495056152 2.654522180557251]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "truck_001_carpaint"
+				Shape "plymesh" "string filename" ["geometry/truck_001_body.011_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "truck_001_body.013" #Dimension:[7.179285049438477 2.237569808959961 2.2591779232025146]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "truck_001_redglass"
+				Shape "plymesh" "string filename" ["geometry/truck_001_body.013_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "truck_001_body.014" #Dimension:[7.152596950531006 2.632589817047119 0.5012789964675903]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "truck_001_orangeglass"
+				Shape "plymesh" "string filename" ["geometry/truck_001_body.014_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "truck_001_license_3D" #Dimension:[0.01807582378387451 0.31972116231918335 0.16586410999298096]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "truck_001_black_paper"
+				Shape "trianglemesh"
+				"point3 P" [
+				1.3505909442901611 -0.07156626135110855 0.9512900710105896 1.3505909442901611 -0.07156626135110855 0.9257900714874268 1.3505909442901611 -0.11236626654863358 0.9257900714874268 1.3505909442901611 -0.07156626135110855 0.9512900710105896 1.3505909442901611 -0.11236626654863358 0.9257900714874268 1.3505909442901611 -0.11236626654863358 0.9512900710105896 1.3505908250808716 0.14619773626327515 0.9512900710105896 1.3505908250808716 0.14619773626327515 0.9257900714874268 1.3505908250808716 0.10539773851633072 0.9257900714874268 1.3505908250808716 0.14619773626327515 0.9512900710105896 1.3505908250808716 0.10539773851633072 0.9257900714874268 1.3505908250808716 0.10539773851633072 0.9512900710105896				
+				]
+				"normal N" [
+				-1.0 0.0 0.0 -1.0 0.0 0.0 -1.0 0.0 0.0 -1.0 0.0 0.0 -1.0 0.0 0.0 -1.0 0.0 0.0 -1.0 0.0 0.0 -1.0 0.0 0.0 -1.0 0.0 0.0 -1.0 0.0 0.0 -1.0 0.0 0.0 -1.0 0.0 0.0				
+				]
+				"point2 uv" [
+				0.0 0.0 
+				1.0 0.0 
+				1.0 1.0 
+				0.0 0.0 
+				1.0 1.0 
+				0.0 1.0 
+				0.0 0.0 
+				1.0 0.0 
+				1.0 1.0 
+				0.0 0.0 
+				1.0 1.0 
+				0.0 1.0 
+				]
+				"integer indices" [
+				0 1 2 3 4 5 6 7 8 9 10 11 
+				]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "truck_001_license_plate"
+				Shape "plymesh" "string filename" ["geometry/truck_001_license_3D_mat1.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "truck_001_California"
+				Shape "plymesh" "string filename" ["geometry/truck_001_license_3D_mat2.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "truck_001_white_paper"
+				Shape "trianglemesh"
+				"point3 P" [
+				1.3506909608840942 -0.07196612656116486 0.9510400891304016 1.3506909608840942 -0.07196612656116486 0.9260401129722595 1.3506909608840942 -0.11196612566709518 0.9260401129722595 1.3506909608840942 -0.07196612656116486 0.9510400891304016 1.3506909608840942 -0.11196612566709518 0.9260401129722595 1.3506909608840942 -0.11196612566709518 0.9510400891304016				
+				]
+				"normal N" [
+				-1.0 0.0 0.0 -1.0 0.0 0.0 -1.0 0.0 0.0 -1.0 0.0 0.0 -1.0 0.0 0.0 -1.0 0.0 0.0				
+				]
+				"point2 uv" [
+				0.0 0.0 
+				1.0 0.0 
+				1.0 1.0 
+				0.0 0.0 
+				1.0 1.0 
+				0.0 1.0 
+				]
+				"integer indices" [
+				0 1 2 3 4 5 
+				]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "truck_001_green_paper"
+				Shape "trianglemesh"
+				"point3 P" [
+				1.3506908416748047 0.1457977294921875 0.9510400891304016 1.3506908416748047 0.1457977294921875 0.9260401129722595 1.3506908416748047 0.10579773783683777 0.9260401129722595 1.3506908416748047 0.1457977294921875 0.9510400891304016 1.3506908416748047 0.10579773783683777 0.9260401129722595 1.3506908416748047 0.10579773783683777 0.9510400891304016				
+				]
+				"normal N" [
+				-1.0 0.0 0.0 -1.0 0.0 0.0 -1.0 0.0 0.0 -1.0 0.0 0.0 -1.0 0.0 0.0 -1.0 0.0 0.0				
+				]
+				"point2 uv" [
+				0.0 0.0 
+				1.0 0.0 
+				1.0 1.0 
+				0.0 0.0 
+				1.0 1.0 
+				0.0 1.0 
+				]
+				"integer indices" [
+				0 1 2 3 4 5 
+				]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "truck_001_license_holder"
+				Shape "plymesh" "string filename" ["geometry/truck_001_license_3D_mat5.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "truck_001_license_3D"
+				Shape "plymesh" "string filename" ["geometry/truck_001_license_3D_mat6.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "truck_001_license_surface"
+				Shape "plymesh" "string filename" ["geometry/truck_001_license_3D_mat7.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "truck_001_Month"
+				Shape "plymesh" "string filename" ["geometry/truck_001_license_3D_mat8.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "truck_001_screw"
+				Shape "plymesh" "string filename" ["geometry/truck_001_license_3D_mat9.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "truck_001_Year"
+				Shape "plymesh" "string filename" ["geometry/truck_001_license_3D_mat10.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "truck_001_license_3D_rear" #Dimension:[0.018075942993164062 0.31972116231918335 0.16586416959762573]" 
+			Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+			AttributeBegin
+				NamedMaterial "truck_001_black_paper"
+				Shape "trianglemesh"
+				"point3 P" [
+				-6.086785793304443 0.08848199993371964 0.9866639375686646 -6.086785793304443 0.08848199993371964 0.9611639380455017 -6.086785793304443 0.12928199768066406 0.9611639380455017 -6.086785793304443 0.08848199993371964 0.9866639375686646 -6.086785793304443 0.12928199768066406 0.9611639380455017 -6.086785793304443 0.12928199768066406 0.9866639375686646 -6.086785793304443 -0.12928199768066406 0.9866639375686646 -6.086785793304443 -0.12928199768066406 0.9611639380455017 -6.086785793304443 -0.08848199993371964 0.9611639380455017 -6.086785793304443 -0.12928199768066406 0.9866639375686646 -6.086785793304443 -0.08848199993371964 0.9611639380455017 -6.086785793304443 -0.08848199993371964 0.9866639375686646				
+				]
+				"normal N" [
+				1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0				
+				]
+				"point2 uv" [
+				0.0 0.0 
+				1.0 0.0 
+				1.0 1.0 
+				0.0 0.0 
+				1.0 1.0 
+				0.0 1.0 
+				0.0 0.0 
+				1.0 0.0 
+				1.0 1.0 
+				0.0 0.0 
+				1.0 1.0 
+				0.0 1.0 
+				]
+				"integer indices" [
+				0 1 2 3 4 5 6 7 8 9 10 11 
+				]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "truck_001_license_plate"
+				Shape "plymesh" "string filename" ["geometry/truck_001_license_3D_rear_mat1.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "truck_001_California"
+				Shape "plymesh" "string filename" ["geometry/truck_001_license_3D_rear_mat2.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "truck_001_white_paper"
+				Shape "trianglemesh"
+				"point3 P" [
+				-6.086885929107666 0.08888186514377594 0.9864139556884766 -6.086885929107666 0.08888186514377594 0.9614139795303345 -6.086885929107666 0.12888187170028687 0.9614139795303345 -6.086885929107666 0.08888186514377594 0.9864139556884766 -6.086885929107666 0.12888187170028687 0.9614139795303345 -6.086885929107666 0.12888187170028687 0.9864139556884766				
+				]
+				"normal N" [
+				1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0				
+				]
+				"point2 uv" [
+				0.0 0.0 
+				1.0 0.0 
+				1.0 1.0 
+				0.0 0.0 
+				1.0 1.0 
+				0.0 1.0 
+				]
+				"integer indices" [
+				0 1 2 3 4 5 
+				]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "truck_001_green_paper"
+				Shape "trianglemesh"
+				"point3 P" [
+				-6.086885929107666 -0.12888199090957642 0.9864139556884766 -6.086885929107666 -0.12888199090957642 0.9614139795303345 -6.086885929107666 -0.08888199925422668 0.9614139795303345 -6.086885929107666 -0.12888199090957642 0.9864139556884766 -6.086885929107666 -0.08888199925422668 0.9614139795303345 -6.086885929107666 -0.08888199925422668 0.9864139556884766				
+				]
+				"normal N" [
+				1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0 1.0 0.0 0.0				
+				]
+				"point2 uv" [
+				0.0 0.0 
+				1.0 0.0 
+				1.0 1.0 
+				0.0 0.0 
+				1.0 1.0 
+				0.0 1.0 
+				]
+				"integer indices" [
+				0 1 2 3 4 5 
+				]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "truck_001_license_holder"
+				Shape "plymesh" "string filename" ["geometry/truck_001_license_3D_rear_mat5.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "truck_001_license_3D"
+				Shape "plymesh" "string filename" ["geometry/truck_001_license_3D_rear_mat6.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "truck_001_license_surface"
+				Shape "plymesh" "string filename" ["geometry/truck_001_license_3D_rear_mat7.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "truck_001_Month"
+				Shape "plymesh" "string filename" ["geometry/truck_001_license_3D_rear_mat8.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "truck_001_screw"
+				Shape "plymesh" "string filename" ["geometry/truck_001_license_3D_rear_mat9.ply"]
+			AttributeEnd
+			AttributeBegin
+				NamedMaterial "truck_001_Year"
+				Shape "plymesh" "string filename" ["geometry/truck_001_license_3D_rear_mat10.ply"]
+			AttributeEnd
+		AttributeEnd
+	AttributeEnd
+ObjectEnd
+
+AttributeBegin
+#CollectionName: "Scene Collection"
+	AttributeBegin
+	#MeshName: "truck_001"
+		Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+		ObjectInstance "truck_001_m"
+		AttributeBegin
+		#MeshName: "truck_001_body" #Dimension:[7.173654556274414 2.0145397186279297 0.2655400037765503]" 
+			AttributeBegin
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AreaLightSource "diffuse"				
+				"rgb L" [ 1.0 1.0 1.0]				
+				"float scale" [ 8.09999942779541 ]				
+				"float spread" [ 90.0 ]				
+				Shape "plymesh" "string filename" ["geometry/truck_001_body_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "truck_001_body.001" #Dimension:[7.0810136795043945 2.6115498542785645 0.465201199054718]" 
+			AttributeBegin
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AreaLightSource "diffuse"				
+				"rgb L" [ 1.0 0.2608952522277832 0.00042921784915961325]				
+				"float scale" [ 8.399999618530273 ]				
+				"float spread" [ 90.0 ]				
+				Shape "plymesh" "string filename" ["geometry/truck_001_body.001_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "truck_001_body.012" #Dimension:[7.151270389556885 2.208699941635132 2.1625759601593018]" 
+			AttributeBegin
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AreaLightSource "diffuse"				
+				"rgb L" [ 1.0 0.005657633766531944 0.0]				
+				"float scale" [ 2.9000000953674316 ]				
+				"float spread" [ 90.0 ]				
+				Shape "plymesh" "string filename" ["geometry/truck_001_body.012_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+			#MeshName: "truck_001_front_cam" 
+			Transform [-0.000000 -1.000000 -0.000000 0.000000 -0.000000 -0.000000 1.000000 0.000000 -1.000000 0.000000 -0.000000 0.000000 1.246000 0.000000 2.389000 1.000000 ]
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "truck_001_headlamp_left.001_converted" #Dimension:[0.02596259117126465 0.14951223134994507 0.14724087715148926]" 
+			AttributeBegin
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AreaLightSource "diffuse"				
+				"rgb L" [ 1.0 1.0 1.0]				
+				"float scale" [ 150.0 ]				
+				"float spread" [ 22.5 ]				
+				Shape "plymesh" "string filename" ["geometry/truck_001_headlamp_left.001_converted_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "truck_001_headlamp_left.002_converted" #Dimension:[0.0173647403717041 0.10000002384185791 0.09848082065582275]" 
+			AttributeBegin
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AreaLightSource "diffuse"				
+				"rgb L" [ 1.0 1.0 1.0]				
+				"float scale" [ 150.0 ]				
+				"float spread" [ 22.5 ]				
+				Shape "plymesh" "string filename" ["geometry/truck_001_headlamp_left.002_converted_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "truck_001_headlamp_right.001_converted" #Dimension:[0.017476558685302734 0.10064327716827393 0.0991142988204956]" 
+			AttributeBegin
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AreaLightSource "diffuse"				
+				"rgb L" [ 1.0 1.0 1.0]				
+				"float scale" [ 150.0 ]				
+				"float spread" [ 22.5 ]				
+				Shape "plymesh" "string filename" ["geometry/truck_001_headlamp_right.001_converted_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+		#MeshName: "truck_001_headlamp_right.002_converted" #Dimension:[0.023120641708374023 0.13314712047576904 0.13112425804138184]" 
+			AttributeBegin
+				Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+				AreaLightSource "diffuse"				
+				"rgb L" [ 1.0 1.0 1.0]				
+				"float scale" [ 150.0 ]				
+				"float spread" [ 22.5 ]				
+				Shape "plymesh" "string filename" ["geometry/truck_001_headlamp_right.002_converted_mat0.ply"]
+			AttributeEnd
+		AttributeEnd
+		AttributeBegin
+			#MeshName: "truck_001_left_mirror_cam" 
+			Transform [0.323409 0.946259 -0.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.946259 -0.323409 -0.000000 0.000000 0.749000 1.316000 2.346000 1.000000 ]
+		AttributeEnd
+		AttributeBegin
+			#MeshName: "truck_001_rear_cam" 
+			Transform [-0.000000 1.000000 -0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 1.000000 0.000000 -0.000000 0.000000 -6.101000 0.000000 1.008000 1.000000 ]
+		AttributeEnd
+		AttributeBegin
+			#MeshName: "truck_001_right_mirror_cam" 
+			Transform [-0.291230 0.956653 -0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.956653 0.291230 -0.000000 0.000000 0.803000 -1.260000 2.295000 1.000000 ]
+		AttributeEnd
+	AttributeEnd
+	AttributeBegin
+	#MeshName: "Camera"
+		Transform [1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 ]
+		ObjectInstance "Camera_m"
+	AttributeEnd
+AttributeEnd

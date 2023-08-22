@@ -77,6 +77,15 @@ skymapRandIndex = randi(size(skymapLists,1));
 disp(['Skymap idx ',skymapRandIndex]);
 
 skymapName      = skymapLists(skymapRandIndex).name;
+
+%% These recipes often have non-existing outputfolder names, so we need to change it
+[p, n, e] = fileparts(roadData.recipe.outputFile);
+if ~isfolder(p)
+    % This puts the recipe in the road output folder. That's the same as
+    % before, but means if we generate more than one we need to not
+    % over-write before we use the output
+    roadData.recipe.outputFile = fullfile(piDirGet('local'), n, [n e]);
+end
 roadData.recipe.set('skymap',skymapName);
 
 % useful Docker cmd for reading or making a skymap.

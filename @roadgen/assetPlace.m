@@ -1,10 +1,17 @@
 function obj = assetPlace(obj, assetNames, roadtype)
 assetlibList = assetlib();
+rotationMatrix = []; % otherwise overloads with Simulink
+
 for ii = 1:numel(assetNames)
+
+    % not all asset classes may exist
     % merge recipes
-    thisPlacedList = obj.(roadtype).(assetNames{ii}).placedList;
-    thisNameList = obj.(roadtype).(assetNames{ii}).namelist;
-    
+    if isfield(obj.(roadtype).(assetNames{ii}), 'placedList')
+        thisPlacedList = obj.(roadtype).(assetNames{ii}).placedList;
+    end
+    if isfield(obj.(roadtype).(assetNames{ii}), 'namelist')
+        thisNameList = obj.(roadtype).(assetNames{ii}).namelist;
+    end
     % Hope this can save some time
     if contains(assetNames{ii},{'grass','tree','rock'}) && strcmp(roadtype,'offroad')
         graftNow = false;
@@ -28,7 +35,7 @@ for ii = 1:numel(assetNames)
                 rotationMatrix = piRotationMatrix('xrot', rad2deg(rotations(mm,1)),...
                     'yrot', rad2deg(rotations(mm,2)),...
                     'zrot', rad2deg(rotations(mm,3)));
-            else
+            elseif ~isempty(rotations)
                 rotationMatrix = piRotationMatrix('zrot', rad2deg(rotations(mm,1)));
             end
             namelist = [];

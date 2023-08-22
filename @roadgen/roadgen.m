@@ -24,7 +24,15 @@ classdef roadgen < matlab.mixin.Copyable
         onroad;      % Metadata about the road
         offroad;     % More metadata about the road
         roaddirectory  = '';
-        assetdirectory = '/Volumes/SSDZhenyi/Ford Project/PBRT_assets';
+
+        % Assets can be rooted here, or referenced on the rendering
+        % server using the "stub" versions that are in /data/assets
+        assetdirectory = fullfile(iaFileDataRoot,'PBRT_assets');
+
+        % Collection of actors (assets with behaviors over time
+        actorsDS = {};
+        actorsIA = {};
+        targetVehicleNumber = 1; %default
 
     end
 
@@ -44,11 +52,15 @@ classdef roadgen < matlab.mixin.Copyable
             % also includes specific features for the driving application.
             %
 
+            % Remove persistent variables before starting a new scene
+            clear actorsIA;
+            clear actorsDS;
+
             varargin = ieParamFormat(varargin);
 
             p = inputParser;
             p.addParameter('roaddirectory','');
-            p.addParameter('assetdirectory','/Volumes/SSDZhenyi/Ford Project/PBRT_assets',@ischar)
+            p.addParameter('assetdirectory',fullfile(iaFileDataRoot,'PBRT_assets'));
             %             p.addParameter('lane','');
             %             p.addParameter('pos','');
             %             p.addParameter('pointnum',0);
@@ -59,30 +71,56 @@ classdef roadgen < matlab.mixin.Copyable
 
             % Assets for this project.  Will generalize later.
             obj.assetdirectory = p.Results.assetdirectory;
-
+           
             % Road runner data information
             rrMapPath = p.Results.roaddirectory;
-            [~,roadName] = fileparts(rrMapPath);
-            obj.sceneName = roadName;
+            roadName = rrMapPath; % not sure this always works
+            
+            if ~exist(rrMapPath, 'dir')
+                
+                % If fullpath to the road "meta-scene" is not given, 
+                % we will find it in our database or our path
+                roadInfo = obj.assetdirectory.docFind('assetsPBRT', ...
+                    sprintf("{""name"": ""%s""}", rrMapPath));
+                if ~isempty(roadInfo) && isfolder(roadInfo.folder)
+                    rrMapPath = roadInfo.folder;
+                else % we don't have the db folder so check locally
+                    possiblePath = fullfile(iaRootPath, 'data', 'scenes', 'road', rrMapPath);
+                    if isfolder(possiblePath)
+                        rrMapPath = possiblePath;
+                    else
+                        error('Road Directory can not be located.');
+                    end                    
+                end
+            end
 
             % read road runner map
             obj = rrMapRead(obj, rrMapPath);
 
             % create recipe
-            pbrtFile = fullfile(rrMapPath,roadName,[roadName,'.pbrt']);
-            recipeMat = fullfile(rrMapPath,roadName,[roadName,'.mat']);
-            if exist(recipeMat, "file")
-                roadRecipe = load(recipeMat);
-                obj.recipe = roadRecipe.recipe;
-            else
+            % The code currently can optionally use the .pbrt file
+            % or a .mat file that already has the asset's @recipe object
+            rrMapDir = fileparts(which(rrMapPath));
+            pbrtFile = fullfile(rrMapDir,roadName,[roadName,'.pbrt']);
+            recipeMat = fullfile(rrMapDir,[roadName,'.mat']);
+
+            % I don't think we want the .mat file, since it doesn't
+            % have all the pbrt goodies??
+
+            %if exist(recipeMat, "file")
+            %    roadRecipe = load(recipeMat);
+            %    obj.recipe = roadRecipe.recipe;
+            %else
                 obj.recipe = piRead(pbrtFile);
-            end
+            %end
         end
 
+        %% Work in progress
         function assetList = assetListCreate(obj)
 
+            assetList = []; % Set it to prevent errors on null return
             if obj.numoftrees>0
-
+                
             end
 
             if obj.numofdeers>0
@@ -135,7 +173,8 @@ classdef roadgen < matlab.mixin.Copyable
             end
             fieldNameLists = fieldnames(obj.road);
             for ii = 1:numel(fieldNameLists)
-                lanePoints = obj.road.(fieldNameLists{ii});
+                if ~contains(fieldNameLists{ii},'Coordinates'),continue;end
+                lanePoints = obj.road.(fieldNameLists{ii}){1};
                 plot(lanePoints(:,1),lanePoints(:,2),'-');
                 axis equal;hold on;
             end
@@ -148,6 +187,8 @@ classdef roadgen < matlab.mixin.Copyable
                         'HorizontalAlignment','center');
                 end
             end
+
+            
             title('Bird view of the road');
             xlabel('meters');
             ylabel('meters');
