@@ -21,23 +21,23 @@ classdef ia_drivingScenario < drivingScenario
         %% General settings that don't affect the results
         scenarioName = 'LabTest'; % default
         frameRate = 3; % playback speed in frames per second
-        
+
         %% Simulation specific parameters
         % Main parameters to determine quality versus speed
         % In the true "metric" case these probably need to be different
         % (e.g. real frame rates, sceneResolution > cameraResolution
         %       lots of rays, and no de-noising)
 
-        stepTime = .2; % time per image frame/step
+        stepTime = .5; % time per image frame/step
         scenarioQuality = 'quick'; % default
 
         deNoise = 'scene'; % can use 'exr_radiance', 'exr_albedo', 'scene', or ''
-        
+
         % For debugging raise the camera and look down
         debug = false; % if true, then of course detection isn't realistic
 
         % For determining time to stoppingDistance
-        dataOnly = true; % if true, only collect trajectory data
+        dataOnly = false; % if true, only collect trajectory data
 
         %% TestRig specific parameters
         sensorModel = 'MT9V024SensorRGB'; % one of our automotive sensors
@@ -130,7 +130,7 @@ classdef ia_drivingScenario < drivingScenario
             % ds now contains a "blank slate" scenario
             ds = ds@drivingScenario(varargin{:});
 
-            if ~ds.dataOnly 
+            if ~ds.dataOnly
                 ds.SampleTime = ds.stepTime; % use our time interval
             else
                 % set to high speed for better accuracy
@@ -151,7 +151,7 @@ classdef ia_drivingScenario < drivingScenario
         % distance, possibly including the car's reaction time
         function meters = stoppingDistance(obj)
 
-            %{ 
+            %{
             %Here is a canonical industry formula for stopping distance:
             The AASHTO stopping distance formula is as follows:
 
@@ -234,20 +234,6 @@ classdef ia_drivingScenario < drivingScenario
         end
         % The name is what we use to know what vehicle to add
         % We can also use other assets by name
-        %{
-        % This is a sample call used by matlab
-        egoVehicle = vehicle(scenario, ...
-            'ClassID', 1, ...
-            'Position', [-95.8 -4.9 0], ...
-            'Mesh', driving.scenario.carMesh, ...
-            'Name', 'car_004');
-        waypoints = [-95.8 -4.9 0;
-            -78.3 -6.2 0;
-            -65.7 -6 0;
-            -45.2 -5.6 0];
-        speed = [17;17;17;17];
-        trajectory(egoVehicle, waypoints, speed);
-        %}
 
         % Scenario is our Object
         % We'll assume first vehicle is egoVehicle
@@ -288,10 +274,24 @@ classdef ia_drivingScenario < drivingScenario
             % call with egoVehicle if we have the sensors?
             vehicleDS = vehicle@drivingScenario(scenario, varargin{:});
 
-            % Set first vehicle as ego vehicle
+            %% Set first vehicle as ego vehicle
             if isempty(scenario.egoVehicle)
                 scenario.egoVehicle = vehicleDS;
                 ourVehicle.hasCamera = true;
+
+                % Add its headlamp(s)
+                % scale appears to be how much to scale the image, not the light
+                headlampLight = piLightCreate('ProjectedLight', ...
+                    'type','projection',...
+                    'scale',[1 2 1],... % not sure if this is right
+                    'fov',30, ...
+                    'power', 10, ...
+                    'cameracoordinate', 1, ...
+                    'filename string', 'skymaps/headlamp_cropped_flattened.exr');
+
+                %piLightTranslate(projectionLight, 'zshift', -5);
+                scenario.roadData.recipe.set('light', headlampLight, 'add');
+
             end
 
             % We don't get poses right away from DSD, so we might
