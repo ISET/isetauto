@@ -279,15 +279,20 @@ classdef ia_drivingScenario < drivingScenario
                 scenario.egoVehicle = vehicleDS;
                 ourVehicle.hasCamera = true;
 
+                % Test case for making our own exr
+                maskImage = [0:resolution, 0:resolution, 3]; % RGB
+                exrwrite(maskImage,"SampleHeadlight.exr");
+
                 % Add its headlamp(s)
                 % scale appears to be how much to scale the image, not the light
+                    %'filename string', 'skymaps/headlamp_cropped_flattened.exr');
                 headlampLight = piLightCreate('ProjectedLight', ...
                     'type','projection',...
                     'scale',[1 2 1],... % not sure if this is right
                     'fov',30, ...
                     'power', 10, ...
                     'cameracoordinate', 1, ...
-                    'filename string', 'skymaps/headlamp_cropped_flattened.exr');
+                    'filename string', 'SampleHeadlight.exr');
 
                 %piLightTranslate(projectionLight, 'zshift', -5);
                 scenario.roadData.recipe.set('light', headlampLight, 'add');
