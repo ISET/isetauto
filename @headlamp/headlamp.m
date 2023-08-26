@@ -61,8 +61,6 @@ classdef headlamp < handle
             % How do we make the vertical gradient appear!
             gradientMaskBottom = [obj.resolution(1)/2, obj.resolution(2), 3];
 
-            gradientMaskBottom(:, :, :) = (verticalGradient; : , :);
-
             gradientMask = [gradientMaskTop; gradientMaskBottom];
 
             obj.maskImage = obj.maskImage .* gradientMask;
