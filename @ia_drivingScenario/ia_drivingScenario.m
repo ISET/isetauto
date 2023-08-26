@@ -279,6 +279,9 @@ classdef ia_drivingScenario < drivingScenario
                 scenario.egoVehicle = vehicleDS;
                 ourVehicle.hasCamera = true;
 
+                %  should be in headlamp class
+                resolution = 512;
+
                 % Test case for making our own exr
                 maskImage = [0:resolution, 0:resolution, 3]; % RGB
                 exrwrite(maskImage,"SampleHeadlight.exr");
