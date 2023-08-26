@@ -7,7 +7,7 @@ classdef headlamp < handle
         % using a point source with a single angle.
         % That isn't technically true for modern multi-source lamps.
         angles = [0 0 0];
-        resolution = 256; 
+        resolution = [128 256]; % assume wider than tall 
 
         peakIntensity = 61500; % candelas at a nominal bright point
 
@@ -17,8 +17,10 @@ classdef headlamp < handle
 
         % Calculated
         maskImage = [];
+        mask = []; % for debugging
 
-
+        % temporary variables
+        maskGradientX = [];
     end
 
     %% Equations:
@@ -46,9 +48,25 @@ classdef headlamp < handle
     methods
         function obj = headlamp()
 
-            % try to make a simle image
-            obj.maskImage = [0:resolution, 0:resolution, 3]; % RGB
+            % try to make a simle image that goes from 1 to 0,
+            % starting halfway down
 
+            % begin with all 1's, then multiply
+            obj.maskImage = ones (obj.resolution(1), obj.resolution(2), 3);
+
+            gradientMaskTop = zeros(obj.resolution(1)/2, obj.resolution(2), 3);
+
+            verticalGradient = 1:-1/(obj.resolution(1)/2):0;
+
+            % How do we make the vertical gradient appear!
+            gradientMaskBottom = [obj.resolution(1)/2, obj.resolution(2), 3];
+
+            gradientMaskBottom(:, :, :) = (verticalGradient; : , :);
+
+            gradientMask = [gradientMaskTop; gradientMaskBottom];
+
+            obj.maskImage = obj.maskImage .* gradientMask;
+            %Now need to add mask to bottom half of mask image
 
         end
      
