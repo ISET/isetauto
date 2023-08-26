@@ -7,12 +7,17 @@ classdef headlamp < handle
         % using a point source with a single angle.
         % That isn't technically true for modern multi-source lamps.
         angles = [0 0 0];
+        resolution = 256; 
 
         peakIntensity = 61500; % candelas at a nominal bright point
 
         horizontalFOV = 80; % apparently +/- 40 is fairly standard
 
         GenericData = readtable(fullfile("@headlamp","Generic Headlamp Light Distribution.csv"));
+
+        % Calculated
+        maskImage = [];
+
 
     end
 
@@ -39,14 +44,14 @@ classdef headlamp < handle
     %}
     
     methods
-        function obj = headlamp(inputArg1,inputArg2)
-            %HEADLAMP Construct an instance of this class
-            
+        function obj = headlamp()
+
+            % try to make a simle image
+            obj.maskImage = [0:resolution, 0:resolution, 3]; % RGB
+
+
         end
-        
-        function outputArg = method1(obj,inputArg)
-            outputArg = obj.Property1 + inputArg;
-        end
+     
     end
 end
 
