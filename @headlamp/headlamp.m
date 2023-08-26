@@ -12,6 +12,7 @@ classdef headlamp < handle
 
         horizontalFOV = 80; % apparently +/- 40 is fairly standard
 
+        GenericData = readtable(fullfile("@headlamp","Generic Headlamp Light Distribution.csv"));
 
     end
 
@@ -40,13 +41,10 @@ classdef headlamp < handle
     methods
         function obj = headlamp(inputArg1,inputArg2)
             %HEADLAMP Construct an instance of this class
-            %   Detailed explanation goes here
-            obj.Property1 = inputArg1 + inputArg2;
+            
         end
         
         function outputArg = method1(obj,inputArg)
-            %METHOD1 Summary of this method goes here
-            %   Detailed explanation goes here
             outputArg = obj.Property1 + inputArg;
         end
     end

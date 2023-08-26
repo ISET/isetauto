@@ -289,11 +289,15 @@ classdef ia_drivingScenario < drivingScenario
                     'cameracoordinate', 1, ...
                     'filename string', 'skymaps/headlamp_cropped_flattened.exr');
 
+            scenario.roadData.recipe.set('light', headlampLight, 'add');
+            
+            pLight = piAssetSearch(scenario.roadData.recipe,'lightname', 'ProjectedLight');
+            
+            piAssetTranslate(scenario.roadData.recipe, pLight, [2 -.5 2]);
                 %piLightTranslate(projectionLight, 'zshift', -5);
-                scenario.roadData.recipe.set('light', headlampLight, 'add');
+            scenario.roadData.recipe.set('light', headlampLight, 'add');
 
             end
-
             % We don't get poses right away from DSD, so we might
             % need to stack these up and execute on advance
 
