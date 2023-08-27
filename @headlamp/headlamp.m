@@ -59,7 +59,7 @@ classdef headlamp < handle
             verticalGradient = 1:-1/(obj.resolution(1)/2):0;
 
             % How do we make the vertical gradient appear!
-            gradientMaskBottom = [obj.resolution(1)/2, obj.resolution(2), 3];
+            gradientMaskBottom = [1:obj.resolution(1)/2:0, 3];
 
             gradientMask = [gradientMaskTop; gradientMaskBottom];
 
