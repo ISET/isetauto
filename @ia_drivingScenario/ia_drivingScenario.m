@@ -283,19 +283,20 @@ classdef ia_drivingScenario < drivingScenario
                 resolution = 512;
 
                 % Test case for making our own exr
-                maskImage = [0:resolution, 0:resolution, 3]; % RGB
-                exrwrite(maskImage,"SampleHeadlight.exr");
+                %maskImage = [0:resolution, 0:resolution, 3]; % RGB
+                %exrwrite(maskImage,"SampleHeadlight.exr");
 
                 % Add its headlamp(s)
                 % scale appears to be how much to scale the image, not the light
-                    %'filename string', 'skymaps/headlamp_cropped_flattened.exr');
+                imageMap = 'skymaps/gonio-thicklines.png';
                 headlampLight = piLightCreate('ProjectedLight', ...
                     'type','projection',...
                     'scale',[1 2 1],... % not sure if this is right
                     'fov',30, ...
                     'power', 10, ...
                     'cameracoordinate', 1, ...
-                    'filename string', 'headlamp_cropped_flattened_ruler.exr');
+                    'filename string', imageMap);
+                    %'filename string', 'headlamp_cropped_flattened_ruler.exr');
 
             scenario.roadData.recipe.set('light', headlampLight, 'add');
             
