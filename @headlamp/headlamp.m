@@ -48,18 +48,17 @@ classdef headlamp < handle
     methods
         function obj = headlamp()
 
-            % try to make a simle image that goes from 1 to 0,
+            % try to make a simple image that goes from 1 to 0,
             % starting halfway down
 
             % begin with all 1's, then multiply
             obj.maskImage = ones (obj.resolution(1), obj.resolution(2), 3);
 
-            gradientMaskTop = zeros(obj.resolution(1)/2, obj.resolution(2), 3);
+            gradientMaskTop = zeros(obj.resolution(1)/2, obj.resolution(2));
+            gradientMaskBottom = ones(obj.resolution(1)/2, obj.resolution(2));
 
-            verticalGradient = 1:-1/(obj.resolution(1)/2):0;
+            gradientMaskBottom = gradientMaskBottom .* .5; % super simple
 
-            % How do we make the vertical gradient appear!
-            gradientMaskBottom = [1:obj.resolution(1)/2:0, 3];
 
             gradientMask = [gradientMaskTop; gradientMaskBottom];
 

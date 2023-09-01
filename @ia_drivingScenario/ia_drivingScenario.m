@@ -302,6 +302,7 @@ classdef ia_drivingScenario < drivingScenario
             
             pLight = piAssetSearch(scenario.roadData.recipe,'lightname', 'ProjectedLight');
             
+            % Light translation is still broken, however
             piAssetTranslate(scenario.roadData.recipe, pLight, [2 -.5 2]);
                 %piLightTranslate(projectionLight, 'zshift', -5);
             scenario.roadData.recipe.set('light', headlampLight, 'add');
