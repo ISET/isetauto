@@ -18,6 +18,7 @@ classdef headlamp < handle
         % Calculated
         maskImage = [];
         mask = []; % for debugging
+        maskImageFile = ''; % where we put our mask for iset/pbrt to use
 
         % temporary variables
         maskGradientX = [];
@@ -65,8 +66,24 @@ classdef headlamp < handle
             obj.maskImage = obj.maskImage .* gradientMask;
             %Now need to add mask to bottom half of mask image
 
+            % we need to put the mask file in a place where it is copied to
+            % the server (e.g. local/<recipe>/skymaps), and
+            % does not have a naming conflict with others
+            
+            imageMapFile = 'headlightmap.png';
+            imwrite(obj.maskImage, imageMapFile);
+            obj.maskImageFile = imageMapFile;
         end
      
+        function isetLight = getLight(obj)
+            isetLight = piLightCreate('ProjectedLight', ...
+                    'type','projection',...
+                    'scale',[1 2 1],... % not sure if this is right
+                    'fov',30, ...
+                    'power', 10, ...
+                    'cameracoordinate', 1, ...
+                    'filename string', obj.maskImageFile);
+        end
     end
 end
 

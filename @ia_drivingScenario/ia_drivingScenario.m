@@ -288,15 +288,8 @@ classdef ia_drivingScenario < drivingScenario
 
                 % Add its headlamp(s)
                 % scale appears to be how much to scale the image, not the light
-                imageMap = 'skymaps/gonio-thicklines.png';
-                headlampLight = piLightCreate('ProjectedLight', ...
-                    'type','projection',...
-                    'scale',[1 2 1],... % not sure if this is right
-                    'fov',30, ...
-                    'power', 10, ...
-                    'cameracoordinate', 1, ...
-                    'filename string', imageMap);
-                    %'filename string', 'headlamp_cropped_flattened_ruler.exr');
+                headLight = headlamp();
+                headlampLight = headLight.getLight();
 
             scenario.roadData.recipe.set('light', headlampLight, 'add');
             
