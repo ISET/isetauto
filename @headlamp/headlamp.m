@@ -18,16 +18,12 @@ classdef headlamp < handle
 
         horizontalFOV = 80; % apparently +/- 40 is fairly standard
         verticalFOV = 40; % set in creation function
+        cutOffAngle = -10; % default for below horizon
 
         GenericData = readtable(fullfile("@headlamp","Generic Headlamp Light Distribution.csv"));
 
         % Calculated
-        maskImage = [];
-        mask = []; % for debugging
         maskImageFile = ''; % where we put our mask for iset/pbrt to use
-
-        % temporary variables
-        maskGradientX = [];
     end
 
     %% Equations:
@@ -57,35 +53,25 @@ classdef headlamp < handle
 
             obj.verticalFOV = obj.horizontalFOV * (obj.resolution(1) \ obj.resolution(2));
 
-            % try to make a simple image that goes from 1 to 0,
-            % starting halfway down
-
-            % begin with all 1's, then multiply
-            obj.maskImage = ones (obj.resolution(1), obj.resolution(2), 3);
-
-            gradientMaskTop = zeros(obj.resolution(1)/2, obj.resolution(2));
-            gradientMaskBottom = ones(obj.resolution(1)/2, obj.resolution(2));
-
-            gradientMaskBottom = gradientMaskBottom .* .5; % super simple
-
-
-            gradientMask = [gradientMaskTop; gradientMaskBottom];
-
-            obj.maskImage = obj.maskImage .* gradientMask;
-            %Now need to add mask to bottom half of mask image
-
             % we need to put the mask file in a place where it is copied to
             % the server (e.g. local/<recipe>/skymaps), and
             % does not have a naming conflict with others
 
             imageMapFile = 'headlightmap.png';
-            imwrite(obj.maskImage, imageMapFile);
+            imwrite(obj.maskImage(obj.cutOffAngle), imageMapFile);
             obj.maskImageFile = imageMapFile;
         end
      
         %% Create the actual light
         function isetLight = getLight(obj)
 
+            % We need to put the maskImageFile into the recipe/skymaps
+            % folder here or elsewhere to make sure it is rsynced
+
+            % In addition we have an issue where the headlamp map
+            % should be unique to each headlamp, but still needs
+            % to wind up on the server when remote rendering
+            
             isetLight = piLightCreate('ProjectedLight', ...
                     'type','projection',...
                     'scale',1,... % scales intensity
@@ -95,14 +81,35 @@ classdef headlamp < handle
                     'filename string', obj.maskImageFile);
         end
 
-        %% calculate how far down to move the cutoff for a specific
+        %% calculate how far up/down to move the cutoff for a specific
         % number of degrees (e.g. 2 below the horizon for USA)
         % NOTE: Once we can rotate lights, some of this can
         %       be achieved if the headlight is rotated down
-        % NOTE: For high beams, we might want to have a negative offset
-        function pixelOffset = beamCutOff(obj, degrees)
-            % This might work?
-            pixelOffset = sin(deg2rad(degrees)) / sin(deg2rad(obj.verticalFOV/2)) * obj.resolution(1);
+        % NOTE: For high beams, we probably want degrees above the horizon
+        function maskImage = maskImage(obj, degrees)
+            % Start with how far off the horizon we need to be
+            pixelOffset = sin(deg2rad(degrees)) / sin(deg2rad(obj.verticalFOV/2)) ...
+                * obj.resolution(1);
+
+            % Now calculate our horizontal cutoff
+            darkRows = round((obj.resolution(1) / 2) - pixelOffset);
+            litRows = obj.resolution(1) - darkRows;
+
+            % try to make a simple image that goes from 1 to 0,
+            % starting halfway down
+
+            % begin with all 1's, then multiply
+            maskImage = ones (obj.resolution(1), obj.resolution(2), 3);
+
+            gradientMaskTop = zeros(darkRows, obj.resolution(2));
+            gradientMaskBottom = ones(litRows, obj.resolution(2));
+
+            gradientMaskBottom = gradientMaskBottom .* .5; % super simple
+
+            gradientMask = [gradientMaskTop; gradientMaskBottom];
+
+            maskImage = maskImage .* gradientMask;
+
         end
     end
 end
