@@ -6,12 +6,18 @@ classdef headlamp < handle
         % for now we assume the headlamp can be approximated
         % using a point source with a single angle.
         % That isn't technically true for modern multi-source lamps.
-        angles = [0 0 0];
+
+        % Currently AssetRotate & AssetTranslate don't work with lights
+        % So we are stuck with camera location & fromto angle
+        location = [0 0 0];
+        orientation = [0 0 0];
+
         resolution = [128 256]; % assume wider than tall 
 
         peakIntensity = 61500; % candelas at a nominal bright point
 
         horizontalFOV = 80; % apparently +/- 40 is fairly standard
+        verticalFOV = 40; % set in creation function
 
         GenericData = readtable(fullfile("@headlamp","Generic Headlamp Light Distribution.csv"));
 
@@ -49,6 +55,8 @@ classdef headlamp < handle
     methods
         function obj = headlamp()
 
+            obj.verticalFOV = obj.horizontalFOV * (obj.resolution(1) \ obj.resolution(2));
+
             % try to make a simple image that goes from 1 to 0,
             % starting halfway down
 
@@ -69,20 +77,32 @@ classdef headlamp < handle
             % we need to put the mask file in a place where it is copied to
             % the server (e.g. local/<recipe>/skymaps), and
             % does not have a naming conflict with others
-            
+
             imageMapFile = 'headlightmap.png';
             imwrite(obj.maskImage, imageMapFile);
             obj.maskImageFile = imageMapFile;
         end
      
+        %% Create the actual light
         function isetLight = getLight(obj)
+
             isetLight = piLightCreate('ProjectedLight', ...
                     'type','projection',...
-                    'scale',[1 2 1],... % not sure if this is right
+                    'scale',1,... % scales intensity
                     'fov',30, ...
                     'power', 10, ...
                     'cameracoordinate', 1, ...
                     'filename string', obj.maskImageFile);
+        end
+
+        %% calculate how far down to move the cutoff for a specific
+        % number of degrees (e.g. 2 below the horizon for USA)
+        % NOTE: Once we can rotate lights, some of this can
+        %       be achieved if the headlight is rotated down
+        % NOTE: For high beams, we might want to have a negative offset
+        function pixelOffset = beamCutOff(obj, degrees)
+            % This might work?
+            pixelOffset = sin(deg2rad(degrees)) / sin(deg2rad(obj.verticalFOV/2)) * obj.resolution(1);
         end
     end
 end
