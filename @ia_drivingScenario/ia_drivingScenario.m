@@ -293,7 +293,12 @@ classdef ia_drivingScenario < drivingScenario
                 % We need to be smart enough to write the projection map
                 % to /local/<recipe>, OR use a standard projected image
                 % that is already in resources
-                
+
+                % do we need a "writeLight" method that puts our projection
+                % map into the file system? That seems awkward.
+                % maybe piLightWrite could be smart enough to handle our
+                % projection image and write it out as needed?
+
             scenario.roadData.recipe.set('light', headlampLight, 'add');
             
             pLight = piAssetSearch(scenario.roadData.recipe,'lightname', 'ProjectedLight');
