@@ -287,10 +287,13 @@ classdef ia_drivingScenario < drivingScenario
                 %exrwrite(maskImage,"SampleHeadlight.exr");
 
                 % Add its headlamp(s)
-                % scale appears to be how much to scale the image, not the light
                 headLight = headlamp();
                 headlampLight = headLight.getLight();
 
+                % We need to be smart enough to write the projection map
+                % to /local/<recipe>, OR use a standard projected image
+                % that is already in resources
+                
             scenario.roadData.recipe.set('light', headlampLight, 'add');
             
             pLight = piAssetSearch(scenario.roadData.recipe,'lightname', 'ProjectedLight');
