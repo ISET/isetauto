@@ -23,7 +23,7 @@ classdef headlamp < handle
         GenericData = readtable(fullfile("@headlamp","Generic Headlamp Light Distribution.csv"));
 
         % Calculated
-        maskImageFile = ''; % where we put our mask for iset/pbrt to use
+        maskImageFileName = 'projection_headlamp.exr'; % where we put our mask for iset/pbrt to use
     end
 
     %% Equations:
@@ -53,13 +53,7 @@ classdef headlamp < handle
 
             obj.verticalFOV = obj.horizontalFOV * (obj.resolution(1) \ obj.resolution(2));
 
-            % we need to put the mask file in a place where it is copied to
-            % the server (e.g. local/<recipe>/skymaps), and
-            % does not have a naming conflict with others
-
-            imageMapFile = 'headlightmap.png';
-            imwrite(obj.maskImage(obj.cutOffAngle), imageMapFile);
-            obj.maskImageFile = imageMapFile;
+            
         end
      
         %% Create the actual light
@@ -71,14 +65,26 @@ classdef headlamp < handle
             % In addition we have an issue where the headlamp map
             % should be unique to each headlamp, but still needs
             % to wind up on the server when remote rendering
-            
+
+            % Need to save to /local/<recipename>/skymaps/<filename>
+            localDir = piDirGet('local');
+
+            % recipe name folder?
+
+            % place holder but needs to be in @recipe folder!
+            fullMaskFileName = obj.maskImageFileName;
+
             isetLight = piLightCreate('ProjectedLight', ...
                     'type','projection',...
                     'scale',1,... % scales intensity
                     'fov',30, ...
                     'power', 10, ...
                     'cameracoordinate', 1, ...
-                    'filename string', obj.maskImageFile);
+                    'filename string', fullMaskFileName);
+
+            % this writes out our projected image
+            exrWrit(obj.maskImage(obj.cutOffAngle), fullMaskFileName);
+
         end
 
         %% calculate how far up/down to move the cutoff for a specific
