@@ -20,7 +20,7 @@ classdef ia_drivingScenario < drivingScenario
 
         %% General settings that don't affect the results
         scenarioName = 'LabTest'; % default
-        frameRate = 3; % playback speed in frames per second
+        frameRate = 6; % playback speed in frames per second
 
         %% Simulation specific parameters
         % Main parameters to determine quality versus speed
@@ -28,10 +28,10 @@ classdef ia_drivingScenario < drivingScenario
         % (e.g. real frame rates, sceneResolution > cameraResolution
         %       lots of rays, and no de-noising)
 
-        stepTime = .5; % time per image frame/step
+        stepTime = .16; % time per image frame/step
         scenarioQuality = 'quick'; % default
 
-        deNoise = 'scene'; % can use 'exr_radiance', 'exr_albedo', 'scene', or ''
+        deNoise = 'exr_albedo'; % can use 'exr_radiance', 'exr_albedo', 'scene', or ''
 
         % For debugging raise the camera and look down
         debug = false; % if true, then of course detection isn't realistic
@@ -287,7 +287,7 @@ classdef ia_drivingScenario < drivingScenario
                 %exrwrite(maskImage,"SampleHeadlight.exr");
 
                 % Add its headlamp(s)
-                headLight = headlamp('preset','high beam');
+                headLight = headlamp('preset','low beam');
                 headlampLight = headLight.isetLight;
 
                 % We need to be smart enough to write the projection map

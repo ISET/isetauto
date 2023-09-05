@@ -23,16 +23,19 @@ function scene = renderRecipe(scenario, originalOutputFile)
     % directly on the .exr file and can use additional channels
     % of information.
     if isequal(scenario.deNoise, 'exr_all')
-        scene = piRender(ourRecipe, 'do_denoise', 'exr_all');
+        scene = piRender(ourRecipe, 'do_denoise', 'exr_all', ...
+            'mean luminance',-1);
     elseif isequal(scenario.deNoise, 'exr_albedo')
-        scene = piRender(ourRecipe, 'do_denoise', 'exr_albedo');
+        scene = piRender(ourRecipe, 'do_denoise', 'exr_albedo',...
+            'mean luminance',-1);
     elseif isequal(scenario.deNoise, 'exr_radiance')
-        scene = piRender(ourRecipe, 'do_denoise', 'exr_radiance');
+        scene = piRender(ourRecipe, 'do_denoise', 'exr_radiance',...
+            'mean luminance',-1);
     elseif isequal(scenario.deNoise, 'scene')
-        scene = piRender(ourRecipe);
+        scene = piRender(ourRecipe,'mean luminance',-1);
         scene = piAIdenoise(scene,'quiet', true, 'batch', true);
     else % no denoise or denoise later after rgb
-        scene = piRender(ourRecipe);
+        scene = piRender(ourRecipe, 'mean luminance',-1);
     end
 
     if isempty(scene)
