@@ -28,7 +28,8 @@ switch lighting
         % Really dark -- NHTSA says down to .2 lux needs to work
         % So we should calculate what that means for how we scale the skymap
         skymapNode = strrep(skymapName, '.exr','_L');
-        roadData.recipe.set('light',skymapNode, 'specscale', 0.01);
+        % what if we accept the default?
+        %roadData.recipe.set('light',skymapNode, 'specscale', 0.01);
 
 
     case 'dusk'
