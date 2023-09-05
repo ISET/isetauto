@@ -22,8 +22,10 @@ classdef headlamp < handle
 
         GenericData = readtable(fullfile("@headlamp","Generic Headlamp Light Distribution.csv"));
 
-        % Calculated
-        maskImageFileName = 'projection_headlamp.exr'; % where we put our mask for iset/pbrt to use
+        % Calculated depending on the preset used
+        lightMask;
+        lightMaskFileName = ''; % where we put our mask for iset/pbrt to use
+        isetLight; % ISET light object created by call
     end
 
     %% Equations:
@@ -49,11 +51,36 @@ classdef headlamp < handle
     %}
     
     methods
-        function obj = headlamp()
+        function obj = headlamp(varargin)
 
+            varargin = ieParamFormat(varargin);
+            p = inputParser;
+
+            p.addParameter('preset','',@ischar);
+            p.addParameter('verbose',true,@islogical);
+            
+            p.parse(varargin{:});
+
+            % Fix aspect ratio
             obj.verticalFOV = obj.horizontalFOV * (obj.resolution(1) \ obj.resolution(2));
 
-            
+            % now we want to generate the light & mask
+            switch p.Results.preset
+                case 'low beam'
+                    obj.lightMask = obj.maskImage(-2);
+                    obj.lightMaskFileName = 'headlamp_lowbeam.exr';
+                case 'high beam'
+                    obj.lightMask = obj.maskImage(10);
+                    obj.lightMaskFileName = 'headlamp_highbeam.exr';
+                otherwise
+                    % default is lowbeam
+                    obj.lightMask = obj.maskImage(-2);
+                    obj.lightMaskFileName = 'headlamp_lowbeam.exr';
+            end
+
+            obj.isetLight = obj.getLight();
+
+
         end
      
         %% Create the actual light
@@ -66,13 +93,8 @@ classdef headlamp < handle
             % should be unique to each headlamp, but still needs
             % to wind up on the server when remote rendering
 
-            % Need to save to /local/<recipename>/skymaps/<filename>
-            localDir = piDirGet('local');
-
-            % recipe name folder?
-
-            % place holder but needs to be in @recipe folder!
-            fullMaskFileName = obj.maskImageFileName;
+            % fullfile won't work on Windows, so use '/'
+            fullMaskFileName = ['skymaps','/',obj.lightMaskFileName];
 
             isetLight = piLightCreate('ProjectedLight', ...
                     'type','projection',...
@@ -83,7 +105,7 @@ classdef headlamp < handle
                     'filename string', fullMaskFileName);
 
             % this writes out our projected image
-            exrWrit(obj.maskImage(obj.cutOffAngle), fullMaskFileName);
+            exrwrite(obj.lightMask, fullfile(piDirGet('data'),fullMaskFileName));
 
         end
 

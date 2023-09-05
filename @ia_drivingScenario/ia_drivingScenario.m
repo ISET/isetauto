@@ -287,8 +287,8 @@ classdef ia_drivingScenario < drivingScenario
                 %exrwrite(maskImage,"SampleHeadlight.exr");
 
                 % Add its headlamp(s)
-                headLight = headlamp();
-                headlampLight = headLight.getLight();
+                headLight = headlamp('preset','high beam');
+                headlampLight = headLight.isetLight;
 
                 % We need to be smart enough to write the projection map
                 % to /local/<recipe>, OR use a standard projected image
