@@ -290,23 +290,15 @@ classdef ia_drivingScenario < drivingScenario
                 headLight = headlamp('preset','low beam');
                 headlampLight = headLight.isetLight;
 
-                % We need to be smart enough to write the projection map
-                % to /local/<recipe>, OR use a standard projected image
-                % that is already in resources
-
-                % do we need a "writeLight" method that puts our projection
-                % map into the file system? That seems awkward.
-                % maybe piLightWrite could be smart enough to handle our
-                % projection image and write it out as needed?
-
-            scenario.roadData.recipe.set('light', headlampLight, 'add');
+            % Experiment with no headlight
+            %scenario.roadData.recipe.set('light', headlampLight, 'add');
             
             pLight = piAssetSearch(scenario.roadData.recipe,'lightname', 'ProjectedLight');
             
             % Light translation is still broken, however
-            piAssetTranslate(scenario.roadData.recipe, pLight, [2 -.5 2]);
+            %piAssetTranslate(scenario.roadData.recipe, pLight, [2 -.5 2]);
                 %piLightTranslate(projectionLight, 'zshift', -5);
-            scenario.roadData.recipe.set('light', headlampLight, 'add');
+            %scenario.roadData.recipe.set('light', headlampLight, 'add');
 
             end
             % We don't get poses right away from DSD, so we might
