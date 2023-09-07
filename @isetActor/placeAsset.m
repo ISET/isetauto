@@ -39,6 +39,9 @@ piAssetRotate(assetRecipe,assetBranchName,...
         [0 0 useYaw]); % what if yaw is right sometimes?
     obj.savedYaw = obj.yaw;
 end
+
+%% Our new asset recipe might includes headlights. If this is our ego
+% vehicle then maybe we can edit them before further processing?!!
 scenario.roadData.recipe = piRecipeMerge(scenario.roadData.recipe, assetRecipe);
 
 end
