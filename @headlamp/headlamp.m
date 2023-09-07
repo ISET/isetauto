@@ -96,6 +96,9 @@ classdef headlamp < handle
             % fullfile won't work on Windows, so use '/'
             fullMaskFileName = ['skymaps','/',obj.lightMaskFileName];
 
+            % Can we try to set a position???
+            % Otherwise we seem stuck with camera pose
+
             isetLight = piLightCreate('ProjectedLight', ...
                     'type','projection',...
                     'scale',1,... % scales intensity
