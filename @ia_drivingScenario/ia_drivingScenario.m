@@ -17,9 +17,9 @@ classdef ia_drivingScenario < drivingScenario
         % others as needed
         lighting = 'nighttime';
         targetName = 'pedestrian_001'; % Default adult male
+        headlampType = 'low beam'; % also 'high beam'
 
         %% General settings that don't affect the results
-        scenarioName = 'LabTest'; % default
         frameRate = 6; % playback speed in frames per second
 
         %% Simulation specific parameters
@@ -73,6 +73,7 @@ classdef ia_drivingScenario < drivingScenario
         egoVehicle = [];
         targetObject = [];
         foundPed = false;
+        scenarioName = ''; % set in creation function
 
         % Initialize data logging structure and frame count
         frameNum = 1; % to start
@@ -129,6 +130,8 @@ classdef ia_drivingScenario < drivingScenario
             % Let the Matlab driving scenario (superclass) set things up first
             % ds now contains a "blank slate" scenario
             ds = ds@drivingScenario(varargin{:});
+
+            ds.scenarioName = ['PAEB-' ds.headlampType]; % default
 
             if ~ds.dataOnly
                 ds.SampleTime = ds.stepTime; % use our time interval
@@ -279,15 +282,8 @@ classdef ia_drivingScenario < drivingScenario
                 scenario.egoVehicle = vehicleDS;
                 ourVehicle.hasCamera = true;
 
-                %  should be in headlamp class
-                resolution = 512;
-
-                % Test case for making our own exr
-                %maskImage = [0:resolution, 0:resolution, 3]; % RGB
-                %exrwrite(maskImage,"SampleHeadlight.exr");
-
                 % Add its headlamp(s)
-                headLight = headlamp('preset','low beam');
+                headLight = headlamp('preset',scenario.headlampType);
                 headlampLight = headLight.isetLight;
 
             % Experiment with no headlight
