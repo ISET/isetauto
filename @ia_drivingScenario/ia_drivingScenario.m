@@ -287,7 +287,7 @@ classdef ia_drivingScenario < drivingScenario
                 headlampLight = headLight.isetLight;
 
             % Experiment with no headlight
-            %scenario.roadData.recipe.set('light', headlampLight, 'add');
+            scenario.roadData.recipe.set('light', headlampLight, 'add');
             
             pLight = piAssetSearch(scenario.roadData.recipe,'lightname', 'ProjectedLight');
             
