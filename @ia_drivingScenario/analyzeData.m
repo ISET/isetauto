@@ -31,7 +31,7 @@ for ii = 1:numel(ourData)
 end
 
 %% Write out a video of our run if we recorded one
-if numel(scenario.ourVideo.cdata) > 0
+if numel(scenario.ourVideo) > 0
     open(scenario.v);
     writeVideo(scenario.v, scenario.ourVideo);
     close(scenario.v);

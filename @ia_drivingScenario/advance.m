@@ -11,8 +11,9 @@ if scenario.needToPlaceVehicles == true
     % placeVehicles adds headlamps, including for our ego vehicle
     % Since we want to replace those we need to delete them
     ourLights = piAssetSearch(scenario.roadData.recipe,'lightname', scenario.egoVehicle.Name);
-    for ii=1:numel(ourLights)
-        piAssetDelete(scenario.roadData.recipe,ourLights(ii));
+    for ii=numel(ourLights):-1:1 % maybe count down
+        lightName = scenario.roadData.recipe.get('asset',ourLights(ii),'name');
+        scenario.roadData.recipe.set('light', lightName, 'delete');
     end
 
     scenario.needToPlaceVehicles = false;

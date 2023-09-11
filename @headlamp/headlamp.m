@@ -18,7 +18,7 @@ classdef headlamp < handle
 
         horizontalFOV = 80; % apparently +/- 40 is fairly standard
         verticalFOV = 40; % set in creation function
-        cutOffAngle = -10; % default for below horizon
+        cutOffAngle = -2; % default for below horizon
 
         GenericData = readtable(fullfile("@headlamp","Generic Headlamp Light Distribution.csv"));
 
@@ -72,6 +72,9 @@ classdef headlamp < handle
                 case 'high beam'
                     obj.lightMask = obj.maskImage(10);
                     obj.lightMaskFileName = 'headlamp_highbeam.exr';
+                case 'too low'
+                    obj.lightMask = obj.maskImage(-17.5);
+                    obj.lightMaskFileName = 'headlamp_toolow.exr';
                 otherwise
                     % default is lowbeam
                     obj.lightMask = obj.maskImage(-2);
@@ -99,11 +102,12 @@ classdef headlamp < handle
             % Can we try to set a position???
             % Otherwise we seem stuck with camera pose
 
+            % don't have units on light intensity yet
             isetLight = piLightCreate('ProjectedLight', ...
                     'type','projection',...
                     'scale',1,... % scales intensity
                     'fov',30, ...
-                    'power', 1, ...
+                    'power', 15, ...
                     'cameracoordinate', 1, ...
                     'filename string', fullMaskFileName);
 
@@ -135,7 +139,7 @@ classdef headlamp < handle
             gradientMaskTop = zeros(darkRows, obj.resolution(2));
             gradientMaskBottom = ones(litRows, obj.resolution(2));
 
-            gradientMaskBottom = gradientMaskBottom .* .5; % super simple
+            gradientMaskBottom = gradientMaskBottom .* .8; % super simple
 
             gradientMask = [gradientMaskTop; gradientMaskBottom];
 

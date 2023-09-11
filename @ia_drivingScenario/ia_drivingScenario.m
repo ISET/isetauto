@@ -20,7 +20,7 @@ classdef ia_drivingScenario < drivingScenario
         headlampType = 'low beam'; % also 'high beam'
 
         %% General settings that don't affect the results
-        frameRate = 6; % playback speed in frames per second
+        frameRate = 3; % playback speed in frames per second
 
         %% Simulation specific parameters
         % Main parameters to determine quality versus speed
@@ -28,7 +28,7 @@ classdef ia_drivingScenario < drivingScenario
         % (e.g. real frame rates, sceneResolution > cameraResolution
         %       lots of rays, and no de-noising)
 
-        stepTime = .16; % time per image frame/step
+        stepTime = .1; % time per image frame/step
         scenarioQuality = 'quick'; % default
 
         deNoise = 'exr_albedo'; % can use 'exr_radiance', 'exr_albedo', 'scene', or ''
@@ -286,7 +286,6 @@ classdef ia_drivingScenario < drivingScenario
                 headLight = headlamp('preset',scenario.headlampType);
                 headlampLight = headLight.isetLight;
 
-            % Experiment with no headlight
             scenario.roadData.recipe.set('light', headlampLight, 'add');
             
             pLight = piAssetSearch(scenario.roadData.recipe,'lightname', 'ProjectedLight');
