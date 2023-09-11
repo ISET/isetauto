@@ -17,6 +17,7 @@ assetBranchName = [convertStringsToChars(scenario.targetObject.name) '_B'];
 targetLocation = ourRecipe.get('asset',assetBranchName,'world position');
 targetVelocity = scenario.targetObject.velocity;
 
+logFrame.detectionResults = detectionResults;
 logFrame.targetLocation = targetLocation;
 logFrame.vehicleLocation = vehicleLocation;
 logFrame.vehicleVelocity = vehicleVelocity;

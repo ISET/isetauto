@@ -17,7 +17,7 @@ classdef ia_drivingScenario < drivingScenario
         % others as needed
         lighting = 'nighttime';
         targetName = 'pedestrian_001'; % Default adult male
-        headlampType = 'low beam'; % also 'high beam'
+        headlampType = 'too low'; % also 'high beam'
 
         %% General settings that don't affect the results
         frameRate = 3; % playback speed in frames per second

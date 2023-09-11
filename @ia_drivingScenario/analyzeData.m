@@ -11,6 +11,7 @@ logFrame.vehicleVelocity = vehicleVelocity;
 logFrame.targetVelocity = targetVelocity;
 logFrame.simulationTime = scenario.SimulationTime;
 logFrame.targetDistance;
+logFrame.detectionResults;
 %}
 
 ourData = scenario.logData;
@@ -28,6 +29,9 @@ for ii = 1:numel(ourData)
     % Calculate vehicle closing speed
     vehicleClosingVelocity{ii} = vehicleVelocity{ii} - ourData(ii).targetVelocity; %#ok<*AGROW>
     vehicleClosingSpeed(ii) = sum(vehicleClosingVelocity{ii} .^ 2) ^.5; %#ok<AGROW>
+
+    % decide what we want to report about detection status...
+    % ... ourData(ii).detectionResults has bboxes, labels, and scores
 end
 
 %% Write out a video of our run if we recorded one
