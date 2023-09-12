@@ -57,9 +57,12 @@ scenario.detectionResults.scores = scores;
 scenario.detectionResults.labels = labels;
 
 % Need to track pedmeters
-%if pedMeters <= .1
-%    caption = strcat(caption, " ***CRASH*** ");
-%end
+targetRawDistance = abs(scenario.targetObject.positionDS - scenario.egoVehicle.Position);
+pedMeters = sum(targetRawDistance .^2) ^.5;
+if pedMeters <= .1
+    caption = strcat(caption, " ***CRASH*** ");
+end
+
 if scenario.foundPed % cheat & assume we are actor 1
     image = insertText(rgb,[0 0],strcat(caption, " -- BRAKING"),'FontSize',48, 'TextColor','red');
 else

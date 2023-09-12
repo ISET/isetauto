@@ -4,6 +4,9 @@ classdef ia_drivingScenario < drivingScenario
     % It extends the class by integrating it with ISETAuto, ISET3d, and
     % ISETCam
 
+    % Currently this is where the "experiment specific"
+    % parameters get set
+
     % D. Cardinal, Stanford University, June, 2023
     properties
 
@@ -17,7 +20,7 @@ classdef ia_drivingScenario < drivingScenario
         % others as needed
         lighting = 'nighttime';
         targetName = 'pedestrian_001'; % Default adult male
-        headlampType = 'too low'; % also 'high beam'
+        headlampType = 'too low'; % also 'low beam', 'high beam'
 
         %% General settings that don't affect the results
         frameRate = 3; % playback speed in frames per second
@@ -28,7 +31,7 @@ classdef ia_drivingScenario < drivingScenario
         % (e.g. real frame rates, sceneResolution > cameraResolution
         %       lots of rays, and no de-noising)
 
-        stepTime = .1; % time per image frame/step
+        stepTime = .2; % time per image frame/step
         scenarioQuality = 'quick'; % default
 
         deNoise = 'exr_albedo'; % can use 'exr_radiance', 'exr_albedo', 'scene', or ''

@@ -43,7 +43,8 @@ if scenario.justStarting ~= true && scenario.dataOnly == false
 
     % show preview if desired unless we are in an official experiment
     if ~ia_drivingScenario.inExperiment && scenario.previewScenes
-        scene = sceneSet(scene, 'display mode', 'hdr');
+        % if you start with hdr you don't seem to be able to change
+        scene = sceneSet(scene); %, 'display mode', 'hdr');
         % try sceneshowimage
         % Note: Faster but leads to un-labeled Window sprawl until we
         %       add some more pieces
