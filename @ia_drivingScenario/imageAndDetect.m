@@ -27,9 +27,6 @@ if isequal(scenario.deNoise, 'rgb')
     ip = piRGBDenoise(ip);
 end
 
-caption = sprintf("Car: %s, Time: %2.1f \n", scenario.egoVehicle.Name, ...
-    scenario.SimulationTime);
-
 % Detect object classes that our detector is trained on
 rgb = ipGet(ip, 'srgb');
 [bboxes,scores,labels] = detect(yDetect,rgb);
@@ -59,7 +56,12 @@ scenario.detectionResults.labels = labels;
 % Need to track pedmeters
 targetRawDistance = abs(scenario.targetObject.positionDS - scenario.egoVehicle.Position);
 pedMeters = sum(targetRawDistance .^2) ^.5;
-if pedMeters <= .1
+roadMeters = targetRawDistance(1); % even if the ped isn't in the center of the car, we still hit them
+
+caption = sprintf("Car: %s, Time: %2.1f Dist: %2.1f\n", scenario.egoVehicle.Name, ...
+    scenario.SimulationTime, roadMeters);
+
+if pedMeters <= .3 || roadMeters <= .2
     caption = strcat(caption, " ***CRASH*** ");
 end
 
