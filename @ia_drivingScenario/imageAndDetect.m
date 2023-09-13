@@ -63,6 +63,8 @@ caption = sprintf("Car: %s, Time: %2.1f Dist: %2.1f\n", scenario.egoVehicle.Name
 
 if pedMeters <= .3 || roadMeters <= .2
     caption = strcat(caption, " ***CRASH*** ");
+    % stop scenario -- except this isn't the correct way
+    %scenario.IsRunning = false;
 end
 
 if scenario.foundPed % cheat & assume we are actor 1
