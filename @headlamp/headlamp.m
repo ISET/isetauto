@@ -9,6 +9,7 @@ classdef headlamp < handle
 
         location = [0 0 0];
         orientation = [0 0 0];
+        name;
 
         resolution = [128 256]; % assume wider than tall 
 
@@ -57,11 +58,13 @@ classdef headlamp < handle
             p.addParameter('preset','',@ischar);
             p.addParameter('location', [0 0 0]); % can be a preset or a vector
             p.addParameter('verbose',true,@islogical);
-            
+            p.addParameter('name','Projected Headlight',@ischar);
+
             p.parse(varargin{:});
 
             % Fix aspect ratio
             obj.verticalFOV = obj.horizontalFOV * (obj.resolution(1) \ obj.resolution(2));
+            obj.name = p.Results.name;
 
             if ~isempty(p.Results.location)
                 obj.location = p.Results.location;
@@ -105,7 +108,7 @@ classdef headlamp < handle
             % Otherwise we seem stuck with camera pose
 
             % don't have units on light intensity yet
-            isetLight = piLightCreate('ProjectedLight', ...
+            isetLight = piLightCreate(obj.name, ...
                     'type','projection',...
                     'scale',1,... % scales intensity
                     'fov',30, ...

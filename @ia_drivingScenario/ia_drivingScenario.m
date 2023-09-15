@@ -32,7 +32,7 @@ classdef ia_drivingScenario < drivingScenario
         %       lots of rays, and no de-noising)
 
         stepTime = .2; % time per image frame/step
-        scenarioQuality = 'quick'; % default
+        scenarioQuality = 'quick'; 
 
         deNoise = 'exr_albedo'; % can use 'exr_radiance', 'exr_albedo', 'scene', or ''
 
@@ -144,12 +144,6 @@ classdef ia_drivingScenario < drivingScenario
                 % set to high speed for better accuracy
                 ds.SampleTime = .1;
                 ds.stepTime = .1;
-            end
-
-            if ~ismac
-                % better deNoiser, but Brian couldn't get it working
-                % on his Mac
-                ds.deNoise = 'exr_albedo'; % better quality when it works
             end
 
         end
@@ -288,20 +282,22 @@ classdef ia_drivingScenario < drivingScenario
                 ourVehicle.hasCamera = true;
 
                 % Add its headlamp(s)
-                headLight = headlamp('preset',scenario.headlampType);
-                headlampLight = headLight.isetLight;
+                headLightLeft = headlamp('preset',scenario.headlampType,'name','Left Headlight');
+                headlampLight_Left = headLightLeft.isetLight;
+                headLightRight = headlamp('preset',scenario.headlampType,'name','Right Headlight');
+                headlampLight_Right = headLightRight.isetLight;
 
+                % Need to figure out how to make this all part
+                % of the headlamp class semi-elegantly
+                scenario.roadData.recipe.set('light', headlampLight_Right, 'add');
+                pLightRight = piAssetSearch(scenario.roadData.recipe,'lightname', 'Right Headlight');
+                scenario.roadData.recipe.set('asset',pLightRight,'translate',[1 -1 -1]);
 
-
-                scenario.roadData.recipe.set('light', headlampLight, 'add');
-                pLight = piAssetSearch(scenario.roadData.recipe,'lightname', 'ProjectedLight');
-
-                % Experiment: Try moving to left grille
-                % if it works, need to integrate into @headlamp
-                % Remember that y is right->left (sadly)
-                % x is to move the light forward to the grille area
-                % z is to lower it to grille height
-                scenario.roadData.recipe.set('asset',pLight,'translate',[2 -1 -1]);
+                % Left Headlight
+                scenario.roadData.recipe.set('light', headlampLight_Left, 'add');
+                
+                pLightLeft = piAssetSearch(scenario.roadData.recipe,'lightname', 'Left Headlight');
+                scenario.roadData.recipe.set('asset',pLightRight,'translate',[1 1 -1]);
 
             end
             % We don't get poses right away from DSD, so we might
