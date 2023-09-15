@@ -298,7 +298,9 @@ classdef ia_drivingScenario < drivingScenario
 
                 % Experiment: Try moving to left grille
                 % if it works, need to integrate into @headlamp
-                % axes are confusing!
+                % Remember that y is right->left (sadly)
+                % x is to move the light forward to the grille area
+                % z is to lower it to grille height
                 scenario.roadData.recipe.set('asset',pLight,'translate',[2 -1 -1]);
 
             end
