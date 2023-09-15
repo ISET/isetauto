@@ -7,8 +7,6 @@ classdef headlamp < handle
         % using a point source with a single angle.
         % That isn't technically true for modern multi-source lamps.
 
-        % Currently AssetRotate & AssetTranslate don't work with lights
-        % So we are stuck with camera location & fromto angle
         location = [0 0 0];
         orientation = [0 0 0];
 
@@ -57,6 +55,7 @@ classdef headlamp < handle
             p = inputParser;
 
             p.addParameter('preset','',@ischar);
+            p.addParameter('location', [0 0 0]); % can be a preset or a vector
             p.addParameter('verbose',true,@islogical);
             
             p.parse(varargin{:});
@@ -64,6 +63,9 @@ classdef headlamp < handle
             % Fix aspect ratio
             obj.verticalFOV = obj.horizontalFOV * (obj.resolution(1) \ obj.resolution(2));
 
+            if ~isempty(p.Results.location)
+                obj.location = p.Results.location;
+            end
             % now we want to generate the light & mask
             switch p.Results.preset
                 case 'low beam'
@@ -110,6 +112,21 @@ classdef headlamp < handle
                     'power', 15, ...
                     'cameracoordinate', 1, ...
                     'filename string', fullMaskFileName);
+
+            % NOTE: Let's see if we can move the light here
+            %       and have it stick. Or maybe we need to do this
+            %       differently, since we don't have the
+            %       parent recipe here
+            if ischar(obj.location)
+                switch (obj.location)
+                    case 'left grille'
+                    case 'right grille'
+                end
+            else
+                % move per the location param
+            end
+        
+
 
             % this writes out our projected image
             exrwrite(obj.lightMask, fullfile(piDirGet('data'),fullMaskFileName));

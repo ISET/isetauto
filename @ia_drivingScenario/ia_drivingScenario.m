@@ -20,7 +20,7 @@ classdef ia_drivingScenario < drivingScenario
         % others as needed
         lighting = 'nighttime';
         targetName = 'pedestrian_001'; % Default adult male
-        headlampType = 'too low'; % also 'low beam', 'high beam'
+        headlampType = 'low beam'; % also 'low beam', 'high beam'
 
         %% General settings that don't affect the results
         frameRate = 3; % playback speed in frames per second
@@ -291,14 +291,15 @@ classdef ia_drivingScenario < drivingScenario
                 headLight = headlamp('preset',scenario.headlampType);
                 headlampLight = headLight.isetLight;
 
-            scenario.roadData.recipe.set('light', headlampLight, 'add');
-            
-            pLight = piAssetSearch(scenario.roadData.recipe,'lightname', 'ProjectedLight');
-            
-            % Light translation is still broken, however
-            %piAssetTranslate(scenario.roadData.recipe, pLight, [2 -.5 2]);
-                %piLightTranslate(projectionLight, 'zshift', -5);
-            %scenario.roadData.recipe.set('light', headlampLight, 'add');
+
+
+                scenario.roadData.recipe.set('light', headlampLight, 'add');
+                pLight = piAssetSearch(scenario.roadData.recipe,'lightname', 'ProjectedLight');
+
+                % Experiment: Try moving to left grille
+                % if it works, need to integrate into @headlamp
+                % axes are confusing!
+                scenario.roadData.recipe.set('asset',pLight,'translate',[2 -1 -1]);
 
             end
             % We don't get poses right away from DSD, so we might
