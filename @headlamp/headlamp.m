@@ -19,7 +19,7 @@ classdef headlamp < handle
         % so try cutting from 80/20 to 20/10
         horizontalFOV = 40; % apparently +/- 40 is fairly standard
         verticalFOV; % set in creation function
-        cutOffAngle = -2; % default for below horizon
+        cutOffAngle = -.5; % matches headlight calibration
 
         GenericData = readtable(fullfile("@headlamp","Generic Headlamp Light Distribution.csv"));
 
@@ -74,7 +74,7 @@ classdef headlamp < handle
             % now we want to generate the light & mask
             switch p.Results.preset
                 case 'low beam'
-                    obj.lightMask = obj.maskImage(-2);
+                    obj.lightMask = obj.maskImage(-.5);
                     obj.lightMaskFileName = 'headlamp_lowbeam.exr';
                 case 'high beam'
                     obj.lightMask = obj.maskImage(10);
