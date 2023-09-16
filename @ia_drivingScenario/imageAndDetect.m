@@ -1,4 +1,4 @@
-function [image] = imageAndDetect(scenario, scene)
+function [image, crashed] = imageAndDetect(scenario, scene)
 % image our scene through a camera of our choosing,
 % and then run an object detector on it
 % (YOLOv4 by default, but could be any compatible detector)
@@ -12,6 +12,8 @@ if isempty(yDetect)
     yDetect = yolov4ObjectDetector("csp-darknet53-coco");
     detectionThreshhold = scenario.predictionThreshold; % How confident do we need to be
 end
+
+crashed = false; % default state
 
 % Now generate results through a sensor
 useSensor = scenario.sensorModel;
@@ -65,6 +67,7 @@ if pedMeters <= .3 || roadMeters <= .2
     caption = strcat(caption, " ***CRASH*** ");
     % stop scenario -- except this isn't the correct way
     %scenario.IsRunning = false;
+    crashed = true;
 end
 
 if scenario.foundPed % cheat & assume we are actor 1
