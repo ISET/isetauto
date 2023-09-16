@@ -15,8 +15,10 @@ classdef headlamp < handle
 
         peakIntensity = 61500; % candelas at a nominal bright point
 
-        horizontalFOV = 80; % apparently +/- 40 is fairly standard
-        verticalFOV = 40; % set in creation function
+        % Having trouble seeing where light projects
+        % so try cutting from 80/20 to 20/10
+        horizontalFOV = 40; % apparently +/- 40 is fairly standard
+        verticalFOV; % set in creation function
         cutOffAngle = -2; % default for below horizon
 
         GenericData = readtable(fullfile("@headlamp","Generic Headlamp Light Distribution.csv"));
@@ -104,15 +106,12 @@ classdef headlamp < handle
             % fullfile won't work on Windows, so use '/'
             fullMaskFileName = ['skymaps','/',obj.lightMaskFileName];
 
-            % Can we try to set a position???
-            % Otherwise we seem stuck with camera pose
-
             % don't have units on light intensity yet
             isetLight = piLightCreate(obj.name, ...
                     'type','projection',...
-                    'scale',1,... % scales intensity
-                    'fov',30, ...
-                    'power', 15, ...
+                    'scale',15,... % scales intensity
+                    'fov',40, ...
+                    'power', 1, ...
                     'cameracoordinate', 1, ...
                     'filename string', fullMaskFileName);
 

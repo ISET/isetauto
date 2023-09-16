@@ -289,15 +289,17 @@ classdef ia_drivingScenario < drivingScenario
 
                 % Need to figure out how to make this all part
                 % of the headlamp class semi-elegantly
+
                 scenario.roadData.recipe.set('light', headlampLight_Right, 'add');
                 pLightRight = piAssetSearch(scenario.roadData.recipe,'lightname', 'Right Headlight');
-                scenario.roadData.recipe.set('asset',pLightRight,'translate',[1 -1 -1]);
-
+                % in camera space x is l/r, y is u/d
+                scenario.roadData.recipe.set('asset',pLightRight,'translate',[1 -1 1]);
                 % Left Headlight
                 scenario.roadData.recipe.set('light', headlampLight_Left, 'add');
                 
                 pLightLeft = piAssetSearch(scenario.roadData.recipe,'lightname', 'Left Headlight');
-                scenario.roadData.recipe.set('asset',pLightRight,'translate',[1 1 -1]);
+                % in camera space x is l/r, y is u/d                
+                scenario.roadData.recipe.set('asset',pLightLeft,'translate',[-1 -1 1]);
 
             end
             % We don't get poses right away from DSD, so we might

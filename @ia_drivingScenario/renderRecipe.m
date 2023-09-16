@@ -28,6 +28,7 @@ function scene = renderRecipe(scenario, originalOutputFile)
     elseif isequal(scenario.deNoise, 'exr_albedo')
         scene = piRender(ourRecipe, 'do_denoise', 'exr_albedo',...
             'mean luminance',-1);
+        % sceneWindow(scene)
     elseif isequal(scenario.deNoise, 'exr_radiance')
         scene = piRender(ourRecipe, 'do_denoise', 'exr_radiance',...
             'mean luminance',-1);
