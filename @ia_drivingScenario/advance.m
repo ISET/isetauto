@@ -2,6 +2,7 @@
 function running = advance(scenario)
 
 persistent originalOutputFile;
+crashed = false; % default state
 
 % Need to place vehicles and actors now that we hopefully have yaw data
 % Just do this once:
@@ -53,7 +54,7 @@ if scenario.justStarting ~= true && scenario.dataOnly == false
     end
 
     % Create an image with a camera, and run a detector on it
-    image = scenario.imageAndDetect(scene);
+    [image, crashed] = scenario.imageAndDetect(scene);
 
     % Here we want to create a movie/video
     % presumably one frame at a time
@@ -156,8 +157,13 @@ for ii = 1:numel(scenario.roadData.actorsIA)
     ourActor.moveAsset(scenario, ...
         currentActor);
 end
-% run super-class method
-running = advance@drivingScenario(scenario);
+
+if crashed
+    running = false;
+else
+    % run super-class method
+    running = advance@drivingScenario(scenario);
+end
 
 % If scenario has ended, analyze results
 if ~running
