@@ -20,7 +20,7 @@ classdef ia_drivingScenario < drivingScenario
         % others as needed
         lighting = 'nighttime';
         targetName = 'pedestrian_001'; % Default adult male
-        headlampType = 'low beam'; % also 'low beam', 'high beam'
+        headlampType = 'level beam'; % also 'low beam', 'high beam'
 
         %% General settings that don't affect the results
         frameRate = 3; % playback speed in frames per second
@@ -293,13 +293,13 @@ classdef ia_drivingScenario < drivingScenario
                 scenario.roadData.recipe.set('light', headlampLight_Right, 'add');
                 pLightRight = piAssetSearch(scenario.roadData.recipe,'lightname', 'Right Headlight');
                 % in camera space x is l/r, y is u/d
-                scenario.roadData.recipe.set('asset',pLightRight,'translate',[1 -.5 0 ]);
+                scenario.roadData.recipe.set('asset',pLightRight,'translate',[1 -1 1 ]);
                 % Left Headlight
                 scenario.roadData.recipe.set('light', headlampLight_Left, 'add');
                 
                 pLightLeft = piAssetSearch(scenario.roadData.recipe,'lightname', 'Left Headlight');
                 % in camera space x is l/r, y is u/d                
-                scenario.roadData.recipe.set('asset',pLightLeft,'translate',[-1 -.5 0]);
+                scenario.roadData.recipe.set('asset',pLightLeft,'translate',[-1 -1 1]);
 
             end
             % We don't get poses right away from DSD, so we might
