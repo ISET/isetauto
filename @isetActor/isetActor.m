@@ -3,7 +3,7 @@ classdef isetActor < handle & matlab.mixin.Copyable
     %   Place and animate assets for running scenarios
     %
     %   Initially written to support ISETAuto "native" scenarios
-    %   Now we need to deal with scenarios imported from Matlab SDS
+    %   Updated to work with scenarios imported from Matlab SDS
     %
     % D. Cardinal, Stanford University, June, 2023
     %

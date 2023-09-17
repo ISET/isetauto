@@ -76,6 +76,9 @@ classdef headlamp < handle
                 case 'low beam'
                     obj.lightMask = obj.maskImage(-.5);
                     obj.lightMaskFileName = 'headlamp_lowbeam.exr';
+                case 'level beam'
+                    obj.lightMask = obj.maskImage(0);
+                    obj.lightMaskFileName = 'headlamp_levelbeam.exr';
                 case 'high beam'
                     obj.lightMask = obj.maskImage(10);
                     obj.lightMaskFileName = 'headlamp_highbeam.exr';
