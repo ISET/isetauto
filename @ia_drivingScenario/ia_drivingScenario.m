@@ -35,7 +35,6 @@ classdef ia_drivingScenario < drivingScenario
         scenarioQuality = 'quick'; 
 
         deNoise = 'exr_albedo'; % can use 'exr_radiance', 'exr_albedo', 'scene', or ''
-
         % For debugging raise the camera and look down
         debug = false; % if true, then of course detection isn't realistic
 
@@ -83,7 +82,7 @@ classdef ia_drivingScenario < drivingScenario
         logData = [];
 
         cameraOffset = [0 0 2]; % needs to be changed later
-        predictionThreshold = .95; % default is .95, lower for testing;
+        predictionThreshold = .9; % default is .95, lower for testing;
         detectionResults = []; %Updated as we drive
 
         % video structures with frames for creating clips
@@ -146,6 +145,10 @@ classdef ia_drivingScenario < drivingScenario
                 ds.stepTime = .1;
             end
 
+            % exr denoise doesn't work on Brian's mac
+            if ismac
+                ds.deNoise = 'scene';
+            end
         end
 
         %% How far away & early do we need to stop braking
