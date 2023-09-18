@@ -20,7 +20,7 @@ classdef ia_drivingScenario < drivingScenario
         % others as needed
         lighting = 'nighttime';
         targetName = 'pedestrian_001'; % Default adult male
-        headlampType = 'low beam'; % also 'low beam', 'high beam'
+        headlampType = 'level beam'; % also 'low beam', 'high beam', 'level beam'
 
         %% General settings that don't affect the results
         frameRate = 3; % playback speed in frames per second
@@ -226,7 +226,8 @@ classdef ia_drivingScenario < drivingScenario
                 % VideoWriter variables
                 %scenario.scenarioName = 'LabDemo';
                 %scenario.scenarioQuality = 'quick';
-                scenario.v = VideoWriter(strcat(scenario.scenarioName, "-", scenario.scenarioQuality),'MPEG-4');
+                videoFileName = fullfile(iaDirGet('local'),strcat(scenario.scenarioName, "-", scenario.scenarioQuality));
+                scenario.v = VideoWriter(videoFileName,'MPEG-4');
                 scenario.v.FrameRate = scenario.frameRate; % 15-30 for high fidelity
 
                 % Set output rendering quality
@@ -293,7 +294,7 @@ classdef ia_drivingScenario < drivingScenario
                 scenario.roadData.recipe.set('light', headlampLight_Right, 'add');
                 pLightRight = piAssetSearch(scenario.roadData.recipe,'lightname', 'Right Headlight');
                 % in camera space x is l/r, y is u/d
-                scenario.roadData.recipe.set('asset',pLightRight,'translate',[1 -1 1]);
+                scenario.roadData.recipe.set('asset',pLightRight,'translate',[1 -1 1 ]);
                 % Left Headlight
                 scenario.roadData.recipe.set('light', headlampLight_Left, 'add');
                 

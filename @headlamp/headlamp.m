@@ -19,7 +19,7 @@ classdef headlamp < handle
         % so try cutting from 80/20 to 20/10
         horizontalFOV = 40; % apparently +/- 40 is fairly standard
         verticalFOV; % set in creation function
-        cutOffAngle = -2; % default for below horizon
+        cutOffAngle = -.5; % matches headlight calibration
 
         GenericData = readtable(fullfile("@headlamp","Generic Headlamp Light Distribution.csv"));
 
@@ -74,8 +74,11 @@ classdef headlamp < handle
             % now we want to generate the light & mask
             switch p.Results.preset
                 case 'low beam'
-                    obj.lightMask = obj.maskImage(-2);
+                    obj.lightMask = obj.maskImage(-.5);
                     obj.lightMaskFileName = 'headlamp_lowbeam.exr';
+                case 'level beam'
+                    obj.lightMask = obj.maskImage(0);
+                    obj.lightMaskFileName = 'headlamp_levelbeam.exr';
                 case 'high beam'
                     obj.lightMask = obj.maskImage(10);
                     obj.lightMaskFileName = 'headlamp_highbeam.exr';
@@ -106,12 +109,14 @@ classdef headlamp < handle
             % fullfile won't work on Windows, so use '/'
             fullMaskFileName = ['skymaps','/',obj.lightMaskFileName];
 
-            % don't have units on light intensity yet
+            % Power of .5, scale of .1 and mask of .8
+            % provide 7 cd/m2 at about 200 feet off our flat surface
+            % -- industry spec is 5+ lux
             isetLight = piLightCreate(obj.name, ...
                     'type','projection',...
-                    'scale',15,... % scales intensity
+                    'scale',1,... % scales intensity
                     'fov',40, ...
-                    'power', 1, ...
+                    'power', .5, ...
                     'cameracoordinate', 1, ...
                     'filename string', fullMaskFileName);
 

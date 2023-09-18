@@ -22,7 +22,8 @@ shutterspeed = 1/30; % typical of auto video cameras
 % We probably want to return the IP or something besides the
 % annotated image...
 % I think we need to do this slightly differently...
-ip = piRadiance2RGB(scene,'etime',shutterspeed,'sensor',useSensor);
+ip = piRadiance2RGB(scene,'etime',shutterspeed,'sensor',useSensor, ...
+    'fNumber', 1.4);
 
 % Experiment with denoising after image capture
 if isequal(scenario.deNoise, 'rgb')
