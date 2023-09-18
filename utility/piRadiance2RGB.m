@@ -41,6 +41,7 @@ p.addParameter('noisefree',0,@islogical);
 p.addParameter('analoggain',1);
 
 p.addParameter('fNumber',4); % default but we might want a brighter lens
+p.addParameter('isospeed', -1); % don't change unless we get one
 
 p.parse(radiance,varargin{:});
 radiance     = p.Results.radiance;
@@ -51,6 +52,7 @@ eTime        = p.Results.etime;
 noiseFree    = p.Results.noisefree;
 analoggain   = p.Results.analoggain;
 fNumber      = p.Results.fNumber;
+ISOSpeed     = p.Results.isospeed;
 
 %% scene to optical image
 
@@ -94,6 +96,11 @@ sensor = sensorSet(sensor,'pixel voltage swing',1);
 sensor = sensorSet(sensor,'pixel dark voltage',darkvoltage);
 sensor = sensorSet(sensor,'pixel conversion gain',converGain);
 sensor = sensorSet(sensor, 'quantization method','12bit');
+
+% set iso if one is specified
+if ISOSpeed > 0
+    sensor = sensorSet(sensor, 'isospeed', isoSpeed);
+end
 
 sensor = sensorSet(sensor,'analog gain', analoggain);
 if ~isempty(pixelSize)
