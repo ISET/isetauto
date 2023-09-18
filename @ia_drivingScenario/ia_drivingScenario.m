@@ -226,7 +226,8 @@ classdef ia_drivingScenario < drivingScenario
                 % VideoWriter variables
                 %scenario.scenarioName = 'LabDemo';
                 %scenario.scenarioQuality = 'quick';
-                scenario.v = VideoWriter(strcat(scenario.scenarioName, "-", scenario.scenarioQuality),'MPEG-4');
+                videoFileName = fullfile(iaDirGet('local'),strcat(scenario.scenarioName, "-", scenario.scenarioQuality));
+                scenario.v = VideoWriter(videoFileName,'MPEG-4');
                 scenario.v.FrameRate = scenario.frameRate; % 15-30 for high fidelity
 
                 % Set output rendering quality

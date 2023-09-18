@@ -40,6 +40,8 @@ p.addParameter('etime',1/100,@isscalar); %
 p.addParameter('noisefree',0,@islogical);
 p.addParameter('analoggain',1);
 
+p.addParameter('fNumber',4); % default but we might want a brighter lens
+
 p.parse(radiance,varargin{:});
 radiance     = p.Results.radiance;
 sensorName   = p.Results.sensor;
@@ -48,10 +50,14 @@ filmDiagonal = p.Results.filmdiagonal;
 eTime        = p.Results.etime;
 noiseFree    = p.Results.noisefree;
 analoggain   = p.Results.analoggain;
+fNumber      = p.Results.fNumber;
+
 %% scene to optical image
 
 if strcmp(radiance.type,'scene')
     oi = oiCreate();
+    oi.optics.fNumber = fNumber;
+
     % preferred  order is now oi, scene
     oi = oiCompute(oi, radiance);
 
