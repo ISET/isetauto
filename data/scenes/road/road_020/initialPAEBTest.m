@@ -139,8 +139,6 @@ waypoints = [-33.3312470364824 -4.08525415743442 0;
 speed = [17;17;17;17;17];
 trajectory(egoVehicle, waypoints, speed);
 
-%{
-% try without other headlights
 % Add the non-ego actors
 truck_001 = vehicle(scenario, ...
     'ClassID', 2, ...
@@ -161,7 +159,7 @@ waypoints = [124.2 2.5 0;
     -24.8 5.8 0];
 speed = [30;30;30;30;30;30;30];
 trajectory(truck_001, waypoints, speed);
-%}
+
 pedestrian_001 = actor(scenario, ...
     'ClassID', 4, ...
     'Length', 0.24, ...
