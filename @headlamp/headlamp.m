@@ -109,14 +109,15 @@ classdef headlamp < handle
             % fullfile won't work on Windows, so use '/'
             fullMaskFileName = ['skymaps','/',obj.lightMaskFileName];
 
-            % Power of .5, scale of .1 and mask of .8
-            % provide 7 cd/m2 at about 200 feet off our flat surface
-            % -- industry spec is 5+ lux
+            % -- industry spec is 5+ lux at 200 feet
+            % but we don't know how to measure lux in ISET
+            % power = 5,scale = 1 gives about 5 cd/m2 @ 60 meters
+            % on a (ground level) asphalt road
             isetLight = piLightCreate(obj.name, ...
                     'type','projection',...
                     'scale',1,... % scales intensity
                     'fov',40, ...
-                    'power', .5, ...
+                    'power', 5, ...
                     'cameracoordinate', 1, ...
                     'filename string', fullMaskFileName);
 
