@@ -45,15 +45,21 @@ end
 figure('Name',['Initial Speed: ', num2str(scenario.initialSpeed)]); 
 yyaxis left;
 ylabel('Speed');
+ylim([0,scenario.initialSpeed]);
+
 plot(simulationTime, vehicleClosingSpeed);
 yyaxis right;
+
 xlabel('time (s)');
+xlim([0,scenario.StopTime]);
 ylabel('Distance');
 plot(simulationTime, targetDistance);
+
+grid on;
 legend('Vehicle Speed','Distance to Pedestrian');
 
 title('Vehicle Speed & Distance to Pedestrian over Time', ...
-    ['Start Speed:',num2str(scenario.initialSpeed()),', Start Distance: ',num2str(targetDistance(1)), ...
+    ['Start -- Speed:',num2str(scenario.initialSpeed()),', Distance: ',num2str(targetDistance(1)), ...
      ', Threshold: ', num2str(scenario.predictionThreshold), ', Sensor: ',scenario.sensorModel], ... 
      'FontSize',10);
 
