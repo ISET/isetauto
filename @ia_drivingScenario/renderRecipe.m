@@ -35,13 +35,13 @@ function scene = renderRecipe(scenario, originalOutputFile)
         assetSphere = piAssetSearch(sphere.thisR,'object name','Sphere');
 
         % Move to the starting pedestrian distance
-        %  0 for testing,  34 for "real"
-        piAssetTranslate(sphere.thisR,assetSphere,[0 -2 .5]);
+        %  0 for testing,  34 for "real" in 4s * 17m/s scenario
+        piAssetTranslate(sphere.thisR,assetSphere,[34 -2 .5]);
 
-        % Default is huge, I think
+        % Default sphere is huge, scale it to use in scene
         piAssetScale(sphere.thisR,assetSphere,[.002 .002 .002]);
 
-        % Play with materials
+        % Mirror should give us most accurate light reading
         piMaterialsInsert(sphere.thisR,'name','mirror'); 
         piMaterialsInsert(sphere.thisR,'name','glossy-white'); 
 
@@ -51,7 +51,6 @@ function scene = renderRecipe(scenario, originalOutputFile)
         piWrite(ourRecipe);
         sphereAdded = true;
     end
-
 
     if isequal(scenario.deNoise, 'exr_all')
         scene = piRender(ourRecipe, 'do_denoise', 'exr_all', ...

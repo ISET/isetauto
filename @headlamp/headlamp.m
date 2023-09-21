@@ -20,6 +20,7 @@ classdef headlamp < handle
         horizontalFOV = 40; % apparently +/- 40 is fairly standard
         verticalFOV; % set in creation function
         cutOffAngle = -.5; % matches headlight calibration
+        power = 5; % for level beams with .8 mask, pretty good match
 
         GenericData = readtable(fullfile("@headlamp","Generic Headlamp Light Distribution.csv"));
 
@@ -76,19 +77,24 @@ classdef headlamp < handle
                 case 'low beam'
                     obj.lightMask = obj.maskImage(-.5);
                     obj.lightMaskFileName = 'headlamp_lowbeam.exr';
+                    obj.power = 5;
                 case 'level beam'
                     obj.lightMask = obj.maskImage(0);
                     obj.lightMaskFileName = 'headlamp_levelbeam.exr';
+                    obj.power = 5;
                 case 'high beam'
                     obj.lightMask = obj.maskImage(10);
                     obj.lightMaskFileName = 'headlamp_highbeam.exr';
+                    obj.power = 9; % arbitrarily more
                 case 'too low'
                     obj.lightMask = obj.maskImage(-17.5);
                     obj.lightMaskFileName = 'headlamp_toolow.exr';
+                    obj.power = 5;
                 otherwise
                     % default is lowbeam
                     obj.lightMask = obj.maskImage(-2);
                     obj.lightMaskFileName = 'headlamp_lowbeam.exr';
+                    obj.power = 5;
             end
 
             obj.isetLight = obj.getLight();
@@ -117,7 +123,7 @@ classdef headlamp < handle
                     'type','projection',...
                     'scale',1,... % scales intensity
                     'fov',40, ...
-                    'power', 5, ...
+                    'power', obj.power, ...
                     'cameracoordinate', 1, ...
                     'filename string', fullMaskFileName);
 
