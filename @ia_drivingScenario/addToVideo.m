@@ -1,4 +1,4 @@
-function addToVideo(scenario, scene, image)
+function addToVideo(scenario, scene, image, crashed)
 
 % Save out our scene list each frame, so we have it for later
 saveName = fullfile(iaDirGet('local'),'demo_scenes.mat');
@@ -9,6 +9,14 @@ save(saveName, 'scenesToSave', "-v7.3");
 
 dRGB = double(image); % version for movie
 scenario.ourVideo(scenario.frameNum) = im2frame(dRGB);
+
+% last frame doesn't always show, so provide a couple extras
+if crashed
+    scenario.frameNum = scenario.frameNum + 1;
+    scenario.ourVideo(scenario.frameNum) = im2frame(dRGB);
+    scenario.frameNum = scenario.frameNum + 1;
+    scenario.ourVideo(scenario.frameNum) = im2frame(dRGB);
+end
 
 % plot time versus distance
 %ieNewGraphWin

@@ -60,8 +60,7 @@ if scenario.justStarting ~= true && scenario.dataOnly == false
     [image, crashed] = scenario.imageAndDetect(scene);
 
     % Here we want to create a movie/video
-    % presumably one frame at a time
-    addToVideo(scenario, scene, image);
+    addToVideo(scenario, scene, image, crashed);
     
     scenario.logFrameData(scene, scenario.detectionResults); % update our logging data structure
     

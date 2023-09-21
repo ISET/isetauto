@@ -20,10 +20,13 @@ classdef ia_drivingScenario < drivingScenario
         % others as needed
         lighting = 'nighttime';
         targetName = 'pedestrian_001'; % Default adult male
-        headlampType = 'high beam'; % also 'low beam', 'high beam', 'level beam'
+        headlampType = 'level beam'; % also 'low beam', 'high beam', 'level beam'
+
+        % Used for light metering
+        addSphere = false; %true;
 
         %% General settings that don't affect the results
-        frameRate = 3; % playback speed in frames per second
+        frameRate = 15; % playback speed in frames per second
 
         %% Simulation specific parameters
         % Main parameters to determine quality versus speed
@@ -31,8 +34,8 @@ classdef ia_drivingScenario < drivingScenario
         % (e.g. real frame rates, sceneResolution > cameraResolution
         %       lots of rays, and no de-noising)
 
-        stepTime = .2; % time per image frame/step
-        scenarioQuality = 'quick'; 
+        stepTime = .06; % time per image frame/step
+        scenarioQuality = 'HD'; 
 
         deNoise = 'exr_albedo'; % can use 'exr_radiance', 'exr_albedo', 'scene', or ''
         % For debugging raise the camera and look down

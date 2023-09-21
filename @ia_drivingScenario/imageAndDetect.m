@@ -63,20 +63,20 @@ targetRawDistance = abs(scenario.targetObject.positionDS - scenario.egoVehicle.P
 pedMeters = sum(targetRawDistance .^2) ^.5;
 roadMeters = targetRawDistance(1); % even if the ped isn't in the center of the car, we still hit them
 
-caption = sprintf("Car: %s, Time: %2.1f Dist: %2.1f\n", scenario.egoVehicle.Name, ...
-    scenario.SimulationTime, roadMeters);
+caption = sprintf("Time: %2.1f Speed: %2.1f Dist: %2.1f", ...
+    scenario.SimulationTime, ...
+    scenario.egoVelocity(1), ...
+    roadMeters);
 
 if pedMeters <= .3 || roadMeters <= .2
     caption = strcat(caption, " ***CRASH*** ");
-    % stop scenario -- except this isn't the correct way
-    %scenario.IsRunning = false;
     crashed = true;
 end
 
 if scenario.foundPed % cheat & assume we are actor 1
-    image = insertText(rgb,[0 0],strcat(caption, " -- BRAKING"),'FontSize',48, 'TextColor','red');
+    image = insertText(rgb,[0 0],strcat(caption, " -- BRAKING"),'FontSize',24, 'TextColor','red');
 else
-    image = insertText(rgb,[0 0],caption,'FontSize',36);
+    image = insertText(rgb,[0 0],caption,'FontSize',24);
 end
 
 

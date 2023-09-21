@@ -23,10 +23,7 @@ function scene = renderRecipe(scenario, originalOutputFile)
     % directly on the .exr file and can use additional channels
     % of information.
 
-    % for debugging
-    addSphere = true;
-    persistent sphereAdded;
-    if addSphere && isempty(sphereAdded)
+    if scenario.addSphere
 
         % delete skylamp
         ourRecipe.set('skymap','delete');
@@ -49,7 +46,7 @@ function scene = renderRecipe(scenario, originalOutputFile)
 
         ourRecipe = piRecipeMerge(ourRecipe,sphere.thisR, 'node name',sphere.mergeNode,'object instance', false);
         piWrite(ourRecipe);
-        sphereAdded = true;
+        scenario.addSphere = false;
     end
 
     if isequal(scenario.deNoise, 'exr_all')
