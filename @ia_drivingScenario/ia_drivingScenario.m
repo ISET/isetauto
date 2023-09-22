@@ -34,7 +34,7 @@ classdef ia_drivingScenario < drivingScenario
         % (e.g. real frame rates, sceneResolution > cameraResolution
         %       lots of rays, and no de-noising)
 
-        stepTime = 1; % time per image frame/step
+        stepTime = .06; % time per image frame/step
         scenarioQuality = 'HD'; 
 
         % using glom turns off other flags
@@ -139,7 +139,7 @@ classdef ia_drivingScenario < drivingScenario
 
             % Customize some parameters
             ds.scenarioName = ['PAEB-' ds.headlampType]; % default
-            ds.StopTime = 4; % Not sure where to set this
+            ds.StopTime = 5; % Tests start 4s away, but can take longer as we brake
 
             if ~ds.dataOnly
                 ds.SampleTime = ds.stepTime; % use our time interval
@@ -231,14 +231,13 @@ classdef ia_drivingScenario < drivingScenario
 
                 % Set up video here because it doesn't like the constructor
                 % VideoWriter variables
-                %scenario.scenarioName = 'LabDemo';
-                %scenario.scenarioQuality = 'quick';
+                videoFile = fullfile(iaDirGet('local'),strcat(scenario.scenarioName, '-', scenario.scenarioQuality));
                 if isunix   
-                    videoFormat = 'Motion JPEG AVI';
+                    scenario.v = VideoWriter(videoFile);
                 else
                     videoFormat = 'MPEG-4';
+                    scenario.v = VideoWriter(videoFile,videoFormat);
                 end
-                scenario.v = VideoWriter(strcat(scenario.scenarioName, "-", scenario.scenarioQuality),videoFormat);
                 scenario.v.FrameRate = scenario.frameRate; % 15-30 for high fidelity
 
                 % Set output rendering quality
