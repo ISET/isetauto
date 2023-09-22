@@ -35,8 +35,9 @@ classdef ia_drivingScenario < drivingScenario
         %       lots of rays, and no de-noising)
 
         stepTime = 1; % time per image frame/step
-        scenarioQuality = 'quick'; 
+        scenarioQuality = 'HD'; 
 
+        % using glom turns off other flags
         deNoise = 'exr_albedo'; % can use 'exr_radiance', 'exr_albedo', 'scene', or ''
         % For debugging raise the camera and look down
         debug = false; % if true, then of course detection isn't realistic
