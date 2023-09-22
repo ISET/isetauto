@@ -187,7 +187,12 @@ classdef ia_drivingScenario < drivingScenario
                 % VideoWriter variables
                 %scenario.scenarioName = 'LabDemo';
                 %scenario.scenarioQuality = 'quick';
-                scenario.v = VideoWriter(strcat(scenario.scenarioName, "-", scenario.scenarioQuality),'MPEG-4');
+                if isunix   
+                    videoFormat = 'Motion JPEG AVI';
+                else
+                    videoFormat = 'MPEG-4';
+                end
+                scenario.v = VideoWriter(strcat(scenario.scenarioName, "-", scenario.scenarioQuality),videoFormat);
                 scenario.v.FrameRate = scenario.frameRate; % 15-30 for high fidelity
 
                 % Set output rendering quality
