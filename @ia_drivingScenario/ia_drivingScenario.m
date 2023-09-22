@@ -139,7 +139,7 @@ classdef ia_drivingScenario < drivingScenario
 
             % Customize some parameters
             ds.scenarioName = ['PAEB-' ds.headlampType]; % default
-            ds.StopTime = 5; % Not sure where to set this
+            ds.StopTime = 4; % Not sure where to set this
 
             if ~ds.dataOnly
                 ds.SampleTime = ds.stepTime; % use our time interval
