@@ -58,8 +58,8 @@ scenario.detectionResults.bboxes = bboxes;
 scenario.detectionResults.scores = scores;
 scenario.detectionResults.labels = labels;
 
-% Need to track pedmeters
-targetRawDistance = abs(scenario.targetObject.positionDS - scenario.egoVehicle.Position);
+% Calculate distance to pedestrian. 
+targetRawDistance = scenario.targetObject.positionDS - scenario.egoVehicle.Position;
 pedMeters = sum(targetRawDistance .^2) ^.5;
 roadMeters = targetRawDistance(1); % even if the ped isn't in the center of the car, we still hit them
 
@@ -68,6 +68,7 @@ caption = sprintf("Time: %2.1f Speed: %2.1f Dist: %2.1f", ...
     scenario.egoVelocity(1), ...
     roadMeters);
 
+% check for being too close, or for perhaps even already hit the pedestrian
 if pedMeters <= .3 || roadMeters <= .2
     caption = strcat(caption, " ***CRASH*** ");
     crashed = true;
