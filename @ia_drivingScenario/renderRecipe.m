@@ -67,11 +67,13 @@ function scene = renderRecipe(scenario, originalOutputFile)
     end
 
     if isempty(scene)
-        error("Failed to render scene. dockerWrapper.reset() might help\n");
+        dockerWrapper.reset();
+        warning("Failed to render scene. Trying dockerWrapper.reset().\n");
+    else
+        % add to our scene list for logging
+        scenario.sceneList{end+1} = scene;
     end
 
-    % add to our scene list for logging
-    scenario.sceneList{end+1} = scene;
-
+    
 end
 
