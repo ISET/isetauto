@@ -42,18 +42,20 @@ if numel(scenario.ourVideo) > 0
 end
 
 %% Show basic statistics and plot of speed vs. distance
-figure('Name',['Initial Speed: ', num2str(scenario.initialSpeed)]); 
-yyaxis left;
-ylabel('Speed');
-ylim([0,scenario.initialSpeed]);
+figure( 'NumberTitle','off','Name',['PAEB with Headlight: ', scenario.headlampType, ', Initial Speed: ', num2str(scenario.initialSpeed), ' m/s']); 
 
-plot(simulationTime, vehicleClosingSpeed);
-yyaxis right;
-
-xlabel('time (s)');
+xlabel('Time (s)');
 xlim([0,scenario.StopTime]);
-ylabel('Distance');
+
+yyaxis left;
+ylim([0,scenario.initialSpeed]);
+plot(simulationTime, vehicleClosingSpeed);
+ylabel('Speed (m/s)');
+
+yyaxis right;
+ylim([0,max(targetDistance)]);
 plot(simulationTime, targetDistance);
+ylabel('Distance (m)');
 
 grid on;
 legend('Vehicle Speed','Distance to Pedestrian');
