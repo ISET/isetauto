@@ -224,6 +224,10 @@ classdef headlamp < handle
             % begin with all 1's, then fill in lower half
             attenuationMask = ones (obj.resolution(1), obj.resolution(2), 3);
             startRow = obj.resolution(1) - size(attenuationArray,1) + 1;
+
+            % assume we want to attenuate RGB equally
+            attenuationMask(startRow:obj.resolution(1),:,1) = attenuationArray;
+            attenuationMask(startRow:obj.resolution(1),:,2) = attenuationArray;
             attenuationMask(startRow:obj.resolution(1),:,3) = attenuationArray;
 
             % NOTE:
