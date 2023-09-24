@@ -77,10 +77,10 @@ classdef headlamp < handle
                     obj.lightMaskFileName = 'headlamp_lowbeam.exr';
                     obj.power = 5;
                 case 'level beam'
-                    obj.lightMask = obj.maskImage(0);
 
-                    % Look at modifying power based on distance
+                    % Modify power based on distance
                     attenuation = obj.modelAttenuation(0);
+                    obj.lightMask = obj.maskImage(0) .* attenuation;
 
                     obj.lightMaskFileName = 'headlamp_levelbeam.exr';
                     obj.power = 5;
@@ -217,10 +217,15 @@ classdef headlamp < handle
             % Then we need to take our attenuation values and replicate
             % them across the columns of a new mask
             attenuationArray = repmat(attenuationVals, obj.resolution(2), 1);
-
+            attenuationArray = transpose(attenuationArray);
             % At this point we need to align our attenuationArray with
             % the mask and then do a dot product.
-            
+
+            % begin with all 1's, then fill in lower half
+            attenuationMask = ones (obj.resolution(1), obj.resolution(2), 3);
+            startRow = obj.resolution(1) - size(attenuationArray,1) + 1;
+            attenuationMask(startRow:obj.resolution(1),:,3) = attenuationArray;
+
             % NOTE:
             % we could also simply use the cosd() of the implied angle
             % for each row of the mask below either the beam cutoff
