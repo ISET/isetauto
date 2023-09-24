@@ -22,8 +22,6 @@ classdef headlamp < handle
         cutOffAngle = -.5; % matches headlight calibration
         power = 5; % for level beams with .8 mask, pretty good match
 
-        GenericData = readtable(fullfile("@headlamp","Generic Headlamp Light Distribution.csv"));
-
         % Calculated depending on the preset used
         lightMask;
         lightMaskFileName = ''; % where we put our mask for iset/pbrt to use
@@ -66,7 +64,7 @@ classdef headlamp < handle
             p.parse(varargin{:});
 
             % Fix aspect ratio
-            obj.verticalFOV = obj.horizontalFOV * (obj.resolution(1) \ obj.resolution(2));
+            obj.verticalFOV = round(obj.horizontalFOV * (obj.resolution(1) / obj.resolution(2)));
             obj.name = p.Results.name;
 
             if ~isempty(p.Results.location)
@@ -80,6 +78,10 @@ classdef headlamp < handle
                     obj.power = 5;
                 case 'level beam'
                     obj.lightMask = obj.maskImage(0);
+
+                    % Look at modifying power based on distance
+                    attenuation = obj.modelAttenuation();
+
                     obj.lightMaskFileName = 'headlamp_levelbeam.exr';
                     obj.power = 5;
                 case 'high beam'
@@ -177,6 +179,38 @@ classdef headlamp < handle
             maskImage = maskImage .* gradientMask;
 
         end
-    end
-end
 
+        %% Initial attempt to model lower luminance for lower angles
+        function attenuationMask = modelAttenuation(obj)
+            % To provide a consistent level of light at the range of 
+            % distances covered by the headlights requires less power 
+            % when illuminating closer objects.
+            %
+
+            % We have a table someone thoughtfully calculated for this:
+            genericHeadlampAttenuation = readtable(fullfile("@headlamp","Generic Headlamp Light Distribution.csv"));
+
+            % We know (think) that the top and bottom of the projected
+            % light correspond to the boundaries of the FOV
+            degreesPerPixel = obj.verticalFOV / obj.resolution(1);
+
+            % We could just use a linear model but realistically, all
+            % rows don't have the same degree delta
+
+            % Start to look at interpolation
+            deg = abs(genericHeadlampAttenuation.VerticalAngle); 
+            val = genericHeadlampAttenuation.RequiredCandela;
+            vals = spline(deg, val, ...
+                0:degreesPerPixel:(obj.resolution(1)/2*degreesPerPixel));
+
+            % NOTE:
+            % we could also simply use the cosd() of the implied angle
+            % for each row of the mask below either the beam cutoff
+            % angle or the cutoff angle + some "hot spot" allowance.
+
+
+        end
+
+    end
+
+end
