@@ -22,25 +22,29 @@ classdef ia_drivingScenario < drivingScenario
         targetName = 'pedestrian_001'; % Default adult male
         headlampType = 'level beam'; % also 'low beam', 'high beam', 'level beam'
 
-        % Used for light metering
-        addSphere = false; %true;
-
-        %% General settings that don't affect the results
-        frameRate = 15; % playback speed in frames per second
-
         %% Simulation specific parameters
-        % Main parameters to determine quality versus speed
-        % In the true "metric" case these probably need to be different
-        % (e.g. real frame rates, sceneResolution > cameraResolution
-        %       lots of rays, and no de-noising)
-
         stepTime = .06; % time per image frame/step
-        scenarioQuality = 'HD'; 
+        scenarioQuality = 'quick'; 
+        frameRate = 3; % playback speed in frames per second
+        scenarioLength = 4; % in seconds
 
-        % using glom turns off other flags
+        % Object detector confidence threshold before we take action
+        predictionThreshold = .9; % default is .95, lower for testing;
+
+        %% Runtime settings
+        % show each scene in a window (adds a lot of time)
+        previewScenes = false; % show scenes as we go
+        % save scenes as we go, also very expensive
+        saveScenes = false; % Save scenes as we go 
+
+        %% Less-commonly changed settings
+        % Note: using glom (default) turns off other denoise flags
         deNoise = 'exr_albedo'; % can use 'exr_radiance', 'exr_albedo', 'scene', or ''
         % For debugging raise the camera and look down
         debug = false; % if true, then of course detection isn't realistic
+
+        % Used for light metering
+        addSphere = false; %true;
 
         % For determining time to stoppingDistance
         dataOnly = false; % if true, only collect trajectory data
@@ -86,7 +90,6 @@ classdef ia_drivingScenario < drivingScenario
         logData = [];
 
         cameraOffset = [0 0 2]; % needs to be changed later
-        predictionThreshold = .9; % default is .95, lower for testing;
         detectionResults = []; %Updated as we drive
 
         % video structures with frames for creating clips
@@ -94,7 +97,6 @@ classdef ia_drivingScenario < drivingScenario
         ourVideo = struct('cdata',[],'colormap',[]);
 
         sceneList = {}; % list of scenes saved for later use
-        previewScenes = true; % show scenes as we go
 
     end
 
@@ -103,8 +105,7 @@ classdef ia_drivingScenario < drivingScenario
         iaCoordinates = dsToIA(dsCoordinates);
         iaYaw = dsToIAYaw(dsYaw);
 
-        % Basically just definining a class-level variable
-        % We should set it from the ego vehicle's first speed #
+        %% Class-level variables
         function iSpeed = initialSpeed(inputSpeed)
             persistent pSpeed;
             if isempty(pSpeed), pSpeed = 0; end % ignore if 0
@@ -114,7 +115,6 @@ classdef ia_drivingScenario < drivingScenario
             iSpeed = pSpeed;
         end
 
-        % Basically just definining a class-level variable
         % NOT USED CURRENTLY, Matlab experiments seem to limited
         function result = inExperiment(truefalse)
             persistent isTrue;
@@ -126,10 +126,11 @@ classdef ia_drivingScenario < drivingScenario
         end
     end
 
+    %% Methods
     methods
         function ds = ia_drivingScenario(varargin)
 
-            %% NOTE: Initialize ISET before creating an instance of our class
+            % NOTE: Initialize ISET before creating an instance of our class
             % We can't do it here or we lose what we've already started
             %ieInit;
 
@@ -139,7 +140,7 @@ classdef ia_drivingScenario < drivingScenario
 
             % Customize some parameters
             ds.scenarioName = ['PAEB-' ds.headlampType]; % default
-            ds.StopTime = 5; % Tests start 4s away, but can take longer as we brake
+            ds.StopTime = ds.scenarioLength; % Tests start 4s away, but can take longer as we brake
 
             if ~ds.dataOnly
                 ds.SampleTime = ds.stepTime; % use our time interval
