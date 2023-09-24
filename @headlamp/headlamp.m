@@ -80,7 +80,7 @@ classdef headlamp < handle
                     obj.lightMask = obj.maskImage(0);
 
                     % Look at modifying power based on distance
-                    attenuation = obj.modelAttenuation();
+                    attenuation = obj.modelAttenuation(0);
 
                     obj.lightMaskFileName = 'headlamp_levelbeam.exr';
                     obj.power = 5;
@@ -181,7 +181,7 @@ classdef headlamp < handle
         end
 
         %% Initial attempt to model lower luminance for lower angles
-        function attenuationMask = modelAttenuation(obj)
+        function attenuationMask = modelAttenuation(obj, degrees)
             % To provide a consistent level of light at the range of 
             % distances covered by the headlights requires less power 
             % when illuminating closer objects.
@@ -194,15 +194,33 @@ classdef headlamp < handle
             % light correspond to the boundaries of the FOV
             degreesPerPixel = obj.verticalFOV / obj.resolution(1);
 
+            % Table assumes -1 as hotspot, but that's not always true
+            degreeOffset = -1 - degrees;
+
             % We could just use a linear model but realistically, all
             % rows don't have the same degree delta
 
             % Start to look at interpolation
-            deg = abs(genericHeadlampAttenuation.VerticalAngle); 
+            deg = abs(genericHeadlampAttenuation.VerticalAngle) + ...
+                degreeOffset; 
             val = genericHeadlampAttenuation.RequiredCandela;
             vals = spline(deg, val, ...
                 0:degreesPerPixel:(obj.resolution(1)/2*degreesPerPixel));
 
+            % Now we have the needed candelas, but we want to normalize
+            % to 0:1 since we are an attenuation mask. 
+            attenuationVals = vals./genericHeadlampAttenuation.RequiredCandela(1);
+
+            % OR We could get fancier and build attenuation into the 
+            %    original mask
+
+            % Then we need to take our attenuation values and replicate
+            % them across the columns of a new mask
+            attenuationArray = repmat(attenuationVals, obj.resolution(2), 1);
+
+            % At this point we need to align our attenuationArray with
+            % the mask and then do a dot product.
+            
             % NOTE:
             % we could also simply use the cosd() of the implied angle
             % for each row of the mask below either the beam cutoff
