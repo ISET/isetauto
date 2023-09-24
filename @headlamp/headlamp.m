@@ -2,10 +2,18 @@ classdef headlamp < handle
     %HEADLAMP Specialized class of light
     %   for simulating vehicle headlamps (aka headlights)
     
+    % We model them using projection lights.
+    % That gives us an RGB "mask" image that is projected onto the FOV of the
+    % light. The class generates those as needed, but for remote resource
+    % execution we need to copy them to /Resources/skymaps.
+
+    % Masks either have a simple cutoff angle and power multiplier below that
+    % cutoff, or can optionally have an additional distance-based
+    % attenuation so that the headlight sends less energy to areas of the
+    % road that are closer to the vehicle. Currently, attenuation is
+    % supported for the Level Beam preset.
+    
     properties
-        % for now we assume the headlamp can be approximated
-        % using a point source with a single angle.
-        % That isn't technically true for modern multi-source lamps.
 
         location = [0 0 0];
         orientation = [0 0 0];
