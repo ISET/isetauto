@@ -19,7 +19,7 @@ classdef headlamp < handle
         orientation = [0 0 0];
         name;
 
-        resolution = [128 256]; % assume wider than tall 
+        resolution = [512 1024]; % assume wider than tall 
 
         peakIntensity = 61500; % candelas at a nominal bright point
 
