@@ -211,20 +211,25 @@ classdef headlamp < handle
             % Start to look at interpolation
             deg = abs(genericHeadlampAttenuation.VerticalAngle) + ...
                 degreeOffset; 
-            val = genericHeadlampAttenuation.RequiredCandela;
-            vals = spline(deg, val, ...
+            candelaValues = genericHeadlampAttenuation.RequiredCandela;
+            smoothedCandelaValues = spline(deg, candelaValues, ...
                 0:degreesPerPixel:(obj.resolution(1)/2*degreesPerPixel));
 
             % Now we have the needed candelas, but we want to normalize
             % to 0:1 since we are an attenuation mask. 
-            attenuationVals = vals./genericHeadlampAttenuation.RequiredCandela(1);
+            attenuationVals = smoothedCandelaValues./genericHeadlampAttenuation.RequiredCandela(1);
 
-            % OR We could get fancier and build attenuation into the 
-            %    original mask
+            % This is a little granular since we only have 17 steps in our
+            % headlamp table, so we need to spline/smooth again
+            smoothedAttenuationVals = spline(0:obj.resolution(1)/2, attenuationVals, ...
+                1:numel(attenuationVals));
+
+            % This still shows as a bit "piecewise." Either need to find a
+            % better smoothing/curve system, or give up and just use trig
 
             % Then we need to take our attenuation values and replicate
             % them across the columns of a new mask
-            attenuationArray = repmat(attenuationVals, obj.resolution(2), 1);
+            attenuationArray = repmat(smoothedAttenuationVals, obj.resolution(2), 1);
             attenuationArray = transpose(attenuationArray);
             % At this point we need to align our attenuationArray with
             % the mask and then do a dot product.
