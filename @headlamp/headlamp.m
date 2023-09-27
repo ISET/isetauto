@@ -81,28 +81,28 @@ classdef headlamp < handle
             % now we want to generate the light & mask
             switch p.Results.preset
                 case 'low beam'
-                    obj.lightMask = obj.maskImage(-.5);
+                    obj.lightMask = obj.maskImage(-.5, '');
                     obj.lightMaskFileName = 'headlamp_lowbeam.exr';
                     obj.power = 5;
                 case 'level beam'
 
                     % Modify power based on distance
                     attenuation = obj.modelAttenuation(0);
-                    obj.lightMask = obj.maskImage(0) .* attenuation;
+                    obj.lightMask = obj.maskImage(0, '') .* attenuation;
 
                     obj.lightMaskFileName = 'headlamp_levelbeam.exr';
                     obj.power = 5;
                 case 'high beam'
-                    obj.lightMask = obj.maskImage(10);
+                    obj.lightMask = obj.maskImage(10, '');
                     obj.lightMaskFileName = 'headlamp_highbeam.exr';
                     obj.power = 9; % arbitrarily more
                 case 'too low'
-                    obj.lightMask = obj.maskImage(-17.5);
+                    obj.lightMask = obj.maskImage(-17.5, '');
                     obj.lightMaskFileName = 'headlamp_toolow.exr';
                     obj.power = 5;
                 otherwise
                     % default is lowbeam
-                    obj.lightMask = obj.maskImage(-2);
+                    obj.lightMask = obj.maskImage(-2, '');
                     obj.lightMaskFileName = 'headlamp_lowbeam.exr';
                     obj.power = 5;
             end
@@ -162,17 +162,16 @@ classdef headlamp < handle
         % NOTE: Once we can rotate lights, some of this can
         %       be achieved if the headlight is rotated down
         % NOTE: For high beams, we probably want degrees above the horizon
-        function maskImage = maskImage(obj, degrees)
+        function maskImage = maskImage(obj, degreesVertical, degreesHorizontal)
             % Start with how far off the horizon we need to be
-            pixelOffset = sin(deg2rad(degrees)) / sin(deg2rad(obj.verticalFOV/2)) ...
+            pixelOffset = sin(deg2rad(degreesVertical)) / sin(deg2rad(obj.verticalFOV/2)) ...
                 * obj.resolution(1);
 
             % Now calculate our horizontal cutoff
             darkRows = round((obj.resolution(1) / 2) - pixelOffset);
             litRows = obj.resolution(1) - darkRows;
 
-            % try to make a simple image that goes from 1 to 0,
-            % starting halfway down
+            % next add "vertical" cutoff for simple adaptive beams
 
             % begin with all 1's, then multiply
             maskImage = ones (obj.resolution(1), obj.resolution(2), 3);
@@ -203,7 +202,7 @@ classdef headlamp < handle
             degreesPerPixel = obj.verticalFOV / obj.resolution(1);
 
             % Table assumes -1 as hotspot, but that's not always true
-            degreeOffset = -1 - degrees;
+            degreeOffset = -1 - degrees(1); % vertical
 
             % We could just use a linear model but realistically, all
             % rows don't have the same degree delta
