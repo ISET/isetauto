@@ -43,7 +43,7 @@ if scenario.justStarting ~= true && scenario.dataOnly == false
     scene = scenario.renderRecipe(originalOutputFile); % do the hard work of rendering
 
     % show preview if desired unless we are in an official experiment
-    if ~ia_drivingScenario.inExperiment && scenario.previewScenes
+    if scenario.previewScenes
         
         % We use HDR with oncoming lights, but Standard
         % is more "accurate" for dark scenes

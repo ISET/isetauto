@@ -4,27 +4,26 @@ classdef ia_drivingScenario < drivingScenario
     % It extends the class by integrating it with ISETAuto, ISET3d, and
     % ISETCam
 
-    % Currently this is where the "experiment specific"
-    % parameters get set
+    % Because we use the Matlab-generated scenario function with as few
+    % changes as possible (a call to ieInit, and a call to this subclass
+    % instead of to the default Matlab class), all of our scenario-specific
+    % parameters are specified in the properties for ia_drivingScenario
+    % objects.
 
     % D. Cardinal, Stanford University, June, 2023
     properties
 
         %% "Scene/Scenario" settings
-        %  These determine the base case (fixed variables)
-        %  Currently they are mostly specified in the .mat file
-        %  created by the drivingScenarioDesigner, that was used
-        %  to create our parent function
-
-        % Here we set those that Matlab doesn't include, or over-ride
-        % others as needed
-        lighting = 'nighttime';
+    
+        % Here we set properties unique to our sub-class, and over-ride others
+        % that Matlab does set, as needed
+        lighting = 'nighttime'; % skymap, if any
         targetName = 'pedestrian_001'; % Default adult male
         headlampType = 'level beam'; % also 'low beam', 'high beam', 'level beam'
 
         %% Simulation specific parameters
-        stepTime = .06; % time per image frame/step
-        scenarioQuality = 'quick'; 
+        stepTime = .5; % time (s) per image frame/step
+        scenarioQuality = 'quick'; % quick for testing, HD for quality, paper for publishing, etc. 
         frameRate = 3; % playback speed in frames per second
         scenarioLength = 4; % in seconds
 
@@ -33,7 +32,7 @@ classdef ia_drivingScenario < drivingScenario
 
         %% Runtime settings
         % show each scene in a window (adds a lot of time)
-        previewScenes = false; % show scenes as we go
+        previewScenes = true; % show scenes as we go
         % save scenes as we go, also very expensive
         saveScenes = false; % Save scenes as we go 
 
@@ -54,10 +53,7 @@ classdef ia_drivingScenario < drivingScenario
 
         %% Housekeeping parameters
         roadData = []; % our ISETAuto road data struct
-        % We get these from our superclass
-        %waypoints; % in meters
-        %speed; % meters/second
-        numActors = 0;
+        numActors = 0; % initialize
 
         % SOME SCENES ARE REVERSED, some not
         % Should see if we can figure out a way to decide automatically
@@ -89,7 +85,7 @@ classdef ia_drivingScenario < drivingScenario
         frameNum = 1; % to start
         logData = [];
 
-        cameraOffset = [0 0 2]; % needs to be changed later
+        cameraOffset = [0 0 2]; % default is 2 meter high windshield cam
         detectionResults = []; %Updated as we drive
 
         % video structures with frames for creating clips
@@ -115,15 +111,6 @@ classdef ia_drivingScenario < drivingScenario
             iSpeed = pSpeed;
         end
 
-        % NOT USED CURRENTLY, Matlab experiments seem to limited
-        function result = inExperiment(truefalse)
-            persistent isTrue;
-            if isempty(isTrue), isTrue = false; end % ignore if 0
-            if nargin
-                isTrue = truefalse;
-            end
-            result = isTrue;
-        end
     end
 
     %% Methods
