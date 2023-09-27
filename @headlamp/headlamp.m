@@ -167,14 +167,26 @@ classdef headlamp < handle
             pixelOffset = sin(deg2rad(degreesVertical)) / sin(deg2rad(obj.verticalFOV/2)) ...
                 * obj.resolution(1);
 
-            % Now calculate our horizontal cutoff
+            % Baseline mask: begin with all 1's
+            maskImage = ones (obj.resolution(1), obj.resolution(2), 3);
+
+            % we need to deal with degreesHorizontal for "sidewalk"
+            % lighting. The combination of the two is essentially an "OR"
+            % as we want light provided either below degreesVertical
+            % or to the (right) of degreesHorizontal
+            % Now calculate our horizontal cutoff -- degreesVertical
+            darkCols = round((obj.resolution(2) / 2) - pixelOffset);
+            litCols = obj.resolution(2) - darkCols;
+
+            gradientMaskLeft = zeros(darkCols, obj.resolution(1));
+            gradientMaskRight = ones(litCols, obj.resolution(1));
+
+            gradientMaskHorizontal = [gradientMaskLeft; gradientMaskRight];
+
+
+            % Now calculate our horizontal cutoff -- degreesVertical
             darkRows = round((obj.resolution(1) / 2) - pixelOffset);
             litRows = obj.resolution(1) - darkRows;
-
-            % next add "vertical" cutoff for simple adaptive beams
-
-            % begin with all 1's, then multiply
-            maskImage = ones (obj.resolution(1), obj.resolution(2), 3);
 
             gradientMaskTop = zeros(darkRows, obj.resolution(2));
             gradientMaskBottom = ones(litRows, obj.resolution(2));
