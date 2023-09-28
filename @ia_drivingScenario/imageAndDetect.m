@@ -6,11 +6,15 @@ function [image, crashed] = imageAndDetect(scenario, scene)
 % We only want to fire up the detector once if we can
 % as it takes some time to initialize
 persistent yDetect; % Our (YOLO) detector
-persistent detectionThreshhold; % for declaring a match
+persistent detectionThreshold; % for declaring a match
+
+% Not sure if alerts should be "1-way" and stay on once turned on
+persistent alertThreshold; 
 
 if isempty(yDetect)
     yDetect = yolov4ObjectDetector("csp-darknet53-coco");
-    detectionThreshhold = scenario.predictionThreshold; % How confident do we need to be
+    detectionThreshold = scenario.predictionThreshold; % How confident do we need to be
+    alertThreshold = scenario.alertThreshold; % How confident do we need to be
 end
 
 crashed = false; % default state
@@ -42,12 +46,17 @@ peds = ismember(labels,'person'); % Any person?
 
 % If we have found a pedestrian set the flag, but don't unset it
 if ~isempty(peds) && (isempty(scenario.foundPed) || scenario.foundPed == false)
-    scenario.foundPed = max(scores(peds)) > detectionThreshhold; 
+    scenario.foundPed = max(scores(peds)) > detectionThreshold; 
+    scenario.warnPed = max(scores(peds)) > alertThreshold; 
 end
 
 if scenario.foundPed
     cprintf('*Red', 'Identified Pedestrian...\n');
     scenario.roadData.actorsIA{scenario.roadData.targetVehicleNumber}.braking = true;
+end
+
+if scenario.warnPed
+    cprintf('*Blue', 'Suspect Pedestrian...\n');
 end
 
 % Should have both label & score here:

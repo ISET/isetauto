@@ -167,6 +167,17 @@ classdef headlamp < handle
             pixelOffset = sin(deg2rad(degreesVertical)) / sin(deg2rad(obj.verticalFOV/2)) ...
                 * obj.resolution(1);
 
+            % NOT implemented yet
+            % for now try setting right headlamp to high beam instead
+            % and also how far right/left:
+            if ~isempty(degreesHorizontal)
+                pixelOffsetHorizontal = sin(deg2rad(degreesHorizontal)) / sin(deg2rad(obj.horizontalFOV/2)) ...
+                * obj.resolution(1);
+            else
+                % not quite sure what to do here
+                pixelOffsetHorizontal = 20;
+            end
+
             % Baseline mask: begin with all 1's
             maskImage = ones (obj.resolution(1), obj.resolution(2), 3);
 
@@ -175,14 +186,11 @@ classdef headlamp < handle
             % as we want light provided either below degreesVertical
             % or to the (right) of degreesHorizontal
             % Now calculate our horizontal cutoff -- degreesVertical
-            darkCols = round((obj.resolution(2) / 2) - pixelOffset);
+            darkCols = round((obj.resolution(2) / 2) - pixelOffsetHorizontal);
             litCols = obj.resolution(2) - darkCols;
 
             gradientMaskLeft = zeros(darkCols, obj.resolution(1));
             gradientMaskRight = ones(litCols, obj.resolution(1));
-
-            gradientMaskHorizontal = [gradientMaskLeft; gradientMaskRight];
-
 
             % Now calculate our horizontal cutoff -- degreesVertical
             darkRows = round((obj.resolution(1) / 2) - pixelOffset);
@@ -193,7 +201,14 @@ classdef headlamp < handle
 
             gradientMaskBottom = gradientMaskBottom .* .8; % super simple
 
-            gradientMask = [gradientMaskTop; gradientMaskBottom];
+            gradientMaskVertical = [gradientMaskTop; gradientMaskBottom];
+            gradientMaskHorizontal = [gradientMaskLeft; gradientMaskRight];
+
+            if ~isempty(degreesHorizontal)
+                gradientMask = max(gradientMaskVertical, gradientMaskHorizontal);
+            else
+                gradientMask = [gradientMaskTop; gradientMaskBottom];
+            end
 
             maskImage = maskImage .* gradientMask;
 

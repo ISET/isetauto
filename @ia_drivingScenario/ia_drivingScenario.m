@@ -25,7 +25,7 @@ classdef ia_drivingScenario < drivingScenario
         stepTime = .5; % time (s) per image frame/step
         scenarioQuality = 'quick'; % quick for testing, HD for quality, paper for publishing, etc. 
         frameRate = 3; % playback speed in frames per second
-        scenarioLength = 4; % in seconds
+        scenarioLength = 5; % in seconds
 
         % Object detector confidence threshold before we take action
         predictionThreshold = .9; % default is .95, lower for testing;
@@ -80,7 +80,8 @@ classdef ia_drivingScenario < drivingScenario
         egoVelocity = [0 0 0]; % set once we have a car
         egoVehicle = [];
         targetObject = [];
-        foundPed = false;
+        foundPed = false; % set when we are confident there is a ped
+        warnPed = false; % set when recognize a ped but aren't confident
         scenarioName = ''; % set in creation function
 
         % Initialize data logging structure and frame count

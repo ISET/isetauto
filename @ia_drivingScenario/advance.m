@@ -42,7 +42,7 @@ if scenario.justStarting ~= true && scenario.dataOnly == false
 
     scene = scenario.renderRecipe(originalOutputFile); % do the hard work of rendering
 
-    % show preview if desired unless we are in an official experiment
+    % show preview if desired
     if scenario.previewScenes
         
         % We use HDR with oncoming lights, but Standard
@@ -117,8 +117,19 @@ for ii = 1:numel(scenario.roadData.actorsIA)
             scenario.needEgoVelocity = false;
         end
         
-        % if we have a pedestrian, begin braking
-        if  scenario.foundPed == true
+        % If we might have a ped, turn a headlight on high
+        % (Currently always the right headlamp)
+        if scenario.warnPed == true
+            % Find right headlight -- should put in headlamp class!
+            pLightRight = piAssetSearch(scenario.roadData.recipe,'lightname', 'Right Headlight');
+            % Set the mask on it to high beam
+            maskFile = ['skymaps','/', 'headlamp_highbeam.exr'];
+            scenario.roadData.recipe.set('light',pLightRight,'filename',maskFile);
+
+        end
+
+        % if we are confident we have a pedestrian, begin braking
+        if scenario.foundPed == true
 
             cprintf('*Red','Recognized pedestrian\n');
             % braking should move closer to abs()
