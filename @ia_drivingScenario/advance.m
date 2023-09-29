@@ -144,6 +144,15 @@ for ii = 1:numel(scenario.roadData.actorsIA)
             % Not clear if Speed is always m/s or m/interval
             vehicleWaypoints = scenario.egoVehicle.MotionStrategy.Waypoints;
             vehicleSpeed = scenario.egoVehicle.MotionStrategy.Speed;
+
+            % I think we only want to change the speed for future
+            % waypoints, otherwise we "rewrite history."
+            % For example:
+            ourLocation = scenario.egoVehicle.Position(1);
+            vehicleSpeed(scenario.vehicleWaypoints(:,1)>ourLocation) = ...
+                vehicleSpeed(scenario.vehicleWayPoints(:,1)>ourLocation) ...
+                - deceleration;
+            
             newSpeed = vehicleSpeed + -1 * sum(deceleration.^2)^.5;
             scenario.egoVehicle.trajectory(vehicleWaypoints, newSpeed);
             
