@@ -137,7 +137,8 @@ if noiseFree
     sensor = sensorSet(sensor,'noise flag',0); % noise free
 end
 sensor = sensorCompute(sensor,oi);
-fprintf('eT: %f ms \n',eTime*1e3);
+% for debugging
+% fprintf('eT: %f ms \n',eTime*1e3);
 
 % sensorWindow(sensor);
 

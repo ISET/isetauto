@@ -134,10 +134,19 @@ for ii = 1:numel(scenario.roadData.actorsIA)
             cprintf('*Red','Recognized pedestrian\n');
             % braking should move closer to abs()
             % for now just decelerate in forward/back
-            ourActorDS.Velocity = scenario.egoVelocity + ...
-                (ourActor.brakePower * scenario.stepTime);
+
+            deceleration = (ourActor.brakePower * scenario.stepTime);
+            ourActorDS.Velocity = scenario.egoVelocity + deceleration;
             scenario.egoVelocity(1) = max(ourActorDS.Velocity(1), 0);
             ourActorDS.Velocity(1) = scenario.egoVelocity(1);
+
+            % We also need to lower the Speed in DSD's scenario
+            % Not clear if Speed is always m/s or m/interval
+            vehicleWaypoints = scenario.egoVehicle.MotionStrategy.Waypoints;
+            vehicleSpeed = scenario.egoVehicle.MotionStrategy.Speed;
+            newSpeed = vehicleSpeed + -1 * sum(deceleration.^2)^.5;
+            scenario.egoVehicle.trajectory(vehicleWaypoints, newSpeed);
+            
 
         end
 
@@ -163,7 +172,10 @@ for ii = 1:numel(scenario.roadData.actorsIA)
         currentActor.Velocity(1), ...
         currentActor.Velocity(2), ...
         currentActor.Velocity(3));
-    cprintf('*Blue', ", DSyaw: %2.1f\n", currentActor.Yaw);
+    
+    % Print yaw if needed for debugging
+    %cprintf('*Blue', ", DSyaw: %2.1f\n", currentActor.Yaw);
+
     % Also move our Actors by time step * velocity
     % move asset per velocity inherited from DS
     ourActor.yaw = currentActor.Yaw;
