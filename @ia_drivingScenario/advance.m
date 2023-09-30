@@ -149,11 +149,14 @@ for ii = 1:numel(scenario.roadData.actorsIA)
             % waypoints, otherwise we "rewrite history."
             % For example:
             ourLocation = scenario.egoVehicle.Position(1);
-            vehicleSpeed(scenario.vehicleWaypoints(:,1)>ourLocation) = ...
-                vehicleSpeed(scenario.vehicleWayPoints(:,1)>ourLocation) ...
-                - deceleration;
+            waypointsFuture = vehicleWaypoints(:,1)>ourLocation;
+            vehicleSpeed(waypointsFuture) = ...
+                max(vehicleSpeed(vehicleWaypoints(:,1)>ourLocation) ...
+                + deceleration(1), 0); % can't go backwards
             
-            newSpeed = vehicleSpeed + -1 * sum(deceleration.^2)^.5;
+            % Braking shouldn't ever cause backward motion
+            % And if we don't have a positive speed, DSD freaks out
+            newSpeed = max(vehicleSpeed + -1 * sum(deceleration.^2)^.5,0.01);
             scenario.egoVehicle.trajectory(vehicleWaypoints, newSpeed);
             
 
