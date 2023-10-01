@@ -67,10 +67,9 @@ scenario.detectionResults.bboxes = bboxes;
 scenario.detectionResults.scores = scores;
 scenario.detectionResults.labels = labels;
 
+
 % Calculate distance to pedestrian. 
-targetRawDistance = scenario.targetObject.positionDS - scenario.egoVehicle.Position;
-pedMeters = sum(abs(targetRawDistance) .^2) ^.5;
-roadMeters = targetRawDistance(1); % even if the ped isn't in the center of the car, we still hit them
+pedMeters = scenario.targetDistance();
 
 % for debugging
 fprintf('Car X: %2.1f, Car V: %2.1f\n',scenario.egoVehicle.Position(1), ...
@@ -79,10 +78,11 @@ fprintf('Car X: %2.1f, Car V: %2.1f\n',scenario.egoVehicle.Position(1), ...
 caption = sprintf("Time: %2.1f Speed: %2.1f Dist: %2.1f", ...
     scenario.SimulationTime, ...
     scenario.egoVelocity(1), ...
-    min(roadMeters, pedMeters));
+    pedMeters);
 
 % check for being too close, or for perhaps even already hit the pedestrian
-if pedMeters <= .3 || roadMeters <= .2
+% we may not recognize the case where the ped is off to one side?
+if pedMeters <= .5 
     caption = strcat(caption, " ***CRASH*** ");
     crashed = true;
 end

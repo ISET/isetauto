@@ -1,4 +1,4 @@
-function  logFrameData(scenario, scene, detectionResults)
+function  logFrame = logFrameData(scenario, scene, detectionResults)
 % Keep a record of vehicle & target info as we run
 % to use for later analysis. Typically called as part of .advance()
 %

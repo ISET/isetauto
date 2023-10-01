@@ -81,7 +81,7 @@ elseif scenario.dataOnly && ~scenario.justStarting
     piWrite(ourRecipe);
 
     scene = [];
-    scenario.logFrameData(scene, scenario.detectionResults); % update our logging data structure
+    frameData = scenario.logFrameData(scene, scenario.detectionResults); % update our logging data structure
 
     fprintf('***************************\n');
     fprintf("MAX REACTION TIME: %2.3f\n",scenario.maxIDTime);

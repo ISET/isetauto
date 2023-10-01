@@ -364,6 +364,30 @@ classdef ia_drivingScenario < drivingScenario
 
         end
 
+        %% Consolidated code for target distance
+        function dMeters = targetDistance(scenario)
+
+            ourRecipe = scenario.roadData.recipe;
+
+            % egoVehicle seems to be a DS Vehicle, targetObject is an IA actor
+            assetBranchName = [convertStringsToChars(scenario.egoVehicle.Name) '_B'];
+            vehicleLocation = ourRecipe.get('asset',assetBranchName,'world position');
+
+            assetBranchName = [convertStringsToChars(scenario.targetObject.name) '_B'];
+            targetLocation = ourRecipe.get('asset',assetBranchName,'world position');
+
+            % Get vector distance
+            targetRawDistance = abs(targetLocation - vehicleLocation);
+            dMeters = sum(targetRawDistance .^2) ^.5;
+
+            % Get line of travel distance (assumes x = travel)
+            targetRoadDistance = abs(targetRawDistance(1));
+
+            % Take the closest
+            dMeters = min(dMeters,targetRoadDistance);
+
+end
+
         % For potential future use, right now we just call superclass
         function trajectory(scenario, egoVehicle, waypoints, speed)
             trajectory@drivingScenario(scenario, egoVehicle, waypoints, speed);
