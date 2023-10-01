@@ -89,6 +89,8 @@ end
 
 if scenario.foundPed % cheat & assume we are actor 1
     image = insertText(rgb,[0 0],strcat(caption, " -- BRAKING"),'FontSize',24, 'TextColor','red');
+elseif scenario.warnPed
+    image = insertText(rgb,[0 0],strcat(caption, " -- ALERT!"),'FontSize',24, 'TextColor','white');
 else
     image = insertText(rgb,[0 0],caption,'FontSize',24);
 end
