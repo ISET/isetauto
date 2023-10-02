@@ -85,6 +85,7 @@ caption = sprintf("Time: %2.1f Speed: %2.1f Dist: %2.1f", ...
 if pedMeters <= .5 
     caption = strcat(caption, " ***CRASH*** ");
     crashed = true;
+    scenario.crashed = true; % keep a global copy for plotting
 end
 
 if scenario.foundPed % cheat & assume we are actor 1

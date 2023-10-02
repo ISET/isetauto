@@ -27,6 +27,11 @@ logFrame.simulationTime = scenario.SimulationTime;
 targetRawDistance = abs(targetLocation - vehicleLocation);
 logFrame.targetDistance = sum(targetRawDistance .^2) ^.5;
 
+% want to set warn, found, and crashed
+logFrame.warnPed = scenario.warnPed;
+logFrame.foundPed = scenario.foundPed;
+logFrame.crashed = scenario.crashed;
+
 scenario.logData = [scenario.logData logFrame];
 
 end

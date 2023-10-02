@@ -82,6 +82,7 @@ classdef ia_drivingScenario < drivingScenario
         targetObject = [];
         foundPed = false; % set when we are confident there is a ped
         warnPed = false; % set when recognize a ped but aren't confident
+        crashed = false; % set if crashed
         scenarioName = ''; % set in creation function
 
         % Initialize data logging structure and frame count
