@@ -31,6 +31,7 @@ logFrame.targetDistance = sum(targetRawDistance .^2) ^.5;
 logFrame.warnPed = scenario.warnPed;
 logFrame.foundPed = scenario.foundPed;
 logFrame.crashed = scenario.crashed;
+logFrame.pedLikelihood = scenario.confidencePed;
 
 scenario.logData = [scenario.logData logFrame];
 

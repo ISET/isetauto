@@ -47,7 +47,8 @@ peds = ismember(labels,'person'); % Any person?
 % If we have found a pedestrian set the flag, but don't unset it
 if ~isempty(peds) && (isempty(scenario.foundPed) || scenario.foundPed == false)
     scenario.foundPed = max(scores(peds)) > detectionThreshold; 
-    scenario.warnPed = max(scores(peds)) > alertThreshold; 
+    scenario.warnPed = max(scores(peds)) > alertThreshold;
+    scenario.confidencePed = max(scores(peds));
 end
 
 if scenario.foundPed

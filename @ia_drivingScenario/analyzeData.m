@@ -18,6 +18,7 @@ logFrame.detectionResults;
 foundPedPlot = [];
 warnPedPlot = [];
 crashedPlot = [];
+textPedPlot = {};
 
 ourData = scenario.logData;
 simulationTime = [];
@@ -37,6 +38,10 @@ for ii = 1:numel(ourData)
 
     % decide what we want to report about detection status...
     % ... ourData(ii).detectionResults has bboxes, labels, and scores
+
+    if ourData(ii).pedLikelihood > 0
+        textPedPlot{end+1} = [simulationTime(ii), ourData(ii).pedLikelihood];
+    end
     if isempty(foundPedPlot) && ourData(ii).foundPed
         foundPedPlot = [simulationTime(ii), vehicleClosingSpeed(ii)];
     end
@@ -72,14 +77,18 @@ plot(simulationTime, targetDistance);
 ylabel('Distance (m)');
 
 % add text annotations
-if ~isempty(foundPedPlot)
-    text(foundPedPlot(1), foundPedPlot(2),"Brake!");
-end
-if ~isempty(warnPedPlot)
-    text(warnPedPlot(1), warnPedPlot(2),"Alert!");
-end
 if ~isempty(crashedPlot)
     text(crashedPlot(1), crashedPlot(2),"Crash!");
+elseif ~isempty(foundPedPlot)
+    text(foundPedPlot(1), foundPedPlot(2),"Brake!");
+elseif ~isempty(warnPedPlot)
+    text(warnPedPlot(1), warnPedPlot(2),"Alert!");
+else
+    text(); %show confidence level
+end
+
+for ii = 1:numel(textPedPlot)
+    text(textPedPlot{ii}(1), textPedPlot{ii}(2), ii);
 end
 
 grid on;
