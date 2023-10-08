@@ -88,7 +88,12 @@ else
 end
 
 for ii = 1:numel(textPedPlot)
-    text(textPedPlot{ii}(1), textPedPlot{ii}(2), ii);
+    try
+        % textPedPlot is time, value
+        text(textPedPlot{ii}(1), targetDistance(ii), sprintf("%2.1f",textPedPlot{ii}(2)));
+    catch
+        warning('problem plotting text');
+    end
 end
 
 grid on;

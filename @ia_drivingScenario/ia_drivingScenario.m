@@ -30,7 +30,7 @@ classdef ia_drivingScenario < drivingScenario
         % Object detector confidence threshold before we take action
         predictionThreshold = .9; % default is .95, lower for testing;
         % threhold for turning on adaptive headlights
-        alertThreshold = .5;
+        alertThreshold = .2; % tilt towards safety
         
         %% Runtime settings
         % show each scene in a window (adds a lot of time)
