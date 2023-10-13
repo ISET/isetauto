@@ -51,11 +51,16 @@ if ~isempty(peds) && (isempty(scenario.foundPed) || scenario.foundPed == false)
     scenario.confidencePed = max(scores(peds));
 end
 
+% If we are confident we have identified a pedestrian, begin braking
+% Right now we don't do motion estimation, or determine if the pedestrian
+% is in the road.
 if scenario.foundPed
     cprintf('*Red', 'Identified Pedestrian...\n');
     scenario.roadData.actorsIA{scenario.roadData.targetVehicleNumber}.braking = true;
 end
 
+% This lower threshold is where we take less aggressive actions, such as
+% turning on the high beam on the side with the pedestrian
 if scenario.warnPed
     cprintf('*Blue', 'Suspect Pedestrian...\n');
 end
@@ -67,7 +72,6 @@ rgb = insertObjectAnnotation(rgb,"rectangle",bboxes,labels, 'FontSize', 16);
 scenario.detectionResults.bboxes = bboxes;
 scenario.detectionResults.scores = scores;
 scenario.detectionResults.labels = labels;
-
 
 % Calculate distance to pedestrian. 
 pedMeters = scenario.targetDistance();

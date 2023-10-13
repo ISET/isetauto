@@ -76,21 +76,28 @@ ylim([0,max(targetDistance)]);
 plot(simulationTime, targetDistance);
 ylabel('Distance (m)');
 
+% Ideally we want to show more than one if they overlap
+textAnnotation = '';
 % add text annotations
+if ~isempty(warnPedPlot)
+    text(warnPedPlot(1), warnPedPlot(2),"Alert!");
+end
+if ~isempty(foundPedPlot)
+    % offset if we are already warning
+    if ~isempty(warnPedPlot) && isequal(warnPedPlot(1),foundPedPlot(1))
+        text(foundPedPlot(1), foundPedPlot(2)-2,"Brake!");
+    else
+        text(foundPedPlot(1), foundPedPlot(2),"Brake!");
+    end
+end
 if ~isempty(crashedPlot)
     text(crashedPlot(1), crashedPlot(2),"Crash!");
-elseif ~isempty(foundPedPlot)
-    text(foundPedPlot(1), foundPedPlot(2),"Brake!");
-elseif ~isempty(warnPedPlot)
-    text(warnPedPlot(1), warnPedPlot(2),"Alert!");
-else
-    text(); %show confidence level
 end
 
 for ii = 1:numel(textPedPlot)
     try
         % textPedPlot is time, value
-        text(textPedPlot{ii}(1), targetDistance(ii), sprintf("%2.1f",textPedPlot{ii}(2)));
+        text(textPedPlot{ii}(1), targetDistance(ii), sprintf("%2.2f",textPedPlot{ii}(2)));
     catch
         warning('problem plotting text');
     end

@@ -22,10 +22,10 @@ classdef ia_drivingScenario < drivingScenario
         headlampType = 'level beam'; % also 'low beam', 'high beam', 'level beam'
 
         %% Simulation specific parameters
-        stepTime = .5; % time (s) per image frame/step
+        stepTime = .2; % time (s) per image frame/step
         scenarioQuality = 'quick'; % quick for testing, HD for quality, paper for publishing, etc. 
         frameRate = 3; % playback speed in frames per second
-        scenarioLength = 6; % in seconds
+        scenarioLength = 5; % in seconds
 
         % Object detector confidence threshold before we take action
         predictionThreshold = .9; % default is .95, lower for testing;
@@ -383,7 +383,8 @@ classdef ia_drivingScenario < drivingScenario
             dMeters = sum(targetRawDistance .^2) ^.5;
 
             % Get line of travel distance (assumes x = travel)
-            targetRoadDistance = abs(targetRawDistance(1));
+            targetRoadDistance = targetRawDistance(1);
+            targetRoadDistance = max(targetRoadDistance, 0); % In case we are past them
 
             % Take the closest
             dMeters = min(dMeters,targetRoadDistance);
