@@ -40,7 +40,7 @@ for ii = 1:numel(ourData)
     % ... ourData(ii).detectionResults has bboxes, labels, and scores
 
     if ourData(ii).pedLikelihood > 0
-        textPedPlot{end+1} = [simulationTime(ii), ourData(ii).pedLikelihood];
+        textPedPlot{end+1} = [simulationTime(ii), targetDistance(ii), ourData(ii).pedLikelihood];
     end
     if isempty(foundPedPlot) && ourData(ii).foundPed
         foundPedPlot = [simulationTime(ii), vehicleClosingSpeed(ii)];
@@ -85,7 +85,7 @@ end
 if ~isempty(foundPedPlot)
     % offset if we are already warning
     if ~isempty(warnPedPlot) && isequal(warnPedPlot(1),foundPedPlot(1))
-        text(foundPedPlot(1), foundPedPlot(2)-2,"Brake!");
+        text(foundPedPlot(1), foundPedPlot(2)+2,"Brake!");
     else
         text(foundPedPlot(1), foundPedPlot(2),"Brake!");
     end
@@ -96,8 +96,8 @@ end
 
 for ii = 1:numel(textPedPlot)
     try
-        % textPedPlot is time, value
-        text(textPedPlot{ii}(1), targetDistance(ii), sprintf("%2.2f",textPedPlot{ii}(2)));
+        % textPedPlot is time, distance, value
+        text(textPedPlot{ii}(1), textPedPlot{ii}(2), sprintf("%2.2f",textPedPlot{ii}(3)));
     catch
         warning('problem plotting text');
     end
@@ -109,7 +109,7 @@ legend('Vehicle Speed','Distance to Pedestrian');
 title('Vehicle Speed & Distance to Pedestrian over Time', ...
     ['Start -- Speed:',num2str(scenario.initialSpeed(),'%.1f'),', Distance: ',num2str(targetDistance(1),'%.1f'), ...
      ', Threshold: ', num2str(scenario.predictionThreshold,'%.2f'), ', Sensor: ',scenario.sensorModel], ... 
-     'FontSize',12);
+     'FontSize',10);
 
 end
 
