@@ -19,6 +19,7 @@ foundPedPlot = [];
 warnPedPlot = [];
 crashedPlot = [];
 textPedPlot = {};
+stoppedPlot = [];
 
 ourData = scenario.logData;
 simulationTime = [];
@@ -39,9 +40,12 @@ for ii = 1:numel(ourData)
     % decide what we want to report about detection status...
     % ... ourData(ii).detectionResults has bboxes, labels, and scores
 
+    % We show the confidence # every time it is > 0
     if ourData(ii).pedLikelihood > 0
         textPedPlot{end+1} = [simulationTime(ii), targetDistance(ii), ourData(ii).pedLikelihood];
     end
+
+    % The next few we only show once
     if isempty(foundPedPlot) && ourData(ii).foundPed
         foundPedPlot = [simulationTime(ii), vehicleClosingSpeed(ii)];
     end
@@ -50,6 +54,11 @@ for ii = 1:numel(ourData)
     end
     if isempty(crashedPlot) && ourData(ii).crashed
         crashedPlot = [simulationTime(ii), vehicleClosingSpeed(ii)];
+    end
+
+    % Once we stop, we're "safe"
+    if isempty(stoppedPlot) && vehicleClosingSpeed(ii) <= 0
+        stoppedPlot = [simulationTime(ii), vehicleClosingSpeed(ii)];
     end
 end
 
@@ -76,9 +85,9 @@ ylim([0,max(targetDistance)]);
 plot(simulationTime, targetDistance);
 ylabel('Distance (m)');
 
+
+% Add text annotations
 % Ideally we want to show more than one if they overlap
-textAnnotation = '';
-% add text annotations
 if ~isempty(warnPedPlot)
     text(warnPedPlot(1), warnPedPlot(2),"Alert!");
 end
@@ -92,6 +101,8 @@ if ~isempty(foundPedPlot)
 end
 if ~isempty(crashedPlot)
     text(crashedPlot(1), crashedPlot(2),"Crash!");
+elseif ~isempty(stoppedPlot)
+    text(stoppedPlot(1), stoppedPlot(2),"Stopped!");
 end
 
 for ii = 1:numel(textPedPlot)

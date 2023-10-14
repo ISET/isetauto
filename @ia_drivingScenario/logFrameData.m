@@ -24,8 +24,7 @@ logFrame.vehicleVelocity = vehicleVelocity;
 logFrame.targetVelocity = targetVelocity;
 logFrame.simulationTime = scenario.SimulationTime;
 
-targetRawDistance = abs(targetLocation - vehicleLocation);
-logFrame.targetDistance = sum(targetRawDistance .^2) ^.5;
+logFrame.targetDistance = scenario.targetDistance();
 
 % want to set warn, found, and crashed
 logFrame.warnPed = scenario.warnPed;

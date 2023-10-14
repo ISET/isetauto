@@ -87,7 +87,11 @@ caption = sprintf("Time: %2.1f Speed: %2.1f Dist: %2.1f", ...
 
 % check for being too close, or for perhaps even already hit the pedestrian
 % we may not recognize the case where the ped is off to one side?
-if pedMeters <= .5 
+if scenario.egoVelocity(1) <= 0
+    caption = strcat(caption, " ***STOPPED*** ");
+    crashed = true; % should probably be renamed "endScenario"
+    scenario.crashed = true; % keep a global copy for plotting
+elseif pedMeters <= .5 
     caption = strcat(caption, " ***CRASH*** ");
     crashed = true;
     scenario.crashed = true; % keep a global copy for plotting
