@@ -22,7 +22,7 @@ classdef ia_drivingScenario < drivingScenario
         headlampType = 'level beam'; % also 'low beam', 'high beam', 'level beam'
 
         %% Simulation specific parameters
-        stepTime = .2; % time (s) per image frame/step
+        stepTime = .1; % time (s) per image frame/step
         scenarioQuality = 'quick'; % quick for testing, HD for quality, paper for publishing, etc. 
         frameRate = 3; % playback speed in frames per second
         scenarioLength = 5; % in seconds

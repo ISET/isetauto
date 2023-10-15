@@ -89,14 +89,14 @@ ylabel('Distance (m)');
 % Add text annotations
 % Ideally we want to show more than one if they overlap
 if ~isempty(warnPedPlot)
-    text(warnPedPlot(1), warnPedPlot(2),"Alert!");
+    text(warnPedPlot(1)+.3, warnPedPlot(2),"Alert!");
 end
 if ~isempty(foundPedPlot)
     % offset if we are already warning
     if ~isempty(warnPedPlot) && isequal(warnPedPlot(1),foundPedPlot(1))
-        text(foundPedPlot(1), foundPedPlot(2)+2,"Brake!");
+        text(foundPedPlot(1)+.6, foundPedPlot(2),"Brake!");
     else
-        text(foundPedPlot(1), foundPedPlot(2),"Brake!");
+        text(foundPedPlot(1)+.3, foundPedPlot(2),"Brake!");
     end
 end
 if ~isempty(crashedPlot)
