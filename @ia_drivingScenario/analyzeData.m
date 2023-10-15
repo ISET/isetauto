@@ -80,23 +80,17 @@ ylim([0,scenario.initialSpeed]);
 plot(simulationTime, vehicleClosingSpeed);
 ylabel('Speed (m/s)');
 
-yyaxis right;
-ylim([0,max(targetDistance)]);
-plot(simulationTime, targetDistance);
-ylabel('Distance (m)');
-
-
 % Add text annotations
 % Ideally we want to show more than one if they overlap
 if ~isempty(warnPedPlot)
-    text(warnPedPlot(1)+.3, warnPedPlot(2),"Alert!");
+    text(warnPedPlot(1), warnPedPlot(2),"Alert!");
 end
 if ~isempty(foundPedPlot)
     % offset if we are already warning
     if ~isempty(warnPedPlot) && isequal(warnPedPlot(1),foundPedPlot(1))
-        text(foundPedPlot(1)+.6, foundPedPlot(2),"Brake!");
-    else
         text(foundPedPlot(1)+.3, foundPedPlot(2),"Brake!");
+    else
+        text(foundPedPlot(1), foundPedPlot(2),"Brake!");
     end
 end
 if ~isempty(crashedPlot)
@@ -104,6 +98,13 @@ if ~isempty(crashedPlot)
 elseif ~isempty(stoppedPlot)
     text(stoppedPlot(1), stoppedPlot(2),"Stopped!");
 end
+
+yyaxis right;
+ylim([0,max(targetDistance)]);
+plot(simulationTime, targetDistance);
+ylabel('Distance (m)');
+
+
 
 for ii = 1:numel(textPedPlot)
     try

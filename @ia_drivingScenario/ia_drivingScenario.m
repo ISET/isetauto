@@ -24,7 +24,7 @@ classdef ia_drivingScenario < drivingScenario
         %% Simulation specific parameters
         stepTime = .5; % time (s) per image frame/step
         scenarioQuality = 'quick'; % quick for testing, HD for quality, paper for publishing, etc. 
-        frameRate = 3; % playback speed in frames per second
+        frameRate = 1; % playback speed in frames per second
         scenarioLength = 5; % in seconds
 
         % Object detector confidence threshold before we take action
