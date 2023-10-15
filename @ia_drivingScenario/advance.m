@@ -2,7 +2,9 @@
 function running = advance(scenario)
 
 persistent originalOutputFile;
+persistent keepRunning; % turn off when we have one frame left
 crashed = false; % default state
+running = true; 
 
 % Need to place vehicles and actors now that we hopefully have yaw data
 % Just do this once:
@@ -195,11 +197,13 @@ for ii = 1:numel(scenario.roadData.actorsIA)
         currentActor);
 end
 
-if crashed
+% stop on crash or after processing final frame
+if crashed || (~isempty(keepRunning) && ~keepRunning) 
     running = false;
+    clear keepRunning; % otherwise it persists to next run!
 else
     % run super-class method
-    running = advance@drivingScenario(scenario);
+    keepRunning = advance@drivingScenario(scenario);
 end
 
 % If scenario has ended, analyze results

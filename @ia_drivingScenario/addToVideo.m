@@ -13,7 +13,7 @@ dRGB = double(image); % version for movie
 scenario.ourVideo(scenario.frameNum) = im2frame(dRGB);
 
 % last frame doesn't always show, so provide a couple extras
-if crashed
+if crashed || scenario.SimulationTime >= scenario.StopTime
     scenario.frameNum = scenario.frameNum + 1;
     scenario.ourVideo(scenario.frameNum) = im2frame(dRGB);
     scenario.frameNum = scenario.frameNum + 1;

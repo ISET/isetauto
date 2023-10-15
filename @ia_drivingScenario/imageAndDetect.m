@@ -44,11 +44,13 @@ rgb = ipGet(ip, 'srgb');
 % NOTE: We don't (yet) distinguish between multiple pedestrians
 peds = ismember(labels,'person'); % Any person?
 
+% Log our confidence
+scenario.confidencePed = max(scores(peds));
+
 % If we have found a pedestrian set the flag, but don't unset it
 if ~isempty(peds) && (isempty(scenario.foundPed) || scenario.foundPed == false)
     scenario.foundPed = max(scores(peds)) > detectionThreshold; 
     scenario.warnPed = max(scores(peds)) > alertThreshold;
-    scenario.confidencePed = max(scores(peds));
 end
 
 % If we are confident we have identified a pedestrian, begin braking

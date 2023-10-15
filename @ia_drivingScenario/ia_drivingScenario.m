@@ -22,7 +22,7 @@ classdef ia_drivingScenario < drivingScenario
         headlampType = 'level beam'; % also 'low beam', 'high beam', 'level beam'
 
         %% Simulation specific parameters
-        stepTime = .1; % time (s) per image frame/step
+        stepTime = .5; % time (s) per image frame/step
         scenarioQuality = 'quick'; % quick for testing, HD for quality, paper for publishing, etc. 
         frameRate = 3; % playback speed in frames per second
         scenarioLength = 5; % in seconds
@@ -379,7 +379,7 @@ classdef ia_drivingScenario < drivingScenario
             targetLocation = ourRecipe.get('asset',assetBranchName,'world position');
 
             % Get vector distance
-            targetRawDistance = abs(targetLocation - vehicleLocation);
+            targetRawDistance = targetLocation - vehicleLocation;
             dMeters = sum(targetRawDistance .^2) ^.5;
 
             % Get line of travel distance (assumes x = travel)
