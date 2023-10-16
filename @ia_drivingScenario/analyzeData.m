@@ -70,9 +70,8 @@ if numel(scenario.ourVideo) > 0
 end
 
 %% Show basic statistics and plot of speed vs. distance
-figure( 'NumberTitle','off','Name',['PAEB with Headlight: ', scenario.headlampType, ', Initial Speed: ', num2str(scenario.initialSpeed), ' m/s']); 
+figStats = figure( 'NumberTitle','off','Name',['PAEB with Headlight: ', scenario.headlampType, ', Initial Speed: ', num2str(scenario.initialSpeed), ' m/s']); 
 
-xlabel('Time (s)');
 xlim([0,scenario.StopTime]);
 
 yyaxis left;
@@ -122,6 +121,9 @@ title('Vehicle Speed & Distance to Pedestrian over Time', ...
     ['Start -- Speed:',num2str(scenario.initialSpeed(),'%.1f'),', Distance: ',num2str(targetDistance(1),'%.1f'), ...
      ', Threshold: ', num2str(scenario.predictionThreshold,'%.2f'), ', Sensor: ',scenario.sensorModel], ... 
      'FontSize',10);
+
+% We want xlabel to have multiple lines
+xlabel({'Time (s)', 'SECOND LINE', 'THIRD LINE'}, 'FontSize', 12);
 
 end
 
