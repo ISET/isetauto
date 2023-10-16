@@ -117,13 +117,13 @@ end
 grid on;
 legend('Vehicle Speed','Distance to Pedestrian');
 
-title('Vehicle Speed & Distance to Pedestrian over Time', ...
-    ['Start -- Speed:',num2str(scenario.initialSpeed(),'%.1f'),', Distance: ',num2str(targetDistance(1),'%.1f'), ...
-     ', Threshold: ', num2str(scenario.predictionThreshold,'%.2f'), ', Sensor: ',scenario.sensorModel], ... 
-     'FontSize',10);
+captionLine1 = sprintf('Start -- Speed: %.1f Distance: %2.1f', scenario.initialSpeed(),targetDistance(1));
+captionLine2 = sprintf('Threshold: %.2f, Sensor: %s', scenario.predictionThreshold ,scenario.sensorModel);
+
+title('Vehicle Speed & Distance to Pedestrian over Time', 'FontSize',12);
 
 % We want xlabel to have multiple lines
-xlabel({'Time (s)', 'SECOND LINE', 'THIRD LINE'}, 'FontSize', 12);
+xlabel({'Time (s)', captionLine1, captionLine2}, 'FontSize', 12);
 
 end
 
