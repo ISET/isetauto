@@ -48,9 +48,14 @@ peds = ismember(labels,'person'); % Any person?
 scenario.confidencePed = max(scores(peds));
 
 % If we have found a pedestrian set the flag, but don't unset it
-if ~isempty(peds) && (isempty(scenario.foundPed) || scenario.foundPed == false)
-    scenario.foundPed = max(scores(peds)) > detectionThreshold; 
-    scenario.warnPed = max(scores(peds)) > alertThreshold;
+if ~isempty(peds) 
+    % Currently only turn these on, not off
+    if isempty(scenario.foundPed) || scenario.foundPed == false
+        scenario.foundPed = max(scores(peds)) > detectionThreshold; 
+    end
+    if isempty(scenario.warnPed) || scenario.warnPed == false
+        scenario.warnPed = max(scores(peds)) > alertThreshold;
+    end
 end
 
 % If we are confident we have identified a pedestrian, begin braking

@@ -127,7 +127,7 @@ for ii = 1:numel(scenario.roadData.actorsIA)
             % Set the mask on it to high beam
             maskFile = ['skymaps','/', 'headlamp_highbeam.exr'];
             scenario.roadData.recipe.set('light',pLightRight,'filename',maskFile);
-
+            piWrite(scenario.roadData.recipe);
         end
 
         % if we are confident we have a pedestrian, begin braking

@@ -14,12 +14,13 @@ classdef ia_drivingScenario < drivingScenario
     properties
 
         %% "Scene/Scenario" settings
-    
         % Here we set properties unique to our sub-class, and over-ride others
         % that Matlab does set, as needed
         lighting = 'nighttime'; % skymap, if any
-        targetName = 'pedestrian_001'; % Default adult male
         headlampType = 'level beam'; % also 'low beam', 'high beam', 'level beam'
+
+        % This has to match the name in the DSD scene
+        targetName = 'pedestrian_001'; % _001 is adult male
 
         %% Simulation specific parameters
         stepTime = .5; % time (s) per image frame/step
