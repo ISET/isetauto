@@ -134,7 +134,7 @@ classdef headlamp < handle
             % We don't know how to directly measure lux in ISET
             % So we have an option for driving scenarios to place
             % a mirrored sphere in the scene to help us estimate
-            
+
             % power = 5,scale = 1 gives about 5 cd/m2 @ 60 meters
             % on a (ground level) asphalt road
             isetLight = piLightCreate(obj.name, ...
@@ -160,12 +160,10 @@ classdef headlamp < handle
         
             % this writes out our projected image
             % We need to write it to a subdir of our recipe
-            % but we don't know the recipe??
-            [oPath, ~, ~] = fileparts(aRecipe.outputFile);
-            if ~isfolder(fullfile(oPath,headlampDir))
+            if ~isfolder(fullfile(aRecipe.get('output folder'),headlampDir))
                 mkdir(fullfile(oPath,headlampDir));
             end
-            exrwrite(obj.lightMask, fullfile(oPath,fullMaskFileName));
+            exrwrite(obj.lightMask, fullfile(aRecipe.get('output folder'),fullMaskFileName));
 
         end
 
