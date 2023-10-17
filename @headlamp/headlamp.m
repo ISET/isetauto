@@ -4,15 +4,13 @@ classdef headlamp < handle
     
     % We model them using projection lights.
     % That gives us an RGB "mask" image that is projected onto the FOV of the
-    % light. The class generates those as needed, but for remote resource
-    % execution we need to copy them to /Resources/skymaps.
+    % light. The class generates those as needed.
+    % If they are preset maps, we keep them in /Resources/skymaps.
+    % If they are generated at runtime they use <recipe>/instanced/
 
     % Masks either have a simple cutoff angle and power multiplier below that
-    % cutoff, or can optionally have an additional distance-based
-    % attenuation so that the headlight sends less energy to areas of the
-    % road that are closer to the vehicle. Currently, attenuation is
-    % supported for the Level Beam preset.
-    
+    % cutoff
+
     properties
 
         location = [0 0 0];
@@ -27,7 +25,6 @@ classdef headlamp < handle
         % so try cutting from 80/20 to 20/10
         horizontalFOV = 40; % apparently +/- 40 is fairly standard
         verticalFOV; % set in creation function
-        cutOffAngle = -.5; % matches headlight calibration
         power = 5; % for level beams with .8 mask, pretty good match
 
         % Calculated depending on the preset used
@@ -90,6 +87,7 @@ classdef headlamp < handle
                 case 'level beam'
 
                     % Modify power based on distance
+                    % as we need less power for closer objects
                     attenuation = obj.modelAttenuation(0);
                     obj.lightMask = obj.maskImage(0, '') .* attenuation;
 
@@ -161,7 +159,7 @@ classdef headlamp < handle
             % this writes out our projected image
             % We need to write it to a subdir of our recipe
             if ~isfolder(fullfile(aRecipe.get('output folder'),headlampDir))
-                mkdir(fullfile(oPath,headlampDir));
+                mkdir(fullfile(aRecipe.get('output folder'),headlampDir));
             end
             exrwrite(obj.lightMask, fullfile(aRecipe.get('output folder'),fullMaskFileName));
 
