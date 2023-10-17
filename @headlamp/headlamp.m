@@ -68,8 +68,11 @@ classdef headlamp < handle
             p.addParameter('location', [0 0 0]); % can be a preset or a vector
             p.addParameter('verbose',true,@islogical);
             p.addParameter('name','Projected Headlight',@ischar);
+            p.addParameter('recipe',[]);
 
             p.parse(varargin{:});
+
+            aRecipe = p.Results.recipe;
 
             % Fix aspect ratio
             obj.verticalFOV = round(obj.horizontalFOV * (obj.resolution(1) / obj.resolution(2)));
@@ -107,13 +110,13 @@ classdef headlamp < handle
                     obj.power = 5;
             end
 
-            obj.isetLight = obj.getLight();
+            obj.isetLight = obj.getLight(aRecipe);
 
 
         end
      
         %% Create the actual light
-        function isetLight = getLight(obj)
+        function isetLight = getLight(obj, aRecipe)
 
             % We need to put the maskImageFile into the recipe/skymaps
             % folder here or elsewhere to make sure it is rsynced
@@ -123,7 +126,8 @@ classdef headlamp < handle
             % to wind up on the server when remote rendering
 
             % fullfile won't work on Windows, so use '/'
-            fullMaskFileName = ['skymaps','/',obj.lightMaskFileName];
+            headlampDir = 'instanced';
+            fullMaskFileName = [headlampDir,'/',obj.lightMaskFileName];
 
             % -- industry spec is 5+ lux at 200 feet
             % but we don't know how to measure lux in ISET
@@ -150,10 +154,14 @@ classdef headlamp < handle
                 % move per the location param
             end
         
-
-
             % this writes out our projected image
-            exrwrite(obj.lightMask, fullfile(piDirGet('data'),fullMaskFileName));
+            % We need to write it to a subdir of our recipe
+            % but we don't know the recipe??
+            [oPath, ~, ~] = fileparts(aRecipe.outputFile);
+            if ~isfolder(fullfile(oPath,headlampDir))
+                mkdir(fullfile(oPath,headlampDir));
+            end
+            exrwrite(obj.lightMask, fullfile(oPath,fullMaskFileName));
 
         end
 

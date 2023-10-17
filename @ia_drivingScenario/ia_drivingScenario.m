@@ -287,9 +287,11 @@ classdef ia_drivingScenario < drivingScenario
                 ourVehicle.hasCamera = true;
 
                 % Add its headlamp(s)
-                headLightLeft = headlamp('preset',scenario.headlampType,'name','Left Headlight');
+                headLightLeft = headlamp('preset',scenario.headlampType,'name','Left Headlight', ...
+                    'recipe', scenario.roadData.recipe);
                 headlampLight_Left = headLightLeft.isetLight;
-                headLightRight = headlamp('preset',scenario.headlampType,'name','Right Headlight');
+                headLightRight = headlamp('preset',scenario.headlampType,'name','Right Headlight', ...
+                    'recipe', scenario.roadData.recipe);
                 headlampLight_Right = headLightRight.isetLight;
 
                 % Need to figure out how to make this all part
