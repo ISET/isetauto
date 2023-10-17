@@ -19,7 +19,7 @@ classdef headlamp < handle
         orientation = [0 0 0];
         name;
 
-        resolution = [512 1024]; % assume wider than tall 
+        resolution = [256 512]; % assume wider than tall 
 
         peakIntensity = 61500; % candelas at a nominal bright point
 
@@ -118,19 +118,23 @@ classdef headlamp < handle
         %% Create the actual light
         function isetLight = getLight(obj, aRecipe)
 
-            % We need to put the maskImageFile into the recipe/skymaps
-            % folder here or elsewhere to make sure it is rsynced
-
             % In addition we have an issue where the headlamp map
             % should be unique to each headlamp, but still needs
             % to wind up on the server when remote rendering
+            % So we put it in <recipe>/instanced that allows the
+            % creation and use of unique resource files per render
 
             % fullfile won't work on Windows, so use '/'
             headlampDir = 'instanced';
             fullMaskFileName = [headlampDir,'/',obj.lightMaskFileName];
 
-            % -- industry spec is 5+ lux at 200 feet
-            % but we don't know how to measure lux in ISET
+            % -- industry spec is 5+ lux at 200 feet for low beam
+            %    and 300 feet for high beams (+ they have a higher cutoff)
+            
+            % We don't know how to directly measure lux in ISET
+            % So we have an option for driving scenarios to place
+            % a mirrored sphere in the scene to help us estimate
+            
             % power = 5,scale = 1 gives about 5 cd/m2 @ 60 meters
             % on a (ground level) asphalt road
             isetLight = piLightCreate(obj.name, ...
