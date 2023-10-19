@@ -31,6 +31,9 @@ classdef headlamp < handle
         lightMask;
         lightMaskFileName = ''; % where we put our mask for iset/pbrt to use
         isetLight; % ISET light object created by call
+
+        % internal
+        ourRecipe = [];
     end
 
     %% Equations:
@@ -69,7 +72,7 @@ classdef headlamp < handle
 
             p.parse(varargin{:});
 
-            aRecipe = p.Results.recipe;
+            obj.ourRecipe = p.Results.recipe;
 
             % Fix aspect ratio
             obj.verticalFOV = round(obj.horizontalFOV * (obj.resolution(1) / obj.resolution(2)));
@@ -108,13 +111,13 @@ classdef headlamp < handle
                     obj.power = 5;
             end
 
-            obj.isetLight = obj.getLight(aRecipe);
+            obj.isetLight = obj.getLight();
 
 
         end
      
         %% Create the actual light
-        function isetLight = getLight(obj, aRecipe)
+        function isetLight = getLight(obj)
 
             % In addition we have an issue where the headlamp map
             % should be unique to each headlamp, but still needs
@@ -158,10 +161,10 @@ classdef headlamp < handle
         
             % this writes out our projected image
             % We need to write it to a subdir of our recipe
-            if ~isfolder(fullfile(aRecipe.get('output folder'),headlampDir))
-                mkdir(fullfile(aRecipe.get('output folder'),headlampDir));
+            if ~isfolder(fullfile(obj.ourRecipe.get('output folder'),headlampDir))
+                mkdir(fullfile(obj.ourRecipe.get('output folder'),headlampDir));
             end
-            exrwrite(obj.lightMask, fullfile(aRecipe.get('output folder'),fullMaskFileName));
+            exrwrite(obj.lightMask, fullfile(obj.ourRecipe.get('output folder'),fullMaskFileName));
 
         end
 
