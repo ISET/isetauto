@@ -25,7 +25,7 @@ function scene = renderRecipe(scenario, originalOutputFile)
 
     if scenario.addSphere
 
-        % delete skylamp
+        % delete skymap
         ourRecipe.set('skymap','delete');
 
         sphere = piAssetLoad('sphere');
