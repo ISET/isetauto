@@ -161,10 +161,10 @@ classdef headlamp < handle
         
             % this writes out our projected image
             % We need to write it to a subdir of our recipe
-            if ~isfolder(fullfile(obj.ourRecipe.get('output folder'),headlampDir))
-                mkdir(fullfile(obj.ourRecipe.get('output folder'),headlampDir));
+            if ~isfolder(fullfile(obj.ourRecipe.get('outputdir'),headlampDir))
+                mkdir(fullfile(obj.ourRecipe.get('outputdir'),headlampDir));
             end
-            exrwrite(obj.lightMask, fullfile(obj.ourRecipe.get('output folder'),fullMaskFileName));
+            exrwrite(obj.lightMask, fullfile(obj.ourRecipe.get('outputdir'),fullMaskFileName));
 
         end
 
