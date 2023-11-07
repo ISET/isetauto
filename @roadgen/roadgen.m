@@ -96,7 +96,9 @@ classdef roadgen < matlab.mixin.Copyable
 
             % read road runner map
             obj = rrMapRead(obj, rrMapPath);
-
+            
+            [~,roadName] = fileparts(rrMapPath);
+            obj.sceneName = roadName;
             % create recipe
             % The code currently can optionally use the .pbrt file
             % or a .mat file that already has the asset's @recipe object

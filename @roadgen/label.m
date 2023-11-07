@@ -56,15 +56,15 @@ thisR.set('outputFile',fullfile(dir, [fname, '_instanceID', ext]));
 piWrite(thisR);
 
 %% Handle Zhenyi differently from Stanford.
-[~,username] = system('whoami');
+% [~,username] = system('whoami');
 
-if strncmp(username,'zhenyi',6)
-    if ismac
-        isetStruct = piRenderZhenyi(thisR,'device','cpu');
-    else
-        isetStruct = piRenderServer(thisR,'device','cpu');
-    end
-else
+% if strncmp(username,'zhenyi',6)
+%     if ismac
+%         isetStruct = piRenderZhenyi(thisR,'device','cpu');
+%     else
+%         isetStruct = piRenderServer(thisR,'device','cpu');
+%     end
+% else
     % use CPU for label generation, will fix this and render along with
     % radiance. --Zhenyi
     
@@ -85,18 +85,19 @@ else
     %}
 
     % This seems to work for local.  Not sure why we need the reset.
-    dockerWrapper.reset;
-    thisD = dockerWrapper('gpuRendering', false, ...
-                          'localRender',true);
+%     dockerWrapper.reset;
+%     thisD = dockerWrapper('gpuRendering', false, ...
+%                           'localRender',true);
 
     % This is the scene or oi with the metadata attached.
-    isetStruct = piRender(thisR,'our docker',thisD);
-end
+%     isetStruct = piRender(thisR,'our docker',thisD);
+    isetStruct = piRender(thisR);
+% end
 
 % Why is this here?
 thisR.world = {'WorldBegin'};
 
-instanceIdMap = isetStruct.metadata.instanceID;
+instanceIdMap = isetStruct.metadata;
 
 %% Get object lists from the geometry file.
 
