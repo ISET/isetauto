@@ -159,7 +159,9 @@ for ii  = 1:numel(S.lane)
     polyvec   = [];
     objIndex  = [];
 
-    for jj = 1:size(posList,1)
+    % Need to limit jj to avoid error, but not sure the logic
+    % is correct with or without that? -- DJC
+    for jj = 1:min(size(posList,1), numel(idList))
         objInfo = assetInfo(S.namelist{idList(jj)});
 %         offsetScale = 1.5;  % scale object patch by this scale
         objPatch = polyshape([0 0 objInfo.size(1) * offsetScaleX objInfo.size(1) * offsetScaleX],...
