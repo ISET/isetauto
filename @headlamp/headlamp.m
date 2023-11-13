@@ -1,7 +1,7 @@
 classdef headlamp < handle
     %HEADLAMP Specialized class of light
     %   for simulating vehicle headlamps (aka headlights)
-    
+
     % We model them using projection lights.
     % That gives us an RGB "mask" image that is projected onto the FOV of the
     % light. The class generates those as needed.
@@ -17,7 +17,7 @@ classdef headlamp < handle
         orientation = [0 0 0];
         name;
 
-        resolution = [256 512]; % assume wider than tall 
+        resolution = [256 512]; % assume wider than tall
 
         peakIntensity = 61500; % candelas at a nominal bright point
 
@@ -34,6 +34,7 @@ classdef headlamp < handle
 
         % internal
         ourRecipe = [];
+
     end
 
     %% Equations:
@@ -57,7 +58,7 @@ classdef headlamp < handle
         In theory we can use that to generate a "mask"
         
     %}
-    
+
     methods
         function obj = headlamp(varargin)
 
@@ -104,6 +105,8 @@ classdef headlamp < handle
                     obj.lightMask = obj.maskImage(-17.5, '');
                     obj.lightMaskFileName = 'headlamp_toolow.exr';
                     obj.power = 5;
+                case 'area' % start to see what we can do with area lights
+                    %
                 otherwise
                     % default is lowbeam
                     obj.lightMask = obj.maskImage(-2, '');
@@ -111,34 +114,61 @@ classdef headlamp < handle
                     obj.power = 5;
             end
 
-            obj.isetLight = obj.getLight();
+            obj.isetLight = obj.getLight(p.Results.preset);
 
 
         end
-     
+
         %% Create the actual light
-        function isetLight = getLight(obj)
+        function isetLight = getLight(obj, preset)
 
-            % In addition we have an issue where the headlamp map
-            % should be unique to each headlamp, but still needs
-            % to wind up on the server when remote rendering
-            % So we put it in <recipe>/instanced that allows the
-            % creation and use of unique resource files per render
+            % quick check to see what an area light looks like
+            if isequal(preset, 'area')
+                % Add the area lights
+                numBulbs = 1; % how many area lights in our headlight
+                lampBulbs = cell(1,numBulbs);
 
-            % fullfile won't work on Windows, so use '/'
-            headlampDir = 'instanced';
-            fullMaskFileName = [headlampDir,'/',obj.lightMaskFileName];
+                % Triangular positions, a few millimeters off to the side of the
+                % camera
+                pos = [0 0 0;
+                    0.100 0 0;
+                    0.05 0.050 0];
 
-            % -- industry spec is 5+ lux at 200 feet for low beam
-            %    and 300 feet for high beams (+ they have a higher cutoff)
-            
-            % We don't know how to directly measure lux in ISET
-            % So we have an option for driving scenarios to place
-            % a mirrored sphere in the scene to help us estimate
+                % If we have two area headlamps may have a name conflict
+                for ii=1:numBulbs
+                    lampBulbs{ii} = piLightCreate(sprintf('bulb-%d',ii),...
+                        'type','area',...
+                        'spd spectrum','D65.mat', ...
+                        'cameracoordinate', true);
+                    obj.ourRecipe.set('light',lampBulbs{ii},'add');
+                    obj.ourRecipe.set('light',lampBulbs{ii},'rotate',[0 180 0]);
+                    obj.ourRecipe.set('light',lampBulbs{ii},'shape scale',0.1);   
+                    obj.ourRecipe.set('light',lampBulbs{ii},'spread',15);
+                    obj.ourRecipe.set('light',lampBulbs{ii},'specscale',100); % Brighten it
+                end
+                isetLight = lampBulbs{1}; % for now we only use one
+                return
+            else
+                % In addition we have an issue where the headlamp map
+                % should be unique to each headlamp, but still needs
+                % to wind up on the server when remote rendering
+                % So we put it in <recipe>/instanced that allows the
+                % creation and use of unique resource files per render
 
-            % power = 5,scale = 1 gives about 5 cd/m2 @ 60 meters
-            % on a (ground level) asphalt road
-            isetLight = piLightCreate(obj.name, ...
+                % fullfile won't work on Windows, so use '/'
+                headlampDir = 'instanced';
+                fullMaskFileName = [headlampDir,'/',obj.lightMaskFileName];
+
+                % -- industry spec is 5+ lux at 200 feet for low beam
+                %    and 300 feet for high beams (+ they have a higher cutoff)
+
+                % We don't know how to directly measure lux in ISET
+                % So we have an option for driving scenarios to place
+                % a mirrored sphere in the scene to help us estimate
+
+                % power = 5,scale = 1 gives about 5 cd/m2 @ 60 meters
+                % on a (ground level) asphalt road
+                isetLight = piLightCreate(obj.name, ...
                     'type','projection',...
                     'scale',1,... % scales intensity
                     'fov',40, ...
@@ -146,26 +176,26 @@ classdef headlamp < handle
                     'cameracoordinate', 1, ...
                     'filename string', fullMaskFileName);
 
-            % NOTE: Let's see if we can move the light here
-            %       and have it stick. Or maybe we need to do this
-            %       differently, since we don't have the
-            %       parent recipe here
-            if ischar(obj.location)
-                switch (obj.location)
-                    case 'left grille'
-                    case 'right grille'
+                % NOTE: Let's see if we can move the light here
+                %       and have it stick. Or maybe we need to do this
+                %       differently, since we don't have the
+                %       parent recipe here
+                if ischar(obj.location)
+                    switch (obj.location)
+                        case 'left grille'
+                        case 'right grille'
+                    end
+                else
+                    % move per the location param
                 end
-            else
-                % move per the location param
-            end
-        
-            % this writes out our projected image
-            % We need to write it to a subdir of our recipe
-            if ~isfolder(fullfile(obj.ourRecipe.get('outputdir'),headlampDir))
-                mkdir(fullfile(obj.ourRecipe.get('outputdir'),headlampDir));
-            end
-            exrwrite(obj.lightMask, fullfile(obj.ourRecipe.get('outputdir'),fullMaskFileName));
 
+                % this writes out our projected image
+                % We need to write it to a subdir of our recipe
+                if ~isfolder(fullfile(obj.ourRecipe.get('outputdir'),headlampDir))
+                    mkdir(fullfile(obj.ourRecipe.get('outputdir'),headlampDir));
+                end
+                exrwrite(obj.lightMask, fullfile(obj.ourRecipe.get('outputdir'),fullMaskFileName));
+            end
         end
 
         %% calculate how far up/down to move the cutoff for a specific
@@ -183,7 +213,7 @@ classdef headlamp < handle
             % and also how far right/left:
             if ~isempty(degreesHorizontal)
                 pixelOffsetHorizontal = sin(deg2rad(degreesHorizontal)) / sin(deg2rad(obj.horizontalFOV/2)) ...
-                * obj.resolution(1);
+                    * obj.resolution(1);
             else
                 % not quite sure what to do here
                 pixelOffsetHorizontal = 20;
@@ -227,8 +257,8 @@ classdef headlamp < handle
 
         %% Initial attempt to model lower luminance for lower angles
         function attenuationMask = modelAttenuation(obj, degrees)
-            % To provide a consistent level of light at the range of 
-            % distances covered by the headlights requires less power 
+            % To provide a consistent level of light at the range of
+            % distances covered by the headlights requires less power
             % when illuminating closer objects.
             %
 
@@ -247,13 +277,13 @@ classdef headlamp < handle
 
             % Start to look at interpolation
             deg = abs(genericHeadlampAttenuation.VerticalAngle) + ...
-                degreeOffset; 
+                degreeOffset;
             candelaValues = genericHeadlampAttenuation.RequiredCandela;
             smoothedCandelaValues = spline(deg, candelaValues, ...
                 0:degreesPerPixel:(obj.resolution(1)/2*degreesPerPixel));
 
             % Now we have the needed candelas, but we want to normalize
-            % to 0:1 since we are an attenuation mask. 
+            % to 0:1 since we are an attenuation mask.
             attenuationVals = smoothedCandelaValues./genericHeadlampAttenuation.RequiredCandela(1);
 
             % This is a little granular since we only have 17 steps in our
