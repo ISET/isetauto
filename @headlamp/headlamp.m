@@ -122,7 +122,7 @@ classdef headlamp < handle
         %% Create the actual light
         function isetLight = getLight(obj, preset)
 
-            % quick check to see what an area light looks like
+            % Begin to model what an area light looks like
             if isequal(preset, 'area')
                 % Add the area lights
                 numBulbs = 1; % how many area lights in our headlight
@@ -142,8 +142,8 @@ classdef headlamp < handle
                         'cameracoordinate', true);
                     obj.ourRecipe.set('light',lampBulbs{ii},'add');
                     obj.ourRecipe.set('light',lampBulbs{ii},'rotate',[0 180 0]);
-                    obj.ourRecipe.set('light',lampBulbs{ii},'shape scale',0.1);   
-                    obj.ourRecipe.set('light',lampBulbs{ii},'spread',15);
+                    obj.ourRecipe.set('light',lampBulbs{ii},'shape scale',0.01);   
+                    obj.ourRecipe.set('light',lampBulbs{ii},'spread',10);
                     obj.ourRecipe.set('light',lampBulbs{ii},'specscale',100); % Brighten it
                 end
                 isetLight = lampBulbs{1}; % for now we only use one
