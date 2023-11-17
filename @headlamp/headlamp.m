@@ -17,13 +17,13 @@ classdef headlamp < handle
         orientation = [0 0 0];
         name;
 
-        resolution = [256 512]; % assume wider than tall
+        resolution = [320 640]; % assume wider than tall
 
         peakIntensity = 61500; % candelas at a nominal bright point
 
         % Having trouble seeing where light projects
         % so try cutting from 80/20 to 20/10
-        horizontalFOV = 40; % apparently +/- 40 is fairly standard
+        horizontalFOV = 80; % apparently +/- 40 is fairly standard
         verticalFOV; % set in creation function
         power = 5; % for level beams with .8 mask, pretty good match
 
