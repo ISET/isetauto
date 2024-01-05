@@ -16,13 +16,11 @@ for ii = 1:nWave
 end
 scene = sceneSet(scene,'photons',newPhotons);
 
-
-
 %%
 % scene = sceneSet(scene,'fov',20);
 scene = sceneAdjustLuminance(scene,'peak',1e5);
 %%
-oi = oiCreate('shift inviriant');
+oi = oiCreate('shift invariant');
 
 wvf = wvfCreate();
 wvf = wvfSet(wvf, 'spatial samples', 1024);
