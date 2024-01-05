@@ -75,8 +75,8 @@ iterMax=inputs.iterMax;
 % vTypes={'pedestrian','passenger','bus','truck'};
 % probs=[1,2,10,20];
 
-vType_interval=road.vTypes;
-vTypes=keys(vType_interval);
+% vType_interval=road.vTypes;
+% vTypes=keys(vType_interval);
 % interval=values(vType_interval);
 
 %% Define a Path for sumo output by given scenetype and roadtype.
