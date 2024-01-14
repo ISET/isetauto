@@ -25,7 +25,7 @@ function [points, rot] = rrMapPlace(obj,varargin)
 % We will use the diagram below to show three parameters above:
 %
 %    pointnum = [100, 50, 30]
-%    layerWidth is denoted by LW.
+%    layerWidth is denoated by LW.
 %    minDistanceToRoad is denoted by MDR
 %
 %    |< LW  >|< LW  >|< LW  >|<MDR>|--------|
@@ -38,8 +38,8 @@ function [points, rot] = rrMapPlace(obj,varargin)
 %    04-02: multiple lanes are supported, we can specify lanenum, lanenum
 %    counts from north to south.
 %
-%    We can gradually reduce the number of assets with the
-%    increase of distance to the road, this is mainly for
+%    We can gradually reduced the number of assets with the
+%    increase on distance to the road, this is mainly for
 %    saving memory sapce and rendering time.
 %
 % Output:
@@ -57,7 +57,10 @@ p.addParameter('posOffset',0); % allow an offset to add randomness (meter)
 p.addParameter('rotOffset',0); % allow an offset to add randomness (radian)
 p.addParameter('laneid',-1,@isnumeric)
 p.addParameter('uniformsample',false,@islogical);
-
+p.addParameter('sumo',false,@islogical);
+p.addParameter('randomseed',1234,@isnumeric);
+p.addParameter('maxVNum',15,@isnumeric);
+p.addParameter('period',1.0,@isnumeric);
 p.parse(varargin{:});
 
 pos  = p.Results.pos;
@@ -69,6 +72,13 @@ posOffset  = p.Results.posOffset;
 rotOffset  = p.Results.rotOffset;
 laneID     = p.Results.laneid;
 uniformSample = p.Results.uniformsample;
+sumo       = p.Results.sumo;
+seed       =p.Results.randomseed;
+maxVNum    =p.Results.maxVNum;
+period=p.Results.period;
+    
+
+
 
 sumofpoints=sum(pointnum);
 % convert to cell
@@ -77,39 +87,39 @@ laneTypes = laneTypesTmp;
 % lane
 
 % When lane Id is not specified, we spread the cars on all lanes
-if laneID<=0
+if laneID<=0  
     if isempty(laneTypes)  % For all driving lanes
         laneTypes=[{'leftdriving'}, repmat({'leftdriving'}, 1 , numel(obj.road.leftdrivingID)-1), repmat({'rightdriving'}, 1, numel(obj.road.rightdrivingID))];
         laneIDlist=[(1:numel(obj.road.leftdrivingID)) (1:numel(obj.road.rightdrivingID))];
         pointnumOneLane = ceil(sumofpoints/(numel(obj.road.leftdrivingID) + numel(obj.road.rightdrivingID)));
         pointnum=ones([1, numel(laneIDlist)])*pointnumOneLane;
     else
-        switch laneTypes{1}
-            case 'leftdriving'
-                laneTypes = [repmat({'leftdriving'}, 1 , numel(obj.road.leftdrivingID))];
-                laneIDlist = 1:numel(obj.road.leftdrivingID);
-                numarray = abs(normrnd(rand(1, numel(obj.road.leftdrivingID)),0));
-                pointnum = ceil(pointnum * numarray/sum(numarray));
-            case 'leftshoulder'
-                laneTypes = {'leftshoulder'};
-                laneIDlist = 1;
-            case 'rightdriving'
-                laneTypes = [repmat({'rightdriving'}, 1 , numel(obj.road.rightdrivingID))];
-                laneIDlist = 1:numel(obj.road.rightdrivingID);
-                numarray = abs(normrnd(rand(1, numel(obj.road.rightdrivingID)),0));
-                pointnum = ceil(pointnum * numarray/sum(numarray));
-            case 'rightshoulder'
-                laneTypes = {'rightshoulder'};
-                laneIDlist = 1;
-            case 'leftsidewalk'
-                laneTypes = {'leftsidewalk'};
-                laneIDlist = 1;
-            case 'rightsidewalk'
-                laneTypes = {'rightsidewalk'};
-                laneIDlist = 1;
-            otherwise
-                disp('wrong lane type')
-        end
+    switch laneTypes{1}
+        case 'leftdriving'
+            laneTypes = [repmat({'leftdriving'}, 1 , numel(obj.road.leftdrivingID))];
+            laneIDlist = 1:numel(obj.road.leftdrivingID);
+            numarray = abs(normrnd(rand(1, numel(obj.road.leftdrivingID)),0));
+            pointnum = ceil(pointnum * numarray/sum(numarray));
+        case 'leftshoulder'
+            laneTypes = {'leftshoulder'};
+            laneIDlist = 1;
+        case 'rightdriving'
+            laneTypes = [repmat({'rightdriving'}, 1 , numel(obj.road.rightdrivingID))];
+            laneIDlist = 1:numel(obj.road.rightdrivingID);
+            numarray = abs(normrnd(rand(1, numel(obj.road.rightdrivingID)),0));
+            pointnum = ceil(pointnum * numarray/sum(numarray));
+        case 'rightshoulder'
+            laneTypes = {'rightshoulder'};
+            laneIDlist = 1;            
+        case 'leftsidewalk'
+            laneTypes = {'leftsidewalk'};
+            laneIDlist = 1;            
+        case 'rightsidewalk'
+            laneTypes = {'rightsidewalk'};
+            laneIDlist = 1;
+        otherwise
+            disp('wrong lane type')
+    end        
 
     end
 end
@@ -117,7 +127,7 @@ end
 % On road objects does not distributed on different layers, so we sum the
 % number of points here, and sum is used for onroad case.
 
-%
+% 
 
 points = []; % [x, y, z]
 dir = []; % [rotx, roty, rotz]
@@ -146,120 +156,138 @@ for ll = 1:numel(laneTypes)
             disp('wrong lane type')
     end
 
-    if ~isempty(lanecoordinates{laneID})
-        xi=lanecoordinates{laneID}(:,1);yi=lanecoordinates{laneID}(:,2);
+    xi=lanecoordinates{laneID}(:,1);yi=lanecoordinates{laneID}(:,2);
 
-        %%
-        % randomly generate points in the driving lane or by the road shoulder
-        switch pos
-            case 'onroad'
-                for i=1:pointnum(ll)
-                    n1=randi(numel(xi)-1);
-                    x1=xi(n1);y1=yi(n1);
-                    x2=xi(n1+1);y2=yi(n1+1);
-                    k=(y2-y1)/(x2-x1);
-                    points(i,1)=x1+rand*(x2-x1);
-                    points(i,2)=y1+k*(points(i,1)-x1);
-                    [dir(i),~] = cart2pol(x2-x1,y2-y1);
+    %%
+    % randomly generate points in the driving lane or by the road shoulder
+    switch pos
+        case 'onroad'
+            for i=1:pointnum(ll)
+                n1=randi(numel(xi)-1);
+                x1=xi(n1);y1=yi(n1);
+                x2=xi(n1+1);y2=yi(n1+1);
+                k=(y2-y1)/(x2-x1);
+                points(i,1)=x1+rand*(x2-x1);
+                points(i,2)=y1+k*(points(i,1)-x1);
+                [dir(i),~] = cart2pol(x2-x1,y2-y1);
 
-                    points(i,1) = points(i,1) + normrnd(0, posOffset);
-                    points(i,2) = points(i,2) + normrnd(0, posOffset);
+                points(i,1) = points(i,1) + normrnd(0, posOffset);
+                points(i,2) = points(i,2) + normrnd(0, posOffset);
 
-                    dir(i) = dir(i) + normrnd(0, rotOffset);
-                end
+                dir(i) = dir(i) + normrnd(0, rotOffset);
+            end
 
-            case 'offroad'
-                switch laneType
-                    case 'leftshoulder'
-                        if ~uniformSample
-                            j=1;
-                            for layer=1:numel(pointnum)
-                                for i=1:pointnum(layer)
-                                    n1=randi(numel(xi)-1);
-                                    x1=xi(n1);y1=yi(n1);x2=xi(n1+1);y2=yi(n1+1);k=(y2-y1)/(x2-x1);
-                                    x3=x1+rand*(x2-x1);y3=y1+k*(x3-x1);
-                                    dd=minDistanceToRoad+layerWidth*(layer-1)+layerWidth*rand;
-                                    points(j,1)=x3-dd*k/sqrt(k*k+1);points(j,2)=y3+dd/sqrt(k*k+1);
-                                    [dir(j),~]=cart2pol(x2-x1,y2-y1);
-                                    points(j,1) = points(j,1) + normrnd(0, posOffset);
-                                    points(j,2) = points(j,2) + normrnd(0, posOffset);
-                                    dir(j) = dir(j) + normrnd(0, rotOffset);
+        case 'offroad'
+            switch laneType
+                case 'leftshoulder'
+                    if ~uniformSample
+                        j=1;
+                        for layer=1:numel(pointnum)
+                            for i=1:pointnum(layer)
+                                n1=randi(numel(xi)-1);
+                                x1=xi(n1);y1=yi(n1);x2=xi(n1+1);y2=yi(n1+1);k=(y2-y1)/(x2-x1);
+                                x3=x1+rand*(x2-x1);y3=y1+k*(x3-x1);
+                                dd=minDistanceToRoad+layerWidth*(layer-1)+layerWidth*rand;
+                                points(j,1)=x3-dd*k/sqrt(k*k+1);points(j,2)=y3+dd/sqrt(k*k+1);
+                                [dir(j),~]=cart2pol(x2-x1,y2-y1);
+                                points(j,1) = points(j,1) + normrnd(0, posOffset);
+                                points(j,2) = points(j,2) + normrnd(0, posOffset);
+                                dir(j) = dir(j) + normrnd(0, rotOffset);
 
-                                    j=j+1;
-                                end
-                            end
-                        else
-                            j=1;
-                            for layer=1:numel(pointnum)
-                                placement_intervals = floor((numel(xi)/pointnum(layer)));
-                                for ii = 1: pointnum(layer)
-                                    pointIdx = ii+placement_intervals*(ii-1);
-                                    x1 = xi(pointIdx);y1 = yi(pointIdx);
-                                    x2 = xi(pointIdx+1);y2 = yi(pointIdx+1);
-                                    k=(y2-y1)/(x2-x1);
-                                    dd=minDistanceToRoad+layerWidth*(layer-1)+layerWidth;
-                                    points(j,1)=x1-dd*k/sqrt(k*k+1);points(j,2)=y1+dd/sqrt(k*k+1);
-                                    [dir(j),~] = cart2pol(x2-x1,y2-y1);
-                                    dir(j) = pi/2 - dir(j);
-                                    j=j+1;
-
-                                end
+                                j=j+1;
                             end
                         end
-                    case 'rightshoulder'
-                        if ~uniformSample
-                            j=1;
-                            for layer=1:numel(pointnum)
-                                for i=1:pointnum(layer)
-                                    n1=randi(numel(xi)-1);
-                                    x1=xi(n1);y1=yi(n1);x2=xi(n1+1);y2=yi(n1+1);k=(y2-y1)/(x2-x1);
-                                    x3=x1+rand*(x2-x1);y3=y1+k*(x3-x1);
-                                    dd=minDistanceToRoad+layerWidth*(layer-1)+layerWidth*rand;
-                                    points(j,1)=x3+dd*k/sqrt(k*k+1);points(j,2)=y3-dd/sqrt(k*k+1);
-                                    [dir(j),~]=cart2pol(x2-x1,y2-y1);
+                    else
+                        j=1;
+                        for layer=1:numel(pointnum)
+                            placement_intervals = floor((numel(xi)/pointnum(layer)));
+                            for ii = 1: pointnum(layer)
+                                pointIdx = ii+placement_intervals*(ii-1);
+                                x1 = xi(pointIdx);y1 = yi(pointIdx);
+                                x2 = xi(pointIdx+1);y2 = yi(pointIdx+1);
+                                k=(y2-y1)/(x2-x1); 
+                                dd=minDistanceToRoad+layerWidth*(layer-1)+layerWidth;
+                                points(j,1)=x1-dd*k/sqrt(k*k+1);points(j,2)=y1+dd/sqrt(k*k+1);
+                                [dir(j),~] = cart2pol(x2-x1,y2-y1);
+                                dir(j) = pi/2 - dir(j);
+                                j=j+1;
 
-                                    points(j,1) = points(j,1) + normrnd(0, posOffset);
-                                    points(j,2) = points(j,2) + normrnd(0, posOffset);
-                                    dir(j) = dir(j) + normrnd(0, rotOffset);
-
-                                    j=j+1;
-                                end
                             end
-                        else
-                            j=1;
-                            for layer=1:numel(pointnum)
-                                placement_intervals = floor((numel(xi)/pointnum(layer)));
-                                for ii = 1: pointnum(layer)
-                                    pointIdx = ii+placement_intervals*(ii-1);
-                                    x1 = xi(pointIdx);y1 = yi(pointIdx);
-                                    x2 = xi(pointIdx+1);y2 = yi(pointIdx+1);
-                                    k=(y2-y1)/(x2-x1);
-                                    dd=minDistanceToRoad+layerWidth*(layer-1)+layerWidth;
-                                    points(j,1)=x1+dd*k/sqrt(k*k+1);points(j,2)=y1-dd/sqrt(k*k+1);
-                                    [dir(j),~] = cart2pol(x2-x1,y2-y1);
-                                    dir(j) = dir(j) - pi/2;
-                                    j=j+1;
-                                end
+                        end                        
+                    end
+                case 'rightshoulder'
+                    if ~uniformSample
+                        j=1;
+                        for layer=1:numel(pointnum)
+                            for i=1:pointnum(layer)
+                                n1=randi(numel(xi)-1);
+                                x1=xi(n1);y1=yi(n1);x2=xi(n1+1);y2=yi(n1+1);k=(y2-y1)/(x2-x1);
+                                x3=x1+rand*(x2-x1);y3=y1+k*(x3-x1);
+                                dd=minDistanceToRoad+layerWidth*(layer-1)+layerWidth*rand;
+                                points(j,1)=x3+dd*k/sqrt(k*k+1);points(j,2)=y3-dd/sqrt(k*k+1);
+                                [dir(j),~]=cart2pol(x2-x1,y2-y1);
+
+                                points(j,1) = points(j,1) + normrnd(0, posOffset);
+                                points(j,2) = points(j,2) + normrnd(0, posOffset);
+                                dir(j) = dir(j) + normrnd(0, rotOffset);
+
+                                j=j+1;
                             end
                         end
-                end
-            otherwise
-                disp('unsupported position, only [rightshoulder, leftshoulder] are supported now');
-        end
-        all_points=[all_points;points];
-        all_dirs=[all_dirs;dir(:)];
-    else
-        fprintf("Empty lane? \n");
+                    else
+                        j=1;
+                        for layer=1:numel(pointnum)
+                            placement_intervals = floor((numel(xi)/pointnum(layer)));
+                            for ii = 1: pointnum(layer)
+                                pointIdx = ii+placement_intervals*(ii-1);
+                                x1 = xi(pointIdx);y1 = yi(pointIdx);
+                                x2 = xi(pointIdx+1);y2 = yi(pointIdx+1);
+                                k=(y2-y1)/(x2-x1); 
+                                dd=minDistanceToRoad+layerWidth*(layer-1)+layerWidth;
+                                points(j,1)=x1+dd*k/sqrt(k*k+1);points(j,2)=y1-dd/sqrt(k*k+1);
+                                [dir(j),~] = cart2pol(x2-x1,y2-y1);
+                                dir(j) = dir(j) - pi/2;
+                                j=j+1;
+                            end
+                        end                        
+                    end                    
+            end
+        otherwise
+            disp('unsupported position, only [rightshoulder, leftshoulder] are supported now');
     end
-
+    all_points=[all_points;points];
+    all_dirs=[all_dirs;dir(:)];
 end
 
 dir=reshape(all_dirs,[length(all_dirs),1]);
 points=all_points;
+
+%% 
+% somo
+% put sumo4iset.py in your sumo/tools directory
+if sumo
+    [~,input_xodr,~]=fileparts(obj.roaddirectory);
+    input_road=fullfile(obj.roaddirectory,[input_xodr,'.xodr']);
+    file_ID=iaImageID();
+    sumo_output_dir = fullfile(piRootPath, 'local', 'sumo', num2str(file_ID)); 
+    system(['python /home/xjy/Documents/ISET/xjy/isetauto/@roadgen/sumo4iset.py --output ',sumo_output_dir, ...
+        ' --randomseed ', int2str(seed),' --max-num-vehicles ',int2str(maxVNum), ...
+        ' --input_road ',input_road,' --period ',num2str(period)]);
+    fcd = jsonread(fullfile(sumo_output_dir,'fcd.json'));
+    t=100;
+    pointnum=length(fcd(t).objects.DEFAULT_VEHTYPE);
+    points=[];dir=[];
+    for i=1:pointnum
+        points(i,1)=fcd(t).objects.DEFAULT_VEHTYPE(i).pos(1);
+        points(i,2)=fcd(t).objects.DEFAULT_VEHTYPE(i).pos(3);
+        dir(i,1)=-(fcd(t).objects.DEFAULT_VEHTYPE(i).orientation-90)*pi/180;
+    end
+    sumofpoints=pointnum; % in case given points num exceeds sumo max vehicle num
+end   
 %%
 %find z label from obj file
 geometryOBJ = obj.road.geometryOBJ;
-face_IDs = zeros(size(points,1),1);points(:,3)=0;
+face_IDs = zeros(size(points,1),1);points(:,3)=0; 
 
 rot = zeros(size(dir));
 
@@ -304,8 +332,8 @@ if ~isempty(geometryOBJ)
         end
     end
 else
-
-    if contains(laneType,'leftdriving') && strcmp(pos, 'onroad')
+    
+    if contains(laneType,'leftdriving') && strcmp(pos, 'onroad') &&(~sumo)
         rot = dir + pi;
     else
         rot = dir;
@@ -342,11 +370,17 @@ end
     end
 
 % pick specified number of positions and rotations
-if points(1) > 0
-    randomIndices = randsample(size(points, 1), sumofpoints);
-    points = points(randomIndices,:);
-    rot = rot(randomIndices,:);
-end
+randomIndices = randsample(size(points, 1), sumofpoints);
+points = points(randomIndices,:);
+rot = rot(randomIndices,:);
+
+% visualize points pos & rotation
+figure
+scatter(points(:,1),points(:,2));
+hold on;
+scatter(points(:,1)+5*cos(rot(:)),points(:,2)+5*sin(rot(:)));
+axis equal
+
 end
 
 

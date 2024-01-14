@@ -19,7 +19,7 @@ function obj = assemble(obj,varargin)
 obj.initialize();
 %% Generate object lists on the road
 
-% These will be cars, pedestrians, animals, and maybe other types in the future
+% These will be cars and animals and maybe other terms in the future
 assetNames = fieldnames(obj.onroad);
 
 % For each type of asset on the road
@@ -34,14 +34,29 @@ for ii = 1:numel(assetNames)
     objIdList = cell(size(onroadOBJ.lane, 1));
     % Depending on the asset name
     switch assetNames{ii}
-        % below could use refactoring into a function
         case {'car','bus', 'truck', 'biker'}
-           
+            sumo=false;randomseed = 1;
+            period= 1.0;
+            maxVNum = 10;            
+            if isfield(onroadOBJ,'sumo')
+                sumo = onroadOBJ.sumo;
+                if isfield(onroadOBJ,'randomseed')
+                    randomseed = onroadOBJ.randomseed;
+                else
+                    randomseed = randi([1,221013]);
+                end
+                if isfield(onroadOBJ,'maxnum')
+                    maxVNum = onroadOBJ.maxnum;end
+                if isfield(onroadOBJ,'period')
+                    period = onroadOBJ.period;end
+            end
             for jj = 1:numel(onroadOBJ.lane)
-                if ~isfield(onroadOBJ,'number') || onroadOBJ.number(jj) == 0, continue; end
+                if onroadOBJ.number(jj) == 0, continue; end
                 [positions{jj}, rotations{jj}] = obj.rrMapPlace(...
                     'laneType',onroadOBJ.lane{jj},'pos','onroad',...
-                    'pointnum',onroadOBJ.number(jj));
+                    'pointnum',onroadOBJ.number(jj),'sumo',sumo, ...
+                    'randomseed',randomseed,'period',period, ...
+                    'maxVNum',maxVNum);
                 % Create a object list, number of assets is smaller then
                 % the number of objects requested. so object instancing are
                 % needed.
@@ -144,7 +159,7 @@ obj = obj.overlappedRemove();
 %% Place assets
 % on road
 assetNames_onroad = fieldnames(obj.onroad);
-    obj = obj.assetPlace(assetNames_onroad,'onroad');
+obj = obj.assetPlace(assetNames_onroad,'onroad');
 % off road
 assetNames_offroad = fieldnames(obj.offroad);
 obj = obj.assetPlace(assetNames_offroad,'offroad');
@@ -174,32 +189,14 @@ function obj = addOBJ(obj, OBJClass, thisName)
 id = piAssetFind(obj.recipe.assets, 'name',[thisName,'_m_B']); % check whether it's there already
 
 if isempty(id)
-
-    % First check to see if we already have the asset
-    if exist([thisName '.mat'], 'file')
-        recipeFile = [thisName '.mat'];
-    elseif exist([thisName '.pbrt'], 'file')
-        pbrtFile = [thisName '.pbrt'];
-    % We might get a non-existent directory or a database connection
-    elseif ~ischar(obj.assetdirectory) || ~isfolder(obj.assetdirectory)
-        assetDB = isetdb;
-        thisAsset = assetDB.docFind('assetsPBRT', ...
-            sprintf("{""name"": ""%s""}", thisName));
-
-        pbrtFile = fullfile(thisAsset.folder, [thisName,'.pbrt']);
-        recipeFile = fullfile(thisAsset.folder, [thisName,'.mat']);        
-    else
-        pbrtFile = fullfile(obj.assetdirectory, OBJClass, thisName, [thisName,'.pbrt']);
-        recipeFile = fullfile(obj.assetdirectory, OBJClass, thisName, [thisName,'.mat']);
-    end
-
+    pbrtFile = fullfile(obj.assetdirectory, OBJClass, thisName, [thisName,'.pbrt']);
+    recipeFile = fullfile(obj.assetdirectory, OBJClass, thisName, [thisName,'.mat']);
     if exist(recipeFile,'file')
         thisAssetRecipe = load(recipeFile);
         thisAssetRecipe = thisAssetRecipe.recipe;
     else
         thisAssetRecipe = piRead(pbrtFile);
     end
-    
     obj.recipe = piRecipeMerge(obj.recipe, thisAssetRecipe, 'objectInstance',true);
 end
 

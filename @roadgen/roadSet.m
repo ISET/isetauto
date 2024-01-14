@@ -49,16 +49,48 @@ param = ieParamFormat(p.Results.param);
 switch param
     case 'scenename'
         road.sceneName = val;
-
+    case 'onroadtrucklanes'
+        road.onroad.truck.lane = val;
+    case 'onroadtrucknames'
+        road.onroad.truck.namelist = val;        
     case 'onroadcarnames'
         road.onroad.car.namelist = val;
     case 'onroadcarlanes'
         road.onroad.car.lane   = val;
+    case 'sumo'
+        road.onroad.car.sumo = val;
+        road.onroad.car.number = [15,15];
+        if isfield(road.onroad,'truck')
+            road.onroad.truck.sumo = val;
+            road.onroad.truck.number = [15,15];
+        end
+    case 'randomseed'
+        road.onroad.car.randomseed = val;
+        if isfield(road.onroad,'truck')
+            road.onroad.truck.randomseed = val;end
+    case 'carperiod'
+        road.onroad.car.period = val;
+    case 'truckperiod'
+        road.onroad.truck.period = val;
+    case 'busperiod'
+        road.onroad.car.busperiod = val;
+    case 'cyclistperiod'
+        road.onroad.car.cyclistperiod = val;
+    case 'carmaxnum'
+        road.onroad.car.maxnum = val;
+    case 'truckmaxnum'
+        road.onroad.truck.maxnum = val;  
+    case 'cyclistmaxnum'
+        road.onroad.car.cyclistmaxnum = val;
+    case 'busmaxnum'
+        road.onroad.car.busmaxnum = val;
+    case 'onroadntrucks'
+        assert(numel(val) == numel(road.onroad.truck.lane));
+        road.onroad.truck.number = val;        
     case 'onroadncars'
         % Number of cars on each lane.  
         assert(numel(val) == numel(road.onroad.car.lane));
         road.onroad.car.number = val;
-
     case 'onroadanimalnames'
         road.onroad.animal.namelist = val;
     case 'onroadnanimals'
