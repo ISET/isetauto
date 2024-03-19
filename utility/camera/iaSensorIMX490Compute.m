@@ -1,7 +1,35 @@
-%% Simulate a IMX490 sensor
 function lrgb = iaSensorIMX490Compute(radiance,varargin)
-varargin = ieParamFormat(varargin);
+% Simulate a IMX490 sensor
+%
+% https://thinklucid.com/tech-briefs/sony-imx490-hdr-sensor-and-flicker-mitigation/
+%
+% Synopsis
+%  lrgb = iaSensorIMX490Compute(radiance,varargin)
+% Brief
+%
+% Inputs
+%
+% Optional key/val
+%   pixel size
+%   film diagonal
+%   e time
+%   noise flag
+%   analog gain
+%
+%
+% Return
+%  lrgb - Linear sRGB  (after demosaicking)
+%
+% See also
+%   s_sensorIMX490
+%
 
+% Example:
+%{
+  
+%}
+%%
+varargin = ieParamFormat(varargin);
 % Start parsing
 p = inputParser;
 p.addRequired('radiance',@isstruct);
@@ -16,7 +44,7 @@ p.addParameter('analoggain',[1/32,1/16,1/2,1],@(x)isequal(numel(x),4));
 p.parse(radiance,varargin{:});
 radiance     = p.Results.radiance;
 pixelSize    = p.Results.pixelsize;
-exposureTime  = p.Results.etime;
+exposureTime = p.Results.etime;
 noiseFlag    = p.Results.noiseflag;
 analog_gain  = p.Results.analoggain;
 
@@ -33,7 +61,11 @@ end
 
 oiSize = oiGet(oi,'size');
 colorFilterFile = fullfile(isetRootPath,'data/sensor/colorfilters/auto/ar0132atRGB.mat');
-%%
+%% Create multiple image sensors
+%
+% Each sensor has different size and gain to match the four elements
+% of the imx490.  Large/small pixel and high/low gain.
+
 % Large pixel High Gain
 lpixel_hgain = sensorIMX363(...
     'pixelsize', 3*pixelSize*1e-6, ...
@@ -63,13 +95,10 @@ spixel_lgain = sensorIMX363('pixelsize', pixelSize*1e-6, ...
     'wellcapacity',60000,'fillfactor',1,'isospeed',55,'exposuretime',exposureTime, ...
     'rowcol',[oiSize(1) oiSize(2)]);
 
-%
+% Set the noise flag
 lpixel_hgain = sensorSet(lpixel_hgain,'noise flag', noiseFlag);
-%
 lpixel_lgain = sensorSet(lpixel_lgain,'noise flag', noiseFlag);
-%
 spixel_hgain = sensorSet(spixel_hgain,'noise flag', noiseFlag);
-%
 spixel_lgain = sensorSet(spixel_lgain,'noise flag', noiseFlag);
 
 %% Determine the gain by using scene illuminance, 
@@ -86,25 +115,20 @@ autoET(2) = autoExposure(oiM{2},lpixel_lgain, 0.95, 'mean');
 autoET(3) = autoExposure(oiM{3},spixel_hgain, 0.95, 'mean');
 autoET(4) = autoExposure(oiM{4},spixel_lgain, 0.95, 'mean');
 %}
-%%
+%% Analog gains
 lpixel_hgain = sensorSet(lpixel_hgain,'analog gain', analog_gain(1));
-
 lpixel_lgain = sensorSet(lpixel_lgain,'analog gain', analog_gain(2));
-
 spixel_hgain = sensorSet(spixel_hgain,'analog gain', analog_gain(3));
-
 spixel_lgain = sensorSet(spixel_lgain,'analog gain', analog_gain(4));
 
-%
+%% Compute
+
 sen_lpixel_hgain = sensorCompute(lpixel_hgain,oi);
-
 sen_lpixel_lgain = sensorCompute(lpixel_lgain,oi);
-
 sen_spixel_hgain = sensorCompute(spixel_hgain,oi);
-
 sen_spixel_lgain = sensorCompute(spixel_lgain,oi);
 
-% Downsample the small pixel sensor to match the large one.
+%% Downsample the small pixel sensor to match the large one.
 sSize = sensorGet(sen_spixel_lgain, 'size');
 [X,  Y]  = meshgrid(1:sSize(2), 1:sSize(1));
 [Xq, Yq] = meshgrid(1:3:sSize(2), 1:3:sSize(1));
@@ -122,6 +146,7 @@ sen_spixel_lgain = sensorSet(sen_spixel_lgain, 'volts', sub_volts_2);
 sen_spixel_lgain = sensorSet(sen_spixel_lgain, 'dv', sub_dvs_2);
 
 %% Combine sensor data with different sensors scaled by pixel sizes and gains.
+
 combined_sensor = sen_spixel_lgain.data.volts*3^2/(analog_gain(1)) + ...
     sen_spixel_hgain.data.volts*3^2/(analog_gain(1)/analog_gain(3)) + ...
     sen_lpixel_lgain.data.volts/(analog_gain(1)/analog_gain(2)) + ...
@@ -133,6 +158,7 @@ combined_input = 2^24*combined_sensor/max(combined_sensor(:));
 rgb_comb = demosaic(uint32(combined_input),'rggb');
 
 lrgb = double(rgb_comb)/max2(double(rgb_comb(:)));
+
 %%
 %{
 lrgb = double(lrgb)/max2(double(lrgb(:)));
@@ -156,6 +182,8 @@ plot(1:c,illum_norm(ceil(c/2),:),"LineWidth",1.5,"Color","b");
 legend('Sensor','Radiance');
 %}
 end
+
+%{
 %%
 function oiM = oiExtractMask(oi,mask)
 % Extract only the pixels from the mask
@@ -170,8 +198,11 @@ for ii = 1: size(photons,3)
 end
 oiM = oiSet(oiM, 'photons',photons);
 end
+%}
 
-
+% Merge this into sensorCreate.
+% Or maybe it should just be external to sensorCreate in the sensor
+% directory.
 function sensor = sensorIMX363(varargin)
 % Create the sensor structure for the IMX363
 %
@@ -193,7 +224,9 @@ function sensor = sensorIMX363(varargin)
 %
 % See also
 %  sensorCreate
-
+%
+% TODO:
+%   We need to make this one the one inside of sensorCreate
 % Examples:
 %{
  % The defaults and some plots
