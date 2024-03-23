@@ -39,13 +39,15 @@ oiDelta = oiDelta(1);
 oiSize = oiGet(oi,'size');
 %%
 lrgb = iaSensorIMX490Compute(oi,'pixelsize',oiDelta, 'etime',500* 1/4000); % normalized
-figure;
-subplot(3,1,1);imagesc(lrgb(:,:,1)); clim([2^0 2^8]);
-subplot(3,1,2);imagesc(lrgb(:,:,1)); clim([2^8 2^16]);
-subplot(3,1,3);imagesc(lrgb(:,:,1)); clim([2^16 2^24]);
 
+% subplot(3,1,1);imagesc(lrgb(:,:,1)); clim([2^0 2^8]);
+% subplot(3,1,2);imagesc(lrgb(:,:,1)); clim([2^8 2^16]);
+% subplot(3,1,3);imagesc(lrgb(:,:,1)); clim([2^16 2^24]);
+
+% ieNewGraphWin;
 [hdr_rendered] = hdrRender(double(lrgb),'haar',0.5,1,1,1);
-figure;imshow(hdr_rendered);
+ieNewGraphWin; imshow(hdr_rendered);
+
 %%
 %{
 % ISP
