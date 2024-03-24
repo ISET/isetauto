@@ -106,7 +106,15 @@ classdef headlamp < handle
                     obj.lightMaskFileName = 'headlamp_toolow.exr';
                     obj.power = 5;
                 case 'area' % start to see what we can do with area lights
-                    %
+                    % Start with same code as level-beam:
+                    
+                    % Modify power based on distance
+                    % as we need less power for closer objects
+                    attenuation = obj.modelAttenuation(0);
+                    obj.lightMask = obj.maskImage(0, '') .* attenuation;
+
+                    obj.lightMaskFileName = 'headlamp_levelbeam.exr';
+                    obj.power = 5;
                 otherwise
                     % default is lowbeam
                     obj.lightMask = obj.maskImage(-2, '');
